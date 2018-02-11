@@ -265,4 +265,39 @@ class Maintenance {
         }
         return $ids;
     }
+
+    private function findInProgress($id) {
+        $q = $this->db->prepare('SELECT m.odo, m.odo2, `date`, i.odo AS iOdo, i.odo2 AS iOdo2, i.months
+        FROM maintenance AS m INNER JOIN intervals AS i ON m.intervalId = i.id
+                    WHERE m.vehicleId = ?
+                        AND m.status = ?');
+        $q->execute(array($id, 0));
+        return $q->fetchAll();
+    }
+
+    public function getExpiredCount($id) {
+        $odos = $this->getCurrentOdo($id);
+        $odo = $odos['odo'];
+        $odo2 = $odos['odo2'];
+        $date = strtotime(date('Y-m-d\TH:i:s\Z'));
+
+        $count = 0;
+        $data = $this->findInProgress($id);
+        foreach($data as $d) {
+            $o = floatval($d['odo']) + floatval($d['iOdo']);
+            $o2 = floatval($d['odo2']) + floatval($d['iOdo2']);
+            $idate = strtotime(date('Y-m-d\TH:i:s\Z', strtotime('+3 months', strtotime($d['date']))));
+
+            if ($o <= $odo || $o2 <= $odo2 || $idate <= $date) {
+                $count += 1;
+            }
+        }
+        return array('count' => $count);
+    }
+
+    private function getCurrentOdo($id) {
+        $q = $this->db->prepare('SELECT MAX(odo) AS odo, MAX(odo2) AS odo2 FROM fuel WHERE vehicleId = ?');
+        $q->execute(array($id));
+        return $q->fetch();
+    }
 }

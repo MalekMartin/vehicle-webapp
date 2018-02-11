@@ -75,6 +75,11 @@ export class MaintenanceService extends Pageable<Maintenance> {
             });
     }
 
+    getExpiredCount(id) {
+        return this._http
+            .get(`/resource/maintenance/${id}/expired`);
+    }
+
     buildEmptyInterval(vehicleId: string): Interval {
         return {
             id: '',

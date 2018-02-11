@@ -36,6 +36,7 @@
                     <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="menu-button">
                         <li *ngFor="let o of options" role="menuitem">
                             <a [routerLink]="[o.page]" routerLinkActive="active" class="dropdown-item">{{o.label}}</a>
+                            <span *ngIf="o.warning > 0">{{o.warning}}</span>
                         </li>
                     </ul>
                 </div>

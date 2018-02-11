@@ -42,3 +42,10 @@ $app->post('/resource/maintenance/{vehicleId}', function (Request $request, Resp
     $Maintenance = $mapper->getMaintenances($args['vehicleId'], $d);
     return $response->withJson($Maintenance);
 });
+
+$app->get('/resource/maintenance/{vehicleId}/expired', function (Request $request, Response $response, $args) {
+    $this->logger->addInfo("Expired maintenance count");
+    $mapper = new Maintenance($this->db, $this->jwt->uid);
+    $m = $mapper->getExpiredCount($args['vehicleId']);
+    return $response->withJson($m);
+});

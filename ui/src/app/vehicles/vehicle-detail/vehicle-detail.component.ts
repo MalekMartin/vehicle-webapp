@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { VehicleImageService } from '../vehicle-stream/vehicle-images.service';
 import { SettingsService } from './vehicle-settings/settings.service';
 import { Subscription } from 'rxjs/Subscription';
+import { MaintenanceService } from '../../shared/api/maintenance/maintenance.service';
 
 @Component({
     selector: 'va-vehicle-detail',
@@ -19,14 +20,14 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     vehicle;
 
     options: MenuOption[] = [
-        {page: 'dashboard', label: 'Přehled'},
-        {page: 'info', label: 'Info'},
-        {page: 'fuel', label: 'Tankování'},
-        {page: 'costs', label: 'Náklady'},
-        {page: 'tires', label: 'Pneu'},
-        {page: 'technical', label: 'TK'},
-        {page: 'maintenance', label: 'Údržba'},
-        {page: 'repairs', label: 'Servisí práce'},
+        {page: 'dashboard', label: 'Přehled', warning: 0},
+        {page: 'info', label: 'Info', warning: 0},
+        {page: 'fuel', label: 'Tankování', warning: 0},
+        {page: 'costs', label: 'Náklady', warning: 0},
+        {page: 'tires', label: 'Pneu', warning: 0},
+        {page: 'technical', label: 'TK', warning: 0},
+        {page: 'maintenance', label: 'Údržba', warning: 0},
+        {page: 'repairs', label: 'Servisí práce', warning: 0},
         // {page: 'manuals', label: 'Manuály'}
     ];
 
@@ -40,7 +41,8 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
                 private _vehicleService: VehicleService,
                 public toastr: ToastsManager,
                 private _images: VehicleImageService,
-                private _settings: SettingsService) {
+                private _settings: SettingsService,
+                private _maintenanceService: MaintenanceService) {
 
         this._vehicleService.vehicleId = this._route.snapshot.params['id'];
     }
@@ -92,5 +94,5 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
 interface MenuOption {
     page: string;
     label: string;
-    // active: boolean;
+    warning: number;
 }
