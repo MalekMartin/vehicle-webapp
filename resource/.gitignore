@@ -1,5 +1,14 @@
+# Vendor folder - installed plugins
 src/vendor/*
+
+# Environment variables
 .env
+
+# Uploaded files
 uploads/*
+
+# Logs
 logs/*
+
+# .htaccess configuration
 .htaccess
