@@ -1,0 +1,21 @@
+@import "../../../../style/theme/conf.scss";
+
+
+:host {
+    display: block;
+    padding-bottom: 20px;
+}
+
+.inspections {
+    margin: 5px 0px 5px 0px;
+
+    va-inspection-card {
+        display: block;
+        margin-bottom: 3px;
+    }
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}

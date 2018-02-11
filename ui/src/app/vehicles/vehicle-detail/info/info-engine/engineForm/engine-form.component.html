@@ -1,0 +1,79 @@
+<form [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        <va-form-item [control]="form.get('displacement')" class="col-md-6">
+            <label for="displacement">Obsah (cm<sup>3</sup>): </label>
+            <input id="displacement" class="form-control" formControlName="displacement">
+        </va-form-item>
+
+        <va-form-item [control]="form.get('cylinders')" class="col-md-6">
+            <label for="cylinders">Počet válců:</label>
+            <input id="cylinders" class="form-control" formControlName="cylinders">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item [control]="form.get('power')" class="col-md-6">
+            <label for="power">Výkon (kW):</label>
+            <input id="power" class="form-control" formControlName="power">
+        </va-form-item>
+
+        <va-form-item [control]="form.get('transmission')" class="col-md-6">
+            <label for="transmission">Počet rychlostních stupňů:</label>
+            <input id="transmission" class="form-control" formControlName="transmission">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item [control]="form.get('engineType')" class="col-md-6">
+            <label for="engineType">Motor: <i class="icon-info" tooltip="Zvol 2-taktní nebo 4-taktní"></i></label>
+                <select id="engineType" class="form-control" formControlName="engineType">
+                    <option value="2T">2-taktní</option>
+                    <option value="4T">4-taktní</option>
+            </select>
+        </va-form-item>
+
+        <va-form-item [control]="form.get('transmissionType')" class="col-md-6">
+            <label for="transmissionType">Převodovka:</label>
+                <select id="transmissionType" class="form-control" formControlName="transmissionType">
+                    <option value="MANUAL">manuální</option>
+                    <option value="AUTOMATIC">automatická</option>
+            </select>
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item [control]="form.get('fuel')" class="col-md-6">
+            <label for="fuel">Palivo:</label>
+                <select id="fuel" class="form-control" formControlName="fuel">
+                    <option value="BENZIN">benzin</option>
+                    <option value="DIESEL">nafta</option>
+            </select>
+        </va-form-item>
+
+        <va-form-item [control]="form.get('engineOil')" class="col-md-6">
+            <label for="engineOil">
+                Olej: <i class="icon-info" tooltip="Olej předepsaný výrobcem / používaný olej"></i>
+            </label>
+            <input id="engineOil" class="form-control" formControlName="engineOil">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item [control]="form.get('fuelOil')" class="col-md-6">
+            <label for="fuelOil">Olej do benzinu:</label>
+            <input id="fuelOil" class="form-control" formControlName="fuelOil">
+        </va-form-item>
+
+        <va-form-item [control]="form.get('dilutionRatio')" class="col-md-6">
+            <label for="dilutionRatio">Poměr ředění:</label>
+            <input id="dilutionRatio" class="form-control" formControlName="dilutionRatio">
+        </va-form-item>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+            <button type="submit" class="btn btn-primary" [class.disabled]="!form.valid">Uložit</button>
+        </div>
+    </div>
+</form>

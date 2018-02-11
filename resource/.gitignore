@@ -1,0 +1,5 @@
+src/vendor/*
+.env
+uploads/*
+logs/*
+.htaccess

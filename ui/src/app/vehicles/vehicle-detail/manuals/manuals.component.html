@@ -1,0 +1,12 @@
+<form [formGroup]="formUrl">
+    <div class="row">
+        <va-form-item [control]="formUrl.controls.title" class="col-sm-6">
+            <label for="title">Název manuálu:</label>
+            <input id="title" class="form-control" formControlName="title">
+        </va-form-item>
+        <va-form-item [control]="formUrl.controls.url" class="col-sm-6">
+            <label for="url">URL manuálu:</label>
+            <input id="url" class="form-control" formControlName="url">
+        </va-form-item>
+    </div>
+</form>

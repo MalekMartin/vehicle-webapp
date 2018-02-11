@@ -1,0 +1,35 @@
+.cell {
+    background-color: #f3f3f3;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-bottom: 6px;
+    box-shadow: 1px 1px 3px #999;
+
+    &.total {
+        background-color: #d0d0d0;
+        margin-bottom: 10px;
+
+        .title {
+            font-size: 14px;
+        }
+
+        .values {
+            font-size: 24px;
+        }
+    }
+
+    .title {
+        font-size: 12px;
+        color: #666;
+    }
+
+    .values {
+        display: flex;
+        font-size: 20px;
+        margin-left: 5px;
+
+        div {
+            flex-grow: 1;
+        }
+    }
+}

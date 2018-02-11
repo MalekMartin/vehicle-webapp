@@ -1,0 +1,25 @@
+<va-card>
+    <va-card-content>
+        <div class="flex-row">
+            <div class="flex-1">
+                <va-initials [text]="interval.name" size="m"></va-initials>
+                <div class="interval-name">{{interval.name}}</div>
+                <div class="interval-values">
+                    <va-mileage *ngIf="interval.odo > 0" [value]="interval.odo" [unit]="units"></va-mileage>
+                    <va-mileage *ngIf="interval.odo2 > 0" [value]="interval.odo2" [unit]="units2"></va-mileage>
+                    <span *ngIf="interval.months > 0">{{interval.months | formatNumber}} měsíců</span>
+                </div>
+            </div>
+            <div class="flex-0 statuses">
+                <i *ngIf="!!interval.expired" class="icon-warning"></i>
+                <i [ngClass]="{'icon-play': interval.inProgress, 'icon-stop': !interval.inProgress}"></i>
+            </div>
+        </div>
+    </va-card-content>
+    <va-card-menu>
+        <div class="flex-0 controls">
+            <i class="icon-edit" (click)="edit()"></i>
+            <i class="icon-bin" (click)="delete()"></i>
+        </div>
+    </va-card-menu>
+</va-card>

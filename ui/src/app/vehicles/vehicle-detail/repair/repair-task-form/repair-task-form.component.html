@@ -1,0 +1,31 @@
+<form [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        <va-form-item class="col-sm-12" [control]="form.controls.title">
+            <label for="title">Název:</label>
+            <input type="text" id="title" class="form-control" formControlName="title">
+        </va-form-item>
+
+        <va-form-item class="col-sm-12" [control]="form.controls.note">
+            <label for="note">Poznámky:</label>
+            <textarea type="text" id="note" class="form-control" formControlName="note"></textarea>
+        </va-form-item>
+
+        <va-form-item class="col-sm-6" [control]="form.controls.quantity">
+            <label for="quantity">Množství:</label>
+            <input type="text" id="quantity" class="form-control" formControlName="quantity">
+        </va-form-item>
+
+        <va-form-item class="col-sm-6" [control]="form.controls.priceNoTax">
+            <label for="priceNoTax">Cena<span *ngIf="tax > 0">bez DPH</span>:</label>
+            <input type="text" id="priceNoTax" class="form-control" formControlName="priceNoTax">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Uložit</button>
+        </div>
+    </div>
+    
+</form>

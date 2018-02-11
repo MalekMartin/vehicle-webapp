@@ -1,0 +1,58 @@
+<va-card (click)="select(tire)" [class.selected]="marked">
+    <va-card-title class="flex-row">
+        <div class="flex-left">
+            <div class="title">
+                <span (click)="show()">{{tire.brand}} {{tire.model}}</span>
+            </div>
+        </div>
+    </va-card-title>
+    <va-card-menu>
+        <div class="flex-right dots">
+            <div class="btn-group" dropdown>
+                <i class="icon-more-vertical" dropdownToggle></i>
+                <ul *dropdownMenu role="menu" aria-labelledby="menu-button" class="dropdown-menu">
+                    <li role="menuitem" *ngIf="tire.status == 'ACTIVE'" (click)="changeTire('STOCK')">
+                        <a class="dropdown-item" ><i class="icon-wrench"></i> Vyzut</a>
+                    </li>
+                    <li role="menuitem" *ngIf="tire.status == 'TRASH'" (click)="newStatus('STOCK')">
+                        <a class="dropdown-item" ><i class="icon-database"></i> Do skladu</a>
+                    </li>
+                    <li role="menuitem" *ngIf="tire.status == 'STOCK'" (click)="changeTire('ACTIVE')">
+                        <a class="dropdown-item"><i class="icon-wrench"></i> Obut pneu</a>
+                    </li>
+                    <li role="menuitem" *ngIf="tire.status == 'STOCK'" (click)="newStatus('TRASH')">
+                        <a class="dropdown-item"><i class="icon-bin"></i> Vyhodit</a>
+                    </li>
+                    <li class="divider dropdown-divider"></li>
+                    <li role="menuitem" (click)="edit()"><a class="dropdown-item"><i class="icon-edit"></i> Upravit</a></li>
+                    <li role="menuitem" (click)="delete()"><a class="dropdown-item"><i class="icon-cross"></i> Smazat</a></li>
+                </ul>
+            </div>
+        </div>
+    </va-card-menu>
+
+    <va-card-footer>
+        <div class="flex-row">
+            <div class="flex-left dimensions">
+                {{tire.dimensions}}
+            </div>
+            <div class="flex-right">
+                <div class="description">{{tire.description}}</div>
+            </div>
+        </div>
+        <div class="flex-row footer">
+            <div class="flex-left" *ngIf="tire.tireOdo > 0 || tire.tireOdo2 > 0; else noMileage"
+                tooltip="Celkově najeto na pneu">
+
+                <span class="odo" *ngIf="tire.tireOdo > 0">{{tire.tireOdo | formatNumber}} km</span>
+                <span class="odo" *ngIf="tire.tireOdo2 > 0">{{tire.tireOdo2 | formatNumber}} mh</span>
+            </div>
+            <ng-template #noMileage>
+                <div class="flex-left no-mileage">
+                    bez nájezdu
+                </div>
+            </ng-template>
+            <div class="date flex-riht" tooltip="Datum koupě">{{tire.purchaseDate | moment: 'DD.MM.YYYY'}}</div>
+        </div>
+    </va-card-footer>
+</va-card>

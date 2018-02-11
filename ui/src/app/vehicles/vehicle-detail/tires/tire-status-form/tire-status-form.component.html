@@ -1,0 +1,47 @@
+<div class="modal fade" bsModal #dialog="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button #btnClose type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Úprava stavu pneu</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="row">
+                        <va-form-item [control]="form.get('odo')" class="col-sm-12">
+                            <label for="odo">ODO ({{units}}):</label>
+                            Poslední nájezd: {{updatedTire.odo | formatNumber}} {{units}}
+                            <input type="text" id="odo" class="form-control" formControlName="odo" [(ngModel)]="odo">
+                            <div *ngIf="newStatus === 'STOCK'">Nový nájezd: {{calculateMileage | formatNumber}} {{units}}</div>
+                        </va-form-item>
+
+                        <va-form-item *ngIf="!!units2" [control]="form.get('odo2')" class="col-sm-12">
+                            <label for="odo2">ODO ({{units}}):</label>
+                            Poslední nájezd: {{updatedTire.odo2 | formatNumber}} {{units2}}
+                            <input type="text" id="odo2" class="form-control" formControlName="odo2" [(ngModel)]="odo2">
+                            <div *ngIf="newStatus === 'STOCK'">Nový nájezd: {{calculateEngineHours | formatNumber}} {{units2}}</div>
+                        </va-form-item>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="engineHours">Datum:</label>
+                            <va-form-item [control]="form.get('date')">
+                                <va-date-picker formControlName="date"></va-date-picker>
+                            </va-form-item>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button #btnCancel type="button" class="btn btn-default">Zrušit</button>
+                            <button #btnOk type="submit" class="btn btn-primary" [class.disabled]="!form.valid">Uložit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

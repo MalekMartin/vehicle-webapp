@@ -1,0 +1,58 @@
+@import "../../../../style/theme/conf.scss";
+
+:host {
+    display: block;
+    padding-bottom: 20px;
+}
+
+h3 {
+    display: flex;
+
+    span {
+        flex-grow: 1;
+    }
+
+    .controls {
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-top: auto;
+
+        a {
+            display: inline-block;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+    }
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}
+
+form {
+
+    display: flex;
+
+    .filter {
+        
+        flex-grow: 1;
+
+        &:nth-child(odd) {
+            margin-right: 3px
+        }
+        &:nth-child(even) {
+            margin-left: 3px
+        }
+    }
+}
+
+.costs-content {
+
+    margin-top: 10px;
+
+    .cost-cards {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+}

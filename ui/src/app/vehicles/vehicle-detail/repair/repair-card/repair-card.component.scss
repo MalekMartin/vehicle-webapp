@@ -1,0 +1,119 @@
+.marked {
+    box-shadow: 0 0 8px blue !important;
+}
+
+.header {
+    display: flex;
+
+    .value {
+        font-weight: bold;
+        margin-right: 8px;
+
+        span {
+            font-weight: bold;
+            margin-left: 8px;
+            padding-left: 10px;
+            border-left: 1px solid #999;
+
+            &:first-child {
+                margin-left: 0;
+                padding-left: 0;
+                border: 0;
+            }
+
+        }
+    }
+
+    .spacer {
+        flex-grow: 1;
+    }
+
+    .garage {
+        padding-left: 10px;
+        border-left: 1px solid #999;
+
+        .g-label {
+            color: #999;
+        }
+        .g-name {
+            font-weight: bold;
+        }
+    }
+}
+
+.title {
+    display: flex;
+}
+
+.notes {
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.price {
+    font-weight: bold;
+    text-align: right;
+}
+
+.icon-edit {
+    cursor: pointer;
+}
+
+.icon-bin {
+    cursor: pointer;
+
+    &:hover {
+        color: #D40000;
+    }
+}
+
+.actions {
+    // text-align: right;
+    margin-top: 12px;
+
+    .action-button {
+        line-height: 36px;
+        padding: 0 8px;
+        margin-right: 8px;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 2px;
+        display: inline-block;
+        color: rgb(0, 162, 255);
+        // transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        transition: all 0.1s ease-in;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #ddd;
+        }
+
+        &.delete {
+            color: #333;
+
+            &:hover {
+                background-color: rgba(255,0,0,0.1);
+                color: #c20000;
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .title {
+        display: block;
+    }
+
+    .header {
+        .value {
+            span {
+                display: block;
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+        }
+    }
+}

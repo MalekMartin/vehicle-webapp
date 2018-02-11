@@ -1,0 +1,12 @@
+.main {
+    width: 100%;
+    background-color: #F0F0F0;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+
+    .bar {
+        background-color: rgb(69, 147, 219);
+        height: 100%;
+    }
+}

@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-sm-6">
+        <va-section-heading>
+            <va-section-heading-title>Obrázek</va-section-heading-title>
+        </va-section-heading>
+        <div *ngIf="!image && !loading" class="dropzone" [ngClass]="{'nv-file-over': hasBaseDropZoneOver}">
+            <div ng2FileDrop
+                    (fileOver)="fileOverBase($event)"
+                    [uploader]="uploader"
+                    class="my-drop-zone"
+                    *ngIf="!isUploading">
+                <div><i class="icon-upload"></i> Nahrát obrázek</div>
+            </div>
+            <div class="spinner" *ngIf="isUploading">
+                <i class="icon-spinner2"></i>
+            </div>
+        </div>
+
+        <div *ngIf="!!image">
+            <div class="miniature">
+                <img *ngIf="!!image" [src]="image" class="thumb">
+                <div class="controls">
+                    <i class="icon-bin delete" (click)="deleteImage()"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <va-section-heading>
+            <va-section-heading-title>Nastavení</va-section-heading-title>
+            <va-section-heading-controls>
+                    <a (click)="edit()">Upravit</a>
+            </va-section-heading-controls>
+        </va-section-heading>
+        <table class="settings">
+            <tr>
+                <td>Hlavní jednotky:</td>
+                <td class="value">{{units}}</td>
+            </tr>
+            <tr>
+                <td>Vedlejší jednotky:</td>
+                <td class="value" [class.empty]="!units2">{{units2 || 'nenastaveno'}}</td>
+            </tr>
+            <tr>
+                <td>Objem nádrže:</td>
+                <td class="value">{{tankCapacity + ' l'}}</td>
+            </tr>
+        </table>
+        
+    </div>
+</div>
+
+<div bsModal #formModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="onCancel()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Pneumatika</h4>
+            </div>
+            <div class="modal-body">
+                <va-settings-form *ngIf="visible" (saved)="onSave($event)" (canceled)="onCancel()"></va-settings-form>
+            </div>
+        </div>
+    </div>
+</div>

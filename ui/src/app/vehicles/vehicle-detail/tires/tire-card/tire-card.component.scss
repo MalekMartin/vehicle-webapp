@@ -1,0 +1,79 @@
+.icon-more-vertical {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    top: -5px;
+}
+
+.flex-row {
+    display: flex;
+
+    .flex-left {
+        flex-grow: 1;
+    }
+
+    .flex-right {
+        flex-grow: 0;
+
+        &.dots {
+            margin-left: 10px;
+        }
+    }
+}
+
+.title {
+    font-weight: bold;
+    font-size: 14px;
+    span {
+        cursor: pointer;
+    }
+}
+
+.description {
+    // color: #676767;
+    font-size: 12px;
+    font-weight: bold;
+    color: #999;
+}
+
+.date {
+    font-weight: bold;
+}
+.odo {
+    display: inline-block;
+    margin: 1px 1px 1px 0px;
+    font-weight: bold;
+    padding-right: 8px;
+    border-right: 1px solid #ccc;
+    margin-right: 5px;
+
+    &:last-child {
+         border: 0;
+    }
+}
+
+.no-mileage {
+    color: #999;
+    font-style: italic;
+}
+
+.footer {
+    margin-top: 6px;
+}
+
+.dimensions {
+    font-size: 12px;
+    font-weight: bold;
+    color: #999;
+}
+
+.dropdown-menu {
+    
+    width: 150px;
+    margin-left: -140px;
+    margin-top: -2px;
+
+    .menu-item {
+        cursor: pointer;
+    }
+}

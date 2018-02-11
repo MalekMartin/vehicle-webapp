@@ -1,0 +1,101 @@
+<form *ngIf="data" [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('company')">
+                <label for="company">Firma / Osoba:</label>
+                <input type="text" class="form-control" formControlName="company">
+            </va-form-item>
+        </div>
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('address')">
+                <label for="address">Adresa:</label>
+                <input type="text" id="address" class="form-control" formControlName="address">
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('city')">
+                <label for="city">Město:</label>
+                <input type="text" id="city" class="form-control" formControlName="city">
+            </va-form-item>
+        </div>
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('zipCode')">
+                <label for="zipCode">PSČ:</label>
+                <input type="text" id="zipCode" class="form-control" formControlName="zipCode">
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('phone')">
+                <label for="phone">Telefon:</label>
+                <input type="text" id="phone" class="form-control" formControlName="phone">
+            </va-form-item>
+        </div>
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('email')">
+                <label for="email">Email:</label>
+                <input type="text" id="email" class="form-control" formControlName="email">
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <va-form-item [control]="form.get('contactPerson')">
+                <label for="contactPerson">Kontaktní osoba:</label>
+                <input type="text" id="contactPerson" class="form-control" formControlName="contactPerson">
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <va-form-item [control]="form.get('notes')">
+                <label for="notes">Poznámky:</label>
+                <textarea type="text" id="notes" class="form-control" formControlName="notes"></textarea>
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('date')">
+                <label for="date">Datum:</label>
+                <va-date-picker id="date" formControlName="date"></va-date-picker>
+            </va-form-item>
+        </div>
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('price')">
+                <label for="price">Cena:</label>
+                <input type="text" id="price" class="form-control" formControlName="price">
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('odo')">
+                <label for="odo">Ujeté km:</label>
+                <input type="text" id="odo" class="form-control" formControlName="odo">
+            </va-form-item>
+        </div>
+        <div class="col-md-6">
+            <va-form-item [control]="form.get('odo2')">
+                <label for="odo2">Motohodiny:</label>
+                <input type="text" id="odo2" class="form-control" formControlName="odo2">
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+            <button type="submit" class="btn btn-primary" [class.disabled]="!form.valid">Uložit</button>
+        </div>
+    </div>
+</form>

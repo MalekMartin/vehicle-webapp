@@ -1,0 +1,42 @@
+<va-card class="inspection" [ngClass]="{'expiring': isExpiring, 'expired': isExpired}">
+    <va-card-content>
+        <div class="flex-row">
+            <div class="value vertical">
+                <div class="validity">
+                    <i class="status" [ngClass]="{'icon-check-black': isValid, 'icon-error-black': !isValid}"></i>
+                </div>
+            </div>
+            <div class="separator">
+                <div class="flex-row">
+                    <div class="value title">
+                        <span>{{inspection.date | moment: 'DD.MM.YYYY'}}</span>
+                        <span>{{(inspection.odo | formatNumber) || 0}} {{units}}</span>
+                        <span class="value" *ngIf="!!subUnits">{{(inspection.odo2 | formatNumber) || 0}} {{subUnits}}</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="value">{{inspection.name}}</div>
+                    <div class="separator"></div>
+                    <div class="value">{{inspection.price | price}}</div>
+                </div>
+            </div>
+        </div>
+    </va-card-content>
+
+    <va-card-footer>
+        <va-progress  *ngIf="isValid" [start]="start" [end]="end" [now]="now">
+            <span style="color:white; white-space:nowrap;">
+                Vyprší {{inspection.expirationDate | moment: 'DD.MM.YYYY'}}
+                ({{ (inspection.expirationDate | moment:'DD.MM.YYYY') | fromNow}})
+            </span>
+        </va-progress>
+
+        <div class="actions">
+            <a [routerLink]="['./', { outlets: {'modal':['m','edit', inspection.id]}}]">
+                Upravit
+            </a>
+            <a class="delete" (click)="delete(inspection)">
+                Smazat
+            </a>
+        </div>
+    </va-card-footer>
+</va-card>

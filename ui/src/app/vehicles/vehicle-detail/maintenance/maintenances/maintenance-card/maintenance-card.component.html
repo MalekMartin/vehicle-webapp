@@ -1,0 +1,100 @@
+<va-card>
+    <va-card-left>
+        <div class="color" [vaColorFromString]="maintenance.interval.name"></div>
+        <div class="checkbox-panel">
+            <va-checkbox
+            [@toggle]="checkboxState" 
+                (click)="toggleSelect()"
+                [(ngModel)]="maintenance.selected"></va-checkbox>
+        </div>
+    </va-card-left>
+
+    <va-card-title>
+        <div class="flex-row">
+            <div class="flex-1">
+                <span class="title">{{maintenance.interval.name}}</span>
+                <span *ngIf="maintenance.status === 'DONE'" class="flag-done">DOKONČENO</span>
+                <span *ngIf="maintenance.status === 'CANCELED'" class="flag-canceled">ZRUŠENO</span>
+            </div>
+        </div>
+    </va-card-title>
+
+    <va-card-menu *ngIf="canEdit">
+        <div class="flex-0">
+            <div class="btn-group" dropdown>
+                <i id="maintenance-button" class="icon-menu-dots" dropdownToggle></i>
+                <ul *dropdownMenu role="menu" aria-labelledby="maintenance-button" class="dropdown-menu">
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="update()"><i class="icon-edit"></i> Upravit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </va-card-menu>
+    
+    <va-card-content>
+        
+    </va-card-content>
+
+    <va-card-footer>
+        <div class="flex-row flex-wrap">
+            <div class="start flex-0 flex-row">
+                <span>Zadáno při:</span>
+                <span *ngIf="!!maintenance.date"
+                    class="m-value">{{maintenance.date | moment: 'DD.MM.YYYY'}}</span>
+                <span *ngIf="maintenance.odo > 0"
+                    class="m-value">{{maintenance.odo | formatNumber}} km</span>
+                <span *ngIf="maintenance.odo2 > 0"
+                    class="m-value">{{maintenance.odo2 | formatNumber}} mh</span>
+            </div>
+            <div class="flex-1"></div>
+            <div *ngIf="maintenance.status === 'DONE'"
+                class="done flex-0 flex-row">
+                <span>Dokončeno při:</span>
+                <span *ngIf="!!maintenance.dateDone"
+                    class="m-value">{{maintenance.dateDone | moment: 'DD.MM.YYYY'}}</span>
+                <span *ngIf="maintenance.odoDone > 0"
+                    class="m-value">{{maintenance.odoDone | formatNumber}} km</span>
+                <span *ngIf="maintenance.odo2Done > 0"
+                    class="m-value">{{maintenance.odo2Done | formatNumber}} mh</span>
+            </div>
+        </div>
+
+        <div class="notes" *ngIf="maintenance.status === 'DONE' && maintenance.notes">{{maintenance.notes}}</div>
+
+        <div *ngIf="maintenance.status === 'IN_PROGRESS'" class="progress-bars">
+            <div *ngIf="maintenance.interval.odo > 0" class="odo">
+                <va-progress [tooltip]="'vyprší při ' + (maintenance.expirations.odo | formatNumber) + ' km'"
+                        [start]="maintenance.odo" 
+                        [end]="maintenance.expirations.odo"
+                        [now]="maintenance.currents.odo">
+                        <span>{{maintenance.currents.odo}} km / {{maintenance.expirations.odo}} km</span>
+                </va-progress>
+            </div>
+
+            <div *ngIf="maintenance.interval.odo2 > 0" class="engine-hours">
+                <va-progress [tooltip]="'vyprší při ' + (maintenance.expirations.odo2 | formatNumber) + ' mh'"
+                        [start]="maintenance.odo2"
+                        [end]="maintenance.expirations.odo2"
+                        [now]="maintenance.currents.odo2">
+                    <span>{{maintenance.currents.odo2}} mh / {{maintenance.expirations.odo2}} mh</span>
+                </va-progress>
+            </div>
+
+            <div *ngIf="maintenance.interval.months > 0" class="engine-hours">
+                <va-progress [tooltip]="'vyprší ' + (maintenance.expirations.date | moment: 'DD.MM.YYYY')"
+                        [start]="start"
+                        [end]="end"
+                        [now]="now">
+                        <span>Vyprší {{maintenance.expirations.date | moment: 'DD.MM.YYYY'}}</span>
+                </va-progress>
+            </div>
+        </div>
+    </va-card-footer>
+
+    <div *ngIf="maintenance.repairId" class="repair-link">
+        <a [routerLink]="['/vehicle/' + maintenance.vehicleId + '/repairs']"
+            [queryParams]="{repairId: maintenance.repairId}">{{maintenance.repairTitle}}</a>
+    </div>
+
+</va-card>

@@ -1,0 +1,31 @@
+<div class="wrapper">
+
+    <div class="chart-wrapper" *ngIf="!!data && data.length">
+        <ngx-charts-line-chart
+            [scheme]="colorScheme"
+            [results]="data"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [autoScale]="autoScale"
+            (select)="onSelect($event)">
+        </ngx-charts-line-chart>
+    </div>
+
+    <!-- <div *ngIf="loadingError">
+        Nepodařilo se načíst statistiky. <a (click)="getStats()">Načíst znovu</a>.
+    </div>
+    
+    <div *ngIf="loading" class="loading-bar">
+        <i class="icon-refresh spin"></i>
+    </div> -->
+
+    <div *ngIf="!!stats">
+        <va-number-stats [stats]="stats"></va-number-stats>
+    </div>
+</div>

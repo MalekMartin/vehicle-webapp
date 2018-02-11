@@ -1,0 +1,134 @@
+va-card {
+    
+    // &:hover {
+    //     background-color: #efefef;
+    // }
+
+
+    // margin-bottom: 5px;
+
+    // padding: 10px;
+    // border: 1px solid #cccccc;
+    // border-radius: 3px;
+    // margin-bottom: 5px;
+
+    .header, .body, .controls {
+        display: flex;
+        margin-bottom: 2px;
+    }
+
+    .spacer {
+        flex-grow: 1;
+    }
+
+    .value {
+        flex-grow: 0;
+
+        &.consumptions {
+            text-align: right;
+        }
+
+        &.nowrap {
+            white-space: nowrap;
+        }
+
+        .consumption {
+            // display: inline-block;
+            // padding: 3px 6px;
+            // background-color: #999;
+            font-size: 12px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #008311;
+            margin-left: 8px;
+        }
+
+        .distance {
+            font-size: 12px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #777;
+            margin-right: 8px;
+        }
+
+        &.not-full {
+            font-weight: bold;
+            font-size: 12px;
+            color: #9C0000;
+        }
+
+        &.title {
+            span {
+                margin-right: 5px;
+                padding-right: 10px;
+                border-right: 1px solid #AAA;
+                white-space: nowrap;
+
+                &:last-child {
+                    border: 0px !important;
+                }
+            }
+        }
+    }
+
+    .header {
+        .value {
+            font-weight: bold;
+            font-size: 14px;
+        }
+    }
+
+    .notes {
+        margin-top: 16px;
+        color: #666;
+    }
+
+    .actions {
+        // text-align: right;
+        margin-top: 12px;
+
+        .action-button {
+            line-height: 36px;
+            padding: 0 8px;
+            margin-right: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            display: inline-block;
+            color: rgb(0, 162, 255);
+            // transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ddd;
+            }
+
+            &.delete {
+                color: #333;
+
+                &:hover {
+                    background-color: rgba(255,0,0,0.1);
+                    color: #c20000;
+                }
+            }
+        }
+    }
+
+    .controls {
+        i {
+            margin-left: 8px;
+            cursor: pointer;
+
+            &:hover {
+                &.icon-bin {
+                    color: red;
+                }
+            }
+        }
+    }
+    .icon-more-vertical {
+        cursor: pointer;
+    }
+}

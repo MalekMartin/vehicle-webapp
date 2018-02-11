@@ -1,0 +1,19 @@
+:host {
+    display: inline-block;
+}
+
+.checkbox {
+    input {
+        visibility: hidden;
+        margin-left: -9999px;
+    }
+
+    label {
+        margin: 0;
+        padding: 0;
+
+        i {
+            font-size: 16px;
+        }
+    }
+}

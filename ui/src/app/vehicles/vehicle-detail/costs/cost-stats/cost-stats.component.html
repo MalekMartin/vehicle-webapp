@@ -1,0 +1,23 @@
+<div *ngIf="loading && !stats" class="loading">
+    <i class="icon-refresh spin"></i>
+</div>
+
+<div *ngIf="!!data && customScheme" style="height: 400px;">
+    <ngx-charts-bar-vertical
+        [customColors]="customScheme"
+        [results]="data"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
+</div>
+
+<div *ngIf="!!stats && !loading">
+    <va-number-stats [stats]="stats"></va-number-stats>
+</div>

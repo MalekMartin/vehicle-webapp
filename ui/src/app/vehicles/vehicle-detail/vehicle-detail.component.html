@@ -1,0 +1,46 @@
+<!-- <va-top-menu></va-top-menu> -->
+<div class="col-md-12">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <va-detail-header [vehicle]="vehicle?.info"></va-detail-header>
+            <!-- DESKTOP -->
+            <!-- <nav class="navbrar navbar-default hidden-xs">
+                <div class="container-fluid options">
+                    <ul class="nav navbar-nav">
+                        <li *ngFor="let o of options">
+                            <a [routerLink]="[o.page]" routerLinkActive="active">{{o.label}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav> -->
+
+            <div class="va-menu hidden-xs">
+                <ul class="va-menu-options">
+                    <li *ngFor="let o of options">
+                        <a [routerLink]="[o.page]" routerLinkActive="active">{{o.label}}</a>
+                    </li>
+                </ul>
+                <div class="settings">
+                    <!-- <a [routerLink]="'./settings'" class="icon-settings"></a> -->
+                    <a [routerLink]="'./settings'" routerLinkActive="active">Nastavení</a>
+                </div>
+            </div>
+
+            <!-- MOBILE -->
+            <nav class="text-right navbrar navbar-default dash-menu">
+                <div class="hidden-sm hidden-md hidden-lg" dropdown>
+                    <span dropdownToggle class="dropdown-toggle">
+                        <i class="icon-menu-dash"></i>
+                    </span>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="menu-button">
+                        <li *ngFor="let o of options" role="menuitem">
+                            <a [routerLink]="[o.page]" routerLinkActive="active" class="dropdown-item">{{o.label}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,202 @@
+<form [formGroup]="form" *ngIf="!registered">
+    <div class="row">
+        <va-form-item class="col-sm-12" [control]="form.get('email')">
+            <input type="text" class="form-control" formControlName="email" placeholder="e-mail"> 
+        </va-form-item>
+        <div *ngIf="error" class="error cl-sm-12">
+            Zadaný email již existuje
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 center">
+            <i *ngIf="loading" class="icon-refresh spin"></i>
+            <button type="button" class="btn btn-primary" [disabled]="!form.valid"
+                (click)="form.valid && !loading && register()">
+                Registrovat
+            </button>
+        </div>
+    </div>
+
+    <a [routerLink]="['/login']">zpět na přihlášení</a>
+</form>
+
+<div *ngIf="registered">
+
+    <h3>Byl(a) jste úspěšně zaregistrován(a)!</h3>
+    <div>Na uvedený email Vám byl odeslán aktivační email.</div>
+
+    <a [routerLink]="['/login']">Zpět na přihlášení</a>
+</div>
+
+<pre>
+<small>F:\git\resource\slim_test\routes\vehicle.php:11:</small>
+<b>object</b>(<i>Slim\Http\Request</i>)[<i>255</i>]
+  <i>protected</i> 'method' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'GET'</font> <i>(length=3)</i>
+  <i>protected</i> 'originalMethod' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'GET'</font> <i>(length=3)</i>
+  <i>protected</i> 'uri' <font color='#888a85'>=&gt;</font> 
+    <b>object</b>(<i>Slim\Http\Uri</i>)[<i>34</i>]
+      <i>protected</i> 'scheme' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'http'</font> <i>(length=4)</i>
+      <i>protected</i> 'user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>''</font> <i>(length=0)</i>
+      <i>protected</i> 'password' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>''</font> <i>(length=0)</i>
+      <i>protected</i> 'host' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'localhost'</font> <i>(length=9)</i>
+      <i>protected</i> 'port' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>4200</font>
+      <i>protected</i> 'basePath' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>''</font> <i>(length=0)</i>
+      <i>protected</i> 'path' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'/resource/vehicles'</font> <i>(length=18)</i>
+      <i>protected</i> 'query' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>''</font> <i>(length=0)</i>
+      <i>protected</i> 'fragment' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>''</font> <i>(length=0)</i>
+  <i>protected</i> 'requestTarget' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+  <i>protected</i> 'queryParams' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+  <i>protected</i> 'cookies' <font color='#888a85'>=&gt;</font> 
+    <b>array</b> <i>(size=1)</i>
+      '_ga' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'GA1.1.1681422845.1499097908'</font> <i>(length=27)</i>
+  <i>protected</i> 'serverParams' <font color='#888a85'>=&gt;</font> 
+    <b>array</b> <i>(size=42)</i>
+      'REDIRECT_STATUS' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'200'</font> <i>(length=3)</i>
+      'HTTP_AUTHORIZATION' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxIiwiaXNzIjoidmVoaWNsZXMiLCJhdWQiOiJ2ZWhpY2xlcyIsImlhdCI6MTUxMjgxNTg4OSwibmJmIjoxNTEyODE1ODg5LCJleHAiOjE1MTI4MTk0ODl9._cDmMX0_A_HPx5OiL66uLx88Zjv8IpeAf1rFYCW4AZM'</font> <i>(length=216)</i>
+      'HTTP_COOKIE' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'_ga=GA1.1.1681422845.1499097908'</font> <i>(length=31)</i>
+      'HTTP_ACCEPT_LANGUAGE' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'cs-CZ,cs;q=0.9,en;q=0.8'</font> <i>(length=23)</i>
+      'HTTP_ACCEPT_ENCODING' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'gzip, deflate, br'</font> <i>(length=17)</i>
+      'HTTP_REFERER' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'http://localhost:4200/'</font> <i>(length=22)</i>
+      'CONTENT_TYPE' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'text/plain;charset=UTF-8'</font> <i>(length=24)</i>
+      'HTTP_USER_AGENT' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'</font> <i>(length=114)</i>
+      'HTTP_ACCEPT' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'application/json, text/plain, */*'</font> <i>(length=33)</i>
+      'HTTP_CONNECTION' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'close'</font> <i>(length=5)</i>
+      'HTTP_HOST' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'localhost:4200'</font> <i>(length=14)</i>
+      'PATH' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;c:\Program Files\Intel\WiFi\bin\;c:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\'...</font> <i>(length=1119)</i>
+      'SystemRoot' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'C:\WINDOWS'</font> <i>(length=10)</i>
+      'COMSPEC' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'C:\WINDOWS\system32\cmd.exe'</font> <i>(length=27)</i>
+      'PATHEXT' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'</font> <i>(length=53)</i>
+      'WINDIR' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'C:\WINDOWS'</font> <i>(length=10)</i>
+      'SERVER_SIGNATURE' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>''</font> <i>(length=0)</i>
+      'SERVER_SOFTWARE' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Apache/2.4.23 (Win64) PHP/5.6.26'</font> <i>(length=32)</i>
+      'SERVER_NAME' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'localhost'</font> <i>(length=9)</i>
+      'SERVER_ADDR' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'192.168.1.102'</font> <i>(length=13)</i>
+      'SERVER_PORT' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'4200'</font> <i>(length=4)</i>
+      'REMOTE_ADDR' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'192.168.1.102'</font> <i>(length=13)</i>
+      'DOCUMENT_ROOT' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'F:/git/resource/slim_test/src/public/'</font> <i>(length=37)</i>
+      'REQUEST_SCHEME' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'http'</font> <i>(length=4)</i>
+      'CONTEXT_PREFIX' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>''</font> <i>(length=0)</i>
+      'CONTEXT_DOCUMENT_ROOT' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'F:/git/resource/slim_test/src/public/'</font> <i>(length=37)</i>
+      'SERVER_ADMIN' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'admin@localhost'</font> <i>(length=15)</i>
+      'SCRIPT_FILENAME' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'F:/git/resource/slim_test/src/public/index.php'</font> <i>(length=46)</i>
+      'REMOTE_PORT' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'56254'</font> <i>(length=5)</i>
+      'REDIRECT_URL' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'/resource/vehicles'</font> <i>(length=18)</i>
+      'GATEWAY_INTERFACE' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'CGI/1.1'</font> <i>(length=7)</i>
+      'SERVER_PROTOCOL' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'HTTP/1.1'</font> <i>(length=8)</i>
+      'REQUEST_METHOD' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'GET'</font> <i>(length=3)</i>
+      'QUERY_STRING' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>''</font> <i>(length=0)</i>
+      'REQUEST_URI' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'/resource/vehicles'</font> <i>(length=18)</i>
+      'SCRIPT_NAME' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'/index.php'</font> <i>(length=10)</i>
+      'PHP_SELF' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'/index.php'</font> <i>(length=10)</i>
+      'REQUEST_TIME_FLOAT' <font color='#888a85'>=&gt;</font> <small>float</small> <font color='#f57900'>1512815978.397</font>
+      'REQUEST_TIME' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1512815978</font>
+      'DB_USER' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'root'</font> <i>(length=4)</i>
+      'DB_PWD' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'vertrigo'</font> <i>(length=8)</i>
+      'JWT_SECRET' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'my53cretp455w0rd'</font> <i>(length=16)</i>
+  <i>protected</i> 'attributes' <font color='#888a85'>=&gt;</font> 
+    <b>object</b>(<i>Slim\Collection</i>)[<i>245</i>]
+      <i>protected</i> 'data' <font color='#888a85'>=&gt;</font> 
+        <b>array</b> <i>(size=3)</i>
+          'token' <font color='#888a85'>=&gt;</font> 
+            <b>object</b>(<i>stdClass</i>)[<i>208</i>]
+              ...
+          'route' <font color='#888a85'>=&gt;</font> 
+            <b>object</b>(<i>Slim\Route</i>)[<i>53</i>]
+              ...
+          'routeInfo' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=4)</i>
+              ...
+  <i>protected</i> 'bodyParsed' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  <i>protected</i> 'bodyParsers' <font color='#888a85'>=&gt;</font> 
+    <b>array</b> <i>(size=4)</i>
+      'application/json' <font color='#888a85'>=&gt;</font> 
+        <b>object</b>(<i>Closure</i>)[<i>203</i>]
+          <i>public</i> 'this' <font color='#888a85'>=&gt;</font> 
+            <b>object</b>(<i>Slim\Http\Request</i>)[<i>200</i>]
+              ...
+          <i>public</i> 'parameter' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=1)</i>
+              ...
+      'application/xml' <font color='#888a85'>=&gt;</font> 
+        <b>object</b>(<i>Closure</i>)[<i>204</i>]
+          <i>public</i> 'this' <font color='#888a85'>=&gt;</font> 
+            <b>object</b>(<i>Slim\Http\Request</i>)[<i>200</i>]
+              ...
+          <i>public</i> 'parameter' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=1)</i>
+              ...
+      'text/xml' <font color='#888a85'>=&gt;</font> 
+        <b>object</b>(<i>Closure</i>)[<i>205</i>]
+          <i>public</i> 'this' <font color='#888a85'>=&gt;</font> 
+            <b>object</b>(<i>Slim\Http\Request</i>)[<i>200</i>]
+              ...
+          <i>public</i> 'parameter' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=1)</i>
+              ...
+      'application/x-www-form-urlencoded' <font color='#888a85'>=&gt;</font> 
+        <b>object</b>(<i>Closure</i>)[<i>206</i>]
+          <i>public</i> 'this' <font color='#888a85'>=&gt;</font> 
+            <b>object</b>(<i>Slim\Http\Request</i>)[<i>200</i>]
+              ...
+          <i>public</i> 'parameter' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=1)</i>
+              ...
+  <i>protected</i> 'uploadedFiles' <font color='#888a85'>=&gt;</font> 
+    <b>array</b> <i>(size=0)</i>
+      <i><font color='#888a85'>empty</font></i>
+  <i>protected</i> 'validMethods' <font color='#888a85'>=&gt;</font> 
+    <b>array</b> <i>(size=9)</i>
+      'CONNECT' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+      'DELETE' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+      'GET' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+      'HEAD' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+      'OPTIONS' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+      'PATCH' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+      'POST' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+      'PUT' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+      'TRACE' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1</font>
+  <i>protected</i> 'protocolVersion' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1.1'</font> <i>(length=3)</i>
+  <i>protected</i> 'headers' <font color='#888a85'>=&gt;</font> 
+    <b>object</b>(<i>Slim\Http\Headers</i>)[<i>249</i>]
+      <i>protected</i> 'data' <font color='#888a85'>=&gt;</font> 
+        <b>array</b> <i>(size=10)</i>
+          'authorization' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'cookie' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'accept-language' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'accept-encoding' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'referer' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'content-type' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'user-agent' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'accept' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'connection' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+          'host' <font color='#888a85'>=&gt;</font> 
+            <b>array</b> <i>(size=2)</i>
+              ...
+  <i>protected</i> 'body' <font color='#888a85'>=&gt;</font> 
+    <b>object</b>(<i>Slim\Http\RequestBody</i>)[<i>240</i>]
+      <i>protected</i> 'stream' <font color='#888a85'>=&gt;</font> <b>resource</b>(<i>73</i><font color='#2e3436'>,</font> <i>stream</i>)
+      <i>protected</i> 'meta' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+      <i>protected</i> 'readable' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+      <i>protected</i> 'writable' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+      <i>protected</i> 'seekable' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+      <i>protected</i> 'size' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+      <i>protected</i> 'isPipe' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+</pre>

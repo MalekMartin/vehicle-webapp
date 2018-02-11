@@ -1,0 +1,25 @@
+@import "../../../../style/theme/conf.scss";
+
+.content {
+
+    &>div {
+        padding-bottom: 20px;
+    }
+}
+
+.header {
+
+    h3 {
+        display: inline-block;
+        margin: 10px 0;
+    }
+    i {
+        margin-left: 10px;
+        cursor: pointer;
+    }
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}

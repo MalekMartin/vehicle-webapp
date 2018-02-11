@@ -1,0 +1,32 @@
+<form [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        <div class="col-md-12">
+            <va-form-item [control]="form.controls.title">
+                <label for="title">Název:</label>
+                <input type="text" id="title" class="form-control" formControlName="title">
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Uložit</button>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="loading">
+    <i class="icon-refresh spin"></i>
+</div>
+
+<div *ngIf="!loading" class="category-list">
+    <div *ngFor="let c of categories" class="category-item">
+        <div [style.backgroundColor]="'#' + c.color"
+            class="color"></div>
+        <div class="title">{{c.title}}</div>
+        <div class="controls">
+            <i class="icon-edit" (click)="selectCategory(c)"></i>
+            <i class="icon-bin" (click)="delete(c)"></i>
+        </div>
+    </div>
+</div>

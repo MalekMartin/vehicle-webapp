@@ -1,0 +1,23 @@
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.phone-web {
+    display: flex;
+
+    div {
+        flex-grow: 1;
+    }
+
+    i {
+        color: #999;
+        font-size: 16px;
+        margin-right: 5px;
+    }
+}
+
+.notes {
+    white-space: pre-line;
+}

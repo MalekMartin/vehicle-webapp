@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Vehicles app</title>
+
+  <!-- base url -->
+  <base href="/">
+
+  <style>
+    .main-spinner {
+      margin: 100px auto 0;
+      width: 70px;
+      text-align: center;
+    }
+
+    .main-spinner > div {
+      width: 18px;
+      height: 18px;
+      background-color: #0066cc;
+
+      border-radius: 100%;
+      display: inline-block;
+      -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+      animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    }
+
+    .main-spinner .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+
+    .main-spinner .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+
+    @-webkit-keyframes sk-bouncedelay {
+      0%, 80%, 100% { -webkit-transform: scale(0) }
+      40% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes sk-bouncedelay {
+      0%, 80%, 100% { 
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      } 40% { 
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <va-app>
+    <div class="main-spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+    <div style="text-align: center; color: #0066cc; margin: 20px; font-family: 'Segoe UI', Tahoma;">Nahrávám aplikaci...</div>
+    <!--<div style="text-align: center; font-size: 12px; margin-top: 30px;">Použij "npm install typescript@2.0.10" pokud byl proveden příkaz "npm install" a nezdařil se build.</div>-->
+  </va-app>
+
+  <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->
+  <!--<script>
+    (function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=r;A[l]=A[l]||function(){
+    (A[l].q=A[l].q||[]).push(arguments)},A[l].l=1*new Date();a=n.createElement(g),
+    r=n.getElementsByTagName(g)[0];a.async=1;a.src=u;r.parentNode.insertBefore(a,r)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-71073175-1', 'auto');
+    ga('send', 'pageview');
+  </script>-->
+
+</body>
+</html>

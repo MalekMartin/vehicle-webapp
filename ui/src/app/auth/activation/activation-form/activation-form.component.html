@@ -1,0 +1,29 @@
+<form [formGroup]="form">
+    <va-form-item [control]="form.get('firstName')">
+        <label>Jméno</label>
+        <input type="text" class="form-control" formControlName="firstName">
+    </va-form-item>
+
+    <va-form-item [control]="form.get('lastName')">
+        <label>Příjmení</label>
+        <input type="text" class="form-control" formControlName="lastName">
+    </va-form-item>
+
+    <div formGroupName="pwds">
+        <va-form-item [control]="form.get('pwds')">
+            <va-form-item [control]="form.get(['pwds', 'pwd'])">
+                <label>Heslo</label>
+                <input type="password" class="form-control" formControlName="pwd">
+            </va-form-item>
+
+            <va-form-item [control]="form.get(['pwds', 'pwdCheck'])">
+                <label>Heslo znovu</label>
+                <input type="password" class="form-control" formControlName="pwdCheck">
+            </va-form-item>
+        </va-form-item>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="!form.valid" (click)="finishRegistration()">
+        Dokončit registraci
+    </button>
+</form>

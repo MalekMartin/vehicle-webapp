@@ -1,0 +1,61 @@
+<va-routed-modal-content (cancel)="back()" size="modal-md">
+    <span *ngIf="!!id" vaRoutedModalContentTitle>Úprava tankování</span>
+    <span *ngIf="!id" vaRoutedModalContentTitle>Nové tankování</span>
+
+    <div vaRoutedModalContentBody>
+
+        <form [formGroup]="form" (submit)="form.valid && save()">
+            <div class="row">
+                <va-form-item [control]="form.get('date')" class="col-md-6">
+                    <label for="date">Datum:</label>
+                    <va-date-picker id="date" formControlName="date"></va-date-picker>
+                </va-form-item>
+                <va-form-item [control]="form.get('quantity')" class="col-md-6">
+                    <label for="quantity">Množství:</label>
+                    <input type="text" id="quantity" class="form-control" formControlName="quantity" (keyup)="resetPrice()">
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('pricePerLiter')" class="col-md-6">
+                    <label for="pricePerLiter">Cena/Litr:</label>
+                    <input type="text" id="pricePerLiter" class="form-control" formControlName="pricePerLiter" (keyup)="calculatePrice()">
+                </va-form-item>
+                <va-form-item [control]="form.get('price')" class="col-md-6">
+                    <label for="price">Cena:</label>
+                    <input type="text" id="pricePerLiter" class="form-control" formControlName="price" (keyup)="calculatePricePerLiter()">
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('odo')" class="col-md-6">
+                    <label for="odo">{{units}}:</label>
+                    <input type="text" id="odo" class="form-control" formControlName="odo">
+                </va-form-item>
+                <va-form-item *ngIf="subUnits" [control]="form.get('odo2')" class="col-md-6">
+                    <label for="odo2">{{subUnits}}:</label>
+                    <input type="text" id="odo2" class="form-control" formControlName="odo2">
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('note')" class="col-md-6">
+                    <label for="note">Poznámka:</label>
+                    <input type="text" id="note" class="form-control" formControlName="note">
+                </va-form-item>
+                <va-form-item class="col-md-6">
+                    <label>Plná nádrž:</label>
+                    <!--<input type="checkbox" id="fullTank" class="form-control" formControlName="fullTank">-->
+                    <va-checkbox id="fullTank" formControlName="fullTank"></va-checkbox>
+                </va-form-item>
+            </div>
+        </form>
+    </div>
+
+    <div vaRoutedModalContentFooter>
+        <button type="button" class="btn btn-default" (click)="back()">Zrušit</button>
+        <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="save()">
+            Uložit
+        </button>
+    </div>
+</va-routed-modal-content>

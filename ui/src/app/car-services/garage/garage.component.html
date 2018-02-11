@@ -1,0 +1,7 @@
+<!-- <va-garage-form [garage]="selected" (saved)="onSave($event)" (canceled)="onCancel()"></va-garage-form> -->
+
+<div *ngFor="let garage of garages">
+    <span>{{garage.name}}</span>
+    <i class="icon-edit" (click)="edit(garage)"></i>
+    <i class="icon-bin" (click)="delete(garage)"></i>
+</div>

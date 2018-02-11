@@ -1,0 +1,33 @@
+<va-card>
+    <va-card-title>
+        <div class="header">
+            <span class="value title">
+                <span><a [routerLink]="['./' + repair.id]">{{repair.title}}</a></span>
+                <span>{{repair.date | moment: 'DD.MM.YYYY'}}</span>
+                <span>{{repair.odo | formatNumber}} {{units}}</span>
+                <span *ngIf="!!subUnits">{{repair.odo2 | formatNumber}} {{subUnits}}</span>
+            </span>
+            <span class="spacer"></span>
+            <span class="value">
+                <span class="g-name">{{repair.garageName}}</span>
+            </span>
+            <span class="spacer"></span>
+            <div class="value">{{repair.totalPrice | price}}</div>
+        </div>
+    </va-card-title>
+
+    <va-card-content>
+        <div *ngIf="!!repair.notes" class="notes">{{repair.notes}}</div>
+    </va-card-content>
+
+    <va-card-footer>
+        <div class="actions">
+            <a class="action-button" (click)="edit($event)" href="">
+                Upravit
+            </a>
+            <a (click)="deleteConfirm()" class="action-button delete">
+                Smazat
+            </a>
+        </div>
+    </va-card-footer>
+</va-card>

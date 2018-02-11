@@ -1,0 +1,84 @@
+:host {
+    margin: 0 4px 4px 4px;
+    display: inline-block;
+    max-width: 286px;
+    min-width: 286px;
+    width: 286px;
+}
+
+img {
+    width: 286px;
+}
+
+.content {
+    padding: 10px;
+
+    .title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        display: flex;
+
+        a {
+            color: #333;
+        }
+
+        .space {
+            flex-grow: 1;
+        }
+    }
+
+    .meta-content {
+        .meta {
+            padding-bottom: 5px;
+
+            &:last-child {
+                padding: 0;
+            }
+
+            i {
+                margin-right: 6px;
+            }
+        }
+    }
+}
+
+.stats {
+    background-color: #ededed;
+    display: flex;
+    padding: 10px;
+
+    .cell {
+        flex-grow: 1;
+        text-align: center;
+        border-right: 1px solid #ccc;
+
+        &:last-child {
+            border: 0;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+
+        .desc {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #999;
+            font-size: 12px;
+        }
+    }
+}
+
+.dropdown-menu {
+    margin-left: -140px;
+    margin-top: -3px;
+}
+
+:host /deep/ {
+    va-card {
+        .wrapper {
+            padding: 0;
+        }
+    }
+}

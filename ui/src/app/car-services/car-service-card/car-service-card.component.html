@@ -1,0 +1,41 @@
+<va-card>
+    <va-card-content>
+        <div class="content">
+            <div class="title">
+                <a [routerLink]="['/services/', service.id]">{{service.name}}</a>
+                <span class="space"></span>
+                <div>
+                    <div dropdown container="body">
+                        <i dropdownToggle class="icon-more-vertical dropdown-toggle"></i>
+                        <ul *dropdownMenu class="dropdown-menu" role="menu">
+                            <li role="menuitem">
+                                <a class="dropdown-item" (click)="deleted.emit(service)">Odstranit</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="meta-content">
+                <div class="meta">
+                    <i class="icon-earth"></i>
+                    <a *ngIf="!!service.web" [href]="service.web" target="_blank">{{service.web}}</a>
+                    <span *ngIf="!service.web">-</span>
+                </div>
+                <div class="meta">
+                    <i class="icon-phone"></i>
+                    {{service.phone || '-'}}
+                </div>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="cell">
+                <div class="value">{{service.repairCount | formatNumber}}</div>
+                <div class="desc">Počet servisů</div>
+            </div>
+            <div class="cell">
+                <div class="value">{{service.repairCosts | price}}</div>
+                <div class="desc">Celkové náklady</div>
+            </div>
+        </div>
+    </va-card-content>
+</va-card>

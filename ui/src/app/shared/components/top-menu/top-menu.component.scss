@@ -1,0 +1,123 @@
+
+:host {
+    display: block;
+    box-shadow: 0px 1px 4px rgba(203, 203, 203, 0.7);
+}
+
+.top-menu {
+    height: 40px;
+    display: flex;
+    // border-bottom: 1px solid #ddd;
+    background-color: #ffffff;
+
+    .menu {
+        flex-grow: 1;
+    }
+
+    .user {
+        flex-grow: 0;
+        margin: auto 0;
+        padding: 0 20px;
+
+        .user-name {
+            display: inline-block;
+        }
+
+        .logout {
+            cursor: pointer;
+            margin-left: 10px;
+            color: blue;
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0px 20px;
+        
+        margin: 0;
+
+        li {
+            display: inline-block;
+
+            a {
+                display: block;
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+                padding: 10px 20px;
+
+                &:hover {
+                    background-color: #eee;
+                }
+            }
+        }
+    }
+}
+
+i.icon-menu-dash {
+    line-height: 40px;
+    margin-left: 10px;
+    font-size: 28px;
+    display: none;
+}
+
+.fog {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0.5;
+}
+
+.side-menu {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    font-size: 16px;
+
+    .menu-content {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 75%;
+        background-color: #fff;
+
+        .user-name {
+            padding: 10px 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 10px 10px;
+
+                &.logout {
+                    border-top: 1px solid #ccc;
+                    border-bottom: 1px solid #ccc;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 510px) {
+    i.icon-menu-dash {
+        display: inline-block;
+    }
+
+    .menu-ul {
+        display: none;
+    }
+
+    .user {
+        display: none;
+    }
+}

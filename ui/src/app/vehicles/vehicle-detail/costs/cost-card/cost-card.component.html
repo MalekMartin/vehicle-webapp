@@ -1,0 +1,38 @@
+<va-card class="cost">
+    <va-card-left>
+        <div class="color-bar"
+            [style.backgroundColor]="'#' + cost.category.color"></div>
+    </va-card-left>
+    <va-card-title>
+        <div class="footer">
+            <div class="odo">
+                <span>{{cost.date | moment: 'DD.MM.YYYY'}}</span>
+                <span>{{cost.odo | formatNumber}} {{units}}</span>
+                <span *ngIf="!!units2">{{cost.odo2 | formatNumber}} {{units2}}</span>
+                
+            </div>
+            <div class="spacer"></div>
+            <div class="price">
+                <span>{{cost.totalPrice | price}}</span>
+            </div>
+        </div>
+    </va-card-title>
+    <va-card-content>
+        <div class="card-header">
+                <strong>{{cost.category.title}}</strong> &raquo;
+                <span class="cost-title">{{cost.title}}</span>
+            </div>
+        <div class="note">{{cost.note}}</div>
+    </va-card-content>
+
+    <va-card-footer>
+        <div class="actions">
+            <a class="action-button" [routerLink]="['./', { outlets: {'popup':['m','edit', cost.id]}}]">
+                Upravit
+            </a>
+            <a (click)="delete(cost)" class="action-button delete">
+                Smazat
+            </a>
+        </div>
+    </va-card-footer>
+</va-card>

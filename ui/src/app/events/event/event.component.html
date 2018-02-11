@@ -1,0 +1,55 @@
+<va-card>
+        <va-card-content>
+            <div class="wrapper">
+                <div class="prefix">
+                    <i [ngClass]="{'icon-gas': event.type === 'FUEL', 'icon-money': event.type === 'COST' || event.type === 'NEW_TIRE',
+                        'icon-wrench': event.type === 'TIRE_CHANGE', 'icon-verified': event.type === 'TK'}"></i>
+                </div>
+                <div class="body">
+                    <div class="vehicle">
+                        <!--<va-initials [text]="event.brand" [charSize]="1" size="s"></va-initials>-->
+                        {{event.brand}} {{event.model}}
+                    </div>
+    
+                    <div class="flex-row date-price">
+                        <div class="date">
+                            {{event.date | moment: 'DD.MM.YYYY'}}
+                        </div>
+                        <div class="price">
+                            {{event.price | price}}
+                        </div>
+                    </div>
+    
+                    <div class="odo">
+                        <span *ngIf="!!event.mileage">
+                            <i class="icon-meter"></i> {{event.mileage | formatNumber}} km
+                        </span>
+                        <span *ngIf="!!event.engineHours">
+                            <i class="icon-stopwatch"></i> {{event.engineHours | formatNumber}} mh
+                        </span>
+                        <span *ngIf="event.type === 'FUEL'">
+                            <i class="icon-gas"></i> {{event.quantity | formatNumber}} l
+                        </span>
+                    </div>
+    
+                    <div *ngIf="event.type === 'COST'">
+                        <b>{{event.category}}</b> - {{event.title}}
+                    </div>
+    
+                    <div *ngIf="event.type === 'NEW_TIRE'">
+                        <b>Nové pneu</b> - {{event.tire}} ({{event.quantity}} ks)
+                    </div>
+    
+                    <div *ngIf="event.type === 'TIRE_CHANGE'" class="tire-change">
+                        <b>výměna pneu</b> - {{event.tire}} <i [ngClass]="{'icon-arrow-up': event.status === 'ACTIVE',
+                            'icon-arrow-down': event.status === 'STOCK'}"></i>
+                    </div>
+    
+                    <div *ngIf="event.type === 'TK'">
+                        <b>Technická kontrola</b>
+                        <span *ngIf="event.stationId"> - provedena v <a>{{event.station}}</a></span>
+                    </div>
+                </div>
+            </div>
+        </va-card-content>
+    </va-card>

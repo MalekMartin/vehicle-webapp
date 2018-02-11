@@ -1,0 +1,20 @@
+@import "../style/app.theme";
+@import "../style/app.icons";
+
+html {
+    
+    body {
+        min-width: 300px;
+
+        va-top-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        main {
+            margin-top: 40px;
+        }
+    }
+}

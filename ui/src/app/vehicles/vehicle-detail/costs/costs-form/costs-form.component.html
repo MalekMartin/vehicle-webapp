@@ -1,0 +1,69 @@
+<va-routed-modal-content (cancel)="back()" size="modal-md">
+    <span *ngIf="!!id" vaRoutedModalContentTitle>Úprava nákladů</span>
+    <span *ngIf="!id" vaRoutedModalContentTitle>Nové náklady</span>
+
+    <div vaRoutedModalContentBody>
+
+        <form [formGroup]="form" (submit)="form.valid && save()">
+            <div class="row">
+                <va-form-item [control]="form.get('category')" class="col-sm-4">
+                    <label for="category">Kategorie:</label>
+                    <select type="text" id="category" class="form-control" formControlName="category">
+                        <option *ngFor="let category of categories" [value]="category.id">{{category.title}}</option>
+                    </select>
+                </va-form-item>
+                <va-form-item [control]="form.get('title')" class="col-sm-8">
+                    <label for="title">Název:</label>
+                    <input type="text" id="title" class="form-control" formControlName="title">
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('note')" class="col-sm-12">
+                    <label for="note">Poznámka:</label>
+                    <textarea type="text" id="note" class="form-control" formControlName="note"></textarea>
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('quantity')" class="col-sm-4">
+                    <label for="quantity">Množství:</label>
+                    <input type="text" id="quantity" class="form-control" formControlName="quantity">
+                </va-form-item>
+                <va-form-item [control]="form.get('pricePerItem')" class="col-sm-4">
+                    <label for="pricePerItem">Cena za kus:</label>
+                    <input type="text" id="pricePerItem" class="form-control" formControlName="pricePerItem">
+                </va-form-item>
+                <va-form-item [control]="form.get('totalPrice')" class="col-sm-4">
+                    <label for="totalPrice">Celková cena:</label>
+                    <input type="text" id="totalPrice" class="form-control" formControlName="totalPrice" [(ngModel)]="totalPrice">
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('odo')" class="col-sm-4">
+                    <label for="odo">ODO ({{units}}):</label>
+                    <input type="text" id="odo" class="form-control" formControlName="odo">
+                </va-form-item>
+                <va-form-item *ngIf="!!units2" [control]="form.get('odo2')" class="col-sm-4">
+                    <label for="odo2">ODO ({{units2}}):</label>
+                    <input type="text" id="odo2" class="form-control" formControlName="odo2">
+                </va-form-item>
+                <va-form-item [control]="form.get('date')" class="col-sm-4">
+                    <label for="date">Datum:</label>
+                    <va-date-picker type="text" id="date" formControlName="date"></va-date-picker>
+                </va-form-item>
+            </div>
+        </form>
+    </div>
+
+    <div vaRoutedModalContentFooter>
+        <!-- <div class="row">
+            <div class="col-sm-12"> -->
+                <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+                <button type="submit" class="btn btn-primary"
+                    [class.disabled]="!form.valid" (click)="form.valid && save()">Uložit</button>
+            <!-- </div>
+        </div> -->
+    </div>
+</va-routed-modal-content>

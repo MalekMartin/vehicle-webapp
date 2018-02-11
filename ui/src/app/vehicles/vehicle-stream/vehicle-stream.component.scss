@@ -1,0 +1,56 @@
+.vehicle-wrapper {
+
+    .header {
+        display: flex;
+
+        h1 {
+            flex-grow: 0;
+        }
+
+        .spacer {
+            flex-grow: 1;
+        }
+
+        .search {
+            flex-grow: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+
+    .actions {
+        margin-bottom: 10px;
+        text-align: right;
+
+        a {
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+    }
+
+    .events {
+        margin: 10px 0;
+
+        va-vehicle-event {
+            margin-bottom: 3px;
+        }
+    }
+
+    va-vehicle-add {
+        display: block;
+        padding: 10px 0;
+        border-bottom: 2px solid #eee;
+        margin-bottom: 10px;
+    }
+
+    .vehicle-cards {
+        text-align: center;
+
+        va-vehicle-card {
+            width: 286px;
+            margin: 0px 4px 0px 4px;
+        }
+    }
+    
+}

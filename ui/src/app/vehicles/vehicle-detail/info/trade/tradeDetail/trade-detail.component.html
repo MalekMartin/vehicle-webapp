@@ -1,0 +1,43 @@
+<div class="basic-details" *ngIf="trade">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{{trade.company}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h4>{{trade.date | moment: 'DD.MM.YYYY'}}</h4>
+        </div>
+
+        <div class="col-md-4">
+            <h4>{{trade.odo | formatNumber}} km</h4>
+        </div>
+
+        <div class="col-md-4">
+            <h4>{{trade.price | price: 'Kč'}}</h4>
+        </div>
+    </div>
+</div>
+<div class="more-details">
+    <div class="row">
+        <div class="col-md-3">Kontaktní osoba:</div>
+        <div class="col-md-3">{{trade.contactPerson}}</div>
+        <div class="col-md-3">Telefon:</div>
+        <div class="col-md-3">{{trade.phone}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">Adresa:</div>
+        <div class="col-md-3">
+            {{trade.address}}<br>
+            {{trade.zipCode}} {{trade.city}}
+        </div>
+        <div class="col-md-3">Email:</div>
+        <div class="col-md-3">{{trade.email}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Poznámky</div>
+        <div class="col-md-9">{{trade.notes}}</div>
+    </div>
+
+</div>

@@ -1,0 +1,70 @@
+<va-routed-modal-content (cancel)="cancel()" size="modal-md">
+    <span *ngIf="!!id" vaRoutedModalContentTitle>Úprava tankování</span>
+    <span *ngIf="!id" vaRoutedModalContentTitle>Nové tankování</span>
+
+    <div vaRoutedModalContentBody>
+        <form [formGroup]="form" (submit)="form.valid && save()">
+            <div class="row">
+                <va-form-item [control]="form.get('date')" class="col-md-6">
+                    <label for="date">Datum provedení:</label>
+                    <va-date-picker id="date" formControlName="date"></va-date-picker>
+                </va-form-item>
+                <va-form-item [control]="form.get('expirationDate')" class="col-md-6">
+                    <label for="expirationDate">Datum platnosti:</label>
+                    <va-date-picker id="expirationDate" formControlName="expirationDate"></va-date-picker>
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('price')" class="col-md-6">
+                    <label for="price">Cena:</label>
+                    <input type="text" id="price" class="form-control" formControlName="price">
+                </va-form-item>
+                <va-form-item [control]="form.get('repeated')" class="col-md-6">
+                    <label for="repeated">Opakovaná:</label>
+                    <va-checkbox id="repeated" formControlName="repeated"></va-checkbox>
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('odo')" class="col-md-6">
+                    <label for="odo">ODO ({{units}}):</label>
+                    <input type="text" id="odo" class="form-control" formControlName="odo">
+                </va-form-item>
+                <va-form-item *ngIf="subUnits" [control]="form.get('odo2')" class="col-md-6">
+                    <label for="odo2">ODO ({{subUnits}}):</label>
+                    <input type="text" id="odo2" class="form-control" formControlName="odo2">
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('station')" class="col-md-12">
+                    <label for="station">Stanice TK:</label>
+                    <select id="station" class="form-control" formControlName="stationId">
+                        <option *ngFor="let station of allStations" [value]="station.id">{{station.name}}</option>
+                    </select>
+                </va-form-item>
+            </div>
+
+            <div class="row">
+                <va-form-item [control]="form.get('note')" class="col-md-12">
+                    <label for="note">Poznámka:</label>
+                    <textarea class="form-control" formControlName="note"></textarea>
+                </va-form-item>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Uložit</button>
+                </div>
+            </div> -->
+        </form>
+    </div>
+    <div vaRoutedModalContentFooter>
+        <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+        <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="save()">
+            Uložit
+        </button>
+    </div>
+</va-routed-modal-content>

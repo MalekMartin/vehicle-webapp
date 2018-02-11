@@ -1,0 +1,112 @@
+.cost {
+    margin: 0px 5px 5px 0px;
+
+    .color-bar {
+        width: 4px;
+        margin-right: 5px;
+        display: flex;
+    }
+
+    .icon-menu-dots {
+        cursor: pointer;
+        display: block;
+        position: relative;
+        top: -6px;
+    }
+
+    .dropdown-menu {
+        
+        width: 150px;
+        margin-left: -140px;
+        margin-top: -2px;
+
+        .menu-item {
+            cursor: pointer;
+        }
+    }
+
+    .card-header {
+        font-size: 14px;
+
+        .cost-title {
+            color: #555;
+        }
+    }
+
+    .color {
+        flex-grow: 0;
+        width: 5px;
+    }
+
+    .footer {
+        display: flex;
+
+        .odo {
+            flex-grow: 0;
+            span {
+                font-weight: bold;
+                padding-right: 10px;
+                margin-right: 5px;
+                border-right: 1px solid #666;
+
+                &:last-child {
+                    border-right: 0;
+                }
+            }
+        }
+
+        .spacer {
+            flex-grow: 1;
+        }
+
+        .price {
+            flex-grow: 0;
+            font-weight: bold;
+        }
+
+    }
+}
+
+.actions {
+    // text-align: right;
+    margin-top: 12px;
+
+    .action-button {
+        line-height: 36px;
+        padding: 0 8px;
+        margin-right: 8px;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 2px;
+        display: inline-block;
+        color: rgb(0, 162, 255);
+        // transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        transition: all 0.1s ease-in;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #ddd;
+        }
+
+        &.delete {
+            color: #333;
+
+            &:hover {
+                background-color: rgba(255,0,0,0.1);
+                color: #c20000;
+            }
+        }
+    }
+}
+
+:host /deep/ {
+    va-card-left {
+        display: flex;
+    }
+    va-card {
+        .left-part {
+            display: flex;
+        }
+    }
+}

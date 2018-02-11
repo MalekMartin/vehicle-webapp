@@ -1,0 +1,67 @@
+<div class="v-card">
+    <div class="row">
+        <div class="col-md-12">
+            <va-section-heading>
+                <va-section-heading-title>{{!!repair ? repair.title : 'Nahrávám detail opravy...'}}</va-section-heading-title>
+                <va-section-heading-controls *ngIf="!!repair">
+                    <a class="edit-button" (click)="edit($event)">Upravit</a>
+                    <a class="edit-button" (click)="addTask($event)">Přidat položku</a>
+                </va-section-heading-controls>
+            </va-section-heading>
+        </div>
+    </div>
+    <div class="row" *ngIf="!!repair">
+        <div class="col-sm-3">
+            <div class="table-wrapper">
+                <table class="repair-details">
+                    <tr>
+                        <td class="col-label">Servis:</td>
+                        <td class="value"><a [routerLink]="['/services/' + repair.garageId]">{{repair.garageName}}</a></td>
+                    </tr>
+                    <tr>
+                        <td class="col-label">Nájezd:</td>
+                        <td class="value">
+                            <div class="mileage">
+                                <span>{{repair.odo | formatNumber}} km</span>
+                                <span *ngIf="!!repair.engineHours">{{repair.odo2 | formatNumber}} mh</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-label">Datum:</td>
+                        <td class="value">{{repair.date | moment: 'DD.MM.YYYY'}}</td>
+                    </tr>
+                    <tr *ngIf="!!repair.notes">
+                        <td colspan="2">{{repair.notes}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-9">
+            <va-repair-tasks [repair]="repair" (editTask)="editTask($event)"></va-repair-tasks>
+        </div>
+    </div>
+</div>
+
+<div bsModal #modal="bs-modal" class="modal fade"
+    tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
+    (onHidden)="closeModal()">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    <span *ngIf="!selectedTask || !selectedTask.id">Přidat položku</span>
+                    <span *ngIf="selectedTask && selectedTask.id">Upravit položku</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <va-repair-task-form [repair]="repair" [task]="selectedTask"
+                    (saved)="onTaskSave()" (canceled)="closeModal()"></va-repair-task-form>
+            </div>
+        </div>
+    </div>
+</div>

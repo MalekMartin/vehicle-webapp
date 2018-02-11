@@ -1,0 +1,15 @@
+<div class="header">
+    <h3>{{title}}</h3>
+    <i class="icon-edit" (click)="showForm = true"></i>
+</div>
+
+<va-trade-form *ngIf="showForm && trade" [type]="type" [data]="trade"
+    (canceled)="cancel()" (updated)="save($event)"></va-trade-form>
+
+<div *ngIf="!!trade.company">
+    <va-trade-detail *ngIf="!showForm" [trade]="trade"></va-trade-detail>
+</div>
+
+<div *ngIf="!trade.company && !showForm" class="no-record">
+    Neobsahuje žádne info...
+</div>

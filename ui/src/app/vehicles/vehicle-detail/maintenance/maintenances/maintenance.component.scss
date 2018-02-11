@@ -1,0 +1,84 @@
+
+:host {
+    display: block;
+    padding-bottom: 20px;
+}
+
+.flex-row {
+    display: flex;
+
+    .flex-0 {
+        flex-grow: 0;
+    }
+    
+    .flex-1 {
+        flex-grow: 1;
+    }
+
+    .add {
+        margin: auto 0;
+        color: #ccc;
+        cursor: pointer;
+
+        &:hover {
+            color: #666;
+        }
+    }
+
+    .spacer {
+        padding: 0 15px;
+    }
+}
+
+.actions {
+    a {
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        margin-right: 10px;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        &.cancel {
+            color: #666;
+        }
+
+        &.active {
+            color: red;
+        }
+
+        &.disabled {
+            cursor: not-allowed;
+            color: #ccc;
+        }
+    }
+}
+
+.filters {
+
+    display: flex;
+    margin-bottom: 10px;
+
+    .filter {
+        flex-grow: 1;
+
+        &:nth-child(odd) {
+            margin-right: 3px;
+        }
+
+        &:nth-child(even) {
+            margin-left: 3px;
+        }
+    }
+}
+
+.intervals {
+    margin: 5px 0px;
+
+    va-maintenance-card {
+        display: block;
+        margin: 5px 0px 5px 0px;
+    }
+}

@@ -1,0 +1,57 @@
+.content {
+    overflow: hidden;
+}
+
+.properties {
+    margin-top: 15px;
+    width: 100%;
+    // border: 1px solid #ccc;
+}
+.property {
+    padding: 10px 0;
+    height: 40px;
+
+    td {
+        border-bottom: 1px solid #ccc;
+
+        &:first-child {
+            padding-left: 8px;
+        }
+    }
+
+    &:first-child {
+
+        td {
+            border-top: 1px solid #ccc;
+        }
+    }
+
+    .name {
+        color: #777;
+        flex-grow: 1;
+    }
+
+    .value {
+        // flex-grow: 1;
+    }
+
+    .controls {
+        width: 54;
+        padding-right: 8px;
+        text-align: right;
+
+        .control {
+            display: inline-block;
+            margin-left: 6px;
+            cursor: pointer;
+        }
+    }
+}
+
+.icon-edit, .icon-bin {
+    // transition: all 0.1s linear;
+
+    // &:hover {
+    //     font-size: 20px;
+    // }
+}

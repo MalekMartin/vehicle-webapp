@@ -1,0 +1,6 @@
+<div class="header">
+    <h3>Motor</h3>
+    <i class="icon-edit" (click)="engineEdit = true"></i>
+</div>
+<va-engine-detail *ngIf="!engineEdit" [engine]="engine"></va-engine-detail>
+<va-engine-form *ngIf="engineEdit" [engine]="engine" (engineUpdated)="save($event)" (engineCanceled)="cancel()"></va-engine-form>

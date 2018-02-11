@@ -1,0 +1,37 @@
+
+:host {
+    display: block;
+    padding-bottom: 20px;
+}
+
+va-repair-card {
+    margin-bottom: 4px;
+    display: block;
+}
+
+.no-record {
+    font-size: 20px;
+    color: #ccc;
+    padding: 15px 0;
+}
+
+.repairs-list {
+    margin: 5px 0;
+}
+
+form {
+    display: flex;
+    margin-bottom: 10px;
+
+    div {
+        flex-grow: 1;
+
+        &:first-child {
+            margin-right: 3px;
+        }
+
+        &:last-child {
+            margin-left: 3px;
+        }
+    }
+}

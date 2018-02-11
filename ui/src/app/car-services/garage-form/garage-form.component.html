@@ -1,0 +1,52 @@
+<form [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        <va-form-item class="col-md-12" [control]="form.controls.name">
+            <label for="name">Název:</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item class="col-md-12" [control]="form.controls.address">
+            <label for="address">Adresa:</label>
+            <input type="text" id="address" class="form-control" formControlName="address">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item class="col-md-6" [control]="form.controls.city">
+            <label for="city">Město:</label>
+            <input type="text" id="city" class="form-control" formControlName="city">
+        </va-form-item>
+        <va-form-item class="col-md-6" [control]="form.controls.zipCode">
+            <label for="zipCode">PSČ:</label>
+            <input type="text" id="zipCode" class="form-control" formControlName="zipCode">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item class="col-md-6" [control]="form.controls.web">
+            <label for="web">Web:</label>
+            <input type="text" id="web" class="form-control" formControlName="web">
+        </va-form-item>
+
+        <va-form-item class="col-md-6" [control]="form.controls.phone">
+            <label for="phone">Telefon:</label>
+            <input type="text" id="phone" class="form-control" formControlName="phone">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item class="col-md-12" [control]="form.controls.notes">
+            <label for="notes">notes:</label>
+            <textarea type="text" id="notes" class="form-control" formControlName="notes"></textarea>
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Uložit</button>
+        </div>
+    </div>
+</form>

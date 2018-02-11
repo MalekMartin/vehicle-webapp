@@ -1,0 +1,26 @@
+<div class="wrapper">
+    <div class="left-part">
+        <ng-content select="va-card-left"></ng-content>
+    </div>
+    <div class="middle-part">
+        <div class="body">
+            <div class="content">
+                <div class="title">
+                    <ng-content select="va-card-title"></ng-content>
+                </div>
+                <div class="card-content">
+                    <ng-content select="va-card-content"></ng-content>
+                </div>
+            </div>
+            <div class="menu">
+                <ng-content select="va-card-menu"></ng-content>
+            </div>
+        </div>
+        <div class="footer">
+            <ng-content select="va-card-footer"></ng-content>
+        </div>
+    </div>
+    <div class="right-part">
+        <ng-content select="va-card-right"></ng-content>
+    </div>
+</div>

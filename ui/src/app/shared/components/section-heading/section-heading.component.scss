@@ -1,0 +1,26 @@
+h3 {
+    display: flex;
+    flex-wrap: wrap;
+
+    .heading {
+        flex-grow: 1;
+    }
+
+    .controls {
+        font-size: 14px;
+        text-transform: uppercase;
+        margin: auto 0;
+        padding: 5px 0;
+
+        /deep/ a {
+            display: inline-block;
+            margin-left: 10px;
+            cursor: pointer;
+            text-decoration: none;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+}

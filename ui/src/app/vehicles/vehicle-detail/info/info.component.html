@@ -1,0 +1,39 @@
+<h3>Informace o vozidle</h3>
+
+<div *ngIf="loading" class="loading">
+    <i class="icon-refresh spin"></i>
+</div>
+
+<div *ngIf="vehicle">
+    <div class="col-md-6">
+        <va-card>
+            <va-card-content>
+                <va-info-general [info]="vehicle.info" class="v-card"></va-info-general>
+            </va-card-content>
+        </va-card>
+    </div>
+
+    <div class="col-md-6">
+        <va-card>
+            <va-card-content>
+                <va-engine [engine]="vehicle.engine" class="v-card"></va-engine>
+            </va-card-content>
+        </va-card>
+    </div>
+
+    <div class="col-md-6">
+        <va-card *ngIf="vehicle.seller">
+            <va-card-content>
+                <va-trade [trade]="vehicle.seller" type="seller" class="v-card"></va-trade>
+            </va-card-content>
+        </va-card>
+    </div>
+
+    <div class="col-md-6">
+        <va-card *ngIf="vehicle.buyer">
+            <va-card-content>
+                <va-trade  [trade]="vehicle.buyer" type="buyer" class="v-card"></va-trade>
+            </va-card-content>
+        </va-card>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+.inspection {
+    // border: 1px solid #bbb;
+    // padding: 10px 12px;
+    // margin: 5px 2px 0px 0px;
+    // box-shadow: 2px 2px 3px #ddd;
+
+    va-card-footer {
+        margin-top: 10px;
+        display: block;
+    }
+
+    .flex-row {
+        display: flex;
+
+        .value {
+            flex-grow: 0;
+            font-weight: bold;
+
+            &.title {
+                display: flex;
+
+                span {
+                    margin-left: 8px;
+                    padding-left: 10px;
+                    border-left: 1px solid #999;
+
+                    &:first-child {
+                        margin-left: 0;
+                        padding-left: 0;
+                        border: 0;
+                    }
+                }
+            }
+
+            // &>i {
+            //     margin-left: 8px;
+            // }
+        }
+
+        .separator {
+            flex-grow: 1;
+        }
+    }
+
+    .vertical {
+        margin: auto 0;
+    }
+
+    .validity {
+        font-size: 20px;
+        margin-right: 10px;
+        // margin-left: 10px;
+
+        .status {
+            display: block;
+            // width: 40px;
+            // height: 40px;
+            // line-height: 40px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .icon-check-black {
+            color: limegreen;
+        }
+        .icon-error-black {
+            color: red;
+        }
+    }
+    .icon-bin {
+        cursor: pointer;
+    }
+
+    .actions {
+        margin-top: 12px;
+
+        a {
+            line-height: 36px;
+            padding: 0 8px;
+            margin-right: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            display: inline-block;
+            color: #333;
+            // transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ddd;
+            }
+
+            &.delete {
+                &:hover {
+                    background-color: rgba(255,0,0,0.1);
+                    color: #c20000;
+                }
+            }
+        }
+    }
+}

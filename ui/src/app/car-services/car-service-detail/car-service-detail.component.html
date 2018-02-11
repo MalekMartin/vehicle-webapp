@@ -1,0 +1,58 @@
+<div class="col-md-12">
+
+    <div class="row">
+        <div class="col-sm-6">
+
+            <div *ngIf="service" class="info">
+                <h3>{{service.name}}</h3>
+
+                <div class="contact-info">
+                    <div class="column">
+                        <div>{{service.address}}</div>
+                        <div>{{service.city}}</div>
+                        <div>{{service.zipCode}}</div>
+                    </div>
+                    <div class="column">
+                        <div *ngIf="service.phone"><i class="icon-phone"></i> {{service.phone}}</div>
+                        <div *ngIf="service.web">
+                            <i class="icon-earth"></i>
+                            <a [href]="service.web">{{service.web}}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!!service.notes" class="notes">
+                    {{service.notes}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <h3 class="repairs-title">Provedené opravy</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Název opravy</th>
+                        <th>Vozidlo</th>
+                        <th class="tex-right hidden-xs">Nájed</th>
+                        <th class="text-right">Cena</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="repairs">
+                    <tr *ngFor="let repair of repairs">
+                        <td>{{repair.date | moment: 'DD.MM.YYYY'}}</td>
+                        <td><a [routerLink]="['/vehicle', repair.vehicleId, 'repairs', repair.id]">{{repair.title}}</a></td>
+                        <td><a [routerLink]="['/vehicle', repair.vehicleId]">{{repair.brand + ' ' + repair.model}}</a></td>
+                        <td class="hidden-xs">
+                            <div class="text-right">{{repair.odo | formatNumber: repair.units}}</div>
+                            <div class="text-right" *ngIf="!!repair.subUnits">{{repair.odo2 | formatNumber: repair.subUnits}}</div>
+                        </td>
+                        <td class="text-right">{{repair.totalPrice | price}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>

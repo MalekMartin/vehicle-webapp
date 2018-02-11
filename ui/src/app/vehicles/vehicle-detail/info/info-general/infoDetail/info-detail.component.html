@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-3">Rok výroby:</div>
+    <div class="col-md-3">{{info.manufactureYear}}</div>
+    <div class="col-md-3">Počet předch. majitelů:</div>
+    <div class="col-md-3 owners" tooltip="{{info.previousOwners}}">
+        <i class="icon-man" *ngFor="let i of owners"></i>
+        <span *ngIf="info.previousOwners == 0">0</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">SPZ:</div>
+    <div class="col-md-9">{{info.spz}}</div>
+</div>
+<div class="row">
+    <div class="col-md-3">Poznámky:</div>
+    <div class="col-md-9">{{info.notes}}</div>
+</div>

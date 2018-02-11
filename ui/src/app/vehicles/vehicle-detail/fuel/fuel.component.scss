@@ -1,0 +1,44 @@
+@import "../../../../style/theme/conf.scss";
+
+:host {
+    // .row {
+    //     background-color: #ccc;
+    // }
+    
+    display: block;
+    padding-bottom: 20px;
+
+}
+
+.controls {
+    margin-bottom: 10px;
+    
+    a {
+        cursor: pointer;
+    }
+}
+
+.loading-bar {
+    text-align: center;
+    font-size: 16px;
+    padding: 20px 0;
+}
+
+.no-record {
+    font-size: 20px;
+    color: #ccc;
+}
+
+.fuelings {
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    va-fuel-card {
+        margin-bottom: 3px;
+        display: block;
+    }
+}
+
+.fueling-block {
+    margin-bottom: 16px;
+}

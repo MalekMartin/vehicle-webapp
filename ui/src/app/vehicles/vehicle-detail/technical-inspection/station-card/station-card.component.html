@@ -1,0 +1,26 @@
+<va-card>
+    <va-card-content>
+        <div class="title">{{station.name}}</div>
+        <div *ngIf="station.address">{{station.address}}</div>
+        <div *ngIf="station.zipCode || station.city">
+            {{station.zipCode}} {{station.city}}
+        </div>
+        <div *ngIf="station.phone || station.web" class="phone-web">
+            <div>
+                <i class="icon-mobile"></i>
+                {{station.phone}}
+            </div>
+            <div>
+                <i class="icon-earth"></i>
+                <a [href]="station.web" target="_blank">{{station.web}}</a>
+            </div>
+        </div>
+        <div class="notes">
+            {{station.notes}}
+        </div>
+    </va-card-content>
+    <va-card-menu>
+        <i class="icon-edit" (click)="edit(station)"></i>
+        <i class="icon-bin" (click)="onDelete(station)"></i>
+    </va-card-menu>
+</va-card>

@@ -1,0 +1,14 @@
+@import "../../../../../style/theme/conf.scss";
+
+tfoot {
+    td {
+        font-weight: bold;
+    }
+}
+
+tbody {
+    .no-results {
+        text-align: center;
+        color: #666;
+    }
+}

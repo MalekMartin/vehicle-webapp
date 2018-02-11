@@ -1,0 +1,51 @@
+.preview {
+
+    padding: 10px;
+
+    .content {
+        margin-bottom: 15px;
+    }
+
+    .header {   
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+    }
+
+    i {
+        color: #ccc;
+    }
+
+    .notes {
+        color: #999;
+        font-style: italic;
+        margin-top: 15px;
+
+    }
+
+    .footer {
+        text-align: right;
+        .price {
+            display: inline-block;
+            padding: 4px 10px;
+            color: white;
+            background-color: #444;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+    }
+
+    .no-record {
+        font-size: 20px;
+        color: #ccc;
+        text-align: center;
+        padding: 40px 0;
+    }
+    .icon-arrow-up {
+        color: limegreen;
+    }
+    .icon-arrow-down {
+        color: red;
+    }
+}

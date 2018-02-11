@@ -1,0 +1,18 @@
+<ng-container *ngIf="!loading; else loadingRef">
+    <div [ngSwitch]="status">
+        <div *ngSwitchCase="'VALID'">
+            <va-activation-form></va-activation-form>
+        </div>
+        <div *ngSwitchDefault>
+            <va-activation-status [status]="status"></va-activation-status>
+        </div>
+        <!-- <div *ngSwitchCase="'NOT_FOUND'">
+        </div>
+        <div *ngSwitchCase="'EXPIRED'">Platnost kódu vypršela</div>
+        <div *ngSwitchCase="'ERROR'">Chyba při ověřování</div> -->
+    </div>
+</ng-container>
+
+<ng-template #loadingRef>
+    Ověřuji aktivační kód
+</ng-template>

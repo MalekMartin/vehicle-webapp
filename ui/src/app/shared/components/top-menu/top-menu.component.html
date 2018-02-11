@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="top-menu">
+            <div class="menu">
+                <ul class="menu-ul">
+                    <li><a [routerLink]=" ['/']">Přehled vozidel</a></li>
+                    <li><a [routerLink]="['/events']">Události</a></li>
+                    <li><a [routerLink]="['/services']">Servisy</a></li>
+                </ul>
+                <i class="icon-menu-dash"
+                    (click)="toggleMenu()"></i>
+            </div>
+            <div class="user">
+                <div class="user-name" *ngIf="user">
+                    <va-initials [text]="user.firstName" size="s" [charSize]="1"></va-initials>
+                    {{user.firstName}}
+                </div>
+                <span class="logout" (click)="logout()">Odhlásit</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="side-menu" [@toggle]="menuState">
+    <div class="fog" (click)="hide()" [@toggleFog]="menuState"></div>
+    <div class="menu-content">
+        <div class="user-name" *ngIf="user">
+            <va-initials [text]="user.firstName" size="s" [charSize]="1"></va-initials>
+            {{user.firstName}}
+        </div>
+        <ul (click)="hide()">
+            <li><a [routerLink]=" ['/']">Přehled vozidel</a></li>
+            <li><a [routerLink]="['/events']">Události</a></li>
+            <li><a [routerLink]="['/services']">Servisy</a></li>
+            <li class="logout"><span class="logout" (click)="logout()">Odhlásit</span></li>
+        </ul>
+    </div>
+</div>

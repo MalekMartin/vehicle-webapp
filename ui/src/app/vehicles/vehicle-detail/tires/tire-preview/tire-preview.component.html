@@ -1,0 +1,68 @@
+<div class="preview">
+    <!--<div class="content" *ngIf="tire?.purchaseDate">-->
+    <div class="content" *ngIf="tire">
+        <div class="header">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="title">
+                        {{tire.brand}} {{tire.model}}
+                    </div>
+                </div>
+                <div class="col-md-6 title">
+                        <i class="icon-quotes-left"></i> {{tire.description}}
+                    <i class="icon-quotes-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">{{tire.dimensions}}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">DOT:</div>
+            <div class="col-md-3">{{tire.dot}}</div>
+            <div class="col-md-3">Datum koupě:</div>
+            <div class="col-md-3">{{tire.purchaseDate | moment: 'DD.MM.YYYY'}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">Nájezd:</div>
+            <div class="col-md-3">{{tire.odo | formatNumber}} km</div>
+            <div class="col-md-3">Nájezd</div>
+            <div class="col-md-3">{{tire.odo2 | formatNumber}} mh</div>
+        </div>
+
+        <div class="row" *ngIf="tire.notes">
+            <div class="col-md-12 notes">
+                <i class="icon-text"></i> {{tire.notes}}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="price">{{tire.priceEach | price}}</div>
+        </div>
+    </div>
+
+    <div *ngIf="tireHistory">
+        <table class="table">
+            <tr>
+                <th>Datum výměny</th>
+                <th>ODO km</th>
+                <th>ODO mh</th>
+                <th>Stav</th>
+            </tr>
+            <tr *ngFor="let history of tireHistory">
+                <td>{{history.date | moment: 'DD.MM.YYYY'}}</td>
+                <td>{{history.odo | formatNumber}} km</td>
+                <td>{{history.odo2 | formatNumber}} mh</td>
+                <td>
+                    <i [ngClass]="{'icon-arrow-up': history.status === 'ACTIVE', 'icon-arrow-down': history.status === 'STOCK'}"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--<div *ngIf="!tire?.purchaseDate" class="no-record">
+        Vyber pneumatiku
+    </div>-->
+</div>

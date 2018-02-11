@@ -1,0 +1,64 @@
+<form [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        
+        <va-form-item class="col-md-4" [control]="form.get('brand')">
+            <label for="brand">Značka:</label>
+            <input type="text" id="brand" class="form-control" formControlName="brand">
+        </va-form-item>
+        <va-form-item class="col-md-4" [control]="form.get('model')">
+            <label for="model">Model:</label>
+            <input type="text" id="model" class="form-control" formControlName="model">
+        </va-form-item>
+        <va-form-item class="col-md-4" [control]="form.get('dimensions')">
+            <label for="dimensions">Parametry:</label>
+            <input type="text" id="dimensions" class="form-control" formControlName="dimensions"
+                placeholder="Rozměry, rychlostní index, atd.">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item class="col-md-4" [control]="form.get('description')">
+            <label for="description">Vlastní popis: <i class="icon-info" tooltip="Např.: letní, zimní, blato - přední, atd."></i></label>
+            <input type="text" id="description" class="form-control" formControlName="description">
+        </va-form-item>
+        <va-form-item class="col-md-4" [control]="form.get('dot')">
+            <label for="dot">DOT:</label>
+            <input type="text" id="dot" class="form-control" formControlName="dot">
+        </va-form-item>
+        <va-form-item class="col-md-4" [control]="form.get('purchaseDate')">
+            <label for="purchaseDate">Datum koupě:</label>
+            <va-date-picker id="purchaseDate" formControlName="purchaseDate"></va-date-picker>
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <va-form-item class="col-md-4" [control]="form.get('priceEach')">
+            <label for="priceEach">Cena za kus:</label>
+            <input type="text" id="priceEach" class="form-control" formControlName="priceEach">
+        </va-form-item>
+        <va-form-item class="col-md-4" [control]="form.get('quantity')">
+            <label for="quantity">Počet kusů:</label>
+            <input type="text" id="quantity" class="form-control" formControlName="quantity">
+        </va-form-item>
+        <va-form-item class="col-md-4" [control]="form.get('totalPrice')">
+            <label for="totalPrice">Celková cena:</label>
+            <input type="text" id="totalPrice" class="form-control" formControlName="totalPrice">
+        </va-form-item>
+        
+    </div>
+
+    <div class="row">
+        <va-form-item class="col-md-12" [control]="form.get('notes')">
+            <label for="notes">Poznámky:</label>
+            <input type="text" id="notes" class="form-control" formControlName="notes">
+        </va-form-item>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+            <button type="submit" class="btn btn-primary" [class.disabled]="!form.valid">Uložit</button>
+        </div>
+    </div>
+    
+</form>

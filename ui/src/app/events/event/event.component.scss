@@ -1,0 +1,79 @@
+:host {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.wrapper {
+    display: flex;
+    // margin-bottom: 15px;
+
+    .prefix {
+        flex-grow: 0;
+        font-size: 20px;
+        margin: auto 15px auto 0;
+
+        i {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            line-height: 30px;
+            text-align: center;
+            color: white;
+            display: inline-block;
+
+            &.icon-money {
+                background-color: green;
+            }
+
+            &.icon-gas {
+                background-color: orangered;
+            }
+
+            &.icon-wrench {
+                background-color: #1BA92A;
+                font-size: 14px;
+            }
+            &.icon-verified {
+                background-color: #1B63CB
+            }
+        }
+
+    }
+
+    .body {
+        flex-grow: 1;
+
+        .vehicle {
+            font-weight: bold;
+        }
+
+        .flex-row {
+            display: flex;
+        }
+
+        .price {
+            flex-grow: 1;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .date {
+            flex-grow: 1;
+        }
+
+        .date-price {
+            font-size: 12px;
+            color: #777;
+        }
+    }
+
+    .tire-change {
+        .icon-arrow-up {
+            color: #1BA92A;
+        }
+
+        .icon-arrow-down {
+            color: #E41B1B
+        }
+    }
+}

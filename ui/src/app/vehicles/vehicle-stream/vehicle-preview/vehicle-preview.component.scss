@@ -1,0 +1,105 @@
+va-card-content {
+    display: flex;
+}
+
+.image-wrapper {
+    width: 300px;
+    // min-width: 282px;
+    background-color: #ccc;
+    position: relative;
+    display: block;
+    text-decoration: none;
+
+    .vehicle-title {
+        position: absolute;
+        bottom: 0;
+        display: block;
+        background-color: rgba(0,0,0,0.5);
+        width: 100%;
+        color: white;
+        padding: 10px 20px;
+        font-weight: bold;
+    }
+}
+
+.image {
+    width: 100%;
+    height: auto;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.no-image {
+
+    height: 100%;
+    display: flex;
+
+    i {
+        margin: auto;
+        font-size: 24px;
+    }
+}
+
+.content {
+    padding: 10px 10px 10px 20px;
+    flex-grow: 1;
+
+    .title {
+        font-size: 26px;
+        margin-bottom: 15px;
+    }
+
+    .info-content {
+        display: flex;
+    }
+
+    .info {
+        flex-grow: 1;
+
+        .info-cell {
+            margin-right: 20px;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            color: #777777;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+    }
+
+    .odo {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #999;
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 3px;
+    }
+        
+}
+
+:host /deep/ {
+    va-card {
+        .wrapper {
+            padding: 0;
+        }
+    }
+}
+
+@media (max-width: 978px) {
+    va-card-content {
+        display: block;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

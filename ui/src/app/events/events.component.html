@@ -1,0 +1,9 @@
+<div class="col-sm-12">
+    <h1>Události</h1>
+    <va-event *ngFor="let event of events | orderByDate" [event]="event"></va-event>
+</div>
+<!--<div *ngFor="let date of events">
+    <div class="col-md-3">date</div>
+    <div class="col-md-9">
+    </div>
+</div>-->

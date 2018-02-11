@@ -1,0 +1,25 @@
+
+:host {
+    display: block;
+    padding-bottom: 20px;
+}
+
+.controls {
+    a {
+        cursor: pointer;
+    }
+}
+
+.trash {
+    display: flex;
+    flex-wrap: wrap;
+
+    va-tire-card {
+        flex-grow: 1;
+        margin-right: 8px;
+        
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}

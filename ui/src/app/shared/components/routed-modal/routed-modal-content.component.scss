@@ -1,0 +1,11 @@
+.modal-header {
+    display: flex;
+
+    h4 {
+        flex-grow: 1;
+    }
+
+    button {
+        flex-grow: 0;
+    }
+}

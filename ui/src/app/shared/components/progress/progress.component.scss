@@ -1,0 +1,35 @@
+$radius: 3px;
+$height: 18px;
+
+.wrapper {
+    line-height: $height;
+    height: $height;
+    width: 100%;
+    font-size: 12px;
+    background-color: #dddddd;
+    border-radius: $radius;
+    margin-bottom: 2px;
+    overflow: hidden;
+    box-shadow: inset 2px 2px 5px #bbb;
+
+    div {
+        height: $height;
+    }
+
+    .before {
+        display: inline-block;
+        background-color: rgb(10, 179, 55);
+        border-radius: 3px 0px 0px 3px;
+        text-align: center;
+        white-space: nowrap;
+        color: white;
+
+        &.orange {
+            background-color: rgba(255, 157, 0, 0.94);
+        }
+
+        &.red {
+            background-color: rgba(255, 0, 0, 0.69);
+        }
+    }
+}

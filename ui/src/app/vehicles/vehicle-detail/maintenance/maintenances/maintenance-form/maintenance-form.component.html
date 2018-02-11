@@ -1,0 +1,46 @@
+<form [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        <div class="col-sm-12">
+            <va-form-item [control]="form.controls.intervalId">
+                <label for="intervalId">Interval:</label>
+                <select id="intervalId" class="form-control" formControlName="intervalId">
+                    <ng-container *ngIf="!selected || !selected.id">
+                        <option *ngFor="let interval of intervals" [value]="interval.id">{{interval.name}}</option>
+                    </ng-container>
+                    <option *ngIf="!!selected && selected.id" [value]="selected.interval.id">{{selected.interval.name}}</option>
+                </select>
+            </va-form-item>
+        </div>
+    </div>
+
+    <p>
+        Zadáno při:
+    </p>
+    <div class="row">
+        <div class="col-sm-4">
+            <va-form-item [control]="form.controls.odo">
+                <label for="odo">{{units}}:</label>
+                <input id="odo" class="form-control" formControlName="odo">
+            </va-form-item>
+        </div>
+        <div class="col-sm-4">
+            <va-form-item [control]="form.controls.odo2" *ngIf="units2">
+                <label for="odo2">{{units2}}:</label>
+                <input id="odo2" class="form-control" formControlName="odo2">
+            </va-form-item>
+        </div>
+        <div class="col-sm-4">
+            <va-form-item [control]="form.controls.date">
+                <label for="date">Datum:</label>
+                <va-date-picker id="date" formControlName="date"></va-date-picker>
+            </va-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Uložit</button>
+        </div>
+    </div>
+</form>

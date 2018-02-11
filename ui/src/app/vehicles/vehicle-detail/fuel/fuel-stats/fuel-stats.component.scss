@@ -1,0 +1,29 @@
+@import "../../../../../style/theme/conf.scss";
+
+.wrapper {
+
+    .stat {
+        margin: 3px 0;
+        display: flex;
+
+        .description {
+            flex-grow: 1;
+        }
+
+        .value {
+            flex-grow: 0;
+            font-weight: bold;
+        }
+    }
+
+    .loading-bar {
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    
+}
+
+.chart-wrapper {
+    height: 400px;
+}

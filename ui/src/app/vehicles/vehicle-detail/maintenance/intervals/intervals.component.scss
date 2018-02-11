@@ -1,0 +1,31 @@
+.flex-row {
+    display: flex;
+
+    .flex-0 {
+        flex-grow: 0;
+    }
+    
+    .flex-1 {
+        flex-grow: 1;
+    }
+
+    .add {
+        margin: auto 0;
+        color: #ccc;
+        cursor: pointer;
+
+        &:hover {
+            color: #666;
+        }
+    }
+
+    .spacer {
+        padding: 0 15px;
+    }
+
+}
+
+va-interval-card {
+    display: block;
+    margin-bottom: 3px;
+}

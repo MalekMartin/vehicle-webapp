@@ -1,0 +1,14 @@
+.service-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.actions {
+    text-align: right;
+    margin-bottom: 10px;
+
+    a {
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+}

@@ -1,0 +1,64 @@
+<va-card *ngIf="vehicle">
+    <va-card-content>
+
+        <a class="image-wrapper"
+            *ngIf="!!vehicle.hasFile"
+            [routerLink]="['vehicle/', vehicle.id, 'fuel' ]">
+            
+            <div class="no-image" *ngIf="!image">
+                <i class="icon-image"></i>
+            </div>
+            <div class="image" *ngIf="!!image">
+                <img [src]="image">
+            </div>
+            <div class="vehicle-title">{{vehicle.brand}} {{vehicle.model}}</div>
+        </a>
+
+        <div class="content">
+            <div class="title" *ngIf="!image">
+                <va-initials [text]="vehicle.brand" [charSize]="1"></va-initials>
+                <a [routerLink]="['vehicle/', vehicle.id, 'fuel' ]">{{vehicle.brand}} {{vehicle.model}}</a>
+            </div>
+            <div class="info-content">
+                <div class="info">
+                    <div class="info-cell">
+                        <div class="description">Rok výroby:</div>
+                        <div class="value">{{vehicle.manufactureYear}}</div>
+                    </div>
+                    <div class="info-cell">
+                        <div class="description">Koupeno:</div>
+                        <div class="value">{{vehicle.purchaseDate | moment: 'DD.MM.YYYY'}}</div>
+                    </div>
+                    <div class="info-cell">
+                        <div class="description">Cena:</div>
+                        <div class="value">{{vehicle.price | price}}</div>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="info-cell">
+                        <div class="description">Pův. nájezd:</div>
+                        <div class="value">
+                            <span>{{vehicle.odo | formatNumber}} {{vehicle.units}}</span>
+                            <span *ngIf="!!vehicle.subUnits">• {{vehicle.engineOdo2 | formatNumber}} {{vehicle.subUnits}}</span>
+                        </div>
+                    </div>
+                    <div class="info-cell">
+                        <div class="description">Akt. nájezd:</div>
+                        <div class="value">
+                            <span>{{vehicle.lastOdo | formatNumber}} {{vehicle.units}}</span>
+                            <span *ngIf="!!vehicle.subUnits">• {{vehicle.lastOdo2 | formatNumber}} {{vehicle.subUnits}}</span>
+                        </div>
+                    </div>
+                
+                    <div class="info-cell" *ngIf="vehicle.lastOdo > 0 || vehicle.lastOdo2 > 0">
+                        <div class="description">Najeto:</div>
+                        <div class="value">
+                            <span>+ {{calculateOdo(vehicle.odo, vehicle.lastOdo) | formatNumber}} {{vehicle.units}}</span>
+                            <span *ngIf="!!vehicle.subUnits">• + {{calculateHours(vehicle.odo2, vehicle.lastOdo2) | formatNumber}} {{vehicle.subUnits}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </va-card-content>
+</va-card>

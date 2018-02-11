@@ -1,0 +1,106 @@
+va-initials {
+    display: inline-block;
+}
+
+.expired {
+    border-color: red;
+    background-color: blanchedalmond;
+}
+
+.flag-done {
+    font-weight: bold;
+    font-size: 12px;
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: limegreen;
+    color: white;
+    border-radius: 11px;
+    margin-left: 10px;
+}
+
+.flag-canceled {
+    font-weight: bold;
+    font-size: 12px;
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: red;
+    color: white;
+    border-radius: 11px;
+    margin-left: 10px;
+}
+
+.repair-link {
+    text-align: right;
+}
+
+.flex-row {
+    display: flex;
+
+    .flex-0 {
+        flex-grow: 0;
+    }
+    .flex-1 {
+        flex-grow: 1;
+    }
+}
+
+.flex-wrap {
+    flex-wrap: wrap
+}
+
+.icon-menu-dots {
+    cursor: pointer;
+}
+
+.expiration {
+    font-weight: 500;
+}
+
+.notes {
+    font-style: italic;
+    color: #999;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.start, .done {
+    padding: 2px 0;
+}
+
+.m-value {
+    font-weight: bold;
+    padding-left: 8px;
+    border-right: 1px solid #999;
+    padding-right: 8px;
+
+    &:last-child {
+        border-right: 0;
+        padding-right: 0;
+    }
+}
+
+.progress-bars {
+    margin-top: 6px;
+}
+
+va-card-left {
+    display: flex;
+
+    .color {
+        width: 4px;
+        margin-right: 5px;
+    }
+
+    .checkbox-panel {
+        margin-right: 5px;
+        overflow: hidden;
+    }
+}
+
+va-card /deep/ {
+    .left-part {
+        display: flex;
+    }
+}

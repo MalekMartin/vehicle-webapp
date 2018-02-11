@@ -1,0 +1,17 @@
+<div class="content">
+    <table class="properties">
+        <tr class="property"
+            *ngFor="let prop of properties"
+            [@delete]="prop.status"
+            (@delete.done)="finishDeletion(prop, $event)"
+            [@add]="prop.status">
+
+            <td class="name">{{prop.name}}:</td>
+            <td class="value">{{prop.value}}</td>
+            <td class="controls">
+                <div class="control"><i class="icon-edit" (click)="edit(prop)"></i></div>
+                <div class="control"><i class="icon-bin" (click)="delete(prop)"></i></div>
+            </td>
+        </tr>
+    </table>
+</div>

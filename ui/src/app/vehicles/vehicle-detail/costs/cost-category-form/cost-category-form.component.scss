@@ -1,0 +1,40 @@
+@import "../../../../../style/theme/conf.scss";
+
+.category-list {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-top: 10px;
+
+    .category-item {
+        display: flex;
+        // padding: 7px 5px;
+        border-bottom: 1px solid #ccc;
+
+        &:first-child {
+            border-top: 1px solid #ccc;
+        }
+
+        &:hover {
+            background-color: #e6e6e6;
+        }
+
+        .color {
+            width: 2px;
+        }
+
+        .title {
+            flex-grow: 1;
+            padding: 7px 5px;
+        }
+
+        .controls {
+            flex-grow: 0;
+            padding: 7px 5px;
+            white-space: nowrap;
+            
+            i {
+                cursor: pointer;
+            }
+        }
+    }
+}

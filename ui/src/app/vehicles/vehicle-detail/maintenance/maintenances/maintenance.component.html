@@ -1,0 +1,47 @@
+<div>
+    <form [formGroup]="form" class="filters">
+        <va-form-item class="filter" [control]="form.get('status')">
+            <select id="status" class="form-control" formControlName="status">
+                <option *ngFor="let status of statuses" [value]="status.key">{{status.label}}</option>
+            </select>
+        </va-form-item>
+        <va-form-item class="filter" [control]="form.get('interval')">
+            <select id="interval" class="form-control" formControlName="interval">
+                <option value="">všechny intervaly</option>
+                <option *ngFor="let interval of intervals" [value]="interval.id">{{interval.name}}</option>
+            </select>
+        </va-form-item>
+    </form>
+</div>
+        
+<va-paginator [service]="maintenanceService"
+    (selected)="fetchPage($event)"></va-paginator>
+        
+<div class="actions" *ngIf="!!maintenances">
+    <a *ngIf="!maintenanceAction" (click)="setAction(true)">Označit...</a>
+    <a *ngIf="!!maintenanceAction" (click)="setAction(false)" class="cancel">Zrušit</a>
+    <span *ngIf="!!maintenanceAction">
+        <a [class.disabled]="!hasSelection"
+            (click)="openFinishDialog()">Dokončit</a>
+        <a [class.disabled]="!hasSelection"
+            (click)="hasSelection && confirmCancel()">Ukončit</a>
+        <a [class.disabled]="!hasSelection"
+            (click)="hasSelection && confirmDelete()">Smazat</a>
+    </span>
+</div>
+
+<div class="intervals">
+    <va-maintenance-card *ngFor="let m of maintenances"
+            [maintenance]="m"
+            [showCheckbox]="!!maintenanceAction"
+            (canceled)="fetchCurrentPage()"
+            (updateClicked)="openUpdateDialog($event)"
+            (onSelected)="addToSelected(m)"
+            (onUnselected)="removeFromSelected(m)"></va-maintenance-card>
+</div>
+
+<va-paginator [service]="maintenanceService"
+    (selected)="fetchPage($event)"></va-paginator>
+
+
+

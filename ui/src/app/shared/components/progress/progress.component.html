@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <div class="before" [style.width]="width + '%'"
+        [ngClass]="{'orange': width > 75 && width < 95, 'red': width >= 95 || error}">
+        <ng-container *ngIf="!error; else hasError">
+            <ng-content></ng-content>
+        </ng-container>
+        <ng-template #hasError>
+            <span>Chyba!</span>
+        </ng-template>
+    </div>
+</div>

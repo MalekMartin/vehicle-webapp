@@ -1,0 +1,43 @@
+<div>
+    <h3>Aktuální stav</h3>
+
+    <div style="height: 400px;">
+        <ngx-charts-bar-vertical-2d  *ngIf="!!data && data.length"
+            [scheme]="colorScheme"
+            [results]="data"
+            [gradient]="false"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="true"
+            [showXAxisLabel]="false"
+            [showYAxisLabel]="true"
+            xAxisLabel="Rok"
+            yAxisLabel="Ujetá vzdálenost"
+            (select)="onSelect($event)">
+        </ngx-charts-bar-vertical-2d>
+    </div>
+
+    <div *ngIf="odo" class="cell total">
+        <div class="title">Celkový nájezd</div>
+        <div class="values">
+            <div>{{odo | formatNumber: units}}</div>
+            <div *ngIf="odo2 && units2">{{odo2 | formatNumber: units2}}</div>
+        </div>
+        <div *ngIf="!!originalOdo || !!originalOdo2" class="title">Můj nájezd</div>
+        <div class="values">
+            <div *ngIf="!!originalOdo">{{(odo - originalOdo) | formatNumber: units}}</div>
+            <div *ngIf="!!originalOdo2 && units2">{{originalOdo2 | formatNumber: units2}}</div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="annualMileages">
+        <div *ngFor="let m of annualMileages" class="cell">
+            <div class="title">{{m.year}}</div>
+            <div class="values">
+                <div>{{m.odo | formatNumber: units}}</div>
+                <div *ngIf="units2">{{m.odo2 | formatNumber: units2}}</div>
+            </div>
+        </div>
+    </ng-container>
+
+</div>

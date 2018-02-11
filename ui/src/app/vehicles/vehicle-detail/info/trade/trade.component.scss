@@ -1,0 +1,10 @@
+@import '../info.component.scss';
+
+:host {
+    display: block;
+}
+
+.no-record {
+    color: #ccc;
+    font-size: 20px;
+}
