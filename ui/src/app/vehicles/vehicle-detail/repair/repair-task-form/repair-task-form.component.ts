@@ -23,7 +23,8 @@ export class RepairTaskFormComponent implements OnInit {
                 note: t.note,
                 quantity: t.quantity,
                 priceNoTax: t.priceNoTax,
-                price: t.price
+                price: t.price,
+                type: t.type
             });
         }
     }
@@ -49,7 +50,8 @@ export class RepairTaskFormComponent implements OnInit {
         note: ['', Validators.maxLength(255)],
         quantity: [1, Validators.required],
         priceNoTax: [0, Validators.required],
-        price: [0, Validators.required]
+        price: [0, Validators.required],
+        type: ['MATERIAL']
     });
 
     private _task: RepairTask;

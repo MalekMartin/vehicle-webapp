@@ -5,6 +5,16 @@
             <input type="text" id="title" class="form-control" formControlName="title">
         </va-form-item>
 
+        <va-form-item class="col-sm-12" [control]="form.get('type')">
+            <label for="type">Typ:</label>
+            <!-- <input type="text" id="type" class="form-control" formControlName="type"> -->
+            <select type="text" id="type" class="form-control" formControlName="type">
+                <option [value]="'MATERIAL'">materiál</option>
+                <option [value]="'WORK'">práce</option>
+                <option [value]="'OTHER'">ostatní</option>
+            </select>
+        </va-form-item>
+
         <va-form-item class="col-sm-12" [control]="form.controls.note">
             <label for="note">Poznámky:</label>
             <textarea type="text" id="note" class="form-control" formControlName="note"></textarea>

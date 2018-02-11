@@ -14,6 +14,8 @@ class Repair {
     public $size = 0;
     public $sort = null;
 
+    public $taskTypes = ['MATERIAL','WORK','OTHER'];
+
     public function __construct($db, $uid) {
         $this->db = $db;
         $this->uid = $uid;
@@ -194,17 +196,25 @@ class Repair {
     }
 
     public function findTasks($id) {
-         $query = $this->db->prepare('SELECT id, repairId, title, note, quantity, note, price, priceNoTax
+         $query = $this->db->prepare('SELECT id, repairId, title, note, quantity, note, price, priceNoTax, `type`
             FROM repair_task WHERE repairId = ? AND userId = ?
-            ORDER BY id');
+            ORDER BY `type`, id');
          $query->execute(array($id, $this->uid));
-         return $query->fetchAll();
+         $res = $query->fetchAll();
+         return $this->_prepareTasks($res);
+    }
+
+    private function _prepareTasks($d) {
+        return array_map(function($value) {
+            $value['type'] = $this->taskTypes[$value['type']];
+            return $value;
+        }, $d);
     }
 
     private function insertNewRepair($d) {
         $query = $this->db->prepare('INSERT INTO repair (vehicleId, title, odo, odo2, `date`, garageId, totalPrice, notes, tax, userId)
             VALUES (?,?,?,?,?,?,?,?,?,?)');
-        $query->execute(array($d->vehicleId, $d->title, $d->odo, $d->odo2, $d->date, $d->garageId, $d->totalPrice, $d->notes, $d->tax));
+        $query->execute(array($d->vehicleId, $d->title, $d->odo, $d->odo2, $d->date, $d->garageId, $d->totalPrice, $d->notes, $d->tax, $this->uid));
     }
 
     private function updateRepair($d) {
@@ -235,15 +245,17 @@ class Repair {
     }
 
     private function insertNewTask($d) {
-        $query = $this->db->prepare('INSERT INTO repair_task (repairId, title, note, quantity, priceNoTax, price, userId)
+        $type = array_search($d->type, $this->taskTypes);
+        $query = $this->db->prepare('INSERT INTO repair_task (repairId, title, note, quantity, priceNoTax, price, `type`, userId)
             VALUES (?,?,?,?,?,?,?)');
-        $query->execute(array($d->repairId, $d->title, $d->note, $d->quantity, $d->priceNoTax, $d->price, $this->uid));
+        $query->execute(array($d->repairId, $d->title, $d->note, $d->quantity, $d->priceNoTax, $d->price, $type, $this->uid));
     }
 
     private function updateTask($d) {
-        $query = $this->db->prepare('UPDATE repair_task SET title = ?, note = ?, quantity = ?, priceNoTax = ?, price = ?
+        $type = array_search($d->type, $this->taskTypes);
+        $query = $this->db->prepare('UPDATE repair_task SET title = ?, note = ?, quantity = ?, priceNoTax = ?, price = ?, `type` = ?
             WHERE id = ? AND userId = ?');
-        $query->execute(array($d->title, $d->note, $d->quantity, $d->priceNoTax, $d->price, $d->id, $this->uid));
+        $query->execute(array($d->title, $d->note, $d->quantity, $d->priceNoTax, $d->price, $type, $d->id, $this->uid));
     }
 
     public function deleteTask($id) {

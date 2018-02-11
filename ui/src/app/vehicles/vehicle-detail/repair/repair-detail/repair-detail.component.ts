@@ -120,7 +120,8 @@ export class RepairDetailComponent implements OnInit, OnDestroy {
             note: '',
             quantity: 1,
             price: 0,
-            priceNoTax: 0
+            priceNoTax: 0,
+            type: 'MATERIAL',
         };
     }
 }
