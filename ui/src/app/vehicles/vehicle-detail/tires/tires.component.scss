@@ -10,13 +10,18 @@
     }
 }
 
+va-tire-card {
+    display: block;
+    margin-bottom: 5px;
+}
+
 .trash {
     display: flex;
     flex-wrap: wrap;
 
     va-tire-card {
         flex-grow: 1;
-        margin-right: 8px;
+        margin-right: 5px;
         
         &:last-child {
             margin-right: 0;

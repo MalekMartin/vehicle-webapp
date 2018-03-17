@@ -1,57 +1,36 @@
 .content {
     overflow: hidden;
+    background: #fff;
+    padding: 8px;
 }
 
-.properties {
-    margin-top: 15px;
-    width: 100%;
-    // border: 1px solid #ccc;
-}
-.property {
-    padding: 10px 0;
-    height: 40px;
+.prop-block {
+    display: flex;
+    padding: 8px;
 
-    td {
-        border-bottom: 1px solid #ccc;
-
-        &:first-child {
-            padding-left: 8px;
-        }
-    }
-
-    &:first-child {
-
-        td {
-            border-top: 1px solid #ccc;
-        }
-    }
-
-    .name {
-        color: #777;
+    .prop {
         flex-grow: 1;
-    }
 
-    .value {
-        // flex-grow: 1;
+        .name {
+            font-size: 14px;
+        }
+
+        .value {
+            color: rgba(0, 0, 0, 0.5438);
+            font-size: 13px;
+        }
     }
 
     .controls {
-        width: 54;
-        padding-right: 8px;
-        text-align: right;
+        display: flex;
+        flex-grow: 0;
+        white-space: nowrap;
 
         .control {
-            display: inline-block;
-            margin-left: 6px;
+            margin: auto 0 auto 6px;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.56);
             cursor: pointer;
         }
     }
-}
-
-.icon-edit, .icon-bin {
-    // transition: all 0.1s linear;
-
-    // &:hover {
-    //     font-size: 20px;
-    // }
 }

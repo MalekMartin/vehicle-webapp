@@ -33,21 +33,21 @@
                     <a (click)="edit()">Upravit</a>
             </va-section-heading-controls>
         </va-section-heading>
-        <table class="settings">
-            <tr>
-                <td>Hlavní jednotky:</td>
-                <td class="value">{{units}}</td>
-            </tr>
-            <tr>
-                <td>Vedlejší jednotky:</td>
-                <td class="value" [class.empty]="!units2">{{units2 || 'nenastaveno'}}</td>
-            </tr>
-            <tr>
-                <td>Objem nádrže:</td>
-                <td class="value">{{tankCapacity + ' l'}}</td>
-            </tr>
-        </table>
         
+        <div class="settings">
+            <div class="prop-block">
+                <div class="name">Hlavní jednotky</div>
+                <div class="value">{{units}}</div>
+            </div>
+            <div class="prop-block">
+                <div class="name">Vedlejší jednotky</div>
+                <div class="value">{{units2 || 'nenastaveno'}}</div>
+            </div>
+            <div class="prop-block">
+                <div class="name">Objem nádrže</div>
+                <div class="value">{{tankCapacity + ' l'}}</div>
+            </div>
+        </div>        
     </div>
 </div>
 

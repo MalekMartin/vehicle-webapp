@@ -1,15 +1,23 @@
 @import "../../../../../style/theme/conf.scss";
 
-.edit-button {
-    font-size: 14px;
-    text-transform: uppercase;
-    margin-left: 10px;
-    cursor: pointer;
+.task-control {
+    text-align: right;
+    padding-bottom: 10px;
+
+    .edit-button {
+        font-size: 14px;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #337ab7;
+        font-weight: 500;
+        text-decoration: none;
+    }
 }
 
 .table-wrapper {
     padding: 5px 10px;
-    background-color: #F6F6F6;
+    background-color: #FFF;
+    margin-bottom: 10px;
 }
 
 .repair-details {

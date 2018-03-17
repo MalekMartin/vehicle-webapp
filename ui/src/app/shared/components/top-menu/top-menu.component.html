@@ -9,14 +9,14 @@
             <div class="menu">
                 <ul class="menu-ul">
                     <li><a [routerLink]=" ['/']">Přehled vozidel</a></li>
-                    <li>
+                    <!-- <li>
                         <a [routerLink]="['/events']">
                             Události
                             <span *ngIf="expired | async as expired">
                                 {{expired.count}}
                             </span>
                         </a>
-                    </li>
+                    </li> -->
                     <li><a [routerLink]="['/services']">Servisy</a></li>
                 </ul>
             </div>
@@ -40,7 +40,7 @@
         </div>
         <ul (click)="hide()">
             <li><a [routerLink]=" ['/']">Přehled vozidel</a></li>
-            <li><a [routerLink]="['/events']">Události</a></li>
+            <!-- <li><a [routerLink]="['/events']">Události</a></li> -->
             <li><a [routerLink]="['/services']">Servisy</a></li>
             <li class="logout"><span class="logout" (click)="logout()">Odhlásit</span></li>
         </ul>

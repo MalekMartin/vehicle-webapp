@@ -74,19 +74,21 @@
 }
 
 .settings {
-    td {
-        padding-right: 20px;
-        padding-bottom: 10px;
+    background-color: #fff;
+    padding: 8px;
 
-        &.value {
-            font-weight: 500;
+    .prop-block {
+        padding: 8px;
+
+        .name {
+            font-size: 14px;
         }
-
-        &.empty {
-            font-style: italic;
-            color: #ccc;
+        .value {
+            color: rgba(0, 0, 0, 0.5438);
+            font-size: 13px;
         }
     }
+
 }
 
 @keyframes spin {

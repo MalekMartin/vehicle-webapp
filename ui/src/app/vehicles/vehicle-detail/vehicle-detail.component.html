@@ -1,10 +1,11 @@
 <div class="wrapper">
     <div class="menu-panel">
-        <!-- DESKTOP -->
         <div class="va-menu">
             <ul class="va-menu-options">
                 <li *ngFor="let o of options">
+                    <!-- DESKTOP -->
                     <a [routerLink]="[o.page]" routerLinkActive="active" class="label-option">{{o.label}}</a>
+                    <!-- MOBILE -->
                     <a [routerLink]="[o.page]" routerLinkActive="active-icon"
                         class="icon-option">
                         <i [class]="'icon-' + o.icon"
@@ -13,26 +14,8 @@
                             container="body"></i>
                     </a>
                 </li>
-                <!-- <li>
-                    <a [routerLink]="'./settings'" routerLinkActive="active">Nastavení</a>
-                </li> -->
             </ul>
         </div>
-
-        <!-- MOBILE -->
-        <!-- <nav class="text-right navbrar navbar-default dash-menu">
-            <div class="hidden-sm hidden-md hidden-lg" dropdown>
-                <span dropdownToggle class="dropdown-toggle">
-                    <i class="icon-menu-dash"></i>
-                </span>
-                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="menu-button">
-                    <li *ngFor="let o of options" role="menuitem">
-                        <a [routerLink]="[o.page]" routerLinkActive="active" class="dropdown-item">{{o.label}}</a>
-                        <span *ngIf="o.warning > 0">{{o.warning}}</span>
-                    </li>
-                </ul>
-            </div>
-        </nav> -->
     </div>
 
     <div class="content-panel">

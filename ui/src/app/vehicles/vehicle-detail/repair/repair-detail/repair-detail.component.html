@@ -5,13 +5,12 @@
                 <va-section-heading-title>{{!!repair ? repair.title : 'Nahrávám detail opravy...'}}</va-section-heading-title>
                 <va-section-heading-controls *ngIf="!!repair">
                     <a class="edit-button" (click)="edit($event)">Upravit</a>
-                    <a class="edit-button" (click)="addTask($event)">Přidat položku</a>
                 </va-section-heading-controls>
             </va-section-heading>
         </div>
     </div>
     <div class="row" *ngIf="!!repair">
-        <div class="col-sm-3">
+        <div class="col-xs-12">
             <div class="table-wrapper">
                 <table class="repair-details">
                     <tr>
@@ -37,8 +36,13 @@
                 </table>
             </div>
         </div>
+    </div>
 
-        <div class="col-sm-9">
+    <div class="task-control">
+        <a class="edit-button" (click)="addTask($event)">Přidat položku</a>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
             <va-repair-tasks [repair]="repair" (editTask)="editTask($event)"></va-repair-tasks>
         </div>
     </div>
