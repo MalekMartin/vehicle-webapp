@@ -1,3 +1,4 @@
+@import "../../../../style/theme/conf.scss";
 
 :host {
     display: block;
@@ -85,6 +86,7 @@ i.icon-menu-dash {
         bottom: 0;
         width: 75%;
         background-color: #fff;
+        box-shadow: 2px 2px 5px #666;
 
         .user-name {
             padding: 10px 10px;
@@ -108,9 +110,24 @@ i.icon-menu-dash {
     }
 }
 
-@media (max-width: 510px) {
+.title {
+    // display: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: auto 15px auto 15px;
+    font-size: 14px;
+}
+
+@media (max-width: $resXS) {
     i.icon-menu-dash {
         display: inline-block;
+    }
+    
+    .top-menu {
+        .menu {
+            flex-grow: 0;
+            margin-right: 20px
+        }
     }
 
     .menu-ul {
@@ -119,5 +136,9 @@ i.icon-menu-dash {
 
     .user {
         display: none;
+    }
+
+    .title {
+        display: block;
     }
 }

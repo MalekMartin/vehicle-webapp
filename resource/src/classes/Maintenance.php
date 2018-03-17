@@ -268,9 +268,8 @@ class Maintenance {
 
     private function findInProgress($id) {
         $q = $this->db->prepare('SELECT m.odo, m.odo2, `date`, i.odo AS iOdo, i.odo2 AS iOdo2, i.months
-        FROM maintenance AS m INNER JOIN intervals AS i ON m.intervalId = i.id
-                    WHERE m.vehicleId = ?
-                        AND m.status = ?');
+            FROM maintenance AS m INNER JOIN intervals AS i ON m.intervalId = i.id
+            WHERE m.vehicleId = ? AND m.status = ?');
         $q->execute(array($id, 0));
         return $q->fetchAll();
     }

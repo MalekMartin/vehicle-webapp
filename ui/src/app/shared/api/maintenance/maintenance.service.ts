@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
 import { Pageable, Page } from '../../../utils/pageable';
 import { Maintenance } from './maintenance.interface';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Interval } from './interval.interface';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class MaintenanceService extends Pageable<Maintenance> {
@@ -17,10 +15,15 @@ export class MaintenanceService extends Pageable<Maintenance> {
     maintenanceSubject = new ReplaySubject(1);
     intervalsSubject = new ReplaySubject<Interval[]>(1);
 
+    expiredSubject = new ReplaySubject(1);
+
     intervalSubject = new ReplaySubject<Interval>(1);
 
     constructor(private _http:HttpService) {
         super();
+
+        // fix backend
+        // this.getExpiredCount().subscribe();
     }
 
     request(): Observable<Page<Maintenance>> {
@@ -75,9 +78,12 @@ export class MaintenanceService extends Pageable<Maintenance> {
             });
     }
 
-    getExpiredCount(id) {
+    getExpiredCount() {
         return this._http
-            .get(`/resource/maintenance/${id}/expired`);
+            .get(`/resource/maintenance/expired`)
+            .do((res) => {
+                this.expiredSubject.next(res);
+            });
     }
 
     buildEmptyInterval(vehicleId: string): Interval {

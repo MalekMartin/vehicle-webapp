@@ -1,1 +1,11 @@
+@import "../../../../../style/theme/variables.scss";
 
+.chart-content {
+    height: 400px;
+}
+
+@media(max-width: $mobileWidth) {
+    .chart-content {
+        height: 200px;
+    }
+}

@@ -1,19 +1,53 @@
-.nav {
-    li {
-        a {
-            cursor: pointer;
+@import "../../../style/theme/variables.scss";
 
-            &.active {
-                background-color: #cccccc;
-                color: #ffffff;
+.wrapper {
+    display: flex;
+    height: 100%;
+    background-color: #F7F7F7;
+
+    .menu-panel {
+        flex-grow: 0;
+        overflow: auto;
+        width: 160px;
+        min-width: 160px;
+        background-color: #ddd;
+        transition: all 0.3s;
+
+        &::-webkit-scrollbar { 
+            display: none; 
+        }
+
+        &:hover {
+            &::-webkit-scrollbar { 
+                display: initial;
             }
         }
-    }    
+    }
+
+    .content-panel {
+        flex-grow: 1;
+        padding: 10px 15px;
+        overflow: auto;
+    }
 }
 
+// .nav {
+//     li {
+//         a {
+//             cursor: pointer;
+
+//             &.active {
+//                 background-color: #cccccc;
+//                 color: #ffffff;
+//             }
+//         }
+//     }    
+// }
+
 .va-menu {
-    display: flex;
+    // display: flex;
     background-color: #dddddd;
+    padding: 10px 0;
 
     .va-menu-options {
         padding: 0;
@@ -22,19 +56,40 @@
 
         li {
             list-style-type: none;
-            display: inline-block;
+            position: relative;
+            // display: inline-block;
         }
     }
 
     a {
         padding: 10px 20px;
-        display: block;
+        // display: block;
         color: #333333;
-        font-size: 15px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        text-transform: uppercase;
 
-        &.active {
+        &.label-option {
+            display: block;
+        }
+        &.icon-option {
+            display: none;
+        }
+
+        &.active, &.active-icon {
             background-color: #999999;
             color: #ffffff;
+
+            &:before {
+                content:"\A";
+                border-style: solid;
+                border-width: 8px 10px 8px 0;
+                border-color: transparent #F7F7F7 transparent transparent;
+                position: absolute;
+                right: 0px;
+                top: 11px;
+            }
         }
     }
 }
@@ -54,5 +109,29 @@
     i.icon-menu-dash {
         font-size: 26px;
         padding: 5px;
+    }
+}
+
+@media(max-width: $mobileWidth) {
+    .wrapper {
+        .menu-panel {
+            width: 50px;
+            min-width: 50px;
+        }
+    }
+
+    .va-menu {
+        a {
+            padding: 10px 0px;
+            text-align: center;
+
+            &.label-option {
+                display: none;
+            }
+            &.icon-option {
+                display: block;
+                font-size: 16px;
+            }
+        }
     }
 }

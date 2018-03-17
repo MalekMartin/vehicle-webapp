@@ -27,3 +27,9 @@
 .chart-wrapper {
     height: 400px;
 }
+
+@media(max-width: $mobileWidth) {
+    .chart-wrapper {
+        height: 200px;
+    }
+}

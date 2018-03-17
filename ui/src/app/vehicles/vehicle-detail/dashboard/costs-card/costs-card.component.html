@@ -1,7 +1,7 @@
 <div *ngIf="costs">
     <h3>Náklady na provoz</h3>
 
-    <div style="height: 400px;">
+    <div class="chart-content">
         <ngx-charts-pie-chart *ngIf="!!data && data.length"
             [scheme]="colorScheme"
             [results]="data"

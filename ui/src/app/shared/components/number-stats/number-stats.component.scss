@@ -4,10 +4,10 @@
 
     .card {
         flex-grow: 1;
+        flex: 250px 1;
         padding: 15px 20px;
         background-color: #eee;
         margin: 0px 2px 2px 0px;
-        min-width: 284px;
         border-radius: 2px;
 
         &:hover {

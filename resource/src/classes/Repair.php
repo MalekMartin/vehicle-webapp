@@ -247,7 +247,7 @@ class Repair {
     private function insertNewTask($d) {
         $type = array_search($d->type, $this->taskTypes);
         $query = $this->db->prepare('INSERT INTO repair_task (repairId, title, note, quantity, priceNoTax, price, `type`, userId)
-            VALUES (?,?,?,?,?,?,?)');
+            VALUES (?,?,?,?,?,?,?,?)');
         $query->execute(array($d->repairId, $d->title, $d->note, $d->quantity, $d->priceNoTax, $d->price, $type, $this->uid));
     }
 

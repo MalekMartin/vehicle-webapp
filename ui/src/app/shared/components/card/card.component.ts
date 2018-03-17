@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'va-card-title',
@@ -42,4 +42,6 @@ export class CardRightComponent {}
     styleUrls: ['./card.component.scss']
 })
 
-export class CardComponent {}
+export class CardComponent {
+    @Input() hasShadow = true;
+}

@@ -5,6 +5,7 @@ import { RepairTask } from '../_core/repair-task.interface';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Subscription } from 'rxjs/Subscription';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'va-repair-tasks',
@@ -24,7 +25,7 @@ export class RepairTasksComponent implements OnInit, OnDestroy {
 
     @Output() editTask = new EventEmitter();
 
-    tasks: RepairTask[];
+    tasks: RepairTask[] = [];
     loading = true;
 
     private _repair: Repair;
@@ -68,13 +69,10 @@ export class RepairTasksComponent implements OnInit, OnDestroy {
             });
     }
 
-    // deleteTask(task: RepairTask) {
-    //     this._service.deleteTask(task)
-    //         .subscribe(this._onDeleteSucess, this._onDeleteError);
-    // }
-
     private _onTasksSuccess = (t: RepairTask[]) => {
-        this.tasks = t;
+        this.tasks = _.groupBy(t, (task: RepairTask) => {
+            return task.type;
+        });
         this.loading = false;
     }
 

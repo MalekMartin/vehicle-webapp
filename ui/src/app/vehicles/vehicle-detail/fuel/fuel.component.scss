@@ -1,10 +1,6 @@
 @import "../../../../style/theme/conf.scss";
 
 :host {
-    // .row {
-    //     background-color: #ccc;
-    // }
-    
     display: block;
     padding-bottom: 20px;
 
@@ -34,8 +30,15 @@
     margin-top: 5px;
 
     va-fuel-card {
-        margin-bottom: 3px;
+        border-width: 1px 1px 0px 1px;
+        border-color: #d7d7d7;
+        border-style: solid;
         display: block;
+        transition: all 0.3s;
+
+        &:last-child {
+            border-bottom: 1px solid #d7d7d7;
+        }
     }
 }
 

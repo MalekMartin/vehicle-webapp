@@ -20,14 +20,15 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     vehicle;
 
     options: MenuOption[] = [
-        {page: 'dashboard', label: 'Přehled', warning: 0},
-        {page: 'info', label: 'Info', warning: 0},
-        {page: 'fuel', label: 'Tankování', warning: 0},
-        {page: 'costs', label: 'Náklady', warning: 0},
-        {page: 'tires', label: 'Pneu', warning: 0},
-        {page: 'technical', label: 'TK', warning: 0},
-        {page: 'maintenance', label: 'Údržba', warning: 0},
-        {page: 'repairs', label: 'Servisí práce', warning: 0},
+        {page: 'dashboard', label: 'Přehled', warning: 0, icon: 'stats'},
+        {page: 'info', label: 'Info', warning: 0, icon: 'info'},
+        {page: 'fuel', label: 'Tankování', warning: 0, icon: 'gas'},
+        {page: 'costs', label: 'Náklady', warning: 0, icon: 'money'},
+        {page: 'tires', label: 'Pneu', warning: 0, icon: 'radio-unchecked'},
+        {page: 'technical', label: 'TK', warning: 0, icon: 'verified'},
+        {page: 'maintenance', label: 'Údržba', warning: 0, icon: 'wrench'},
+        {page: 'repairs', label: 'Servisí práce', warning: 0, icon: 'automobile'},
+        {page: 'settings', label: 'Nastavení', warning: 0, icon: 'gears'},
         // {page: 'manuals', label: 'Manuály'}
     ];
 
@@ -95,4 +96,5 @@ interface MenuOption {
     page: string;
     label: string;
     warning: number;
+    icon: string;
 }

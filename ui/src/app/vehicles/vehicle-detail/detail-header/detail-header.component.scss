@@ -1,4 +1,5 @@
 // @import '../../../../style/theme/_animations.scss';
+@import '../../../../style/theme/conf.scss';
 
 .flex-row {
     display: flex;
@@ -24,41 +25,16 @@
     va-initials {
         margin: 0px 10px 0px 0px;
     }
-
-    .right {
-        flex-grow: 0;
-        margin: auto 0;
-
-        .dropdown-menu {
-            padding: 0;
-            width: 200px;
-            margin-left: -74px;
-
-            .dropdown-item {
-                a {
-                    display: block;
-                    padding: 0;
-                }
-            }
-        }
-    }
 }
 
 .bold {
     font-weight: bold;
 }
 
-@media (max-width: 400px) {
+@media (max-width: $mobileWidth) {
     .flex-row {
-        .settings {
-            display: none;
-        }
-
-        .right {
-            .dropdown-menu {
-                margin-left: 0;
-                max-width: 282px;
-            }
+        .title {
+            font-size: 22px;
         }
     }
 }

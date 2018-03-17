@@ -1,3 +1,5 @@
+@import "../../../../../style/theme/variables.scss";
+
 .cell {
     background-color: #f3f3f3;
     border-radius: 3px;
@@ -31,5 +33,15 @@
         div {
             flex-grow: 1;
         }
+    }
+}
+
+.chart-content {
+    height: 400px;
+}
+
+@media(max-width: $mobileWidth) {
+    .chart-content {
+        height: 200px;
     }
 }
