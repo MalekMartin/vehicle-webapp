@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VValidators } from '../../../../shared/forms/validators';
 import { Cost, CostsCategory } from '../cost.interface';
@@ -6,13 +6,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { VehicleService } from '../../../vehicle-stream/vehicle.service';
 import { CostsService } from '../../../../shared/api/costs/costs.service';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'va-costs-form',
     templateUrl: './costs-form.component.html',
     styleUrls: ['./costs-form.component.scss']
 })
-export class CostsFormComponent implements OnInit {
+export class CostsFormComponent implements OnInit, OnDestroy {
 
     id: string;
     vehicleId: string;
@@ -31,6 +34,18 @@ export class CostsFormComponent implements OnInit {
         date: ['', Validators.required]
     });
 
+    private _onDestroy$ = new Subject();
+
+    totalPriceSubs = Observable.merge(
+        this.form.get('quantity').valueChanges,
+        this.form.get('pricePerItem').valueChanges
+    ).pipe(takeUntil(this._onDestroy$))
+    .subscribe((res)=> {
+        const q = Number(this.form.get('quantity').value);
+        const p = Number(this.form.get('pricePerItem').value);
+        this.form.get('totalPrice').patchValue(q * p);
+    });
+
     private _vehicleId: string;
     private _categories:CostsCategory[];
     private _cost:Cost;
@@ -44,23 +59,30 @@ export class CostsFormComponent implements OnInit {
 
     ngOnInit() {
         this._route
-        .params
-        .map(par => par)
-        .subscribe(p => {
-            if (p['vehicleId']) {
-                this.vehicleId = p['vehicleId'];
-                this.form.get('vehicleId').setValue(this.vehicleId);
-            }
+            .params
+            .pipe(takeUntil(this._onDestroy$))
+            .map(par => par)
+            .subscribe(p => {
+                if (p['vehicleId']) {
+                    this.vehicleId = p['vehicleId'];
+                    this.form.get('vehicleId').setValue(this.vehicleId);
+                }
 
-            if (p['id']) {
-                this.id = p['id'];
-                this.getCost(p['id']);
-            }
-        });
+                if (p['id']) {
+                    this.id = p['id'];
+                    this.getCost(p['id']);
+                }
+            });
 
-        this._service.categorySubject.subscribe((c) => {
-          this._categories = c;
-        });
+        this._service.categorySubject
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe((c) => {
+                this._categories = c;
+            });
+    }
+
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     get units(): string {
@@ -69,10 +91,6 @@ export class CostsFormComponent implements OnInit {
 
     get units2(): string {
         return this._vehicles.Units2;
-    }
-
-    get totalPrice() {
-        return this.form.value.quantity * this.form.value.pricePerItem;
     }
 
     get cost(): Cost {

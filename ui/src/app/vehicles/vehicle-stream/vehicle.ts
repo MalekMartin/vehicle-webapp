@@ -12,6 +12,9 @@ export interface Vehicle {
     spz: string;
     hasFile: boolean;
     dateOfSale?: string;
+    lastOdo?: number;
+    units?: string;
+    subUnits?: string;
 }
 
 export interface VehicleInfo {

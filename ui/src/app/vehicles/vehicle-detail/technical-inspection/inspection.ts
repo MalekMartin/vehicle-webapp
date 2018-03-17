@@ -7,4 +7,6 @@ export interface Inspection {
     note:string;
     price:number;
     stationId?:string;
+    odo?: number;
+    name?: string;
 }

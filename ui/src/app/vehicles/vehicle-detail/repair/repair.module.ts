@@ -5,7 +5,6 @@ import { RepairService } from './repair.service';
 import { RepairFormComponent } from './repair-form/repair-form.component';
 import { CommonModule } from '@angular/common';
 import { RepairCardComponent } from './repair-card/repair-card.component';
-import { RepairTaskComponent } from './repair-task/repair-task.component';
 import { RepairTaskFormComponent } from './repair-task-form/repair-task-form.component';
 import { RepairFormModule } from './repair-form/repair-form.module';
 import { PageScrollService } from 'ng2-page-scroll';
@@ -21,7 +20,6 @@ import { repairRoutes } from './repair.routes';
 const COMPONENTS = [
     RepairComponent,
     RepairCardComponent,
-    RepairTaskComponent,
     RepairTaskFormComponent,
     RepairDetailComponent,
     RepairTasksComponent

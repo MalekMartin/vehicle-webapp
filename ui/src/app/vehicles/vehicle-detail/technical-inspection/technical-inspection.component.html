@@ -45,7 +45,7 @@
 
         <div [@openClose]="!!stationFormExpanded ? 'expanded' : 'collapsed'">
             <va-station-form [station]="selectedStation"
-                (saved)="saveStation($event)"
+                (saved)="saveStation()"
                 (canceled)="cancelStationForm()"></va-station-form>
         </div>
 
