@@ -3,17 +3,13 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'va-initials',
     template: `
-    <!--<div class="icon" [title]="text">-->
         <div *ngIf="!color && !image"
-            class="letter"
-            [ngClass]="'size-' + size"
+            class="letter size-{{size}}"
             [vaColorFromString]="text">{{letters}}</div>
         <div *ngIf="color && !image"
-            class="letter"
-            [ngClass]="'size-' + size"
+            class="letter size-{{size}}"
             [style.backgroundColor]="'#' + color">{{letters}}</div>
-        <img *ngIf="!!image" [src]="image" [ngClass]="'size-' + size">
-    <!--</div>-->`,
+        <img *ngIf="!!image" [src]="image" class="size-{{size}}">`,
     styleUrls: ['./initials.component.scss']
 })
 export class InitialsComponent {

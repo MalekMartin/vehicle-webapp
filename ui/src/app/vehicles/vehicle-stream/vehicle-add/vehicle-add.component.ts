@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { VehicleService } from '../vehicle.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { HttpService } from '../../../core/http.service';
 import { DatepickerModule } from 'ngx-bootstrap';
 import * as moment from 'moment';

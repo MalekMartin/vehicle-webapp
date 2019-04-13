@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { FileUploader, FileUploaderOptions, FileItem } from 'ng2-file-upload/ng2-file-upload';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { FileItem, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { SettingsService, Settings } from './settings.service';
-import { AuthService } from '../../../core/auth.service';
-import { VehicleImageService } from '../../vehicle-stream/vehicle-images.service';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AuthService } from '../../../core/auth.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
+import { VehicleImageService } from '../../vehicle-stream/vehicle-images.service';
+import { Settings, SettingsService } from './settings.service';
 
 @Component({
     selector: 'va-vehicle-settings',
@@ -16,12 +16,11 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./vehicle-settings.component.scss']
 })
 export class VehicleSettingsComponent implements OnInit, OnDestroy {
-
     loading = false;
     isUploading = false;
     visible = false;
 
-    vehicleId:string;
+    vehicleId: string;
     hasBaseDropZoneOver = false;
 
     settings: Settings;
@@ -39,26 +38,34 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
         removeAfterUpload: true,
         url: this._url,
         autoUpload: true,
-        headers: [{name: 'Authorization', value: 'Bearer ' + this._auth.accessToken}]
+        headers: [{ name: 'Authorization', value: 'Bearer ' + this._auth.accessToken }]
     };
 
     uploader = new FileUploader(this._options);
 
-    private _infoSubs: Subscription;
+    units: string;
+    units2: string;
+    tankCapacity: number;
 
-    constructor(private _route: ActivatedRoute,
-                private _settings: SettingsService,
-                private _toastr: ToastsManager,
-                private _auth: AuthService,
-                private _images: VehicleImageService,
-                private _vehicles: VehicleService) {
+    private _onDestroy$ = new Subject();
 
+    constructor(
+        private _route: ActivatedRoute,
+        private _settings: SettingsService,
+        private _toastr: ToastsManager,
+        private _auth: AuthService,
+        private _images: VehicleImageService,
+        private _vehicles: VehicleService
+    ) {
         this.uploader.onWhenAddingFileFailed = (item, filter, options) => {
             this.isUploading = false;
             if (filter.name === 'fileSize') {
-                this._toastr.error('Překročil jsi povolenou maximální velikost souboru ('
-                    + (this._maxFileSize / (1024 * 1024)).toFixed(2)
-                    + 'MB).','Soubor je příliš velký!');
+                this._toastr.error(
+                    'Překročil jsi povolenou maximální velikost souboru (' +
+                        (this._maxFileSize / (1024 * 1024)).toFixed(2) +
+                        'MB).',
+                    'Soubor je příliš velký!'
+                );
             }
         };
 
@@ -72,44 +79,42 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.vehicleId = this._route.snapshot.parent.params['id'];
-        this.uploader.options.additionalParameter = {
-            vehicleId: this.vehicleId
-        };
-
         this.uploader.onCompleteItem = (item, response) => {
             this.isUploading = false;
 
             if (item.isError) {
-                this._toastr.error('Soubor nebyl nahrán.','Chyba!');
+                this._toastr.error('Soubor nebyl nahrán.', 'Chyba!');
             }
             if (item.isSuccess) {
-                this._toastr.success('Soubor ' + item.file.name + ' byl úspěšně nahrán.','Hotovo!');
+                this._toastr.success(
+                    'Soubor ' + item.file.name + ' byl úspěšně nahrán.',
+                    'Hotovo!'
+                );
             }
         };
         this.uploader.clearQueue();
+
+        this._vehicles.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.units = v.info.units;
+                this.units2 = v.info.subUnits;
+                this.tankCapacity = v.info.tankCapacity;
+                this.vehicleId = v.info.id;
+
+                this.uploader.options.additionalParameter = {
+                    vehicleId: v.info.id
+                };
+            });
     }
 
     ngOnDestroy() {
-        if (this._infoSubs) {
-            this._infoSubs.unsubscribe();
-        }
-    }
-
-    get units(): string {
-        return this._vehicles.units;
-    }
-
-    get units2(): string {
-        return this._vehicles.Units2;
+        this._onDestroy$.next();
     }
 
     get image(): string | null {
         return this.vehicleId ? this._images.getImage(this.vehicleId) : null;
-    }
-
-    get tankCapacity(): number {
-        return this._vehicles.tankCapacity;
     }
 
     fileOverBase(status) {
@@ -119,6 +124,7 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
     deleteImage() {
         this._settings
             .removeImage(this.vehicleId)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onImageDeleteSuccess, this._onImageDeleteError);
     }
 
@@ -130,6 +136,7 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
     onSave(model: Settings) {
         this._settings
             .saveSettings(model)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onSettingsSuccess);
     }
 
@@ -140,20 +147,23 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
 
     private _onImageDeleteSuccess = () => {
         this._toastr.success('Obrázek byl úspěšně smazán.', 'Hotovo!');
-    }
+    };
 
     private _onImageDeleteError = () => {
         this._toastr.error('Obrázek se nepodařilo smazat.', 'Chyba!');
-    }
+    };
 
     private _onSettingsSuccess = (res: Settings) => {
         this._toastr.success('Nastavení bylo uloženo');
         this.formModal.hide();
         this.visible = false;
         this.getVehicleInfo();
-    }
+    };
 
     private getVehicleInfo() {
-        this._infoSubs = this._vehicles.getInfo(this.vehicleId).subscribe();
+        this._vehicles
+            .getInfo(this.vehicleId)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe();
     }
 }

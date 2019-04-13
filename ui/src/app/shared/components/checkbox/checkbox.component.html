@@ -2,7 +2,7 @@
     <input type="checkbox" [id]="id" class="input-checkbox" 
         [formControl]="checkboxControl" name="something">
     <label [attr.for]="id">
-        <i class="icon-checkbox-checked" *ngIf="checkboxControl.value"></i>
-        <i class="icon-checkbox-unchecked" *ngIf="!checkboxControl.value"></i>
+        <i [class.icon-checkbox-checked]="checkboxControl.value"
+            [class.icon-checkbox-unchecked]="!checkboxControl.value"></i>
     </label>
 </div>

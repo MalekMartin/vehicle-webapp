@@ -1,19 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { VValidators } from '../../../../../shared/forms/validators';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { Maintenance } from '../../../../../shared/api/maintenance/maintenance.interface';
+import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../../shared/api/maintenance/interval.interface';
+import { Maintenance } from '../../../../../shared/api/maintenance/maintenance.interface';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
-import { VehicleService } from '../../../../vehicle-stream/vehicle.service';
+import { VValidators } from '../../../../../shared/forms/validators';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'va-maintenance-form',
     templateUrl: './maintenance-form.component.html',
     styleUrls: ['./maintenance-form.component.scss']
 })
-export class MaintenaceFormComponent {
-
+export class MaintenaceFormComponent implements OnInit, OnDestroy {
     @Input() set maintenance(m: Maintenance) {
         if (!!m) {
             this.form.setValue({
@@ -41,6 +42,8 @@ export class MaintenaceFormComponent {
     intervals: Interval[];
 
     allIntervals: Interval[];
+    units: string;
+    units2: string;
 
     form = this._form.group({
         id: [''],
@@ -53,12 +56,25 @@ export class MaintenaceFormComponent {
 
     selected: Maintenance;
 
-    constructor(private _form: FormBuilder,
-                private _maintenance: MaintenanceService,
-                private _toastr: ToastsManager,
-                private _vehicles: VehicleService) {
+    private _onDestroy$ = new Subject();
 
-        this._maintenance.intervalsSubject.subscribe(i => {
+    constructor(
+        private _form: FormBuilder,
+        private _maintenance: MaintenanceService,
+        private _toastr: ToastsManager,
+        private _vehicles: VehicleService
+    ) {}
+
+    ngOnInit() {
+        this._vehicles.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.units = v.info.units;
+                this.units2 = v.info.subUnits;
+            });
+
+        this._maintenance.intervalsSubject.pipe(takeUntil(this._onDestroy$)).subscribe(i => {
             this.allIntervals = i;
             this.intervals = i.filter(interval => {
                 return interval.inProgress === false;
@@ -66,12 +82,8 @@ export class MaintenaceFormComponent {
         });
     }
 
-    get units() {
-        return this._vehicles.units;
-    }
-
-    get units2() {
-        return this._vehicles.Units2;
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     resetForm() {
@@ -98,9 +110,9 @@ export class MaintenaceFormComponent {
         this._toastr.success('Údržba byla úspěšně uložena');
         this.saved.emit();
         this.resetForm();
-    }
+    };
 
     private _onSaveError = () => {
         this._toastr.error('Chyba při ukládání údržby!');
-    }
+    };
 }

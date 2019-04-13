@@ -6,7 +6,7 @@ import { Fuel } from '../../../shared/api/fuel/fuel';
 import { FuelService } from '../../../shared/api/fuel/fuel.service';
 import { MultiStatsModel } from '../../../shared/api/stats.interface';
 import { Page, Pageable } from '../../../utils/pageable';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 
 @Component({
     selector: 'va-fuel',

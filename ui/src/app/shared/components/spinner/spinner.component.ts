@@ -5,6 +5,4 @@ import { Component, OnInit } from '@angular/core';
     template: '<i class="icon-spinner"></i>',
     styleUrls: ['./spinner.component.scss']
 })
-export class SpinnerComponent {
-    constructor() { }
-}
+export class SpinnerComponent {}

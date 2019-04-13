@@ -10,7 +10,7 @@ import { GarageService } from '../../../car-services/garage/garage.service';
 import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { NumberStat } from '../../../shared/components/number-stats/number-stats.component';
 import { Page } from '../../../utils/pageable';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { RepairFormService } from './repair-form/repair-form.service';
 import { RepairService } from './repair.service';
 import { Repair } from './_core/repair.interface';

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { CostsService } from '../../../shared/api/costs/costs.service';
 import { Page, Pageable } from '../../../utils/pageable';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Cost, CostsCategory } from './cost.interface';
 
 @Component({

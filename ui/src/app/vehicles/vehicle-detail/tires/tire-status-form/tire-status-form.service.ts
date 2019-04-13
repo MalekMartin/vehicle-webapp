@@ -6,9 +6,43 @@ import {
     Injector,
     ComponentFactoryResolver
 } from '@angular/core';
-import { AppComponent } from '../../../../app.component';
 import { TireStatusFormComponent } from './tire-status-form.component';
 import { Tire } from '../tires.interface';
+
+export class TireStatusDialogFactory {
+
+    private _tire: Tire;
+
+    private _service: TireStatusDialogService;
+
+    constructor(service: TireStatusDialogService) {
+        this._service = service;
+    }
+
+    tire(value: Tire): TireStatusDialogFactory {
+        this._tire = value;
+        return this;
+    }
+
+    get model(): TireStatusDialogModel {
+        return {
+            tire: this._tire,
+        };
+    }
+
+    observable() {
+        return this._service.buildConfirmDialogModal(this);
+    }
+
+    subscribe(cb: (value: any) => void) {
+        this
+            ._service
+            .buildConfirmDialogModal(this)
+            .subscribe((res) => {
+                cb(res);
+            });
+    }
+}
 
 @Injectable()
 export class TireStatusDialogService {
@@ -52,41 +86,6 @@ export class TireStatusDialogService {
         this.tiresStatusDialogRef.instance.tire = factory.model.tire;
     }
 
-}
-
-export class TireStatusDialogFactory {
-
-    private _tire: Tire;
-
-    private _service: TireStatusDialogService;
-
-    constructor(service: TireStatusDialogService) {
-        this._service = service;
-    }
-
-    tire(value: Tire): TireStatusDialogFactory {
-        this._tire = value;
-        return this;
-    }
-
-    get model(): TireStatusDialogModel {
-        return {
-            tire: this._tire,
-        };
-    }
-
-    observable() {
-        return this._service.buildConfirmDialogModal(this);
-    }
-
-    subscribe(cb: (value: any) => void) {
-        this
-            ._service
-            .buildConfirmDialogModal(this)
-            .subscribe((res) => {
-                cb(res);
-            });
-    }
 }
 
 export interface TireStatusDialogModel {

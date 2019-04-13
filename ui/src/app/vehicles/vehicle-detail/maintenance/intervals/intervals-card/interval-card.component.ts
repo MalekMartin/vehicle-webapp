@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { VehicleService } from '../../../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../../shared/api/maintenance/interval.interface';
 
 @Component({
@@ -24,7 +24,7 @@ export class IntervalCardComponent implements OnInit {
     }
 
     get units2(): string {
-        return this._vehicles.Units2;
+        return this._vehicles.units2;
     }
 
     edit() {

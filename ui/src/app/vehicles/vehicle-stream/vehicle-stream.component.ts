@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Vehicle } from './vehicle';
-import { VehicleService } from './vehicle.service';
+import { VehicleService } from '../../core/stores/vehicle/vehicle.service';
 import {
     ConfirmDialogService
 } from '../../shared/components/confirm-dialog/confirm-dialog.service';

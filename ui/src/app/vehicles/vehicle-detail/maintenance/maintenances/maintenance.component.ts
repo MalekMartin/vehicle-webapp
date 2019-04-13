@@ -6,7 +6,7 @@ import { Page } from '../../../../utils/pageable';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../shared/api/maintenance/interval.interface';
 import { Maintenance } from '../../../../shared/api/maintenance/maintenance.interface';
 import { MaintenanceService } from '../../../../shared/api/maintenance/maintenance.service';

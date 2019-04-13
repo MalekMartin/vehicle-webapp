@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, forwardRef, OnDestroy, OnInit, ViewChild, Provider } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as moment from 'moment';
 import { BsDropdownDirective, DatePickerComponent } from 'ngx-bootstrap';
@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 
 const noop = () => {};
 
-export const DATEPICKER_CONTROL_VALUE_ACCESSOR: any = {
+export const DATEPICKER_CONTROL_VALUE_ACCESSOR: Provider = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DatepickerComponent),
     multi: true
@@ -20,7 +20,6 @@ export const DATEPICKER_CONTROL_VALUE_ACCESSOR: any = {
     providers: [DATEPICKER_CONTROL_VALUE_ACCESSOR]
 })
 export class DatepickerComponent implements OnInit, OnDestroy, ControlValueAccessor {
-
     dt = new FormControl();
 
     @ViewChild(BsDropdownDirective) dropdown: BsDropdownDirective;
@@ -31,8 +30,6 @@ export class DatepickerComponent implements OnInit, OnDestroy, ControlValueAcces
     // by the Control Value Accessor
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
-
-    constructor() {}
 
     ngOnInit() {
         this.dt.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe(v => {

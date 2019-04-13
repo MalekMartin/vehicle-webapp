@@ -5,13 +5,15 @@ import { TradeComponent } from './trade.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap';
 import { TradeDetailComponent } from './tradeDetail/trade-detail.component';
+import { DatepickerModule } from '../../../../shared/components/datepicker/datepicker.module';
 
 @NgModule({
     imports: [
         SharedModule,
         FormsModule,
         ReactiveFormsModule,
-        TooltipModule
+        TooltipModule,
+        DatepickerModule
     ],
     exports: [
         TradeComponent,

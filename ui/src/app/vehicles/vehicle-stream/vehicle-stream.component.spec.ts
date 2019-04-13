@@ -1,28 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { VehicleStreamComponent } from './vehicle-stream.component';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-    HttpModule,
-    XHRBackend,
-    ConnectionBackend,
-    ResponseOptions,
-    Response
-} from '@angular/http';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CoreModule } from '../../core/core.module';
-import { VehicleService } from './vehicle.service';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ConnectionBackend, HttpModule, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { ToastsManager, ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
-import {
-    ConfirmDialogService
-} from '../../shared/components/confirm-dialog/confirm-dialog.service';
-import { VehicleFilterPipe } from '../../shared/pipes/vehicle-filter.pipe';
-import {
-    ConfirmDialogServiceStub
-} from '../../shared/components/confirm-dialog/confirm-dialog.spec';
-import { vehicleMock } from './vehicle.service.spec';
-import { mockBackendResponse } from '../../../testing/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ToastModule, ToastOptions, ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { CoreModule } from '../../core/core.module';
+import { VehicleService } from '../../core/stores/vehicle/vehicle.service';
+import { ConfirmDialogService } from '../../shared/components/confirm-dialog/confirm-dialog.service';
+import { ConfirmDialogServiceStub } from '../../shared/components/confirm-dialog/confirm-dialog.spec';
 import { OrderByDatePipe } from '../../shared/pipes/order-by-date.pipe';
+import { VehicleFilterPipe } from '../../shared/pipes/vehicle-filter.pipe';
+import { VehicleStreamComponent } from './vehicle-stream.component';
+import { vehicleMock } from '../../core/stores/vehicle/vehicle.service.spec';
+
 
 describe('VehicleStreamComponent', () => {
 
@@ -61,14 +51,14 @@ describe('VehicleStreamComponent', () => {
 
     it('should set default values', () => {
         expect(component.expanded).toBeFalsy();
-        expect(component.vehicleModal).not.toBeNull();
+        expect(component.modal).not.toBeNull();
     });
 
     it('should return all vehicles', () => {
 
         Object.defineProperty(
             (<any>component)
-                ._service, 'allVehicles', { get: () => [vehicleMock] });
+                ._service, 'allVehicles', { get: () => [{...vehicleMock}] });
 
         expect(component.vehicles).toEqual([vehicleMock]);
     });
@@ -83,7 +73,7 @@ describe('VehicleStreamComponent', () => {
 
         const vehicleId = 'vehicle-id';
 
-        component.onDelete(vehicleId);
+        component.onDelete(vehicleMock);
 
         expect(spyTitle).toHaveBeenCalled();
         expect(spyMessage).toHaveBeenCalled();
@@ -109,7 +99,7 @@ describe('VehicleStreamComponent', () => {
                 }
             });
 
-        component.onDelete(vehicleId);
+        component.onDelete(vehicleMock);
 
         expect(spyToastr).toHaveBeenCalled();
 
@@ -132,7 +122,7 @@ describe('VehicleStreamComponent', () => {
                 }
             });
 
-        component.onDelete(vehicleId);
+        component.onDelete(vehicleMock);
 
         expect(spyRefresh).toHaveBeenCalled();
 
@@ -154,7 +144,7 @@ describe('VehicleStreamComponent', () => {
 
         const vehicleId = 'vehicle-id';
 
-        component.onDelete(vehicleId);
+        component.onDelete(vehicleMock);
 
         expect(spyToastr).toHaveBeenCalled();
 

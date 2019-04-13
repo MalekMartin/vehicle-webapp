@@ -3,7 +3,7 @@ import { Fuel } from '../../../../shared/api/fuel/fuel';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Subscription } from 'rxjs';
 import { MultiStatsModel } from '../../../../shared/api/stats.interface';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 
 @Component({
     selector: 'va-fuel-stats',

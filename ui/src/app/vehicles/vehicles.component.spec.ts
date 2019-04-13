@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { VehiclesComponent } from './vehicles.component';
-import { VehicleService } from './vehicle-stream/vehicle.service';
+import { VehicleService } from '../core/stores/vehicle/vehicle.service';
 import { HttpModule, ConnectionBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { XHRBackend } from '@angular/http';

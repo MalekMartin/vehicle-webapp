@@ -3,7 +3,7 @@ import { Inspection } from '../inspection';
 import * as moment from 'moment';
 import { TechnicalInspectionService } from '../technical-inspection.service';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 
 @Component({
     selector: 'va-inspection-card',
@@ -13,6 +13,8 @@ import { VehicleService } from '../../../vehicle-stream/vehicle.service';
 export class InspectionCardComponent implements OnInit {
 
     @Input() inspection: Inspection;
+    @Input() units: string;
+    @Input() units2: string;
     @Output() deleted = new EventEmitter();
     @Output() edited = new EventEmitter();
 
@@ -44,14 +46,6 @@ export class InspectionCardComponent implements OnInit {
     get isExpired() {
         const duration = Number(this.now) - Number(this.end);
         return (duration >= 0) ? true : false;
-    }
-
-    get units(): string {
-        return this._vehicles.units;
-    }
-
-    get subUnits(): string {
-        return this._vehicles.Units2;
     }
 
     delete(i: Inspection) {

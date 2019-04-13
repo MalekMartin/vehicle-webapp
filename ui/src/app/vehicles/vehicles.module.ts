@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { VehiclesComponent } from './vehicles.component';
 import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { VehicleService } from './vehicle-stream/vehicle.service';
 import { RouterModule } from '@angular/router';
 import { HttpService } from '../core/http.service';
 import { ModalModule } from 'ngx-bootstrap';
@@ -35,7 +34,6 @@ const COMPONENTS = [
         ...COMPONENTS
     ],
     providers: [
-        VehicleService,
         HttpService,
         AuthService,
         TokenStore,

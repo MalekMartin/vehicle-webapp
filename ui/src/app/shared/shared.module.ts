@@ -1,41 +1,28 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { TopMenuComponent } from './components/top-menu/top-menu.component';
 import { CommonModule } from '@angular/common';
-import { PricePipe } from './pipes/price.pipe';
-import { FromNowPipe } from './pipes/from-now.pipe';
-import { VehicleFilterPipe } from './pipes/vehicle-filter.pipe';
-import { SpinnerComponent } from './components/spinner/spinner.component';
-import { ModalModule } from 'ngx-bootstrap';
-import { DatepickerModule, TooltipModule } from 'ngx-bootstrap';
-import { BsDropdownModule } from 'ngx-bootstrap';
-import { NumberFormatPipe } from './pipes/number-format.pipe';
-import { ToHPPipe } from './pipes/to-hp.pipe';
-import { DatepickerComponent } from './components/datepicker/datepicker.component';
-import { MomentPipe } from './pipes/moment.pipe';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { ProgressComponent } from './components/progress/progress.component';
-import { WidthDirective } from './directives/width.directive';
-import { HighlightDirective } from './directives/highlight.directive';
-import { MileageComponent } from './components/mileage/mileage.component';
-import { FormItemComponent } from './forms/form-item/form-item.component';
-import { ColorFormStringDirective } from './directives/color-from-string.directive';
-import { VehicleIconComponent } from './components/vehicle-icon/vehicle-icon.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { FileUploadModule } from 'ng2-file-upload';
-import { InitialsComponent } from './components/initials/initials.component';
-import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
-import { LimitPipe } from './pipes/limit.pipe';
-import { OrderByDatePipe } from './pipes/order-by-date.pipe';
-import { RoutedModalModule } from './components/routed-modal/routed-modal.module';
-import { CardModule } from './components/card/card.module';
-import { PaginatorComponent } from './components/paginator/paginator.component';
-import { SectionHeadingModule } from './components/section-heading/section-heading.module';
-import { NumberStatsComponent } from './components/number-stats/number-stats.component';
-import { StorageService } from './api/storage.service';
-import { SlimBarComponent } from './components/slim-bar/slim-bar.component';
+import { BsDropdownModule, DatepickerModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { ApiModule } from './api/api.module';
+import { StorageService } from './api/storage.service';
+import { CardModule } from './components/card/card.module';
+import { CheckboxModule } from './components/checkbox/checkbox.module';
+import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
+import { InitialsModule } from './components/initials/initials.module';
+import { MileageModule } from './components/mileage/mileage.module';
+import { NumberStatsModule } from './components/number-stats/number-stats.module';
+import { PaginatorModule } from './components/paginator/paginator.module';
+import { ProgressModule } from './components/progress/progress.module';
+import { RoutedModalModule } from './components/routed-modal/routed-modal.module';
+import { SectionHeadingModule } from './components/section-heading/section-heading.module';
+import { SlimBarModule } from './components/slim-bar/slim-bar.module';
+import { SpinnerModule } from './components/spinner/spinner.module';
+import { TopMenuModule } from './components/top-menu/top-menu.module';
+import { VehicleIconModule } from './components/vehicle-icon/vehicle-icon.module';
+import { DirectivesModule } from './directives/directives.module';
+import { PipesModule } from './pipes/pipes.module';
+import { FormItemModule } from './forms/form-item/form-item.module';
 
 const MODULES = [
     CommonModule,
@@ -52,55 +39,25 @@ const MODULES = [
     SectionHeadingModule,
     TooltipModule,
     ApiModule,
-];
-
-const COMPONENTS = [
-    TopMenuComponent,
-    SpinnerComponent,
-    DatepickerComponent,
-    CheckboxComponent,
-    ProgressComponent,
-    MileageComponent,
-    FormItemComponent,
-    VehicleIconComponent,
-    InitialsComponent,
-    PaginatorComponent,
-    NumberStatsComponent,
-    SlimBarComponent,
-];
-
-const DIRECTIVES = [
-    WidthDirective,
-    HighlightDirective,
-    ColorFormStringDirective
-];
-
-const PIPES = [
-    PricePipe,
-    FromNowPipe,
-    VehicleFilterPipe,
-    NumberFormatPipe,
-    ToHPPipe,
-    MomentPipe,
-    LimitPipe,
-    OrderByDatePipe,
+    PipesModule,
+    CheckboxModule,
+    DirectivesModule,
+    InitialsModule,
+    MileageModule,
+    NumberStatsModule,
+    PaginatorModule,
+    ProgressModule,
+    SlimBarModule,
+    SpinnerModule,
+    TopMenuModule,
+    VehicleIconModule,
+    FormItemModule
 ];
 
 @NgModule({
-    imports: [
-        ...MODULES
-    ],
-    exports: [
-        ...MODULES,
-        ...COMPONENTS,
-        ...PIPES,
-        ...DIRECTIVES
-    ],
-    declarations: [
-        ...COMPONENTS,
-        ...PIPES,
-        ...DIRECTIVES
-    ],
-    providers: [StorageService],
+    imports: [...MODULES],
+    exports: [...MODULES],
+    declarations: [],
+    providers: [StorageService]
 })
-export class SharedModule { }
+export class SharedModule {}

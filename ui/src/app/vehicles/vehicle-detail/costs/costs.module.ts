@@ -12,6 +12,7 @@ import { CardComponent } from '../../../shared/components/card/card.component';
 import { costsRoutes } from './costs.routes';
 import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
 
 const PIPES = [
     CostsPipe,
@@ -32,6 +33,7 @@ const COMPONENTS = [
         ReactiveFormsModule,
         NgxChartsModule,
         RouterModule.forChild(costsRoutes),
+        DatepickerModule,
     ],
     exports: [],
     declarations: [

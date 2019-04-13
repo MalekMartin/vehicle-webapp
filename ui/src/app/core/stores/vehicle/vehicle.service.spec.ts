@@ -1,12 +1,26 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { ToastsManager, ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { VehicleService } from './vehicle.service';
-import { HttpModule, XHRBackend, Response, ResponseOptions  } from '@angular/http';
-import { RouterTestingModule } from '@angular/router/testing';
+import { inject, TestBed } from '@angular/core/testing';
+import { HttpModule, XHRBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { CoreModule } from '../../core/core.module';
-import { mockBackendResponse, apiBaseUrl } from '../../../testing/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ToastModule, ToastOptions, ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { CoreModule } from '../../core.module';
+import { VehicleService } from './vehicle.service';
+import { Vehicle } from '../../../vehicles/vehicle-stream/vehicle';
+import { mockBackendResponse } from '../../../../testing/http';
+
+export const vehicleMock: Vehicle = {
+    id: '1',
+    brand: 'KTM',
+    model: 'EXC-F 350',
+    manufactureYear: 2015,
+    purchaseDate: '2015-07-16T22:00:00.000Z',
+    price: 224000,
+    mileage: 0,
+    engineHours: 0,
+    spz: 'xxx',
+    hasFile: false
+};
 
 describe('VehicleService', () => {
 
@@ -31,6 +45,7 @@ describe('VehicleService', () => {
     it('should return all vehicles', inject([VehicleService], (vehicleService: VehicleService) => {
 
         const vehiclesMock = [{
+            ...vehicleMock,
             id: '132',
             brand: 'Renault',
             model: 'Laguna II'
@@ -98,15 +113,3 @@ describe('VehicleService', () => {
     }));
 
 });
-
-export const vehicleMock = {
-    id: '1',
-    brand: 'KTM',
-    model: 'EXC-F 350',
-    manufactureYear: 2015,
-    purchaseDate: '2015-07-16T22:00:00.000Z',
-    price: 224000,
-    mileage: 0,
-    engineHours: 0,
-    spz: 'xxx',
-};

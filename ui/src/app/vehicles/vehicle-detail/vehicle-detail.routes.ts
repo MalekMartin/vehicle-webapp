@@ -1,11 +1,8 @@
-import { Routes, RouterModule } from '@angular/router';
-import { VehicleDetailComponent } from './vehicle-detail.component';
-import { InfoComponent } from './info/info.component';
-import { TechnicalInspectionComponent } from './technical-inspection/technical-inspection.component';
-import { VehicleSettingsComponent } from './vehicle-settings/vehicle-settings.component';
+import { Routes } from '@angular/router';
 import { ManualsComponent } from './manuals/manuals.component';
-import { RoutedModalComponent } from '../../shared/components/routed-modal/routed-modal.component';
+import { VehicleDetailComponent } from './vehicle-detail.component';
 import { VehicleNotFoundComponent } from './vehicle-not-found/vehicle-not-found.component';
+import { VehicleSettingsComponent } from './vehicle-settings/vehicle-settings.component';
 
 export const vehicleDetailRoutes: Routes = [
     {
@@ -23,7 +20,8 @@ export const vehicleDetailRoutes: Routes = [
             },
             {
                 path: 'dashboard',
-                loadChildren: 'app/vehicles/vehicle-detail/dashboard/dashboard.module#DashboardModule'
+                loadChildren:
+                    'app/vehicles/vehicle-detail/dashboard/dashboard.module#DashboardModule'
             },
             {
                 path: 'info',
@@ -31,11 +29,11 @@ export const vehicleDetailRoutes: Routes = [
             },
             {
                 path: 'fuel',
-                loadChildren: 'app/vehicles/vehicle-detail/fuel/fuel.module#FuelModule',
+                loadChildren: 'app/vehicles/vehicle-detail/fuel/fuel.module#FuelModule'
             },
             {
                 path: 'tires',
-                loadChildren: 'app/vehicles/vehicle-detail/tires/tires.module#TiresModule',
+                loadChildren: 'app/vehicles/vehicle-detail/tires/tires.module#TiresModule'
             },
             {
                 path: 'costs',
@@ -43,7 +41,8 @@ export const vehicleDetailRoutes: Routes = [
             },
             {
                 path: 'maintenance',
-                loadChildren: 'app/vehicles/vehicle-detail/maintenance/maintenance.module#MaintenanceModule'
+                loadChildren:
+                    'app/vehicles/vehicle-detail/maintenance/maintenance.module#MaintenanceModule'
             },
             {
                 path: 'repairs',
@@ -51,10 +50,11 @@ export const vehicleDetailRoutes: Routes = [
             },
             {
                 path: 'technical',
-                loadChildren: 'app/vehicles/vehicle-detail/technical-inspection/technical-inspection.module#TechnicalInspectionModule'
+                loadChildren:
+                    'app/vehicles/vehicle-detail/technical-inspection/technical-inspection.module#TechnicalInspectionModule'
             },
-            { path: 'settings', component: VehicleSettingsComponent},
-            { path: 'manuals', component: ManualsComponent}
+            { path: 'settings', component: VehicleSettingsComponent },
+            { path: 'manuals', component: ManualsComponent }
         ]
     }
 ];

@@ -24,7 +24,6 @@
         <va-form-item [control]="form.get('garageId')" class="col-sm-6">
             <label for="garageId">Provedeno v servise:</label>
             <select id="garageId" formControlName="garageId" class="form-control">
-                <!-- <option value=""></option> -->
                 <option [value]="g.id" *ngFor="let g of garages">{{g.name}}</option>
             </select>
         </va-form-item>

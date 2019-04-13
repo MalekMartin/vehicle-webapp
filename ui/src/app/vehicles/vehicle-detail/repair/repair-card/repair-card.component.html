@@ -5,7 +5,7 @@
                 <span><a [routerLink]="['./' + repair.id]">{{repair.title}}</a></span>
                 <span>{{repair.date | moment: 'DD.MM.YYYY'}}</span>
                 <span>{{repair.odo | formatNumber}} {{units}}</span>
-                <span *ngIf="!!subUnits">{{repair.odo2 | formatNumber}} {{subUnits}}</span>
+                <span *ngIf="!!units2">{{repair.odo2 | formatNumber}} {{units2}}</span>
             </span>
             <span class="spacer"></span>
             <span class="value">

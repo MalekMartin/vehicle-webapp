@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { VehicleService } from '../vehicle.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Vehicle } from '../vehicle';
 import { SettingsService } from '../../vehicle-detail/vehicle-settings/settings.service';
 import { StorageService } from '../../../shared/api/storage.service';

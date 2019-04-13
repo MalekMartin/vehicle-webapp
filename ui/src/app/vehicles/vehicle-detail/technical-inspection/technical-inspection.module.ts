@@ -9,12 +9,14 @@ import { ProgressbarModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { technicalRoutes } from './technical-inspection.routes';
 import { TechnicalInspectionService } from './technical-inspection.service';
+import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
 
 @NgModule({
     imports: [
         SharedModule,
         ProgressbarModule,
         RouterModule.forChild(technicalRoutes),
+        DatepickerModule
     ],
     exports: [TechnicalInspectionComponent],
     declarations: [
@@ -24,8 +26,6 @@ import { TechnicalInspectionService } from './technical-inspection.service';
         StationCardComponent,
         InspectionCardComponent
     ],
-    providers: [
-        TechnicalInspectionService
-    ],
+    providers: [TechnicalInspectionService]
 })
-export class TechnicalInspectionModule { }
+export class TechnicalInspectionModule {}

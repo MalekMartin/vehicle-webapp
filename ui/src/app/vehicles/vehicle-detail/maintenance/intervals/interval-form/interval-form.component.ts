@@ -1,11 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { VValidators } from '../../../../../shared/forms/validators';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { VehicleService } from '../../../../vehicle-stream/vehicle.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../../shared/api/maintenance/interval.interface';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
-import { Subscription } from 'rxjs';
+import { VValidators } from '../../../../../shared/forms/validators';
 
 @Component({
     selector: 'va-interval-form',
@@ -13,7 +14,6 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./interval-form.component.scss']
 })
 export class IntervalFormComponent implements OnInit, OnDestroy {
-
     interval: Interval;
 
     @Output() canceled = new EventEmitter();
@@ -24,36 +24,39 @@ export class IntervalFormComponent implements OnInit, OnDestroy {
         id: [''],
         vehicleId: ['', Validators.required],
         name: ['', Validators.required],
-        odo: ['', [Validators.required,VValidators.validateNumber]],
-        odo2: ['',VValidators.validateNumber],
+        odo: ['', [Validators.required, VValidators.validateNumber]],
+        odo2: ['', VValidators.validateNumber],
         months: ['', VValidators.validateNumber],
         note: ['']
     });
 
-    private _intSubs: Subscription;
+    units: string;
+    units2: string;
 
-    constructor(private _form:FormBuilder,
-                private _maintenances: MaintenanceService,
-                private _toastr:ToastsManager,
-                private _vehicles: VehicleService) {
-    }
+    private _onDestroy$ = new Subject();
+
+    constructor(
+        private _form: FormBuilder,
+        private _maintenances: MaintenanceService,
+        private _toastr: ToastsManager,
+        private _vehicles: VehicleService
+    ) {}
 
     ngOnInit() {
-        this._intSubs = this._maintenances.intervalSubject.subscribe(v => this._setForm(v));
+        this._maintenances.intervalSubject
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => this._setForm(v));
+
+        this._vehicles.state.select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.units = v.info.units;
+                this.units2 = v.info.subUnits;
+            });
     }
 
     ngOnDestroy() {
-        if (this._intSubs) {
-            this._intSubs.unsubscribe();
-        }
-    }
-
-    get units(): string {
-        return this._vehicles.units;
-    }
-
-    get units2(): string {
-        return this._vehicles.Units2;
+        this._onDestroy$.next();
     }
 
     save() {
@@ -83,9 +86,9 @@ export class IntervalFormComponent implements OnInit, OnDestroy {
         this._toastr.success('Interval byl úspěšně uložen.');
         this.form.reset();
         this.saved.emit();
-    }
+    };
 
     private _onSaveError = () => {
         this._toastr.error('Chyba při ukládání intervalu1');
-    }
+    };
 }

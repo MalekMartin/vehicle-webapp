@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TireStatusDialogService } from './tire-status-form/tire-status-form.service';
 import { Subscription } from 'rxjs';
 import { TiresObject } from './tires.interface';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { TirePropertiesFormService } from './tire-properties-form/tire-properties-form.service';
 import { Property } from './_core/property';
 import * as _ from 'lodash';

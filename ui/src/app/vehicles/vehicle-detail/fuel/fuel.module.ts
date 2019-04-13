@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { fuelRoutes } from './fuel.routes';
 import { MomentPipe } from '../../../shared/pipes/moment.pipe';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         RoutedModalModule,
         NgxChartsModule,
         RouterModule.forChild(fuelRoutes),
+        DatepickerModule
     ],
     exports: [FuelComponent],
     declarations: [

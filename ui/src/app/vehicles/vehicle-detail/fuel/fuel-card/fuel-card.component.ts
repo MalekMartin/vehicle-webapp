@@ -1,45 +1,59 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Fuel } from '../../../../shared/api/fuel/fuel';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { MomentPipe } from '../../../../shared/pipes/moment.pipe';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'va-fuel-card',
     templateUrl: './fuel-card.component.html',
     styleUrls: ['./fuel-card.component.scss']
 })
-export class FuelCardComponent implements OnInit {
-
+export class FuelCardComponent implements OnInit, OnDestroy {
     @Input() fuel: Fuel;
     @Output() deleted = new EventEmitter();
 
-    constructor(private _modal: ConfirmDialogService,
-                private _moment: MomentPipe,
-                private _vehicles: VehicleService) { }
+    units: string;
+    units2 :string;
+    tankCapacity: number;
 
-    ngOnInit() { }
+    private _onDestroy$ = new Subject();
 
-    get units(): string {
-        return this._vehicles.units;
+    constructor(
+        private _modal: ConfirmDialogService,
+        private _moment: MomentPipe,
+        private _vehicles: VehicleService
+    ) {}
+
+    ngOnInit() {
+        this._vehicles.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.units = v.info.units;
+                this.units2 = v.info.subUnits;
+            });
     }
 
-    get subUnits(): string {
-        return this._vehicles.Units2;
-    }
-
-    get tankCapacity(): number {
-        return this._vehicles.tankCapacity;
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     delete() {
         this._modal.dialog
             .title('')
-            .message('Opravdu chceš smazat tankování ' + this.fuel.quantity + 'l ze dne '
-                + this._moment.transform(this.fuel.date, 'DD.MM.YYYY') + '?')
+            .message(
+                'Opravdu chceš smazat tankování ' +
+                    this.fuel.quantity +
+                    'l ze dne ' +
+                    this._moment.transform(this.fuel.date, 'DD.MM.YYYY') +
+                    '?'
+            )
             .ok('Smazat')
             .cancel('Zpět')
-            .subscribe((res) => {
+            .subscribe(res => {
                 if (!!res) {
                     this.deleted.emit(this.fuel);
                 }
@@ -60,5 +74,4 @@ export class FuelCardComponent implements OnInit {
             note: fuel.note
         };
     }
-
 }

@@ -1,34 +1,45 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Cost } from '../cost.interface';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { CostsService } from '../../../../shared/api/costs/costs.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'va-cost-card',
     templateUrl: './cost-card.component.html',
     styleUrls: ['./cost-card.component.scss']
 })
-
-export class CostCardComponent implements OnInit {
-
+export class CostCardComponent implements OnInit, OnDestroy {
     @Input() cost: Cost;
     @Output() deleted = new EventEmitter();
 
-    constructor(private _costs: CostsService,
-                private _toastr: ToastsManager,
-                private _confirm: ConfirmDialogService,
-                private _vehicles: VehicleService) { }
+    units: string;
+    units2: string;
 
-    ngOnInit() { }
+    private _onDestroy$ = new Subject();
 
-    get units(): string {
-        return this._vehicles.units;
+    constructor(
+        private _costs: CostsService,
+        private _toastr: ToastsManager,
+        private _confirm: ConfirmDialogService,
+        private _vehicles: VehicleService
+    ) {}
+
+    ngOnInit() {
+        this._vehicles.state
+            .select(s => s.vehicle, true)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.units = v.vehicle.info.units;
+                this.units2 = v.vehicle.info.subUnits;
+            });
     }
 
-    get units2(): string {
-        return this._vehicles.Units2;
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     delete(cost: Cost) {
@@ -39,18 +50,19 @@ export class CostCardComponent implements OnInit {
             .cancel('zpět')
             .subscribe(res => {
                 if (res) {
-                    this._costs.deleteCost(cost)
-                    .subscribe(this._onDeleteSuccess, this._onDeleteError);
+                    this._costs
+                        .deleteCost(cost)
+                        .subscribe(this._onDeleteSuccess, this._onDeleteError);
                 }
             });
     }
 
     private _onDeleteSuccess = () => {
-        this._toastr.success('Náklad byl úspěšně smazán','Vymazáno!');
+        this._toastr.success('Náklad byl úspěšně smazán', 'Vymazáno!');
         this.deleted.emit();
-    }
+    };
 
     private _onDeleteError = () => {
-        this._toastr.error('Náklad nebyl smazán','Chyba!');
-    }
+        this._toastr.error('Náklad nebyl smazán', 'Chyba!');
+    };
 }

@@ -2,16 +2,16 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 @Component({
     selector: 'va-slim-bar',
+    styleUrls: ['./slim-bar.component.scss'],
     template: `
-        <div class="main" [tooltip]="showTooltip ? width.toFixed(0) + '% objemu nádrže' : ''" [placement]="vaPlacement">
+        <div class="main"
+            [tooltip]="showTooltip ? width.toFixed(0) + '% objemu nádrže' : ''"
+            [placement]="vaPlacement">
             <div class="bar" [style.width]="width + '%'"></div>
         </div>
-    `,
-    styleUrls: ['./slim-bar.component.scss']
+    `
 })
-
 export class SlimBarComponent implements OnInit {
-
     @Input() max: number;
     @Input() value: number;
     @Input() showTooltip = false;
@@ -19,7 +19,7 @@ export class SlimBarComponent implements OnInit {
 
     width = 0;
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit() {
         const computedWidth = (this.value / this.max) * 100;

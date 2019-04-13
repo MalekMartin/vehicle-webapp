@@ -6,7 +6,7 @@ import { merge, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { CostsService } from '../../../../shared/api/costs/costs.service';
 import { VValidators } from '../../../../shared/forms/validators';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Cost, CostsCategory } from '../cost.interface';
 
 @Component({
@@ -15,7 +15,6 @@ import { Cost, CostsCategory } from '../cost.interface';
     styleUrls: ['./costs-form.component.scss']
 })
 export class CostsFormComponent implements OnInit, OnDestroy {
-
     id: string;
     vehicleId: string;
 
@@ -33,31 +32,33 @@ export class CostsFormComponent implements OnInit, OnDestroy {
         date: ['', Validators.required]
     });
 
+    units: string;
+    units2: string;
+
     private _onDestroy$ = new Subject();
 
-    totalPriceSubs = merge(
-        this.form.get('quantity').valueChanges,
-        this.form.get('pricePerItem').valueChanges
-    ).pipe(takeUntil(this._onDestroy$))
-    .subscribe((res)=> {
-        const q = Number(this.form.get('quantity').value);
-        const p = Number(this.form.get('pricePerItem').value);
-        this.form.get('totalPrice').patchValue(q * p);
-    });
+    categories: CostsCategory[];
+    private _cost: Cost;
 
-    private _categories:CostsCategory[];
-    private _cost:Cost;
-
-    constructor(private _form:FormBuilder,
-                private _service:CostsService,
-                private _router: Router,
-                private _route: ActivatedRoute,
-                private _toastr: ToastsManager,
-                private _vehicles: VehicleService) { }
+    constructor(
+        private _form: FormBuilder,
+        private _service: CostsService,
+        private _router: Router,
+        private _route: ActivatedRoute,
+        private _toastr: ToastsManager,
+        private _vehicles: VehicleService
+    ) {}
 
     ngOnInit() {
-        this._route
-            .params
+        merge(this.form.get('quantity').valueChanges, this.form.get('pricePerItem').valueChanges)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(res => {
+                const q = Number(this.form.get('quantity').value);
+                const p = Number(this.form.get('pricePerItem').value);
+                this.form.get('totalPrice').patchValue(q * p);
+            });
+
+        this._route.params
             .pipe(
                 map(par => par),
                 takeUntil(this._onDestroy$)
@@ -74,23 +75,21 @@ export class CostsFormComponent implements OnInit, OnDestroy {
                 }
             });
 
-        this._service.categorySubject
+        this._service.categorySubject.pipe(takeUntil(this._onDestroy$)).subscribe(c => {
+            this.categories = c;
+        });
+
+        this._vehicles.state
+            .select(s => s.vehicle)
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe((c) => {
-                this._categories = c;
+            .subscribe(v => {
+                this.units = v.info.units;
+                this.units2 = v.info.subUnits;
             });
     }
 
     ngOnDestroy() {
         this._onDestroy$.next();
-    }
-
-    get units(): string {
-        return this._vehicles.units;
-    }
-
-    get units2(): string {
-        return this._vehicles.Units2;
     }
 
     get cost(): Cost {
@@ -117,19 +116,18 @@ export class CostsFormComponent implements OnInit, OnDestroy {
     }
 
     getCost(id: string) {
-        this._service.getCost(id)
+        this._service
+            .getCost(id)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe((cost: Cost) => {
                 this.cost = cost;
             });
     }
 
-    get categories(): CostsCategory[] {
-      return this._categories;
-    }
-
     save() {
         this._service
             .saveCost(this.form.value)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onSaveSuccess, this._onSaveError);
     }
 
@@ -137,7 +135,7 @@ export class CostsFormComponent implements OnInit, OnDestroy {
         if (this.vehicleId) {
             this._router.navigate(['/vehicle/' + this.vehicleId + '/costs']);
         } else {
-            this._router.navigate(['./'], {relativeTo: this._route.parent.parent});
+            this._router.navigate(['./'], { relativeTo: this._route.parent.parent });
         }
     }
 
@@ -145,17 +143,17 @@ export class CostsFormComponent implements OnInit, OnDestroy {
         if (this.vehicleId) {
             this._router.navigate(['/vehicle/' + this.vehicleId + '/costs']);
         } else {
-            this._router.navigate(['./'], {relativeTo: this._route.parent.parent});
+            this._router.navigate(['./'], { relativeTo: this._route.parent.parent });
         }
     }
 
     private _onSaveSuccess = () => {
         this._toastr.success('Byla přidána nová položka do nákladů.', 'Hotovo');
         this.back();
-    }
+    };
 
     private _onSaveError = () => {
-      this._toastr.success('Nová položka nebyla přidána', 'Chyba!');
-      this.back();
-  }
+        this._toastr.success('Nová položka nebyla přidána', 'Chyba!');
+        this.back();
+    };
 }

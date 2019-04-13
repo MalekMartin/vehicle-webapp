@@ -1,64 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Fuel } from '../../../../shared/api/fuel/fuel';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
 import { VValidators } from '../../../../shared/forms/validators';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
 
 @Component({
     selector: 'va-fuel-form',
     templateUrl: './fuel-form.component.html',
     styleUrls: ['./fuel-form.component.scss']
 })
-export class FuelFormComponent implements OnInit {
-
-    vehicleId: string;
+export class FuelFormComponent implements OnInit, OnDestroy {
     id: string;
     fuelings: Fuel[];
+    units: string;
+    subUnits: string;
 
     form = this._form.group({
         id: [''],
         vehicleId: [''],
-        date: ['',[Validators.required]],
-        quantity: ['',[Validators.required, VValidators.validateNumber]],
-        pricePerLiter: ['0',[Validators.required, VValidators.validateNumber]],
-        price: ['0',[Validators.required, VValidators.validateNumber]],
-        odo: ['',[Validators.required, VValidators.validateNumber]],
+        date: ['', [Validators.required]],
+        quantity: ['', [Validators.required, VValidators.validateNumber]],
+        pricePerLiter: ['0', [Validators.required, VValidators.validateNumber]],
+        price: ['0', [Validators.required, VValidators.validateNumber]],
+        odo: ['', [Validators.required, VValidators.validateNumber]],
         odo2: ['0', VValidators.validateNumber],
         fullTank: [true],
         note: ['', Validators.maxLength(255)]
     });
 
-    private _vehicleId: string;
     private _fueling: Fuel;
+    private _onDestroy$ = new Subject();
 
-    constructor(private _fuelings: FuelService,
-                private _form: FormBuilder,
-                private _router: Router,
-                private _route: ActivatedRoute,
-                private _toastr: ToastsManager,
-                private _vehicles: VehicleService) { }
+    constructor(
+        private _fuelings: FuelService,
+        private _form: FormBuilder,
+        private _router: Router,
+        private _route: ActivatedRoute,
+        private _toastr: ToastsManager,
+        private _vehicles: VehicleService
+    ) {}
 
     ngOnInit() {
-        this._route
-        .params
-        .pipe(
-            map(par => par)
-        )
-        .subscribe(p => {
-            if (p['vehicleId']) {
-                this.vehicleId = p['vehicleId'];
-                this.form.get('vehicleId').setValue(this.vehicleId);
-            }
+        this._vehicles.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.id = v.info.id;
+                this.units = v.info.units;
+                this.subUnits = v.info.subUnits;
+                this.form.get('vehicleId').setValue(v.info.id);
+                this.getFueling(v.info.id);
+            });
+    }
 
-            if (p['id']) {
-                this.id = p['id'];
-                this.getFueling(p['id']);
-            }
-        });
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     get fueling(): Fuel {
@@ -66,45 +67,36 @@ export class FuelFormComponent implements OnInit {
     }
 
     getFueling(id) {
-        this._fuelings.fueling(id)
-            .subscribe(this._onFuelingSuccess, this._onFuelingError);
-    }
-
-    get units(): string {
-        return this._vehicles.units;
-    }
-
-    get subUnits(): string {
-        return this._vehicles.Units2;
+        this._fuelings.fueling(id).subscribe(this._onFuelingSuccess, this._onFuelingError);
     }
 
     save() {
         if (!this.id) {
-            this._fuelings.addFueling(this.form.value)
+            this._fuelings
+                .addFueling(this.form.value)
                 .subscribe(this._onSaveSuccess, this._onFuelingError);
         } else {
-            this._fuelings.updateFueling(this.form.value)
+            this._fuelings
+                .updateFueling(this.form.value)
                 .subscribe(this._onSaveSuccess, this._onFuelingError);
         }
     }
 
     back() {
-        if (this.vehicleId) {
-            this._router.navigate(['/vehicle/' + this.vehicleId + '/fuel']);
+        if (this.id) {
+            this._router.navigate(['/vehicle/' + this.id + '/fuel']);
         } else {
-            this._router.navigate(['./'], {relativeTo: this._route.parent.parent});
+            this._router.navigate(['./'], { relativeTo: this._route.parent.parent });
         }
     }
 
     private _onSaveSuccess = () => {
         this._toastr.success('Tankování bylo uloženo', 'Hotovo');
-        this._router.navigate(['./'], {relativeTo: this._route.parent.parent, queryParams: { itemChanged: true }});
-        // this._fuelings.refresh();
-    }
-
-    private _onSaveError = () => {
-        this._toastr.error('Tankování nebylo uloženo', 'Chyba!');
-    }
+        this._router.navigate(['./'], {
+            relativeTo: this._route.parent.parent,
+            queryParams: { itemChanged: true }
+        });
+    };
 
     calculatePricePerLiter() {
         const price = this.form.value.price;
@@ -138,8 +130,6 @@ export class FuelFormComponent implements OnInit {
     }
 
     private _onFuelingSuccess = (f: Fuel) => {
-        this.vehicleId = f.vehicleId;
-
         this.form.setValue({
             id: f.id,
             vehicleId: f.vehicleId,
@@ -152,9 +142,9 @@ export class FuelFormComponent implements OnInit {
             fullTank: f.fullTank,
             note: f.note
         });
-    }
+    };
 
     private _onFuelingError = () => {
         this._toastr.error('Záznam nebyl nalezen.', 'Chyba!');
-    }
+    };
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Vehicle } from '../../vehicle-stream/vehicle';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { VehicleImageService } from '../../vehicle-stream/vehicle-images.service';
 import { map } from 'rxjs/operators';
 

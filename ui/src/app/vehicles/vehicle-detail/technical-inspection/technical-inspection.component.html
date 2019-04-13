@@ -3,18 +3,9 @@
         <va-section-heading>
             <va-section-heading-title>Technické kontroly</va-section-heading-title>
             <va-section-heading-controls>
-                <!-- <a (click)="addTk()">přidat</a> -->
                 <a [routerLink]="['./', { outlets: {'modal':['m','add', vehicleId]}}]">přidat</a>
             </va-section-heading-controls>
         </va-section-heading>
-
-        <!-- <div [@openClose]="!!inspectionFormExpanded ? 'expanded' : 'collapsed'">
-            <va-technical-form [vehicleId]="vehicleId"
-                [ti]="selectedInspection"
-                [allStations]="stations"
-                (saved)="onSave()"
-                (canceled)="cancelInspection()"></va-technical-form>
-        </div> -->
 
         <div *ngIf="isLoading && !inspections" class="loading">
             <i class="icon-refresh spin"></i>
@@ -26,6 +17,8 @@
 
             <div class="inspections">
                 <va-inspection-card *ngFor="let inspection of inspections"
+                    [units]="units"
+                    [units2]="units2"
                     [inspection]="inspection"
                     (edited)="inspectionEdit($event)"
                     (deleted)="onInspectionDelete()"></va-inspection-card>

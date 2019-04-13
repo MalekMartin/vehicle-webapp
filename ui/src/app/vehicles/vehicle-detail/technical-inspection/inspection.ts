@@ -8,5 +8,6 @@ export interface Inspection {
     price:number;
     stationId?:string;
     odo?: number;
+    odo2?: number;
     name?: string;
 }
