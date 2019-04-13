@@ -16,6 +16,7 @@ import { VValidators } from '../../../../shared/forms/validators';
 })
 export class FuelFormComponent implements OnInit, OnDestroy {
     id: string;
+    vehicleId: string;
     fuelings: Fuel[];
     units: string;
     subUnits: string;
@@ -46,15 +47,20 @@ export class FuelFormComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
+        this._route.params.pipe(takeUntil(this._onDestroy$)).subscribe(p => {
+            this.id = p['id'] || null;
+            if(this.id) {
+                this.getFueling(this.id);
+            }
+        });
         this._vehicles.state
             .select(s => s.vehicle)
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
-                this.id = v.info.id;
                 this.units = v.info.units;
                 this.subUnits = v.info.subUnits;
+                this.vehicleId = v.info.id;
                 this.form.get('vehicleId').setValue(v.info.id);
-                this.getFueling(v.info.id);
             });
     }
 
@@ -84,7 +90,7 @@ export class FuelFormComponent implements OnInit, OnDestroy {
 
     back() {
         if (this.id) {
-            this._router.navigate(['/vehicle/' + this.id + '/fuel']);
+            this._router.navigate(['/vehicle/' + this.vehicleId + '/fuel']);
         } else {
             this._router.navigate(['./'], { relativeTo: this._route.parent.parent });
         }
