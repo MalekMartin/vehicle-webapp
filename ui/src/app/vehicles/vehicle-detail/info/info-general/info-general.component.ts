@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Vehicle } from '../../../vehicle-stream/vehicle';
 import { HttpService } from '../../../../core/http.service';
 import { InfoService } from './info.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 @Component({
     selector: 'va-info-general',

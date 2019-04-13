@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
 import { Tire } from './tires.interface';
 import { Property } from './_core/property';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TiresService {

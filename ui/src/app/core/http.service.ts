@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class HttpService {
@@ -14,19 +15,19 @@ export class HttpService {
     post<IN, OUT>(url: string, body: IN): Observable<OUT> {
         return this._http
             .post(this.buildUrl(url), JSON.stringify(body), this.createHeaders)
-            .map((response) => <OUT>response.json());
+            .pipe(map((response) => <OUT>response.json()));
     }
 
     get<T>(url: string): Observable<T> {
         return this._http
             .get(this.buildUrl(url), this.createHeaders)
-            .map((response) => <T>response.json());
+            .pipe(map((response) => <T>response.json()));
     }
 
     delete<T>(url: string): Observable<T> {
         return this._http
             .delete(this.buildUrl(url), this.createHeaders)
-            .map((response) => <T>response.json());
+            .pipe(map((response) => <T>response.json()));
     }
 
     get createHeaders(): RequestOptionsArgs {

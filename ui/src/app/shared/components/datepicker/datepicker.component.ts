@@ -1,14 +1,13 @@
-import { Component, OnInit, forwardRef, ViewChild } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor } from '@angular/forms';
-import { BsDropdownDirective, DatePickerComponent } from 'ngx-bootstrap';
-
+import { Component, forwardRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as moment from 'moment';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownDirective, DatePickerComponent } from 'ngx-bootstrap';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-const noop = () => {
-};
+const noop = () => {};
 
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+export const DATEPICKER_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DatepickerComponent),
     multi: true
@@ -18,24 +17,31 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     selector: 'va-date-picker',
     templateUrl: './datepicker.component.html',
     styleUrls: ['./datepicker.component.scss'],
-    providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+    providers: [DATEPICKER_CONTROL_VALUE_ACCESSOR]
 })
-export class DatepickerComponent implements OnInit, ControlValueAccessor {
+export class DatepickerComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-    dt: Date;
+    dt = new FormControl();
 
     @ViewChild(BsDropdownDirective) dropdown: BsDropdownDirective;
     @ViewChild(DatePickerComponent) datepicker: DatePickerComponent;
 
+    private _onDestroy$ = new Subject();
     // Placeholders for the callbacks which are later provided
     // by the Control Value Accessor
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
 
-    constructor() {
-    }
+    constructor() {}
 
     ngOnInit() {
+        this.dt.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe(v => {
+            this.onChangeCallback(v);
+        });
+    }
+
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     get isOpen(): boolean {
@@ -54,20 +60,17 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
         this.onChangeCallback(null);
     }
 
-
-
     onToggle(isOpen: boolean) {
         this.onTouchedCallback();
-        if (!isOpen && !!this.dt) {
-            // this.onChangeCallback(moment(this.dt).set('hour', 12).set('minute', 0).toISOString());
-            this.onChangeCallback(moment(this.dt).toDate());
+        if (!isOpen && !!this.dt.value) {
+            this.onChangeCallback(moment(this.dt.value).toDate());
         }
     }
 
     // From ControlValueAccessor interface
     writeValue(value: any) {
         if (!!value) {
-            this.dt = moment(value).toDate();
+            this.dt.setValue(moment(value).toDate(), { emitEvent: false });
         }
     }
 
@@ -80,41 +83,4 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
     registerOnTouched(fn: any) {
         this.onTouchedCallback = fn;
     }
-
-    // dt: Date;
-
-    // private onTouchedCallback: () => void = noop;
-    // private onChangeCallback: (_: any) => void = noop;
-
-    // constructor() {
-    // }
-
-    // ngOnInit() {
-    // }
-
-    // onToggle(isOpen: boolean) {
-    //     if (!isOpen) {
-    //         this.onChangeCallback(moment.utc(this.dt).toISOString());
-    //     }
-    // }
-
-    // // From ControlValueAccessor interface
-    // writeValue(value: any) {
-    //     if (!!value) {
-    //         this.dt = moment.utc(value).toDate();
-    //     }
-    // }
-
-    // // From ControlValueAccessor interface
-    // registerOnChange(fn: any) {
-    //     this.onChangeCallback = fn;
-    // }
-
-    // // From ControlValueAccessor interface
-    // registerOnTouched(fn: any) {
-    //     this.onTouchedCallback = fn;
-    // }
-
-    // // Placeholders for the callbacks which are later provided
-    // // by the Control Value Accessor
 }

@@ -6,7 +6,7 @@ import { HttpModule, ConnectionBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { XHRBackend } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ToastsManager, ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager, ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { CoreModule } from '../core/core.module';
 
 describe('VehiclesComponent', () => {

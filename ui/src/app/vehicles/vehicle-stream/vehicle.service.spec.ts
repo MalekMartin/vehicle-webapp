@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { ToastsManager, ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager, ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VehicleService } from './vehicle.service';
 import { HttpModule, XHRBackend, Response, ResponseOptions  } from '@angular/http';

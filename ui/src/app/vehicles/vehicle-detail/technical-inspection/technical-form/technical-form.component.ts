@@ -3,10 +3,10 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Technical } from '../technical';
 import { Station } from '../station';
 import { TechnicalInspectionService } from '../technical-inspection.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { VehicleService } from '../../../vehicle-stream/vehicle.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'va-technical-form',

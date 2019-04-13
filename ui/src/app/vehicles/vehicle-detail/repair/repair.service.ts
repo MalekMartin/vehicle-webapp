@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RepairTask } from './_core/repair-task.interface';
 import { Repair } from './_core/repair.interface';
 import { Pageable, Page } from '../../../utils/pageable';

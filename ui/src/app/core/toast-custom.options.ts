@@ -1,4 +1,4 @@
-import { ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastOptions } from 'ng6-toastr/ng2-toastr';
 
 export class ToastCustomOption extends ToastOptions {
     animate = 'flyRight';

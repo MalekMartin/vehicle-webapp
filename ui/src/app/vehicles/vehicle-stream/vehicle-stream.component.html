@@ -5,7 +5,7 @@
             <h1 class="text-center">Přehled vozidel</h1>
             <div class="spacer"></div>
             <div class="search">
-                <input type="text" class="form-control" placeholder="Hledat..." [(ngModel)]="filter">
+                <input type="text" class="form-control" placeholder="Hledat..." [formControl]="query">
             </div>
         </div>
         

@@ -10,7 +10,7 @@ import { MomentPipe } from '../../../shared/pipes/moment.pipe';
 import { FromNowPipe } from '../../../shared/pipes/from-now.pipe';
 import { PricePipe } from '../../../shared/pipes/price.pipe';
 import { NumberFormatPipe } from '../../../shared/pipes/number-format.pipe';
-import { ToastModule, ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { vehicleMock } from '../vehicle.service.spec';
 import { SettingsService } from '../../vehicle-detail/vehicle-settings/settings.service';
 

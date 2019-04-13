@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from '../../../../core/http.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Trade } from '../../../../shared/api/trade/trade';
 
 @Component({

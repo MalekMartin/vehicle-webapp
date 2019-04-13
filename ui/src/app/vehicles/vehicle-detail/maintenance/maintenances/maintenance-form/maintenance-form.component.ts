@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { VValidators } from '../../../../../shared/forms/validators';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Maintenance } from '../../../../../shared/api/maintenance/maintenance.interface';
 import { Interval } from '../../../../../shared/api/maintenance/interval.interface';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';

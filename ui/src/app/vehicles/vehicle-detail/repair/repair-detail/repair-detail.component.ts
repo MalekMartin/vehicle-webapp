@@ -5,8 +5,8 @@ import { Repair } from '../_core/repair.interface';
 import { HttpService } from '../../../../core/http.service';
 import { RepairTask } from '../_core/repair-task.interface';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { Subscription } from 'rxjs/Subscription';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { Subscription } from 'rxjs';
 import { RepairFormService } from '../repair-form/repair-form.service';
 import { ModalDirective } from 'ngx-bootstrap';
 

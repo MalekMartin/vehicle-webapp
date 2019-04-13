@@ -2,8 +2,8 @@ import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angu
 import { Repair } from '../_core/repair.interface';
 import { RepairService } from '../repair.service';
 import { RepairTask } from '../_core/repair-task.interface';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { Subscription } from 'rxjs/Subscription';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { Subscription } from 'rxjs';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
 import * as _ from 'lodash';
 

@@ -2,12 +2,12 @@ import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStore } from './token.store';
 import { Http, Headers, RequestOptionsArgs, Response } from '@angular/http';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription ,  Observable } from 'rxjs';
 import { Jwt } from './jwt';
 import * as moment from 'moment';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+
 import { StorageService } from '../shared/api/storage.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -76,7 +76,7 @@ export class AuthService {
         }
 
         this._subscription = this.http.get('/auth/account', {headers: headers})
-            .map((response: Response) => response.json())
+            .pipe(map((response: Response) => response.json()))
             .subscribe(user => this._user = user);
     }
 
@@ -85,7 +85,7 @@ export class AuthService {
         this._tokenStore.rememberMe = rememberMe;
         return this.http
             .post('/auth/token', creds, this._loginOptions)
-            .map(this.mapLoginResponse);
+            .pipe(map(this.mapLoginResponse));
     }
 
     logout() {

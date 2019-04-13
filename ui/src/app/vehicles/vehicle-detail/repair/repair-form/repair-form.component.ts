@@ -11,16 +11,16 @@ import {
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { VValidators } from '../../../../shared/forms/validators';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Rx';
+import { Subscription ,  Observable, fromEvent, merge } from 'rxjs';
 import { Repair } from '../_core/repair.interface';
 import { GarageService } from '../../../../car-services/garage/garage.service';
 import { OnInit } from '@angular/core';
 import { RepairService } from '../repair.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { trigger } from '@angular/animations';
 import { VehicleService } from '../../../vehicle-stream/vehicle.service';
 import { Garage } from '../../../../car-services/garage-form/garage-form.component';
+import { mapTo } from 'rxjs/operators';
 
 @Component({
     selector: 'va-repair-form',
@@ -83,15 +83,15 @@ export class RepairFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
     subscribeToDialog(): Observable<boolean> {
         return Observable.create(observer => {
-            const close$ = Observable.fromEvent(this.btnClose.nativeElement, 'click');
-            const cancel$ = Observable.fromEvent(this.btnCancel.nativeElement, 'click');
-            const save$ = Observable.fromEvent(this.btnSave.nativeElement, 'click');
+            const close$ = fromEvent(this.btnClose.nativeElement, 'click');
+            const cancel$ = fromEvent(this.btnCancel.nativeElement, 'click');
+            const save$ = fromEvent(this.btnSave.nativeElement, 'click');
 
-            this.modalSubscription = Observable.merge(
-                close$.mapTo(false),
-                cancel$.mapTo(false),
-                save$.mapTo(true),
-                this.dialog.onHidden.asObservable().mapTo(false)
+            this.modalSubscription = merge(
+                close$.pipe(mapTo(false)),
+                cancel$.pipe(mapTo(false)),
+                save$.pipe(mapTo(true)),
+                this.dialog.onHidden.asObservable().pipe(mapTo(false))
             ).subscribe(result => {
                 this.dialog.hide();
                 observer.next(result);

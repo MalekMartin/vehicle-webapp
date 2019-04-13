@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { VehicleService } from '../../vehicle-stream/vehicle.service';
 import { Vehicle, VehicleInfo } from '../../vehicle-stream/vehicle';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'va-info',

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
 import { SingleStatsModel } from '../stats.interface';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
+import { Observable ,  ReplaySubject ,  ConnectableObservable } from 'rxjs';
 import { Pageable } from '../../../utils/pageable';
 import { Cost } from '../../../vehicles/vehicle-detail/costs/cost.interface';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class CostsService extends Pageable<Cost> {
@@ -51,9 +50,9 @@ export class CostsService extends Pageable<Cost> {
     categories(): Observable<any> {
       return this._http
         .get<any>('/resource/cost-category')
-        .do((value) => {
+        .pipe(tap((value) => {
           this.categorySubject.next(value);
-        });
+        }));
     }
 
     getStats(vehicleId) {

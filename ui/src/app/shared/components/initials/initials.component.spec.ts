@@ -3,7 +3,7 @@ import { InitialsComponent } from './initials.component';
 import { CoreModule } from '../../../core/core.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ColorFormStringDirective } from '../../directives/color-from-string.directive';
-import { ToastModule, ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
 
 describe('InitialsComponent', () => {
 

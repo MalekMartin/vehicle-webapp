@@ -3,7 +3,7 @@ import { AppState } from '../app.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, inject } from '@angular/core/testing';
 import { TokenStore } from './token.store';
-import { ToastModule, ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
 
 describe('TokenStore', () => {
 

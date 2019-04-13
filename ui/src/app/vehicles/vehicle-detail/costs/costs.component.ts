@@ -1,18 +1,14 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { ModalDirective } from 'ngx-bootstrap';
-import {
-    ConfirmDialogService
-} from '../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { Cost, CostsCategory } from './cost.interface';
-import { Page, Pageable } from '../../../utils/pageable';
-import { Observable } from 'rxjs/Rx';
-import { FormControl, FormBuilder } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { Subscription } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { CostsService } from '../../../shared/api/costs/costs.service';
+import { Page, Pageable } from '../../../utils/pageable';
+import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { Cost, CostsCategory } from './cost.interface';
 
 @Component({
     selector: 'va-costs',
@@ -46,10 +42,7 @@ export class CostsComponent implements OnInit, OnDestroy {
     private _categorySubs: Subscription;
 
     constructor(private _service:CostsService,
-                private _route:ActivatedRoute,
                 private _toastr:ToastsManager,
-                private _confirm: ConfirmDialogService,
-                private _router: Router,
                 private _fb: FormBuilder,
                 private _vehicles: VehicleService) {
 
@@ -63,13 +56,15 @@ export class CostsComponent implements OnInit, OnDestroy {
         this.findCategories();
 
         this._querySubs = this.form.valueChanges
-            .debounceTime(300)
-            .switchMap(val => {
-                this._service.query = !!val ? val.query : '';
-                this.setFilter();
-                this._service.reset();
-                return this._service.fetchCurrentPage();
-            })
+            .pipe(
+                debounceTime(300),
+                switchMap(val => {
+                    this._service.query = !!val ? val.query : '';
+                    this.setFilter();
+                    this._service.reset();
+                    return this._service.fetchCurrentPage();
+                })
+            )
             .subscribe(this._handleNewContent);
     }
 

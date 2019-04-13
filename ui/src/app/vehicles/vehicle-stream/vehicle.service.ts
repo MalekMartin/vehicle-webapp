@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Vehicle, VehicleInfo, Info } from './vehicle';
 import { HttpService } from '../../core/http.service';
-import { Observable } from 'rxjs/Observable';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable ,  ReplaySubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 @Injectable()
 export class VehicleService {
@@ -14,8 +14,8 @@ export class VehicleService {
     private _vehicle: VehicleInfo;
     private _vehicleId: string;
 
-    constructor(private _http:HttpService,
-                private _toastr:ToastsManager) {
+    constructor(private _http: HttpService,
+                private _toastr: ToastsManager) {
     }
 
     get allVehicles(): Vehicle[]{
@@ -63,10 +63,12 @@ export class VehicleService {
         this.activeVehicle = null;
         return this._http
             .get<VehicleInfo>('/resource/info/' + id)
-            .do((vehicle: VehicleInfo) => {
-                this.activeVehicle = vehicle;
-                this.vehicleSubject.next(vehicle.info);
-            });
+            .pipe(
+                tap((vehicle: VehicleInfo) => {
+                    this.activeVehicle = vehicle;
+                    this.vehicleSubject.next(vehicle.info);
+                })
+            );
     }
 
     deleteVehicle(vehicleId:string) {

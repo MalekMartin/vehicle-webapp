@@ -13,14 +13,14 @@
                         <va-form-item [control]="form.get('odo')" class="col-sm-12">
                             <label for="odo">ODO ({{units}}):</label>
                             Poslední nájezd: {{updatedTire.odo | formatNumber}} {{units}}
-                            <input type="text" id="odo" class="form-control" formControlName="odo" [(ngModel)]="odo">
+                            <input type="text" id="odo" class="form-control" formControlName="odo">
                             <div *ngIf="newStatus === 'STOCK'">Nový nájezd: {{calculateMileage | formatNumber}} {{units}}</div>
                         </va-form-item>
 
                         <va-form-item *ngIf="!!units2" [control]="form.get('odo2')" class="col-sm-12">
                             <label for="odo2">ODO ({{units}}):</label>
                             Poslední nájezd: {{updatedTire.odo2 | formatNumber}} {{units2}}
-                            <input type="text" id="odo2" class="form-control" formControlName="odo2" [(ngModel)]="odo2">
+                            <input type="text" id="odo2" class="form-control" formControlName="odo2">
                             <div *ngIf="newStatus === 'STOCK'">Nový nájezd: {{calculateEngineHours | formatNumber}} {{units2}}</div>
                         </va-form-item>
                     </div>

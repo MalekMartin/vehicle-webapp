@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { VehicleService } from '../../../vehicle-stream/vehicle.service';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subscription ,  Observable, forkJoin } from 'rxjs';
 
 @Component({
     selector: 'va-status-card',
@@ -35,7 +34,7 @@ export class StatusCardComponent implements OnInit, OnDestroy {
                 private _fuel: FuelService) { }
 
     ngOnInit() {
-        this._subs = Observable.forkJoin(
+        this._subs = forkJoin(
             this.annual,
             this.current
         ).subscribe(this._onSuccess);

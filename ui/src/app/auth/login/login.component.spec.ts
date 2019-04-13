@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ToastModule, ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
 import { XHRBackend, Response, ResponseOptions, HttpModule } from '@angular/http';

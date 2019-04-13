@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
 import { Fuel } from './fuel';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Pageable, Page } from '../../../utils/pageable';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MultiStatsModel } from '../stats.interface';
 
 @Injectable()

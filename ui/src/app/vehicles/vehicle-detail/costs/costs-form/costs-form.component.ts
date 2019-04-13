@@ -1,14 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { VValidators } from '../../../../shared/forms/validators';
-import { Cost, CostsCategory } from '../cost.interface';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { merge, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { CostsService } from '../../../../shared/api/costs/costs.service';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators';
+import { VValidators } from '../../../../shared/forms/validators';
+import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { Cost, CostsCategory } from '../cost.interface';
 
 @Component({
     selector: 'va-costs-form',
@@ -36,7 +35,7 @@ export class CostsFormComponent implements OnInit, OnDestroy {
 
     private _onDestroy$ = new Subject();
 
-    totalPriceSubs = Observable.merge(
+    totalPriceSubs = merge(
         this.form.get('quantity').valueChanges,
         this.form.get('pricePerItem').valueChanges
     ).pipe(takeUntil(this._onDestroy$))
@@ -46,7 +45,6 @@ export class CostsFormComponent implements OnInit, OnDestroy {
         this.form.get('totalPrice').patchValue(q * p);
     });
 
-    private _vehicleId: string;
     private _categories:CostsCategory[];
     private _cost:Cost;
 
@@ -60,8 +58,10 @@ export class CostsFormComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._route
             .params
-            .pipe(takeUntil(this._onDestroy$))
-            .map(par => par)
+            .pipe(
+                map(par => par),
+                takeUntil(this._onDestroy$)
+            )
             .subscribe(p => {
                 if (p['vehicleId']) {
                     this.vehicleId = p['vehicleId'];

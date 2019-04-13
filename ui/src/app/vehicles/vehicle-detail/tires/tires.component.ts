@@ -2,10 +2,10 @@ import { Component, OnChanges, Input, ViewChild, OnInit, OnDestroy } from '@angu
 import { Tire, PropertyExt } from './tires.interface';
 import { ModalDirective } from 'ngx-bootstrap';
 import { TiresService } from './tires.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { TireStatusDialogService } from './tire-status-form/tire-status-form.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { TiresObject } from './tires.interface';
 import { VehicleService } from '../../vehicle-stream/vehicle.service';
 import { TirePropertiesFormService } from './tire-properties-form/tire-properties-form.service';

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GarageService } from '../garage/garage.service';
-import { Subscription } from 'rxjs/Subscription';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Subscription } from 'rxjs';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 @Component({
     selector: 'va-car-service-detail',

@@ -3,11 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VehicleService } from '../vehicle-stream/vehicle.service';
 import { Vehicle } from '../vehicle-stream/vehicle';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { Observable } from 'rxjs/Observable';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { Observable ,  Subscription } from 'rxjs';
 import { VehicleImageService } from '../vehicle-stream/vehicle-images.service';
 import { SettingsService } from './vehicle-settings/settings.service';
-import { Subscription } from 'rxjs/Subscription';
 import { MaintenanceService } from '../../shared/api/maintenance/maintenance.service';
 
 @Component({

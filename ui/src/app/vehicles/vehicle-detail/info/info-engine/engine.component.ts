@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Engine } from '../../_core/engine';
 import { HttpService } from '../../../../core/http.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 @Component({
     selector: 'va-engine',

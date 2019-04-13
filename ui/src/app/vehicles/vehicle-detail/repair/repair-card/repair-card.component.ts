@@ -3,7 +3,7 @@ import { RepairService } from '../repair.service';
 import {
     ConfirmDialogService
 } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { RepairTask } from '../_core/repair-task.interface';
 import { Repair } from '../_core/repair.interface';
 import { RepairFormService } from '../repair-form/repair-form.service';

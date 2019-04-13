@@ -1,15 +1,12 @@
-import { Component, Input, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 import { Fuel } from '../../../shared/api/fuel/fuel';
 import { FuelService } from '../../../shared/api/fuel/fuel.service';
-import { Vehicle } from '../../vehicle-stream/vehicle';
-import { ModalDirective } from 'ngx-bootstrap';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { Page, Pageable } from '../../../utils/pageable';
-import { Subscription } from 'rxjs/Subscription';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
-import { Observable } from 'rxjs/Rx';
 import { MultiStatsModel } from '../../../shared/api/stats.interface';
+import { Page, Pageable } from '../../../utils/pageable';
+import { VehicleService } from '../../vehicle-stream/vehicle.service';
 
 @Component({
     selector: 'va-fuel',
@@ -67,7 +64,7 @@ export class FuelComponent implements OnInit, OnDestroy {
     }
 
     refresh() {
-        this._loadValuesSubs = Observable.forkJoin(
+        this._loadValuesSubs = forkJoin(
             this.fuels,
             this.stats,
             this.mileageStats

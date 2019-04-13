@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { HttpService } from '../../../../core/http.service';
-import { FuelService } from '../../../../shared/api/fuel/fuel.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { map } from 'rxjs/operators';
 import { Fuel } from '../../../../shared/api/fuel/fuel';
+import { FuelService } from '../../../../shared/api/fuel/fuel.service';
 import { VValidators } from '../../../../shared/forms/validators';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { VehicleService } from '../../../vehicle-stream/vehicle.service';
 
 @Component({
@@ -45,7 +45,9 @@ export class FuelFormComponent implements OnInit {
     ngOnInit() {
         this._route
         .params
-        .map(par => par)
+        .pipe(
+            map(par => par)
+        )
         .subscribe(p => {
             if (p['vehicleId']) {
                 this.vehicleId = p['vehicleId'];

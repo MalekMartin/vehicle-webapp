@@ -3,9 +3,9 @@
         <div class="color" [vaColorFromString]="maintenance.interval.name"></div>
         <div class="checkbox-panel">
             <va-checkbox
-            [@toggle]="checkboxState" 
+                [@toggle]="checkboxState" 
                 (click)="toggleSelect()"
-                [(ngModel)]="maintenance.selected"></va-checkbox>
+                [formControl]="control"></va-checkbox>
         </div>
     </va-card-left>
 

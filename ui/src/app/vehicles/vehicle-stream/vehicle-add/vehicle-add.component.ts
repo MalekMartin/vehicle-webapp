@@ -4,7 +4,7 @@ import { VehicleService } from '../vehicle.service';
 import { HttpService } from '../../../core/http.service';
 import { DatepickerModule } from 'ngx-bootstrap';
 import * as moment from 'moment';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 @Component({
     selector: 'va-vehicle-add',

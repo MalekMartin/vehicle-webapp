@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/auth.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MaintenanceService } from '../../api/maintenance/maintenance.service';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subscription ,  Observable } from 'rxjs';
 
 @Component({
     selector: 'va-top-menu',

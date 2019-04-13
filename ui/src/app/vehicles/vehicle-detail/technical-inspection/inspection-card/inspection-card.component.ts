@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Inspection } from '../inspection';
 import * as moment from 'moment';
 import { TechnicalInspectionService } from '../technical-inspection.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { VehicleService } from '../../../vehicle-stream/vehicle.service';
 
 @Component({

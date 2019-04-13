@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Tire } from '../tires.interface';
-import { Observable } from 'rxjs/Rx';
+import { Observable ,  Subscription, fromEvent, merge } from 'rxjs';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs/Subscription';
 import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { mapTo } from 'rxjs/operators';
 
 @Component({
     selector: 'va-tire-status-form',
@@ -39,9 +39,6 @@ export class TireStatusFormComponent implements AfterViewInit, OnDestroy {
         date: ['']
     });
 
-    odo = 0;
-    odo2 = 0;
-
     newOdo:number;
     newOdo2:number;
 
@@ -53,15 +50,15 @@ export class TireStatusFormComponent implements AfterViewInit, OnDestroy {
     subscribeToDialog(): Observable<boolean> {
 
         return Observable.create(observer => {
-            const close$ = Observable.fromEvent(this.btnClose.nativeElement, 'click');
-            const cancel$ = Observable.fromEvent(this.btnCancel.nativeElement, 'click');
-            const ok$ = Observable.fromEvent(this.btnOk.nativeElement, 'click');
+            const close$ = fromEvent(this.btnClose.nativeElement, 'click');
+            const cancel$ = fromEvent(this.btnCancel.nativeElement, 'click');
+            const ok$ = fromEvent(this.btnOk.nativeElement, 'click');
 
-            this.modalSubscription = Observable.merge(
-                close$.mapTo(false),
-                cancel$.mapTo(false),
-                ok$.mapTo(true),
-                this.dialog.onHidden.asObservable().mapTo(false)
+            this.modalSubscription = merge(
+                close$.pipe(mapTo(false)),
+                cancel$.pipe(mapTo(false)),
+                ok$.pipe(mapTo(true)),
+                this.dialog.onHidden.pipe(mapTo(false))
             ).subscribe(result => {
                 this.dialog.hide();
                 observer.next({tire: this.save(), result: result});
@@ -102,21 +99,21 @@ export class TireStatusFormComponent implements AfterViewInit, OnDestroy {
             this.updatedTire.tireOdo = this.calculateMileage;
             this.updatedTire.tireOdo2 = this.calculateEngineHours;
         }
-        this.updatedTire.odo = this.form.value.odo;
-        this.updatedTire.odo2 = this.form.value.odo2;
+        this.updatedTire.odo = this.form.get('odo').value;
+        this.updatedTire.odo2 = this.form.get('odo2').value;
         if (this.newStatus === 'STOCK') {
-            if (this.updatedTire.odo >= this.odo) {
-                return {tire: this.updatedTire, date: this.form.value.date};
+            if (this.updatedTire.odo >= this.form.get('odo').value) {
+                return {tire: this.updatedTire, date: this.form.get('date').value};
             }
         } else {
-            return {tire: this.updatedTire, date: this.form.value.date};
+            return {tire: this.updatedTire, date: this.form.get('date').value};
         }
     }
 
     get calculateMileage() {
         const milesOnTire = Number(this.updatedTire.tireOdo) || 0;
         const lastMileage = Number(this.updatedTire.odo) || 0;
-        const mileage = Number(this.odo) || 0;
+        const mileage = Number(this.form.get('odo')) || 0;
 
         const p = mileage - lastMileage;
         const res = milesOnTire + p;
@@ -127,7 +124,7 @@ export class TireStatusFormComponent implements AfterViewInit, OnDestroy {
     get calculateEngineHours() {
         const hoursOnTire = Number(this.updatedTire.tireOdo2) || 0;
         const lastHours = Number(this.updatedTire.odo2) || 0;
-        const hours = Number(this.odo2) || 0;
+        const hours = Number(this.form.get('odo2').value) || 0;
         const res = hoursOnTire + (hours - lastHours);
         return res < 0 ? 0 : res;
     }

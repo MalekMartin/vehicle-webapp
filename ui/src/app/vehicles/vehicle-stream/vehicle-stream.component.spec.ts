@@ -12,7 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CoreModule } from '../../core/core.module';
 import { VehicleService } from './vehicle.service';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { ToastsManager, ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager, ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import {
     ConfirmDialogService
 } from '../../shared/components/confirm-dialog/confirm-dialog.service';

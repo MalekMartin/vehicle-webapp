@@ -1,8 +1,8 @@
 <div class="checkbox">
-    <input type="checkbox" id="uu" class="input-checkbox" 
-        [formControl]="checkboxControl" [(ngModel)]="value" name="something">
-    <label [attr.for]="id" (click)="value = !value">
-        <i class="icon-checkbox-checked" *ngIf="value"></i>
-        <i class="icon-checkbox-unchecked" *ngIf="!value"></i>
+    <input type="checkbox" [id]="id" class="input-checkbox" 
+        [formControl]="checkboxControl" name="something">
+    <label [attr.for]="id">
+        <i class="icon-checkbox-checked" *ngIf="checkboxControl.value"></i>
+        <i class="icon-checkbox-unchecked" *ngIf="!checkboxControl.value"></i>
     </label>
 </div>
