@@ -4,7 +4,7 @@
             <div class="value title">
                 <span>{{fuel.date | moment: 'DD.MM.YYYY'}}</span>
                 <span *ngIf="!!units">{{fuel.odo | formatNumber}} {{units}}</span>
-                <span *ngIf="!!subUnits">{{fuel.odo2 | formatNumber}} {{subUnits}}</span>
+                <span *ngIf="!!units2">{{fuel.odo2 | formatNumber}} {{units2}}</span>
                 <span tooltip="Množství">{{fuel.quantity | formatNumber }} l</span>
             </div>
             <div class="spacer"></div>
@@ -18,7 +18,7 @@
                 <span *ngIf="fuel.distance"
                     class="distance">+{{ (fuel.distance | formatNumber) || '0'}} {{units}}</span>
                 <span *ngIf="fuel.hoursDistance"
-                    class="distance">+{{ (fuel.hoursDistance | formatNumber) || '0'}} {{subUnits}}</span>
+                    class="distance">+{{ (fuel.hoursDistance | formatNumber) || '0'}} {{units2}}</span>
             </div>
             <div class="spacer"></div>
             <div class="value consumptions">
@@ -26,7 +26,7 @@
                 <span *ngIf="fuel.consumption" tooltip="Spotřeba" placement="bottom"
                     class="consumption">{{fuel.consumption | formatNumber}} l/100 {{units}}</span>
                 <span *ngIf="fuel.consumptionHours" tooltip="Spotřeba" placement="bottom"
-                    class="consumption">{{fuel.consumptionHours | formatNumber}} l/1 {{subUnits}}</span>
+                    class="consumption">{{fuel.consumptionHours | formatNumber}} l/1 {{units2}}</span>
             </div>
         </div>
         <div class="notes" *ngIf="fuel.note">
