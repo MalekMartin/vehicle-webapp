@@ -1,29 +1,25 @@
 <form [formGroup]="form">
-    <va-form-item [control]="form.get('firstName')">
-        <label>Jméno</label>
-        <input type="text" class="form-control" formControlName="firstName">
-    </va-form-item>
+    <mat-form-field>
+        <input type="text" matInput formControlName="firstName" placeholder="Jméno">
+    </mat-form-field>
 
-    <va-form-item [control]="form.get('lastName')">
-        <label>Příjmení</label>
-        <input type="text" class="form-control" formControlName="lastName">
-    </va-form-item>
+    <mat-form-field>
+        <input type="text" matInput formControlName="lastName" placeholder="Příjmení">
+    </mat-form-field>
 
     <div formGroupName="pwds">
         <va-form-item [control]="form.get('pwds')">
-            <va-form-item [control]="form.get(['pwds', 'pwd'])">
-                <label>Heslo</label>
-                <input type="password" class="form-control" formControlName="pwd">
-            </va-form-item>
+            <mat-form-field>
+                <input matInput type="password" formControlName="pwd" placeholder="Heslo">
+            </mat-form-field>
 
-            <va-form-item [control]="form.get(['pwds', 'pwdCheck'])">
-                <label>Heslo znovu</label>
-                <input type="password" class="form-control" formControlName="pwdCheck">
-            </va-form-item>
+            <mat-form-field>
+                <input matInput type="password" formControlName="pwdCheck" placeholder="Heslo znovu">
+            </mat-form-field>
         </va-form-item>
     </div>
 
-    <button class="btn btn-primary" [disabled]="!form.valid" (click)="finishRegistration()">
+    <button mat-raised-button [disabled]="!form.valid" (click)="finishRegistration()">
         Dokončit registraci
     </button>
 </form>
