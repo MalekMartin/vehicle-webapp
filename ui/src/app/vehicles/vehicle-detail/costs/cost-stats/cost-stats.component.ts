@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Cost } from '../cost.interface';
 import { NumberStat } from '../../../../shared/components/number-stats/number-stats.component';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { CostsService, Category } from '../../../../shared/api/costs/costs.service';
 import { SingleStatsModel } from '../../../../shared/api/stats.interface';
 

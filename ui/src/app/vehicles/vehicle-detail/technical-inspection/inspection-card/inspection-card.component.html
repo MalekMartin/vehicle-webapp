@@ -11,7 +11,7 @@
                     <div class="value title">
                         <span>{{inspection.date | moment: 'DD.MM.YYYY'}}</span>
                         <span>{{(inspection.odo | formatNumber) || 0}} {{units}}</span>
-                        <span class="value" *ngIf="!!subUnits">{{(inspection.odo2 | formatNumber) || 0}} {{subUnits}}</span>
+                        <span class="value" *ngIf="!!units2">{{(inspection.odo2 | formatNumber) || 0}} {{units2}}</span>
                     </div>
                     <div class="separator"></div>
                     <div class="value">{{inspection.name}}</div>

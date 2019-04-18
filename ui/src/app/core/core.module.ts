@@ -5,6 +5,7 @@ import { TokenStore } from './token.store';
 import { AuthGuard } from './auth.guard';
 import { AppState } from '../app.service';
 import { DialogService } from './dialog.service';
+import { VehicleService } from './stores/vehicle/vehicle.service';
 
 @NgModule({
     imports: [],
@@ -22,7 +23,8 @@ export class CoreModule {
                 TokenStore,
                 AuthGuard,
                 AppState,
-                DialogService
+                DialogService,
+                VehicleService
             ]
         };
     }

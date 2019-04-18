@@ -2,10 +2,10 @@ import { Component, OnChanges, Input, OnInit, Output, EventEmitter } from '@angu
 import { TiresService } from '../tires.service';
 import { Property } from '../_core/property';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { TirePropertiesFormService } from '../tire-properties-form/tire-properties-form.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { PropertyExt } from '../tires.interface';
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs/Subscription';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { Subscription } from 'rxjs';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../shared/api/maintenance/interval.interface';
 import { MaintenanceService } from '../../../../shared/api/maintenance/maintenance.service';
 

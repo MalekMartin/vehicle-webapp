@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
 import { Pageable, Page } from '../../../utils/pageable';
 import { Maintenance } from './maintenance.interface';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  ReplaySubject } from 'rxjs';
 import { Interval } from './interval.interface';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class MaintenanceService extends Pageable<Maintenance> {
@@ -29,9 +29,9 @@ export class MaintenanceService extends Pageable<Maintenance> {
     request(): Observable<Page<Maintenance>> {
         return this._http
             .post<Maintenance, Page<Maintenance>>('/resource/maintenance/' + this.vehicleId + '?' + this.paginationSegment(), this.filter)
-            .do((i:Page<Maintenance>) => {
+            .pipe(tap((i:Page<Maintenance>) => {
                 this.maintenanceSubject.next(i);
-            });
+            }));
     }
 
     saveMaintenance(maintenance) {
@@ -73,17 +73,17 @@ export class MaintenanceService extends Pageable<Maintenance> {
     getIntervals(vehicleId:string) {
         return this._http
             .get('/resource/intervals/' + vehicleId)
-            .do((i: Interval[]) => {
+            .pipe(tap((i: Interval[]) => {
                 this.intervalsSubject.next(i);
-            });
+            }));
     }
 
     getExpiredCount() {
         return this._http
             .get(`/resource/maintenance/expired`)
-            .do((res) => {
+            .pipe(tap((res) => {
                 this.expiredSubject.next(res);
-            });
+            }));
     }
 
     buildEmptyInterval(vehicleId: string): Interval {

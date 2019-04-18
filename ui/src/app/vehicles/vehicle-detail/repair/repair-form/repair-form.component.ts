@@ -1,26 +1,14 @@
-import {
-    Component,
-    Output,
-    EventEmitter,
-    Input,
-    ViewChild,
-    ElementRef,
-    OnDestroy,
-    AfterViewInit
-} from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { VValidators } from '../../../../shared/forms/validators';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Rx';
-import { Repair } from '../_core/repair.interface';
-import { GarageService } from '../../../../car-services/garage/garage.service';
-import { OnInit } from '@angular/core';
-import { RepairService } from '../repair.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { trigger } from '@angular/animations';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { fromEvent, merge, Observable, Subject, Subscription } from 'rxjs';
+import { mapTo, takeUntil } from 'rxjs/operators';
 import { Garage } from '../../../../car-services/garage-form/garage-form.component';
+import { GarageService } from '../../../../car-services/garage/garage.service';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
+import { VValidators } from '../../../../shared/forms/validators';
+import { RepairService } from '../repair.service';
 
 @Component({
     selector: 'va-repair-form',
@@ -28,7 +16,6 @@ import { Garage } from '../../../../car-services/garage-form/garage-form.compone
     styleUrls: ['./repair-form.component.scss']
 })
 export class RepairFormComponent implements OnInit, OnDestroy, AfterViewInit {
-
     @ViewChild('dialog') dialog: ModalDirective;
     @ViewChild('btnClose') btnClose: ElementRef;
     @ViewChild('btnCancel') btnCancel: ElementRef;
@@ -52,51 +39,36 @@ export class RepairFormComponent implements OnInit, OnDestroy, AfterViewInit {
         taxToggle: [false]
     });
 
-    private _garages: Garage[];
-    private _onHiddenResult = false;
+    garages: Garage[];
 
-    constructor(private _form:FormBuilder,
-                private _services: GarageService,
-                private _service: RepairService,
-                private _toastr: ToastsManager,
-                private _vehicles: VehicleService) { }
+    units: string;
+    units2: string;
+
+    private _onDestroy$ = new Subject();
+
+    constructor(
+        private _form: FormBuilder,
+        private _services: GarageService,
+        private _service: RepairService,
+        private _toastr: ToastsManager,
+        private _vehicles: VehicleService
+    ) {}
 
     ngOnInit() {
         this._services
             .getGarages()
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe((g: Garage[]) => {
-                this._garages = g;
+                this.garages = g;
             });
-    }
 
-    get garages() {
-        return this._garages;
-    }
-
-    get units(): string {
-        return this._vehicles.units;
-    }
-
-    get units2(): string {
-        return this._vehicles.Units2;
-    }
-
-    subscribeToDialog(): Observable<boolean> {
-        return Observable.create(observer => {
-            const close$ = Observable.fromEvent(this.btnClose.nativeElement, 'click');
-            const cancel$ = Observable.fromEvent(this.btnCancel.nativeElement, 'click');
-            const save$ = Observable.fromEvent(this.btnSave.nativeElement, 'click');
-
-            this.modalSubscription = Observable.merge(
-                close$.mapTo(false),
-                cancel$.mapTo(false),
-                save$.mapTo(true),
-                this.dialog.onHidden.asObservable().mapTo(false)
-            ).subscribe(result => {
-                this.dialog.hide();
-                observer.next(result);
+        this._vehicles.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.units = v.info.units;
+                this.units2 = v.info.subUnits;
             });
-        });
     }
 
     ngAfterViewInit() {
@@ -104,9 +76,27 @@ export class RepairFormComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy() {
-        if (this.modalSubscription) {
-            this.modalSubscription.unsubscribe();
-        }
+        this._onDestroy$.next();
+    }
+
+    subscribeToDialog(): Observable<boolean> {
+        return Observable.create(observer => {
+            const close$ = fromEvent(this.btnClose.nativeElement, 'click');
+            const cancel$ = fromEvent(this.btnCancel.nativeElement, 'click');
+            const save$ = fromEvent(this.btnSave.nativeElement, 'click');
+
+            merge(
+                close$.pipe(mapTo(false)),
+                cancel$.pipe(mapTo(false)),
+                save$.pipe(mapTo(true)),
+                this.dialog.onHidden.asObservable().pipe(mapTo(false))
+            )
+                .pipe(takeUntil(this._onDestroy$))
+                .subscribe(result => {
+                    this.dialog.hide();
+                    observer.next(result);
+                });
+        });
     }
 
     save() {
@@ -114,15 +104,16 @@ export class RepairFormComponent implements OnInit, OnDestroy, AfterViewInit {
         repair.garageId = !!repair.garageId ? repair.garageId : null;
         this._service
             .update(repair)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onSaveSuccess, this._onSaveError);
     }
 
     private _onSaveSuccess = () => {
         this._toastr.success('Oprava uložena');
         this.dialog.hide();
-    }
+    };
 
     private _onSaveError = () => {
         this._toastr.error('Chyba při ukládání');
-    }
+    };
 }

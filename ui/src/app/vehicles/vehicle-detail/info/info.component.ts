@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Vehicle, VehicleInfo } from '../../vehicle-stream/vehicle';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'va-info',
@@ -10,36 +11,31 @@ import { Subscription } from 'rxjs/Subscription';
     styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit, OnDestroy {
-
     vehicle: VehicleInfo;
-    vehicleId: string;
 
-    loading = false;
+    loading = true;
 
-    private _vehicleSubs: Subscription;
+    private _onDestroy$ = new Subject();
 
-    constructor(private _service: VehicleService,
-                private _route: ActivatedRoute) { }
+    constructor(private _vehicleService: VehicleService) {}
 
     ngOnInit() {
-        this.loading = true;
-        this.vehicleId = this._service.vehicleId;
-        this._vehicleSubs = this._service.getInfo(this.vehicleId)
+        this._vehicleService.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._handleContent);
     }
 
     ngOnDestroy() {
-        if (this._vehicleSubs) {
-            this._vehicleSubs.unsubscribe();
-        }
+        this._onDestroy$.next();
     }
 
     get info() {
         return this.vehicle.info;
     }
 
-    private _handleContent = (v:VehicleInfo) => {
+    private _handleContent = (v: VehicleInfo) => {
         this.vehicle = v;
         this.loading = false;
-    }
+    };
 }

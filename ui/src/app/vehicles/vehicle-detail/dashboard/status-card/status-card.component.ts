@@ -1,17 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { forkJoin, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'va-status-card',
     templateUrl: 'status-card.component.html',
     styleUrls: ['status-card.component.scss']
 })
-
 export class StatusCardComponent implements OnInit, OnDestroy {
-
     odo: number;
     odo2: number;
 
@@ -20,31 +18,27 @@ export class StatusCardComponent implements OnInit, OnDestroy {
 
     annualMileages: any;
 
-    annual = this._fuel.annualMileages(this._vehicles.vehicleId);
-    current = this._fuel.currentMileage(this._vehicles.vehicleId);
-
     data: any = [];
 
     colorScheme = {
         domain: ['#0056d8', '#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
     };
 
-    private _subs: Subscription;
+    private _onDestroy$ = new Subject();
 
-    constructor(private _vehicles: VehicleService,
-                private _fuel: FuelService) { }
+    constructor(private _vehicles: VehicleService, private _fuel: FuelService) {}
 
     ngOnInit() {
-        this._subs = Observable.forkJoin(
-            this.annual,
-            this.current
-        ).subscribe(this._onSuccess);
+        forkJoin(
+            this._fuel.annualMileages(this._vehicles.vehicleId),
+            this._fuel.currentMileage(this._vehicles.vehicleId)
+        )
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._onSuccess);
     }
 
     ngOnDestroy() {
-        if (this._subs) {
-            this._subs.unsubscribe();
-        }
+        this._onDestroy$.next();
     }
 
     get units(): string {
@@ -52,10 +46,14 @@ export class StatusCardComponent implements OnInit, OnDestroy {
     }
 
     get units2(): string {
-        return this._vehicles.Units2;
+        return this._vehicles.units2;
     }
 
-    private _onSuccess = (val) => {
+    onSelect(data: any) {
+        // TODO
+    }
+
+    private _onSuccess = val => {
         this.odo = val[1].odo;
         this.odo2 = val[1].odo2;
         this.originalOdo = val[1].originalOdo;
@@ -63,16 +61,14 @@ export class StatusCardComponent implements OnInit, OnDestroy {
 
         this.annualMileages = val[0];
 
-        if (!!this.units2) {
-            this._buildDataForAllUnits(this.annualMileages);
-        } else {
-            this._buildDataForMainUnit(this.annualMileages);
-        }
-    }
+        this.data = !!this.units2
+            ? this._buildDataForAllUnits(this.annualMileages)
+            : this._buildDataForMainUnit(this.annualMileages)
+    };
 
     private _buildDataForAllUnits(data) {
         data.reverse();
-        this.data = data.map(v => {
+        return data.map(v => {
             return {
                 name: v.year,
                 series: [
@@ -91,7 +87,7 @@ export class StatusCardComponent implements OnInit, OnDestroy {
 
     private _buildDataForMainUnit(data) {
         data.reverse();
-        this.data = data.map(v => {
+        return data.map(v => {
             return {
                 name: v.year,
                 series: [

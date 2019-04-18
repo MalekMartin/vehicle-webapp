@@ -2,7 +2,7 @@
     <h3>Aktuální stav</h3>
 
     <div class="chart-content">
-        <ngx-charts-bar-vertical-2d  *ngIf="!!data && data.length"
+        <ngx-charts-bar-vertical-2d  *ngIf="!!data && data.length > 0"
             [scheme]="colorScheme"
             [results]="data"
             [gradient]="false"

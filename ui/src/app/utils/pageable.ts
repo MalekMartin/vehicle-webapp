@@ -1,6 +1,7 @@
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs';
 import {StringUtils} from './string.utils';
 import * as _ from 'lodash';
+import { tap } from 'rxjs/operators';
 
 interface ArgumentMap {
     [key: string]: (string | number);
@@ -17,11 +18,13 @@ export abstract class Pageable<T> {
     public fetchCurrentPage(): Observable<Page<T>> {
         this._loading = true;
         return this.request()
-            .do((page: Page<T>) => {
-                this._page = page;
-                this._loading = false;
-                return page;
-        });
+            .pipe(
+                tap((page: Page<T>) => {
+                    this._page = page;
+                    this._loading = false;
+                    return page;
+                })
+            );
     }
 
     abstract request(): Observable<Page<T>>;

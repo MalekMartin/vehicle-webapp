@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { VehicleService } from './vehicle-stream/vehicle.service';
+import { VehicleService } from '../core/stores/vehicle/vehicle.service';
 
 @Component({
     selector: 'va-vehicles',

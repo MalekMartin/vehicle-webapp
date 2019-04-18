@@ -1,6 +1,16 @@
 import { VehicleFilterPipe } from './vehicle-filter.pipe';
 import { vehicleMock } from '../../vehicles/vehicle-stream/vehicle.service.spec';
 import * as _ from 'lodash';
+import { Vehicle } from '../../vehicles/vehicle-stream/vehicle';
+
+const vehicleMock2: Vehicle = {
+    ...vehicleMock,
+    id: 'test-vehicle-2',
+    brand: 'Renoult',
+    model: 'Laguna II'
+};
+
+const vehiclesMock = [vehicleMock, vehicleMock2];
 
 describe('VehicleFilterPipe', () => {
     let pipe: VehicleFilterPipe;
@@ -21,13 +31,3 @@ describe('VehicleFilterPipe', () => {
         expect(pipe.transform(vehiclesMock, 'KT')).toEqual([vehiclesMock[0]]);
     });
 });
-
-const vehicleMock2 = _.cloneDeep(vehicleMock);
-vehicleMock2.id = 'test-vehicle-2';
-vehicleMock2.brand = 'Renoult';
-vehicleMock2.model = 'Laguna II';
-
-const vehiclesMock = [
-    vehicleMock,
-    vehicleMock2
-];

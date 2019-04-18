@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { VehiclesComponent } from './vehicles.component';
-import { VehicleService } from './vehicle-stream/vehicle.service';
+import { VehicleService } from '../core/stores/vehicle/vehicle.service';
 import { HttpModule, ConnectionBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { XHRBackend } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ToastsManager, ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager, ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { CoreModule } from '../core/core.module';
 
 describe('VehiclesComponent', () => {

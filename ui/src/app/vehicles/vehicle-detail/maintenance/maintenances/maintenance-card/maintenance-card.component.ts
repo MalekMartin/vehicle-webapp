@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { FormControl } from '@angular/forms';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { trigger, state, AUTO_STYLE, style, animate, transition } from '@angular/animations';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
 import { Maintenance } from '../../../../../shared/api/maintenance/maintenance.interface';
+import { FormControl } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'va-maintenance-card',
@@ -18,7 +20,7 @@ import { Maintenance } from '../../../../../shared/api/maintenance/maintenance.i
         ])
     ]
 })
-export class MaintenanceCardComponent implements OnInit {
+export class MaintenanceCardComponent implements OnInit, OnDestroy {
 
     @Input() maintenance: MaintenanceSelectable;
 
@@ -42,7 +44,10 @@ export class MaintenanceCardComponent implements OnInit {
 
     checkboxState = 'closed';
 
+    control = new FormControl();
+
     private _showCheckbox = false;
+    private _onDestroy$ = new Subject();
 
     constructor(private _service: MaintenanceService,
                 private _toastr: ToastsManager) { }
@@ -51,6 +56,16 @@ export class MaintenanceCardComponent implements OnInit {
         this.start = moment(this.maintenance.date).format('X');
         this.now = moment().format('X');
         this.end = moment(this.maintenance.expirations.date).format('X');
+
+        this.control.valueChanges
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.maintenance.selected = v;
+            });
+    }
+
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     get showCheckbox(): boolean {

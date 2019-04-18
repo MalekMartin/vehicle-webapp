@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 // import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
 // import { ComponentsHelper } from 'ngx-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

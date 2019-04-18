@@ -1,11 +1,11 @@
-import { Component, OnChanges, Input, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { VValidators } from '../../../../../shared/forms/validators';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { GarageService } from '../../../../../car-services/garage/garage.service';
-import { RepairService } from '../../../repair/repair.service';
 import { Maintenance } from '../../../../../shared/api/maintenance/maintenance.interface';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
+import { VValidators } from '../../../../../shared/forms/validators';
+import { RepairService } from '../../../repair/repair.service';
 
 @Component({
     selector: 'va-maintenance-done',

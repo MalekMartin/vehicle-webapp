@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Station } from '../station';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TechnicalInspectionService } from '../technical-inspection.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 @Component({
     selector: 'va-station-form',

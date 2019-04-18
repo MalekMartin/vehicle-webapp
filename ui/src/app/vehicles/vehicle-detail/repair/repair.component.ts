@@ -1,20 +1,19 @@
-import { Component, OnInit, Inject, AfterViewInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RepairService } from './repair.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { RepairFormService } from './repair-form/repair-form.service';
-import {
-    ConfirmDialogService
-} from '../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
-import { DOCUMENT } from '@angular/platform-browser';
-import { Repair } from './_core/repair.interface';
-import { Subscription } from 'rxjs/Subscription';
-import { Page } from '../../../utils/pageable';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { DOCUMENT } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { PageScrollInstance, PageScrollService } from 'ng2-page-scroll';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { Subscription } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { GarageService } from '../../../car-services/garage/garage.service';
+import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { NumberStat } from '../../../shared/components/number-stats/number-stats.component';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { Page } from '../../../utils/pageable';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
+import { RepairFormService } from './repair-form/repair-form.service';
+import { RepairService } from './repair.service';
+import { Repair } from './_core/repair.interface';
 
 @Component({
     selector: 'va-repair',
@@ -69,13 +68,15 @@ export class RepairComponent implements OnInit, OnDestroy {
         this.getServices();
 
         this._formSubs = this.form.valueChanges
-            .debounceTime(300)
-            .switchMap(val => {
-                const q = !!val ? val.query : '';
-                this.setFilter(q);
-                this._service.reset();
-                return this._service.fetchCurrentPage();
-            })
+            .pipe(
+                debounceTime(300),
+                switchMap(val => {
+                    const q = !!val ? val.query : '';
+                    this.setFilter(q);
+                    this._service.reset();
+                    return this._service.fetchCurrentPage();
+                })
+            )
             .subscribe(this._handleNewContent);
 
         this._route.queryParams.subscribe((par) => {

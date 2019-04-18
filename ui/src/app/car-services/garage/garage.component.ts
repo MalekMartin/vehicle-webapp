@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GarageService } from './garage.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Garage } from '../garage-form/garage-form.component';
 
 @Component({

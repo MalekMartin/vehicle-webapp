@@ -7,7 +7,7 @@ import { NO_ERRORS_SCHEMA, ViewContainerRef, DebugElement } from '@angular/core'
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
 import { AppState } from './app.service';
-import { ToastsManager, ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager, ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { ComponentFixture } from '@angular/core/testing';
 
 describe('App', () => {

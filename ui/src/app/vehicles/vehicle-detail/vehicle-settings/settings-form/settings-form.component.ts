@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 
 @Component({
     selector: 'va-settings-form',

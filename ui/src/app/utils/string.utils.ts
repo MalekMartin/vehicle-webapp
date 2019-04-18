@@ -1,11 +1,11 @@
-import {latinize} from 'ngx-bootstrap/typeahead/typeahead-utils';
 import * as _ from 'lodash';
+// import { latinize } from 'ngx-bootstrap/typeahead/ngx-bootstrap-typeahead';
 
 export class StringUtils {
 
-    public static latinize(str: string): string {
-        return latinize(str);
-    }
+    // public static latinize(str: string): string {
+    //     return latinize(str);
+    // }
 
     public static toQuery(item: any): string {
         const str = [];

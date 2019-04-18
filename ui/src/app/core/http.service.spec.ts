@@ -4,8 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CoreModule } from './core.module';
 import { HttpService } from './http.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { ToastModule, ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
 
 describe('HttpService', () => {
 

@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { VValidators } from '../../../shared/forms/validators';
 import { AuthService } from '../../../core/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 @Component({
     selector: 'va-activation-form',

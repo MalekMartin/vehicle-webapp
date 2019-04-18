@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
 import { Station } from './station';
 import { Inspection } from './inspection';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Pageable, Page } from '../../../utils/pageable';
 
 @Injectable()

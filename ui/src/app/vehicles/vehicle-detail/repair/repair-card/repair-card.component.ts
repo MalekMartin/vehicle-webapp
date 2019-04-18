@@ -1,48 +1,57 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { RepairService } from '../repair.service';
-import {
-    ConfirmDialogService
-} from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { RepairTask } from '../_core/repair-task.interface';
-import { Repair } from '../_core/repair.interface';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
+import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { RepairFormService } from '../repair-form/repair-form.service';
-import { VehicleService } from '../../../vehicle-stream/vehicle.service';
+import { Repair } from '../_core/repair.interface';
 
 @Component({
     selector: 'va-repair-card',
     templateUrl: './repair-card.component.html',
     styleUrls: ['./repair-card.component.scss']
 })
-
-export class RepairCardComponent {
-
+export class RepairCardComponent implements OnInit, OnDestroy {
     @Input() repair: Repair;
     @Output() onDelete = new EventEmitter();
     @Output() onUpdate = new EventEmitter();
 
-    constructor(private _confirm: ConfirmDialogService,
-                private _repairs: RepairService,
-                private _toastr: ToastsManager,
-                private _repairForm: RepairFormService,
-                private _vehicles: VehicleService) { }
+    units: string;
+    units2: string;
 
-    get units(): string {
-        return this._vehicles.units;
+    private _onDestroy$ = new Subject();
+
+    constructor(
+        private _confirm: ConfirmDialogService,
+        private _repairForm: RepairFormService,
+        private _vehicles: VehicleService
+    ) {}
+
+    ngOnInit() {
+        this._vehicles.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.units = v.info.units;
+                this.units2 = v.info.subUnits;
+            });
     }
 
-    get subUnits(): string {
-        return this._vehicles.Units2;
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     deleteConfirm() {
-        this._confirm
-            .dialog
+        this._confirm.dialog
             .title('Opravdu chceš smazat servisní práci?')
-            .message('Servisní práce <i>' + this.repair.title + '</i> bude smazána i se souvisejícími údržbamy.')
+            .message(
+                'Servisní práce <i>' +
+                    this.repair.title +
+                    '</i> bude smazána i se souvisejícími údržbamy.'
+            )
             .ok('Smazat')
             .cancel('zpět')
-            .subscribe((res) => {
+            .subscribe(res => {
                 if (res) {
                     this.onDelete.emit(this.repair);
                 }
@@ -53,12 +62,11 @@ export class RepairCardComponent {
         this._repairForm.dialog
             .repair(this.repair)
             .title('Editace opravy')
-            .subscribe((res) => {
+            .subscribe(res => {
                 if (res) {
                     this.onUpdate.emit();
                 }
             });
         event.preventDefault();
     }
-
 }

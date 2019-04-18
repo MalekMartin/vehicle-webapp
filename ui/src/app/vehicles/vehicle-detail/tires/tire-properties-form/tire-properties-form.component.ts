@@ -1,8 +1,8 @@
 import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription ,  Observable, fromEvent, merge } from 'rxjs';
 import { Validators, FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs/Rx';
+import { mapTo } from 'rxjs/operators';
 
 @Component({
     selector: 'va-tire-properties-form',
@@ -32,15 +32,15 @@ export class TirePropertiesFormComponent implements OnDestroy, AfterViewInit {
     subscribeToDialog(): Observable<any> {
 
         return Observable.create(observer => {
-            const close$ = Observable.fromEvent(this.btnClose.nativeElement, 'click');
-            const cancel$ = Observable.fromEvent(this.btnCancel.nativeElement, 'click');
-            const save$ = Observable.fromEvent(this.btnSave.nativeElement, 'click');
+            const close$ = fromEvent(this.btnClose.nativeElement, 'click');
+            const cancel$ = fromEvent(this.btnCancel.nativeElement, 'click');
+            const save$ = fromEvent(this.btnSave.nativeElement, 'click');
 
-            this.modalSubscription = Observable.merge(
-                close$.mapTo(false),
-                cancel$.mapTo(false),
-                save$.mapTo(true),
-                this.dialog.onHidden.asObservable().mapTo(false)
+            this.modalSubscription = merge(
+                close$.pipe(mapTo(false)),
+                cancel$.pipe(mapTo(false)),
+                save$.pipe(mapTo(true)),
+                this.dialog.onHidden.asObservable().pipe(mapTo(false))
             ).subscribe(result => {
                 this.dialog.hide();
                 observer.next({ form: this.form.value, result});

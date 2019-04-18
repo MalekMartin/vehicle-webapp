@@ -31,8 +31,8 @@
                     <label for="odo">ODO ({{units}}):</label>
                     <input type="text" id="odo" class="form-control" formControlName="odo">
                 </va-form-item>
-                <va-form-item *ngIf="subUnits" [control]="form.get('odo2')" class="col-md-6">
-                    <label for="odo2">ODO ({{subUnits}}):</label>
+                <va-form-item *ngIf="units2" [control]="form.get('odo2')" class="col-md-6">
+                    <label for="odo2">ODO ({{units2}}):</label>
                     <input type="text" id="odo2" class="form-control" formControlName="odo2">
                 </va-form-item>
             </div>

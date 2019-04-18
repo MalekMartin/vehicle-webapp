@@ -3,7 +3,7 @@ import { CarServiceService, Service } from '../vehicle-repairs.service';
 import { GarageService } from '../garage/garage.service';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Garage } from '../garage-form/garage-form.component';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 @Component({
     selector: 'va-car-service-list',

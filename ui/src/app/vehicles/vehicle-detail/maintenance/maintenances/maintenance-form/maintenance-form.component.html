@@ -1,7 +1,7 @@
 <form [formGroup]="form" (submit)="form.valid && save()">
     <div class="row">
         <div class="col-sm-12">
-            <va-form-item [control]="form.controls.intervalId">
+            <va-form-item [control]="form.get('intervalId')">
                 <label for="intervalId">Interval:</label>
                 <select id="intervalId" class="form-control" formControlName="intervalId">
                     <ng-container *ngIf="!selected || !selected.id">
@@ -18,19 +18,19 @@
     </p>
     <div class="row">
         <div class="col-sm-4">
-            <va-form-item [control]="form.controls.odo">
+            <va-form-item [control]="form.get('odo')">
                 <label for="odo">{{units}}:</label>
                 <input id="odo" class="form-control" formControlName="odo">
             </va-form-item>
         </div>
         <div class="col-sm-4">
-            <va-form-item [control]="form.controls.odo2" *ngIf="units2">
+            <va-form-item [control]="form.get('odo2')" *ngIf="units2">
                 <label for="odo2">{{units2}}:</label>
                 <input id="odo2" class="form-control" formControlName="odo2">
             </va-form-item>
         </div>
         <div class="col-sm-4">
-            <va-form-item [control]="form.controls.date">
+            <va-form-item [control]="form.get('date')">
                 <label for="date">Datum:</label>
                 <va-date-picker id="date" formControlName="date"></va-date-picker>
             </va-form-item>

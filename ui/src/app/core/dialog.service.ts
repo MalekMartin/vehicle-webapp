@@ -7,7 +7,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import {AppComponent} from '../app.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 
 export type DialogSubscription = {

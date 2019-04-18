@@ -3,11 +3,11 @@ import { MaintenanceService } from '../../../shared/api/maintenance/maintenance.
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { VehicleService } from '../../vehicle-stream/vehicle.service';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Page } from '../../../utils/pageable';
 import { Maintenance } from '../../../shared/api/maintenance/maintenance.interface';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Interval } from '../../../shared/api/maintenance/interval.interface';
 import { ModalDirective } from 'ngx-bootstrap';
 

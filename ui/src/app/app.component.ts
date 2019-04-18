@@ -5,7 +5,7 @@ import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 // import { Ng2BootstrapConfig, Ng2BootstrapTheme, ComponentsHelper } from 'ngx-bootstrap';
 
 import { AppState } from './app.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 
 /*
  * App Component
