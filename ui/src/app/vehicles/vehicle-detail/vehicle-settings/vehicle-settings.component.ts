@@ -98,14 +98,16 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
             .select(s => s.vehicle)
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
-                this.units = v.info.units;
-                this.units2 = v.info.subUnits;
-                this.tankCapacity = v.info.tankCapacity;
-                this.vehicleId = v.info.id;
+                if (!!v) {
+                    this.units = v.info.units;
+                    this.units2 = v.info.subUnits;
+                    this.tankCapacity = v.info.tankCapacity;
+                    this.vehicleId = v.info.id;
 
-                this.uploader.options.additionalParameter = {
-                    vehicleId: v.info.id
-                };
+                    this.uploader.options.additionalParameter = {
+                        vehicleId: v.info.id
+                    };
+                }
             });
     }
 
