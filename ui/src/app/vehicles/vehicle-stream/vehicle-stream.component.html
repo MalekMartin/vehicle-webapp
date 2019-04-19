@@ -5,17 +5,25 @@
             <h1 class="text-center">Přehled vozidel</h1>
             <div class="spacer"></div>
             <div class="search">
-                <input type="text" class="form-control" placeholder="Hledat..." [formControl]="query">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Hledat..." [formControl]="query">
+                </mat-form-field>
             </div>
         </div>
         
         <div class="actions">
             <a href="" (click)="addVehicle($event)">Přidat vozidlo</a>
         </div>
-
-        <div *ngIf="vehicles" class="vehicle-cards">
-            <va-vehicle-card *ngFor="let vehicle of vehicles | vehicleFilter: filter"
-                [vehicle]="vehicle" (deleted)="onDelete($event)"></va-vehicle-card>
+        <div *ngIf="vehicles">
+                <mat-grid-list [cols]="gridCols" rowHeight="4:3" gutterSize="5px">
+                    <mat-grid-tile *ngFor="let vehicle of vehicles | vehicleFilter: filter">
+                        <a [routerLink]="['/vehicle', vehicle.id, 'fuel']" class="card">
+                            <va-vehicle-card
+                                [vehicle]="vehicle" (deleted)="onDelete($event)"></va-vehicle-card>
+                            <mat-grid-tile-footer>{{vehicle.brand}} {{vehicle.model}}</mat-grid-tile-footer>
+                        </a>
+                    </mat-grid-tile>
+                </mat-grid-list>
         </div>
     </div>
 </div>

@@ -1,122 +1,143 @@
-.vehicle-image {
-
-    height: 190px;
+:host {
+    height: 100%;
+    width: 100%;
     overflow: hidden;
+    display: flex;
+    background-color: #eee;
+}
 
+.image-card {
+    margin: auto;
     img {
         max-width: 100%;
         height: auto;
     }
 
-    &.no-image {
-        background-color: #dedede;
-        display: flex;
-
-        i {
-            margin: auto;
-            font-size: 40px;
-        }
+    .no-image {
+        font-size: 36px;
     }
 }
 
-va-card-title {
-    position: relative;
-    display: block;
-    overflow: hidden;
-}
 
-.ribbon {
-    position: absolute;
-    width: 120px;
-    text-align: center;
-    background-color: rgb(202, 1, 1);
-    color: #fff;
-    transform: rotate(45deg);
-    top: 26px;
-    right: -26px;
-    font-weight: 500;
-    text-transform: uppercase;
-    opacity: 0.7;
-}
+// .vehicle-image {
 
-.content {
-    padding: 10px;
+//     height: 190px;
+//     overflow: hidden;
 
-    .sold {
-        color: rgb(189, 0, 0);
-        text-transform: uppercase;
-    }
-}
+//     img {
+//         max-width: 100%;
+//         height: auto;
+//     }
 
-.meta {
-    display: flex;
-    background-color: #ededed;
-    padding: 10px 20px;
+//     &.no-image {
+//         background-color: #dedede;
+//         display: flex;
 
-    .cell {
-        flex-grow: 1;
-        border-right: 1px solid #ccc;
-        text-align: center;
-        color: #666;
+//         i {
+//             margin: auto;
+//             font-size: 40px;
+//         }
+//     }
+// }
 
-        &:last-child {
-            border: 0;
-        }
+// va-card-title {
+//     position: relative;
+//     display: block;
+//     overflow: hidden;
+// }
 
-        .value {
-            font-weight: 500;
-        }
+// .ribbon {
+//     position: absolute;
+//     width: 120px;
+//     text-align: center;
+//     background-color: rgb(202, 1, 1);
+//     color: #fff;
+//     transform: rotate(45deg);
+//     top: 26px;
+//     right: -26px;
+//     font-weight: 500;
+//     text-transform: uppercase;
+//     opacity: 0.7;
+// }
 
-        .desc {
-            color: #999;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-    }
-}
+// .content {
+//     padding: 10px;
 
-.purchase-date {
-    font-size: 14px;
-    margin-bottom: 3px;
-    display: flex;
+//     .sold {
+//         color: rgb(189, 0, 0);
+//         text-transform: uppercase;
+//     }
+// }
 
-    .date {
-        color: #999;
-        font-style: italic;
-    }
+// .meta {
+//     display: flex;
+//     background-color: #ededed;
+//     padding: 10px 20px;
 
-    .space {
-        flex-grow: 1;
-    }
+//     .cell {
+//         flex-grow: 1;
+//         border-right: 1px solid #ccc;
+//         text-align: center;
+//         color: #666;
 
-    .icon-more-vertical {
-        font-size: 16px;
-        cursor: pointer;
-    }
-}
+//         &:last-child {
+//             border: 0;
+//         }
 
-.title {
-    font-size: 18px;
-    font-weight: 500;
+//         .value {
+//             font-weight: 500;
+//         }
 
-    a {
-        color: #333;
-    }
-}
+//         .desc {
+//             color: #999;
+//             text-transform: uppercase;
+//             font-size: 12px;
+//         }
+//     }
+// }
 
-:host {
-    display: inline-block;
-    text-align: left;
-}
+// .purchase-date {
+//     font-size: 14px;
+//     margin-bottom: 3px;
+//     display: flex;
 
-.dropdown-menu {
-    margin-left: -143px;
-}
+//     .date {
+//         color: #999;
+//         font-style: italic;
+//     }
 
-:host /deep/ {
-    va-card {
-        .wrapper {
-            padding: 0;
-        }
-    }
-}
+//     .space {
+//         flex-grow: 1;
+//     }
+
+//     .icon-more-vertical {
+//         font-size: 16px;
+//         cursor: pointer;
+//     }
+// }
+
+// .title {
+//     font-size: 18px;
+//     font-weight: 500;
+
+//     a {
+//         color: #333;
+//     }
+// }
+
+// :host {
+//     display: inline-block;
+//     text-align: left;
+// }
+
+// .dropdown-menu {
+//     margin-left: -143px;
+// }
+
+// :host /deep/ {
+//     va-card {
+//         .wrapper {
+//             padding: 0;
+//         }
+//     }
+// }

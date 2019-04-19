@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
@@ -14,12 +14,18 @@ import { VehicleDeleteConfirmComponent } from './vehicle-delete-confirm/vehicle-
     templateUrl: './vehicle-stream.component.html',
     styleUrls: ['./vehicle-stream.component.scss']
 })
-export class VehicleStreamComponent implements OnInit, OnDestroy {
+export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy {
     filter: string;
     expanded = false;
     query = new FormControl('');
+    gridCols = 5;
 
     private _onDestroy$ = new Subject();
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this._resize(event.target.innerWidth);
+    }
 
     constructor(
         public dialog: MatDialog,
@@ -33,6 +39,10 @@ export class VehicleStreamComponent implements OnInit, OnDestroy {
         this.query.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe(res => {
             this.filter = res;
         });
+    }
+
+    ngAfterViewInit() {
+        this._resize(window.innerWidth);
     }
 
     ngOnDestroy() {
@@ -80,4 +90,16 @@ export class VehicleStreamComponent implements OnInit, OnDestroy {
             this._service.refresh();
         }
     };
+
+    private _resize(width: number) {
+        if (width > 796) {
+            this.gridCols = 5;
+        } else if (width <= 796 && width > 640) {
+            this.gridCols = 3;
+        } else if (width <= 640 && width > 440) {
+            this.gridCols = 2;
+        } else {
+            this.gridCols = 1;
+        }
+    }
 }

@@ -17,7 +17,9 @@ import {
     ShowOnDirtyErrorStateMatcher,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
+    MatGridListModule
 } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../../shared/pipes/pipes.module';
@@ -45,7 +47,9 @@ const MODULES = [
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
+    MatGridListModule
 ];
 
 const COMPONENTS = [
