@@ -1,6 +1,6 @@
 @import "../../../style/theme/conf.scss";
 
-div {
+div.wrapper {
     width: 100%;
     
     form {
@@ -8,6 +8,12 @@ div {
         max-width: 400px;
         margin-left: auto;
         margin-right: auto;
+
+        .header {
+            font-size: 24px;
+            font-weight: 500;
+            padding-bottom: 14px;
+        }
 
         button {
             i {

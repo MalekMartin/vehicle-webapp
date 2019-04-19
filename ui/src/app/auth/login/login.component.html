@@ -1,5 +1,10 @@
-<div>
+<div class="wrapper">
     <form [formGroup]="form" (submit)="form.valid && !loading && logUser()">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="header">Vehicle APP</div>
+            </div>
+        </div>
         <div class="row">
             <mat-form-field class="col-sm-12">
                 <input matInput type="text" formControlName="email" placeholder="email"> 
@@ -14,17 +19,14 @@
             <a [routerLink]="['/register']">Registrovat</a>
         </div>
         <div class="row">
-            <!-- <mat-form-field class="col-sm-12"> -->
-                <!-- <va-checkbox id="remember" formConrolName="remember"></va-checkbox> -->
-                <!-- <label for="remember">Zapamatovat</label> -->
+            <div class="col-sm-12">
                 <mat-checkbox formConrolName="remember">Zapamatovat</mat-checkbox>
-            <!-- </mat-form-field> -->
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-12 center">
-                <!-- <i *ngIf="loading" class="icon-refresh spin"></i> -->
-                <button mat-raised-button type="submit">
-                    Přihlásit
+                <button mat-raised-button type="submit" [disabled]="loading">
+                    {{!loading ? 'Přihlásit' : 'Nahrávám...'}}
                 </button>
             </div>
         </div>
