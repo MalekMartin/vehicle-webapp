@@ -5,14 +5,14 @@
     <mat-dialog-content>
         <form [formGroup]="form" class="vehicle-form">
             <div class="row">
-                <mat-form-field class="col-md-6">
+                <mat-form-field class="col-md-6 col-xs-12">
                     <input matInput type="text" id="brand"
                         formControlName="brand" placeholder="Značka">
                     <mat-error *ngIf="form.get('brand').hasError('required')">
                         Toto pole je <strong>povinné</strong>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="col-md-6">
+                <mat-form-field class="col-md-6 col-xs-12">
                     <input matInput type="text" id="model"
                         formControlName="model" placeholder="Model">
                     <mat-error *ngIf="form.get('model').hasError('required')">
@@ -21,7 +21,7 @@
                 </mat-form-field>
             </div>
             <div class="row">
-                <mat-form-field class="col-md-6">
+                <mat-form-field class="col-md-6 col-xs-12">
                     <input matInput type="text" id="manufactureYear" 
                         formControlName="manufactureYear" placeholder="Rok výroby">
                     <mat-error *ngIf="form.get('manufactureYear').hasError('required')">
@@ -31,7 +31,7 @@
                         Zadaná hodnota musí být 4 místné číslo (např: 2019)
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="col-md-6">
+                <mat-form-field class="col-md-6 col-xs-12">
                     <input matInput type="text" id="previousOwners"
                         formControlName="previousOwners" placeholder="Počet předchozích majitelů">
                     <mat-error *ngIf="form.get('previousOwners').hasError('pattern')">
@@ -41,7 +41,7 @@
             </div>
 
             <div class="row">
-                <mat-form-field class="col-md-6">
+                <mat-form-field class="col-md-6 col-xs-12">
                     <mat-label for="type">Typ vozidla</mat-label>
                     <mat-select id="type" formControlName="type">
                         <mat-option value="CAR">auto</mat-option>
@@ -51,14 +51,14 @@
                         Toto pole je <strong>povinné</strong>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="col-md-6">
+                <mat-form-field class="col-md-6 col-xs-12">
                     <input matInput type="text" id="spz" formControlName="spz"
                         placeholder="SPZ">
                 </mat-form-field>
             </div>
 
             <div class="row">
-                <mat-form-field class="col-md-12">
+                <mat-form-field class="col-md-12 col-xs-12">
                     <textarea matInput type="text" id="notes" cdkTextareaAutosize
                         formControlName="notes" placeholder="Poznámky"></textarea>
                 </mat-form-field>
@@ -67,7 +67,7 @@
     </mat-dialog-content>
     <mat-dialog-actions>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12">
                 <button mat-raised-button mat-dialog-close type="button" (click)="cancel()">Zrušit</button>
                 <button mat-raised-button
                     color="primary"

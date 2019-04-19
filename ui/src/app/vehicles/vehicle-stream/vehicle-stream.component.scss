@@ -64,3 +64,14 @@
     text-decoration: none;
     color: #444;
 }
+
+@media screen and (max-width: 360px) {
+    .vehicle-wrapper {
+        .header {
+            display: block;
+            h1 {
+                font-size: 26px;
+            }
+        }
+    }
+}

@@ -67,6 +67,12 @@ va-card {
                 &:last-child {
                     border: 0px !important;
                 }
+
+                .units {
+                    font-weight: normal;
+                    margin: 0;
+                    padding: 0;
+                }
             }
         }
     }
