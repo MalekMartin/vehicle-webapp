@@ -10,6 +10,7 @@ import { VehicleSettingsComponent } from './vehicle-settings/vehicle-settings.co
 import { VehicleSettingsModule } from './vehicle-settings/vehicle-settings.module';
 import { ManualsModule } from './manuals/manuals.module';
 import { VehicleNotFoundComponent } from './vehicle-not-found/vehicle-not-found.component';
+import { MatTooltipModule } from '@angular/material';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { VehicleNotFoundComponent } from './vehicle-not-found/vehicle-not-found.
         RouterModule,
         VehicleSettingsModule,
         ManualsModule,
+        MatTooltipModule
     ],
     exports: [],
     declarations: [

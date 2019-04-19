@@ -132,3 +132,23 @@ va-card {
         cursor: pointer;
     }
 }
+
+@media screen and (max-width: 361px) {
+    va-card {
+        .header {
+            display: block;
+
+            .spacer {
+                display: none;
+            }
+        }
+
+        .value {
+            &.title {
+                span {
+                    white-space: normal;
+                }
+            }
+        }
+    }
+}
