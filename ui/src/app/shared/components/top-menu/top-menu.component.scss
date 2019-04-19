@@ -101,6 +101,10 @@ i.icon-menu-dash {
             li {
                 padding: 10px 10px;
 
+                a {
+                    display: block;
+                }
+
                 &.logout {
                     border-top: 1px solid #ccc;
                     border-bottom: 1px solid #ccc;
