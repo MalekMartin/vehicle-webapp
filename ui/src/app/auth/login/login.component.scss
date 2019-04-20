@@ -1,6 +1,6 @@
 @import "../../../style/theme/conf.scss";
 
-div.wrapper {
+.wrapper {
     width: 100%;
     
     form {
@@ -12,18 +12,35 @@ div.wrapper {
         .header {
             font-size: 24px;
             font-weight: 500;
-            padding-bottom: 14px;
+            margin-bottom: 34px;
         }
 
-        button {
-            i {
-                font-size: 12px;
-                margin-right: 5px;
-            }
+        .email-row {
+            margin-bottom: 10px;
+        }
+
+        .action {
+            margin-top: 20px;
         }
     }
 
     .center {
         text-align: center;
+    }
+}
+
+@media (max-width: 360px) {
+    .wrapper {
+        display: flex;
+        height: calc(100vh - 80px);
+        form {
+            padding: 10px 30px;
+            width: 100%;
+            margin: auto;
+
+            button {
+                width: 100%;
+            }
+        }
     }
 }
