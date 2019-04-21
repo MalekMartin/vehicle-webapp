@@ -22,7 +22,7 @@
             </div>
             <div class="row">
                 <mat-form-field class="col-md-6 col-xs-12">
-                    <input matInput type="text" id="manufactureYear" 
+                    <input matInput type="number" id="manufactureYear" 
                         formControlName="manufactureYear" placeholder="Rok výroby">
                     <mat-error *ngIf="form.get('manufactureYear').hasError('required')">
                         Toto pole je <strong>povinné</strong>
@@ -32,7 +32,7 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="col-md-6 col-xs-12">
-                    <input matInput type="text" id="previousOwners"
+                    <input matInput type="number" id="previousOwners"
                         formControlName="previousOwners" placeholder="Počet předchozích majitelů">
                     <mat-error *ngIf="form.get('previousOwners').hasError('pattern')">
                         Tato hodnota není <strong>platná</strong>

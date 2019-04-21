@@ -30,7 +30,7 @@ class Engine {
         return $data;
     }
 
-    public function updateEngine($d) {
+    public function updateEngine($id, $d) {
 
         $query = $this->db->prepare('UPDATE engine SET
             displacement = ?,
@@ -45,7 +45,7 @@ class Engine {
             dilutionRatio = ?
             WHERE vehicleId = ?
         ');
-        
+
         $query->execute(array(
             $d->displacement,
             $d->transmission,
@@ -57,7 +57,7 @@ class Engine {
             $d->fuelOil,
             $d->engineOil,
             $d->dilutionRatio,
-            $d->vehicleId
+            $id
         ));
         // Events::add($d->vehicleId, 'UPDATE', 'Upraveny detaily o motoru', $this->part);
 

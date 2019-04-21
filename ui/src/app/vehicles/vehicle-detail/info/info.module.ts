@@ -1,37 +1,47 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
+} from '@angular/material';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../../shared/shared.module';
 import { EngineModule } from './info-engine/engine.module';
-import { InfoGeneralComponent } from './info-general/info-general.component';
-import { TradeComponent } from './trade/trade.component';
+import { InfoDetailComponent } from './info-general/info-detail/info-detail.component';
+import { InfoFormComponent } from './info-general/info-form/info-form.component';
 import { InfoComponent } from './info.component';
-import { InfoGeneralModule } from './info-general/info-general.module';
-import { TradeModule } from './trade/trade.module';
-import { RouterModule } from '@angular/router';
 import { infoRoutes } from './info.routes';
+import { TradeModule } from './trade/trade.module';
+import { InfoDetailItemModule } from './info-detail-item/info-detail-item.module';
 
 const MODULES = [
-    SharedModule,
     EngineModule,
-    InfoGeneralModule,
     TradeModule,
     RouterModule.forChild(infoRoutes),
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    MatSelectModule,
+    InfoDetailItemModule
 ];
 
-const COMPONENTS = [
-    InfoComponent,
-];
+const COMPONENTS = [InfoComponent, InfoDetailComponent, InfoFormComponent];
 
 @NgModule({
-    imports: [
-        ...MODULES
-    ],
-    exports: [
-        InfoComponent,
-        SharedModule
-    ],
-    declarations: [
-        ...COMPONENTS
-    ],
+    imports: [...MODULES],
+    exports: [InfoComponent, SharedModule],
+    declarations: [...COMPONENTS],
     providers: [],
+    entryComponents: [InfoFormComponent]
 })
-export class InfoModule { }
+export class InfoModule {}

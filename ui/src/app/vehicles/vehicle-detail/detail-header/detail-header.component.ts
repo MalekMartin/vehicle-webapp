@@ -1,91 +1,44 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Vehicle } from '../../vehicle-stream/vehicle';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
+import { VehicleInfo } from '../../vehicle-stream/vehicle';
 import { VehicleImageService } from '../../vehicle-stream/vehicle-images.service';
-import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'va-detail-header',
     templateUrl: './detail-header.component.html',
     styleUrls: ['./detail-header.component.scss']
 })
-export class DetailHeaderComponent implements OnInit {
-
-    vehicles: Vehicle[];
-
-    @Input()
-    set vehicle(v: Vehicle) {
-        if (v) {
-            this._vehicle = v;
-            // this.vehicleIcon = this._images.getImage(v.id);
-        }
-    }
-
+export class DetailHeaderComponent implements OnInit, OnDestroy {
     page: string;
-    id: string;
-
     path: string;
+    vehicle: VehicleInfo;
 
-    private _vehicle: Vehicle;
+    private _onDestroy$ = new Subject();
 
-    constructor(private _route: ActivatedRoute,
-                private _router: Router,
-                private _vehicles: VehicleService,
-                private _images: VehicleImageService) {
-
-        this._router.events.subscribe((val) => {
-            if (val instanceof NavigationEnd) {
-                this.path = this.parseUrl(this._router.url);
-            }
-        });
-    }
+    constructor(
+        private _route: ActivatedRoute,
+        private _router: Router,
+        private _vehicles: VehicleService,
+        private _images: VehicleImageService
+    ) {}
 
     ngOnInit() {
-        this._route
-            .params
-            .pipe(map(par => par))
-            .subscribe(p => {
-                this.page = p['page'];
-                // this.id = p['id']
+        this._vehicles.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.vehicle = v;
             });
     }
 
-    get allVehicles() {
-        return this._vehicles.allVehicles || [];
-    }
-
-    get vehicle() {
-        return this._vehicle;
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     get vehicleIcon(): string | null {
-        return !!this.vehicle ? this._images.getImage(this.vehicle.id) : null;
-    }
-
-    parseUrl(url: string) {
-        const parsedUrl = url.split('/');
-        return parsedUrl[3];
-    }
-
-    get myVehicles() {
-        return this._vehicles.allVehicles;
-    }
-
-    get selected() {
-
-        const self = this;
-
-        if (!this.myVehicles || !this.vehicle) return;
-
-        const sel = this.myVehicles.filter(v => {
-            return v.id === self.vehicle.id;
-        });
-
-        return sel ? sel[0] : null;
-    }
-
-    setVehicleId(id: string) {
-        this._vehicles.vehicleId = id;
+        return !!this.vehicle ? this._images.getImage(this.vehicle.info.id) : null;
     }
 }

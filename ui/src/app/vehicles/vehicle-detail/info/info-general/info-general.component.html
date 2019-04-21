@@ -1,6 +1,0 @@
-<div class="header">
-    <h3>Obecné</h3>
-    <i class="icon-edit" (click)="edited = true"></i>
-</div>
-<va-info-detail *ngIf="!edited" [info]="info"></va-info-detail>
-<va-info-form *ngIf="edited" [info]="info" (infoUpdated)="save($event)" (infoCanceled)="cancel()"></va-info-form>

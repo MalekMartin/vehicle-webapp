@@ -4,7 +4,12 @@
     <i class="icon-refresh spin"></i>
 </div>
 
-<div *ngIf="vehicle">
+<ng-container *ngIf="vehicle">
+    <va-info-detail [info]="vehicle.info"></va-info-detail>
+    <va-engine-detail [vehicle]="vehicle"></va-engine-detail>
+</ng-container>
+
+<!-- <div *ngIf="vehicle">
     <div class="col-md-6">
         <va-card>
             <va-card-content>
@@ -36,4 +41,4 @@
             </va-card-content>
         </va-card>
     </div>
-</div>
+</div> -->

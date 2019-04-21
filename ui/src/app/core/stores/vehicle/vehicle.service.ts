@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Vehicle, VehicleInfo } from '../../../vehicles/vehicle-stream/vehicle';
-import { HttpService } from '../../http.service';
 import { Observable, ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { VehicleState, vehicleStateFns } from './vehicle.state';
 import { Subjective } from 'subjective';
+import { Engine, Vehicle, VehicleInfo } from '../../../vehicles/vehicle-stream/vehicle';
+import { HttpService } from '../../http.service';
+import { VehicleInfoFormModel } from './vehicle.interface';
+import { VehicleState, vehicleStateFns } from './vehicle.state';
 
 @Injectable()
 export class VehicleService {
@@ -83,7 +84,17 @@ export class VehicleService {
         return this._http.get('/resource/vehicle/last-events');
     }
 
-    getVehicleDetail(vehicleId: string) {
+    getVehicleDetail(vehicleId: string): Observable<VehicleInfo> {
         return this._http.get('/resource/vehicle/' + vehicleId);
+    }
+
+    updateEngineInfo(vehicleId: string, engine: Engine): Observable<Engine> {
+        return this._http
+            .post('/resource/engine/' + vehicleId, engine);
+    }
+
+    updateVehicleInfo(info: VehicleInfoFormModel): Observable<VehicleInfoFormModel> {
+        return this._http
+            .post('/resource/info', info);
     }
 }
