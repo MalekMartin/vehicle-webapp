@@ -37,7 +37,7 @@ export class EngineFormComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        if (!!this.data) {
+        if (!!this.data && !!this.data.engine) {
             this.form.setValue({
                 displacement: this.data.engine.displacement,
                 transmission: this.data.engine.transmission,

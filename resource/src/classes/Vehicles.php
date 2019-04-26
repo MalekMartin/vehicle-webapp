@@ -83,12 +83,12 @@ class Vehicles {
         return $dotaz;
     }
 
-    private function insertVehicle($brand, $model, $manufactureYear, $spz, $previousOwners, $type, $notes) {
+    private function insertVehicle($brand, $model, $manufactureYear, $spz, $previousOwners, $type, $units, $subUnits, $notes) {
         $query = $this->db->prepare('INSERT INTO vehicles
-            (`brand`, `model`, manufactureYear, spz, previousOwners, type, notes, userId, units)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (`brand`, `model`, manufactureYear, spz, previousOwners, type, notes, userId, units, subUnits)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ');
-        $query->execute(array($brand, $model, $manufactureYear, $spz, intVal($previousOwners), $type, $notes, $this->uid, 'km'));
+        $query->execute(array($brand, $model, $manufactureYear, $spz, intVal($previousOwners), $type, $notes, $this->uid, $units, $subUnits));
         return $this->db->lastInsertId();
     }
 
@@ -126,7 +126,7 @@ class Vehicles {
     }
 
     public function addVehicle($data) {
-        $lastId = $this->insertVehicle($data->brand, $data->model, $data->manufactureYear, $data->spz, $data->previousOwners, $data->type, $data->notes);
+        $lastId = $this->insertVehicle($data->brand, $data->model, $data->manufactureYear, $data->spz, $data->previousOwners, $data->type, $data->units, $data->subUnits, $data->notes);
 
         $this->engine->insertEmptyEngine($lastId);
         $this->buyer->insertEmptyBuyer($lastId);

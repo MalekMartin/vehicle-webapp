@@ -21,13 +21,15 @@ class Engine {
             fuel, engineOil, fuelOil, dilutionRatio, vehicleId FROM engine WHERE vehicleId = ?');
         $query->execute(array($id));
         $data = $query->fetch();
+        if ($data) {
+            $data['displacement'] = floatval($data['displacement']);
+            $data['transmission'] = floatval($data['transmission']);
+            $data['power'] = floatval($data['power']);
+            $data['cylinders'] = floatval($data['cylinders']);
 
-        $data['displacement'] = floatval($data['displacement']);
-        $data['transmission'] = floatval($data['transmission']);
-        $data['power'] = floatval($data['power']);
-        $data['cylinders'] = floatval($data['cylinders']);
-
-        return $data;
+            return $data;
+        }
+        return null;
     }
 
     public function updateEngine($id, $d) {

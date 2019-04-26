@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-title>Motor</mat-card-title>
-    <mat-card-content>
+    <mat-card-content *ngIf="!!vehicle.engine">
         <va-info-detail-item label="Obsah"
             [value]="vehicle.engine.displacement + ' ccm'"></va-info-detail-item>
         <va-info-detail-item label="Počet válců"

@@ -21,9 +21,11 @@ class Buyer {
         $query->execute(array($id,$this->uid));
         $d = $query->fetch();
 
-        $d['price'] = floatval($d['price']);
-
-        return $d;
+        if (!!$d) {
+            $d['price'] = floatval($d['price']);
+            return $d;
+        }
+        return null;
     }
 
     private function updateBuyer($d) {

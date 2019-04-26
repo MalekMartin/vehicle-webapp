@@ -58,6 +58,20 @@
             </div>
 
             <div class="row">
+                    <mat-form-field class="col-md-6 col-xs-12">
+                        <input matInput type="text" id="units" matTooltip="např. km"
+                            formControlName="units" placeholder="Hlavní jednotky">
+                        <mat-error *ngIf="form.get('units').hasError('required')">
+                            Toto pole je <strong>povinné</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-md-6 col-xs-12">
+                        <input matInput type="text" id="subUnits" matTooltip="např. motohodiny. Toto pole je volitelné"
+                            formControlName="subUnits" placeholder="Vedlejší jednotky">
+                    </mat-form-field>
+                </div>
+
+            <div class="row">
                 <mat-form-field class="col-md-12 col-xs-12">
                     <textarea matInput type="text" id="notes" cdkTextareaAutosize
                         formControlName="notes" placeholder="Poznámky"></textarea>

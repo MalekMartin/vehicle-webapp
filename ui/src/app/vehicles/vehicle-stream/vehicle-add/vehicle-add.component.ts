@@ -24,7 +24,9 @@ export class VehicleAddComponent implements OnDestroy {
         spz: [''],
         previousOwners: [0, Validators.pattern('[0-9]+')],
         type: ['', Validators.required],
-        notes: ['']
+        notes: [''],
+        units: ['km', Validators.required],
+        subUnits: ['']
     });
 
     private _onDestroy$ = new Subject();

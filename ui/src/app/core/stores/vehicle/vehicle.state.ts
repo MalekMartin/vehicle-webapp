@@ -1,5 +1,6 @@
 import { VehicleInfo, Engine } from '../../../vehicles/vehicle-stream/vehicle';
 import { VehicleInfoFormModel } from './vehicle.interface';
+import { Trade } from '../../../shared/api/trade/trade';
 
 export class VehicleState {
     vehicle = null as VehicleInfo | null;
@@ -13,7 +14,7 @@ export class VehicleStateFns {
         };
     }
 
-    replaceVehicleInfoFromForm(state: VehicleState, info: VehicleInfoFormModel) {
+    replaceVehicleInfoFromForm(state: VehicleState, info: VehicleInfoFormModel): VehicleState {
         return {
             ...state,
             vehicle: {
@@ -28,12 +29,32 @@ export class VehicleStateFns {
 
     replaceEngine(state: VehicleState, engine: Engine): VehicleState {
         return {
-            ...state, 
+            ...state,
             vehicle: {
                 ...state.vehicle,
                 engine
             }
         };
+    }
+
+    replaceSeller(state: VehicleState, seller: Trade) {
+        return {
+            ...state,
+            vehicle: {
+                ...state.vehicle,
+                seller
+            }
+        }
+    }
+
+    replaceBuyer(state: VehicleState, buyer: Trade) {
+        return {
+            ...state,
+            vehicle: {
+                ...state.vehicle,
+                buyer
+            }
+        }
     }
 }
 

@@ -6,13 +6,14 @@ import { Engine, Vehicle, VehicleInfo } from '../../../vehicles/vehicle-stream/v
 import { HttpService } from '../../http.service';
 import { VehicleInfoFormModel } from './vehicle.interface';
 import { VehicleState, vehicleStateFns } from './vehicle.state';
+import { Trade } from '../../../shared/api/trade/trade';
 
 @Injectable()
 export class VehicleService {
     // vehicle = new Subjective()
     vehicleSubject = new ReplaySubject<VehicleInfo>(1);
 
-    state = new Subjective(new VehicleState, vehicleStateFns);
+    state = new Subjective(new VehicleState(), vehicleStateFns);
 
     private _vehicles: Vehicle[];
     private _vehicle: VehicleInfo;
@@ -89,12 +90,15 @@ export class VehicleService {
     }
 
     updateEngineInfo(vehicleId: string, engine: Engine): Observable<Engine> {
-        return this._http
-            .post('/resource/engine/' + vehicleId, engine);
+        return this._http.post('/resource/engine/' + vehicleId, engine);
     }
 
     updateVehicleInfo(info: VehicleInfoFormModel): Observable<VehicleInfoFormModel> {
-        return this._http
-            .post('/resource/info', info);
+        return this._http.post('/resource/info', info);
+    }
+
+    updateTradeInfo(type: 'seller' | 'buyer', trade: Trade) {
+        const url = type === 'seller' ? '/resource/buyer/' : '/resource/seller/';
+        return this._http.post(url + trade.vehicleId, trade);
     }
 }
