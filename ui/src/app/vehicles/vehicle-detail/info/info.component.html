@@ -4,9 +4,17 @@
     <i class="icon-refresh spin"></i>
 </div>
 
-<ng-container *ngIf="vehicle">
-    <va-info-detail class="card" [info]="vehicle.info"></va-info-detail>
-    <va-engine-detail class="card" [vehicle]="vehicle"></va-engine-detail>
-    <va-trade-detail class="card" [vehicle]="vehicle" title="Prodejce" type="seller"></va-trade-detail>
-    <va-trade-detail class="card" [vehicle]="vehicle" title="Kupující" type="buyer"></va-trade-detail>
-</ng-container>
+<div *ngIf="vehicle" class="info">
+    <div class="info-column">
+        <va-info-detail class="card"
+            [info]="vehicle.info"></va-info-detail>
+        <va-engine-detail class="card"
+            [vehicle]="vehicle"></va-engine-detail>
+    </div>
+    <div class="info-column">
+        <va-trade-detail class="card"
+            [vehicle]="vehicle" title="Prodejce" type="seller"></va-trade-detail>
+        <va-trade-detail class="card"
+            [vehicle]="vehicle" title="Kupující" type="buyer"></va-trade-detail>
+    </div>
+</div>

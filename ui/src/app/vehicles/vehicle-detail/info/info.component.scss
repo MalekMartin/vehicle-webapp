@@ -24,7 +24,39 @@
     padding: 20px;
 }
 
-.card {
-    display: block;
-    margin-bottom: 5px;
+.info {
+    display: flex;
+    width: 100%;
+
+    .info-column {
+        flex-grow: 1;
+        width: 50%;
+
+        &:first-child {
+            margin-right: 3px;
+        }
+
+        &:last-child {
+            margin-left: 3px;
+        }
+
+        .card {
+            display: block;
+            margin-bottom: 6px;
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    .info {
+        display: block;
+
+        .info-column {
+            width: 100%;
+
+            &:last-child, &:first-child {
+                margin: 0;
+            }
+        }
+    }
 }
