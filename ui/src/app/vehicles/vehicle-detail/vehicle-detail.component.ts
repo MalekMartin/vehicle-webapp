@@ -5,6 +5,8 @@ import { VehicleImageService } from '../vehicle-stream/vehicle-images.service';
 import { SettingsService } from './vehicle-settings/settings.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { MenuOptionPage } from './vehicle-detail-menu/vehicle-detail-menu.interface';
+import { VehicleInfo } from '../vehicle-stream/vehicle';
 
 @Component({
     selector: 'va-vehicle-detail',
@@ -12,21 +14,7 @@ import { Subject } from 'rxjs';
     styleUrls: ['./vehicle-detail.component.scss']
 })
 export class VehicleDetailComponent implements OnInit, OnDestroy {
-    vehicle;
-
-    options: MenuOption[] = [
-        { page: 'dashboard', label: 'Přehled', warning: 0, icon: 'stats' },
-        { page: 'info', label: 'Info', warning: 0, icon: 'info' },
-        { page: 'fuel', label: 'Tankování', warning: 0, icon: 'gas' },
-        { page: 'costs', label: 'Náklady', warning: 0, icon: 'money' },
-        { page: 'tires', label: 'Pneu', warning: 0, icon: 'radio-unchecked' },
-        { page: 'technical', label: 'TK', warning: 0, icon: 'verified' },
-        { page: 'maintenance', label: 'Údržba', warning: 0, icon: 'wrench' },
-        { page: 'repairs', label: 'Servisí práce', warning: 0, icon: 'automobile' },
-        { page: 'settings', label: 'Nastavení', warning: 0, icon: 'gears' }
-        // {page: 'manuals', label: 'Manuály'}
-    ];
-
+    vehicle: VehicleInfo;
     id: string;
     page: MenuOptionPage;
 
@@ -38,9 +26,7 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
         private _vehicleService: VehicleService,
         private _images: VehicleImageService,
         private _settings: SettingsService
-    ) {
-        // this._vehicleService.vehicleId = this._route.snapshot.params['id'];
-    }
+    ) {}
 
     ngOnInit() {
         this._route.params.pipe(takeUntil(this._onDestroy$)).subscribe(p => {
@@ -89,21 +75,3 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
         }
     }
 }
-
-interface MenuOption {
-    page: MenuOptionPage;
-    label: string;
-    warning: number;
-    icon: string;
-}
-
-type MenuOptionPage =
-    | 'dashboard'
-    | 'info'
-    | 'fuel'
-    | 'costs'
-    | 'tires'
-    | 'technical'
-    | 'maintenance'
-    | 'repairs'
-    | 'settings';

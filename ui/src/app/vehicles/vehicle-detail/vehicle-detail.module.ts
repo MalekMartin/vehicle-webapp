@@ -11,6 +11,7 @@ import { VehicleSettingsModule } from './vehicle-settings/vehicle-settings.modul
 import { ManualsModule } from './manuals/manuals.module';
 import { VehicleNotFoundComponent } from './vehicle-not-found/vehicle-not-found.component';
 import { MatTooltipModule } from '@angular/material';
+import { VehicleDetailMenuComponent } from './vehicle-detail-menu/vehicle-detail-menu.component';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { MatTooltipModule } from '@angular/material';
     declarations: [
         VehicleDetailComponent,
         DetailHeaderComponent,
-        VehicleNotFoundComponent
+        VehicleNotFoundComponent,
+        VehicleDetailMenuComponent
     ],
     providers: [
     ],
