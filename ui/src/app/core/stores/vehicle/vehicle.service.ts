@@ -63,10 +63,12 @@ export class VehicleService {
 
     getInfo(id: string): Observable<VehicleInfo> {
         this.activeVehicle = null;
+        this.state.update(f => f.replaceLoading, true);
         return this._http.get<VehicleInfo>('/resource/info/' + id).pipe(
             tap((vehicle: VehicleInfo) => {
                 this.activeVehicle = vehicle;
                 this.vehicleSubject.next(vehicle);
+                this.state.update(f => f.replaceLoading, false);
             })
         );
     }

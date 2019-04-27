@@ -1,61 +1,48 @@
-<va-routed-modal-content (cancel)="back()" size="modal-md">
-    <span *ngIf="!!id" vaRoutedModalContentTitle>Úprava tankování</span>
-    <span *ngIf="!id" vaRoutedModalContentTitle>Nové tankování</span>
-
-    <div vaRoutedModalContentBody>
-
-        <form [formGroup]="form" (submit)="form.valid && save()">
-            <div class="row">
-                <va-form-item [control]="form.get('date')" class="col-md-6">
-                    <label for="date">Datum:</label>
-                    <va-date-picker id="date" formControlName="date"></va-date-picker>
-                </va-form-item>
-                <va-form-item [control]="form.get('quantity')" class="col-md-6">
-                    <label for="quantity">Množství:</label>
-                    <input type="text" id="quantity" class="form-control" formControlName="quantity" (keyup)="resetPrice()">
-                </va-form-item>
-            </div>
-
-            <div class="row">
-                <va-form-item [control]="form.get('pricePerLiter')" class="col-md-6">
-                    <label for="pricePerLiter">Cena/Litr:</label>
-                    <input type="text" id="pricePerLiter" class="form-control" formControlName="pricePerLiter" (keyup)="calculatePrice()">
-                </va-form-item>
-                <va-form-item [control]="form.get('price')" class="col-md-6">
-                    <label for="price">Cena:</label>
-                    <input type="text" id="pricePerLiter" class="form-control" formControlName="price" (keyup)="calculatePricePerLiter()">
-                </va-form-item>
-            </div>
-
-            <div class="row">
-                <va-form-item [control]="form.get('odo')" class="col-md-6">
-                    <label for="odo">{{units}}:</label>
-                    <input type="text" id="odo" class="form-control" formControlName="odo">
-                </va-form-item>
-                <va-form-item *ngIf="subUnits" [control]="form.get('odo2')" class="col-md-6">
-                    <label for="odo2">{{subUnits}}:</label>
-                    <input type="text" id="odo2" class="form-control" formControlName="odo2">
-                </va-form-item>
-            </div>
-
-            <div class="row">
-                <va-form-item [control]="form.get('note')" class="col-md-6">
-                    <label for="note">Poznámka:</label>
-                    <input type="text" id="note" class="form-control" formControlName="note">
-                </va-form-item>
-                <va-form-item class="col-md-6">
-                    <label>Plná nádrž:</label>
-                    <!--<input type="checkbox" id="fullTank" class="form-control" formControlName="fullTank">-->
-                    <va-checkbox id="fullTank" formControlName="fullTank"></va-checkbox>
-                </va-form-item>
-            </div>
-        </form>
+<form [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput [matDatepicker]="picker" formControlName="date"
+                placeholder="Datum">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="quantity" formControlName="quantity"
+                (keyup)="resetPrice()" placeholder="Množství">
+        </mat-form-field>
     </div>
 
-    <div vaRoutedModalContentFooter>
-        <button type="button" class="btn btn-default" (click)="back()">Zrušit</button>
-        <button type="button" class="btn btn-primary" [disabled]="!form.valid" (click)="save()">
-            Uložit
-        </button>
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="pricePerLiter" formControlName="pricePerLiter"
+                (keyup)="calculatePrice()" placeholder="Cena/Litr">
+        </mat-form-field>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="pricer" formControlName="price"
+                (keyup)="calculatePricePerLiter()" placeholder="Cena">
+        </mat-form-field>
     </div>
-</va-routed-modal-content>
+
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="odo" formControlName="odo"
+                [placeholder]="units">
+        </mat-form-field>
+        <mat-form-field *ngIf="subUnits" class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="odo2" formControlName="odo2"
+                [placeholder]="subUnits">
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="text" id="note" formControlName="note"
+                placeholder="Poznámka">
+        </mat-form-field>
+        <div class="col-sm-6 col-xs-12">
+            <!--<input type="checkbox" id="fullTank" formControlName="fullTank">-->
+            <!-- <va-checkbox id="fullTank" formControlName="fullTank"></va-checkbox> -->
+            <mat-checkbox formControlName="fullTank">Plná nádrž</mat-checkbox>
+        </div>
+    </div>
+</form>

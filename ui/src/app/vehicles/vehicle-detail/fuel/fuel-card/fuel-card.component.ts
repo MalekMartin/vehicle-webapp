@@ -13,10 +13,11 @@ import { Subject } from 'rxjs';
 })
 export class FuelCardComponent implements OnInit, OnDestroy {
     @Input() fuel: Fuel;
+    @Output() edit = new EventEmitter<Fuel>();
     @Output() deleted = new EventEmitter();
 
     units: string;
-    units2 :string;
+    units2: string;
     tankCapacity: number;
 
     private _onDestroy$ = new Subject();

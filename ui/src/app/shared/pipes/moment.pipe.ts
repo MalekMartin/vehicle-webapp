@@ -4,9 +4,8 @@ import * as moment from 'moment';
 @Pipe({
     name: 'moment'
 })
-
 export class MomentPipe implements PipeTransform {
-    transform(value: string, format: string = 'L'):string {
+    transform(value: string, format: string = 'L'): string {
         if (!value) return '';
 
         const date = moment(value, moment.ISO_8601);

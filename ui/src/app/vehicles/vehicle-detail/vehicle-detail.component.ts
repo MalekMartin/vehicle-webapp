@@ -18,6 +18,8 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     id: string;
     page: MenuOptionPage;
 
+    state = this._vehicleService.state.select(s => s.loading, true);
+
     private _onDestroy$ = new Subject();
 
     constructor(

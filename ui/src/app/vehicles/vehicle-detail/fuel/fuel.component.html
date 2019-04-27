@@ -3,7 +3,8 @@
         <va-section-heading>
             <va-section-heading-title>Tankování</va-section-heading-title>
             <va-section-heading-controls>
-                <a [routerLink]="['./', { outlets: {'popup':['m','add', vehicleId]}}]">přidat</a>
+                <!-- <a [routerLink]="['./', { outlets: {'popup':['m','add', vehicleId]}}]">přidat</a> -->
+                <a (click)="add()">přidat</a>
             </va-section-heading-controls>
         </va-section-heading>
 
@@ -19,6 +20,7 @@
             <div class="fuelings">
                 <va-fuel-card *ngFor="let fuel of fuelings"
                     [fuel]="fuel"
+                    (edit)="edit($event)"
                     (deleted)="delete($event)"></va-fuel-card>
             </div>
 

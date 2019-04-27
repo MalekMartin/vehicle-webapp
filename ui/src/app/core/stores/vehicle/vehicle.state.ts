@@ -4,6 +4,7 @@ import { Trade } from '../../../shared/api/trade/trade';
 
 export class VehicleState {
     vehicle = null as VehicleInfo | null;
+    loading = false;
 }
 
 export class VehicleStateFns {
@@ -37,7 +38,7 @@ export class VehicleStateFns {
         };
     }
 
-    replaceSeller(state: VehicleState, seller: Trade) {
+    replaceSeller(state: VehicleState, seller: Trade): VehicleState {
         return {
             ...state,
             vehicle: {
@@ -47,7 +48,7 @@ export class VehicleStateFns {
         }
     }
 
-    replaceBuyer(state: VehicleState, buyer: Trade) {
+    replaceBuyer(state: VehicleState, buyer: Trade): VehicleState {
         return {
             ...state,
             vehicle: {
@@ -55,6 +56,13 @@ export class VehicleStateFns {
                 buyer
             }
         }
+    }
+
+    replaceLoading(state: VehicleState, loading: boolean): VehicleState {
+        return {
+            ...state,
+            loading
+        };
     }
 }
 
