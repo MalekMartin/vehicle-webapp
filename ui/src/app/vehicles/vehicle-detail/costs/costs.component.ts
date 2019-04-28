@@ -12,6 +12,8 @@ import { MatDialog } from '@angular/material';
 import { CostsAddComponent } from './costs-add/costs-add.component';
 import { CostsEditComponent } from './costs-edit/costs-edit.component';
 import { CostCategoryFormComponent } from './cost-category-form/cost-category-form.component';
+import { ToastsManager } from 'ng6-toastr';
+import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 
 @Component({
     selector: 'va-costs',
@@ -38,7 +40,8 @@ export class CostsComponent implements OnInit, OnDestroy {
         private _service: CostsService,
         private _fb: FormBuilder,
         private _vehicles: VehicleService,
-        private _dialog: MatDialog
+        private _dialog: MatDialog,
+        private _toastr: ToastsManager
     ) {
         this._service.pageSize = 5;
     }
@@ -181,7 +184,43 @@ export class CostsComponent implements OnInit, OnDestroy {
         this.fetchCurrentPage();
     }
 
+    confirmDelete(cost: Cost) {
+        this._dialog
+            .open(ConfirmComponent, {
+                width: '500px',
+                data: {
+                    title: 'Smazat náklady',
+                    message: `Opravdu chceš smazat záznam <b>${cost.title}</b>?`,
+                    yes: 'Samzat',
+                    no: 'Ne'
+                }
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(res => {
+                if (!!res) {
+                    this.delete(cost);
+                }
+            });
+    }
+
+    delete(cost: Cost) {
+        this._service
+            .deleteCost(cost)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._onDeleteSuccess, this._onDeleteError);
+    }
+
     private _handleNewContent = (p: Page<Cost>) => {
         this.costs = p;
+    };
+
+    private _onDeleteSuccess = () => {
+        this._toastr.success('Náklad byl úspěšně smazán', 'Vymazáno!');
+        this.fetchCurrentPage();
+    };
+
+    private _onDeleteError = () => {
+        this._toastr.error('Náklad nebyl smazán', 'Chyba!');
     };
 }

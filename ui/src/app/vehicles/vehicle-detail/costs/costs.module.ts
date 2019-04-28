@@ -30,6 +30,7 @@ import { PaginatorModule } from '../../../shared/components/paginator/paginator.
 import { NumberStatsModule } from '../../../shared/components/number-stats/number-stats.module';
 import { CardModule } from '../../../shared/components/card/card.module';
 import { PipesModule } from '../../../shared/pipes/pipes.module';
+import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 
 const PIPES = [CostsPipe];
 
@@ -63,7 +64,8 @@ const COMPONENTS = [
         PaginatorModule,
         NumberStatsModule,
         CardModule,
-        PipesModule
+        PipesModule,
+        ConfirmModule
     ],
     exports: [],
     declarations: [...COMPONENTS, ...PIPES],

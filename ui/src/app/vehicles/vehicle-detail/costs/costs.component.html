@@ -39,7 +39,7 @@
                     <va-cost-card *ngFor="let cost of costs.content"
                         [cost]="cost"
                         (edit)="editCosts($event)"
-                        (deleted)="onDeleted()"></va-cost-card>
+                        (delete)="confirmDelete($event)"></va-cost-card>
                 </div>
 
                 <va-paginator *ngIf="!!costs" [service]="costService"
