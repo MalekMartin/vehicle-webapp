@@ -1,14 +1,17 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { CostsService } from '../../../shared/api/costs/costs.service';
 import { Page, Pageable } from '../../../utils/pageable';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Cost, CostsCategory } from './cost.interface';
+import { MatDialog } from '@angular/material';
+import { CostsAddComponent } from './costs-add/costs-add.component';
+import { CostsEditComponent } from './costs-edit/costs-edit.component';
+import { CostCategoryFormComponent } from './cost-category-form/cost-category-form.component';
 
 @Component({
     selector: 'va-costs',
@@ -19,9 +22,6 @@ export class CostsComponent implements OnInit, OnDestroy {
     @ViewChild('formModal') modal: ModalDirective;
 
     vehicleId: string;
-    selectedCost: Cost = null;
-    modalTitle: string;
-    modalBody: string;
     costs: Page<Cost>;
 
     form = this._fb.group({
@@ -32,18 +32,13 @@ export class CostsComponent implements OnInit, OnDestroy {
     private _filter: string[] = [];
     private _categories: any[];
 
-    private _querySubs: Subscription;
-    private _currentSubs: Subscription;
-    private _routerSubs: Subscription;
-    private _filterSubs: Subscription;
-    private _pageSubs: Subscription;
-    private _categorySubs: Subscription;
+    private _onDestroy$ = new Subject();
 
     constructor(
         private _service: CostsService,
-        private _toastr: ToastsManager,
         private _fb: FormBuilder,
-        private _vehicles: VehicleService
+        private _vehicles: VehicleService,
+        private _dialog: MatDialog
     ) {
         this._service.pageSize = 5;
     }
@@ -54,7 +49,7 @@ export class CostsComponent implements OnInit, OnDestroy {
         this.fetchCurrentPage();
         this.findCategories();
 
-        this._querySubs = this.form.valueChanges
+        this.form.valueChanges
             .pipe(
                 debounceTime(300),
                 switchMap(val => {
@@ -62,39 +57,14 @@ export class CostsComponent implements OnInit, OnDestroy {
                     this.setFilter();
                     this._service.reset();
                     return this._service.fetchCurrentPage();
-                })
+                }),
+                takeUntil(this._onDestroy$)
             )
             .subscribe(this._handleNewContent);
     }
 
-    setFilter() {
-        this._service.filter = { category: this.form.get('category').value };
-    }
-
     ngOnDestroy() {
-        if (this._querySubs) {
-            this._querySubs.unsubscribe();
-        }
-        if (this._currentSubs) {
-            this._currentSubs.unsubscribe();
-        }
-        if (this._routerSubs) {
-            this._routerSubs.unsubscribe();
-        }
-        if (this._pageSubs) {
-            this._pageSubs.unsubscribe();
-        }
-        if (this._categorySubs) {
-            this._categorySubs.unsubscribe();
-        }
-    }
-
-    fetchCurrentPage() {
-        this._currentSubs = this._service.fetchCurrentPage().subscribe(this._handleNewContent);
-    }
-
-    fetchPage(p: number) {
-        this._pageSubs = this._service.fetchPage(p).subscribe(this._handleNewContent);
+        this._onDestroy$.next();
     }
 
     get loading(): boolean {
@@ -113,20 +83,68 @@ export class CostsComponent implements OnInit, OnDestroy {
         return this._categories;
     }
 
-    private _handleNewContent = (p: Page<Cost>) => {
-        this.costs = p;
-    };
+    setFilter() {
+        this._service.filter = { category: this.form.get('category').value };
+    }
+
+    fetchCurrentPage() {
+        this._service
+            .fetchCurrentPage()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._handleNewContent);
+    }
+
+    fetchPage(p: number) {
+        this._service
+            .fetchPage(p)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._handleNewContent);
+    }
+
+    addCosts(e: MouseEvent) {
+        e.preventDefault();
+
+        this._dialog
+            .open(CostsAddComponent, {
+                width: '600px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                if (!!v) {
+                    this.fetchCurrentPage();
+                }
+            });
+    }
+
+    editCosts(cost: Cost) {
+        this._dialog
+            .open(CostsEditComponent, {
+                width: '600px',
+                data: cost
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                if (!!v) {
+                    this.fetchCurrentPage();
+                }
+            });
+    }
 
     findCategories() {
-        this._categorySubs = this._service.getCategories().subscribe((c: any) => {
-            this._categories = c.map((s: CostsCategory) => {
-                return {
-                    id: s.id,
-                    title: s.title,
-                    color: s.color
-                };
+        this._service
+            .getCategories()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe((c: any) => {
+                this._categories = c.map((s: CostsCategory) => {
+                    return {
+                        id: s.id,
+                        title: s.title,
+                        color: s.color
+                    };
+                });
             });
-        });
     }
 
     toggleFilter(v, category) {
@@ -148,45 +166,22 @@ export class CostsComponent implements OnInit, OnDestroy {
         this.fetchCurrentPage();
     }
 
-    edit(c: Cost) {
-        this.selectedCost = c;
-        this.newCosts();
-    }
-
-    newCosts() {
-        this.modalBody = 'costs';
-        this.modalTitle = 'Náklady';
-        this.modal.show();
-    }
-
     categorySettings() {
-        this.modalBody = 'category';
-        this.modalTitle = 'Správa kategorií';
-        this.modal.show();
-    }
-
-    costsSaved() {
-        this.modal.hide();
-        this.selectedCost = null;
-        // this.findCosts();
-        this.fetchCurrentPage();
-        this._toastr.success('Náklady úspěšně uloženy.', 'Uloženo!');
+        this._dialog.open(CostCategoryFormComponent, {
+            width: '400px'
+        });
     }
 
     onDeleted() {
-        // this.findCosts();
         this.fetchCurrentPage();
-    }
-
-    costsCanceled() {
-        this.modal.hide();
-        this.selectedCost = null;
     }
 
     close() {
-        this.modal.hide();
         this.findCategories();
         this.fetchCurrentPage();
-        this.modalBody = null;
     }
+
+    private _handleNewContent = (p: Page<Cost>) => {
+        this.costs = p;
+    };
 }

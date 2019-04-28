@@ -1,0 +1,8 @@
+<h3 mat-dialog-title>Přidat náklady</h3>
+<mat-dialog-content>
+    <va-costs-form #costsForm></va-costs-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Zrušit</button>
+    <button mat-flat-button color="primary" (click)="costsForm.form.valid && save()">Uložit</button>
+</mat-dialog-actions>

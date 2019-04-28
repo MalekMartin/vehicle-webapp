@@ -1,32 +1,38 @@
-<form [formGroup]="form" (submit)="form.valid && save()">
-    <div class="row">
-        <div class="col-md-12">
-            <va-form-item [control]="form.controls.title">
-                <label for="title">Název:</label>
-                <input type="text" id="title" class="form-control" formControlName="title">
-            </va-form-item>
-        </div>
+<h3 mat-dialog-title>Správa kategorií</h3>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <!-- <div class="row"> -->
+            <!-- <div class="col-md-12"> -->
+            <div class="add">
+                <mat-form-field>
+                    <input matInput type="text" id="title" formControlName="title"
+                        placeholder="Název">
+                </mat-form-field>
+                <div>
+                    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid"
+                        (click)="form.valid && save()">Uložit</button>
+                </div>
+            </div>
+            <!-- </div>
+        </div> -->
+    </form>
+
+    <div *ngIf="loading">
+        <i class="icon-refresh spin"></i>
     </div>
 
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Uložit</button>
+    <div *ngIf="!loading" class="category-list">
+        <div *ngFor="let c of categories" class="category-item">
+            <div [style.backgroundColor]="'#' + c.color"
+                class="color"></div>
+            <div class="title">{{c.title}}</div>
+            <div class="controls">
+                <i class="icon-edit" (click)="selectCategory(c)"></i>
+                <i class="icon-bin" (click)="delete(c)"></i>
+            </div>
         </div>
     </div>
-</form>
-
-<div *ngIf="loading">
-    <i class="icon-refresh spin"></i>
-</div>
-
-<div *ngIf="!loading" class="category-list">
-    <div *ngFor="let c of categories" class="category-item">
-        <div [style.backgroundColor]="'#' + c.color"
-            class="color"></div>
-        <div class="title">{{c.title}}</div>
-        <div class="controls">
-            <i class="icon-edit" (click)="selectCategory(c)"></i>
-            <i class="icon-bin" (click)="delete(c)"></i>
-        </div>
-    </div>
-</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button type="button" mat-dialog-close>Zavřít</button>
+</mat-dialog-actions>

@@ -14,6 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class CostCardComponent implements OnInit, OnDestroy {
     @Input() cost: Cost;
+    @Output() edit = new EventEmitter<Cost>();
     @Output() deleted = new EventEmitter();
 
     units: string;
