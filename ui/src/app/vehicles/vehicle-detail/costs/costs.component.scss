@@ -31,19 +31,32 @@ h3 {
 }
 
 form {
+    padding: 10px;
+    background-color: #ddd;
+    margin: 6px 0;
+    border-radius: 3px;
 
-    display: flex;
+    .filter-title {
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        margin-bottom: 6px;
 
-    .filter {
-        
-        flex-grow: 1;
-
-        &:nth-child(odd) {
-            margin-right: 3px
+        i {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            font-size: 12px;
+            line-height: 25px;
+            text-align: center;
+            background-color: #999;
+            border-radius: 3px;
+            color: white;
+            margin-right: 6px;
         }
-        &:nth-child(even) {
-            margin-left: 3px
-        }
+    }
+    .icon-search {
+        padding-right: 8px;
     }
 }
 

@@ -8,41 +8,47 @@
             </va-section-heading-controls>
         </va-section-heading>
 
-        <form [formGroup]="form">
-            <div class="filter">
-                <input class="form-control" formControlName="query" placeholder="hledat...">
-            </div>
-
-            <div class="filter">
-                <select id="categiry" class="form-control" formControlName="category">
-                    <option value="">všechny kategorie</option>
-                    <option *ngFor="let category of categories"
-                        [value]="category.id">{{category.title}}</option> 
-                </select>
-            </div>
-        </form>
-
         <div class="costs-content">
 
             <div *ngIf="loading && !costs" class="loading">
                 <i class="icon-refresh spin"></i>
             </div>
 
-            <div class="costs" *ngIf="!!costs">
+            <div>
+                <!-- <va-paginator [service]="costService"
+                    (selected)="fetchPage($event)">
+                </va-paginator> -->
 
-                <va-paginator [service]="costService"
-                    (selected)="fetchPage($event)"></va-paginator>
+                <form [formGroup]="form">
+                    <div class="filter-title">
+                        <i class="icon-filter"></i>
+                        Filtr
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="col-sm-6 col-xs-12">
+                            <i matPrefix class="icon-search"></i>
+                            <input matInput formControlName="query" placeholder="Hledat...">
+                        </mat-form-field>
+                        <mat-form-field class="col-sm-6 col-xs-12">
+                            <mat-select id="categiry" formControlName="category">
+                                <mat-option value="">všechny kategorie</mat-option>
+                                <mat-option *ngFor="let category of categories"
+                                    [value]="category.id">{{category.title}}</mat-option> 
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </form>
 
-                <div class="cost-cards">
-                    <va-cost-card *ngFor="let cost of costs"
+                <div *ngIf="!!costs" class="cost-cards">
+                    <va-cost-card *ngFor="let cost of costs.content"
                         [cost]="cost"
                         (deleted)="onDeleted()"></va-cost-card>
                 </div>
 
-                <va-paginator [service]="costService"
+                <va-paginator *ngIf="!!costs" [service]="costService"
                     (selected)="fetchPage($event)"></va-paginator>
             </div>
-            <div *ngIf="(!costs || costs.length < 1) && !loading">
+            <div *ngIf="(!costs || costs.content.length < 1) && !loading">
                 Nebyly nalezeny žádné záznamy.
             </div>
         </div>

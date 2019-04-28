@@ -25,16 +25,31 @@
 }
 
 .icon-edit:before {
-  content: "\e90c";
+  content: "\e918";
+}
+.icon-chart-bar:before {
+  content: "\e916";
+}
+.icon-sync-alt:before {
+  content: "\e917";
+}
+.icon-stop-circle:before {
+  content: "\e914";
+}
+.icon-play-circle:before {
+  content: "\e915";
+}
+.icon-calendar-alt:before {
+  content: "\e913";
+}
+.icon-info:before {
+  content: "\ea0d";
 }
 .icon-image:before {
   content: "\e90d";
 }
 .icon-bell:before {
   content: "\e951";
-}
-.icon-calendar:before {
-  content: "\e953";
 }
 .icon-spinner:before {
   content: "\e983";
@@ -48,7 +63,7 @@
 .icon-stats:before {
   content: "\e99b";
 }
-.icon-meter:before {
+.icon-meter2:before {
   content: "\e9a7";
 }
 .icon-bin:before {
@@ -99,9 +114,6 @@
 .icon-filter:before {
   content: "\ea5b";
 }
-.icon-info:before {
-  content: "\ea0d";
-}
 .icon-text:before {
   content: "\e922";
 }
@@ -147,7 +159,6 @@
 .icon-menu-dots:before {
   content: "\e902";
 }
-
 .icon-spinner2:before {
   content: "\e981";
 }
@@ -222,7 +233,4 @@
 }
 .icon-clear:before {
   content: "\e912";
-}
-.icon-photo:before {
-  content: "\e913";
 }

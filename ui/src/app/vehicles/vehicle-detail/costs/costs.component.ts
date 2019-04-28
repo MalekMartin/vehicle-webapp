@@ -22,7 +22,7 @@ export class CostsComponent implements OnInit, OnDestroy {
     selectedCost: Cost = null;
     modalTitle: string;
     modalBody: string;
-    // query = new FormControl('');
+    costs: Page<Cost>;
 
     form = this._fb.group({
         query: [''],
@@ -30,7 +30,6 @@ export class CostsComponent implements OnInit, OnDestroy {
     });
 
     private _filter: string[] = [];
-    private _costs: Cost[];
     private _categories: any[];
 
     private _querySubs: Subscription;
@@ -106,10 +105,6 @@ export class CostsComponent implements OnInit, OnDestroy {
         return this._service;
     }
 
-    get costs() {
-        return this._costs;
-    }
-
     get filter() {
         return this._filter;
     }
@@ -119,7 +114,7 @@ export class CostsComponent implements OnInit, OnDestroy {
     }
 
     private _handleNewContent = (p: Page<Cost>) => {
-        this._costs = p.content;
+        this.costs = p;
     };
 
     findCategories() {
