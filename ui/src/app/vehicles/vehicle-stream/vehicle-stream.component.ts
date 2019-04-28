@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, HostListener, ElementRef, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    HostListener,
+    AfterViewInit
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
@@ -19,6 +25,7 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
     expanded = false;
     query = new FormControl('');
     gridCols = 5;
+    vehicles: Vehicle[];
 
     private _onDestroy$ = new Subject();
 
@@ -34,11 +41,10 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
     ) {}
 
     ngOnInit() {
-        this._service.activeVehicle = null;
-
         this.query.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe(res => {
             this.filter = res;
         });
+        this.getAllVehicles();
     }
 
     ngAfterViewInit() {
@@ -49,9 +55,17 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
         this._onDestroy$.next();
     }
 
-    get vehicles(): Vehicle[] {
-        return this._service.allVehicles;
+    getAllVehicles() {
+        this._service
+            .refresh()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.vehicles = v;
+            });
     }
+    // get vehicles(): Vehicle[] {
+    //     return this._service.allVehicles;
+    // }
 
     addVehicle(e: MouseEvent) {
         e.preventDefault();
@@ -81,13 +95,13 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
     private _onSave = (vehicleId: string) => {
         if (!!vehicleId) {
             this._router.navigate(['vehicle', vehicleId, 'settings']);
-            this._service.refresh();
+            this.getAllVehicles();
         }
     };
 
     private _onDeleteSuccess = res => {
         if (!!res) {
-            this._service.refresh();
+            this.getAllVehicles();
         }
     };
 

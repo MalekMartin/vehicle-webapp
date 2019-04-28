@@ -47,7 +47,7 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._service.pageSize = 5;
 
-        this.vehicleId = this._vehicles.vehicleId;
+        this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
         if (!!this.vehicleId) {
             this._service.vehicleId = this.vehicleId;
             this.refreshIntervals(this.vehicleId);

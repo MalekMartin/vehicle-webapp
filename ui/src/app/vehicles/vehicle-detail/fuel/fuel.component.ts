@@ -40,7 +40,7 @@ export class FuelComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.vehicleId = this._vehicles.vehicleId;
+        this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
         this._service.id = this.vehicleId;
 
         this.fuels = this._service.fetchCurrentPage();

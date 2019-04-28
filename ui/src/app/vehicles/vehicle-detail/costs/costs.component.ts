@@ -16,13 +16,12 @@ import { Cost, CostsCategory } from './cost.interface';
     styleUrls: ['./costs.component.scss']
 })
 export class CostsComponent implements OnInit, OnDestroy {
-
     @ViewChild('formModal') modal: ModalDirective;
 
     vehicleId: string;
     selectedCost: Cost = null;
-    modalTitle:string;
-    modalBody:string;
+    modalTitle: string;
+    modalBody: string;
     // query = new FormControl('');
 
     form = this._fb.group({
@@ -41,16 +40,17 @@ export class CostsComponent implements OnInit, OnDestroy {
     private _pageSubs: Subscription;
     private _categorySubs: Subscription;
 
-    constructor(private _service:CostsService,
-                private _toastr:ToastsManager,
-                private _fb: FormBuilder,
-                private _vehicles: VehicleService) {
-
+    constructor(
+        private _service: CostsService,
+        private _toastr: ToastsManager,
+        private _fb: FormBuilder,
+        private _vehicles: VehicleService
+    ) {
         this._service.pageSize = 5;
     }
 
     ngOnInit() {
-        this.vehicleId = this._vehicles.vehicleId;
+        this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
         this._service.id = this.vehicleId;
         this.fetchCurrentPage();
         this.findCategories();
@@ -69,7 +69,7 @@ export class CostsComponent implements OnInit, OnDestroy {
     }
 
     setFilter() {
-        this._service.filter = {category: this.form.get('category').value};
+        this._service.filter = { category: this.form.get('category').value };
     }
 
     ngOnDestroy() {
@@ -91,15 +91,11 @@ export class CostsComponent implements OnInit, OnDestroy {
     }
 
     fetchCurrentPage() {
-        this._currentSubs = this._service
-            .fetchCurrentPage()
-            .subscribe(this._handleNewContent);
+        this._currentSubs = this._service.fetchCurrentPage().subscribe(this._handleNewContent);
     }
 
     fetchPage(p: number) {
-        this._pageSubs = this._service
-            .fetchPage(p)
-            .subscribe(this._handleNewContent);
+        this._pageSubs = this._service.fetchPage(p).subscribe(this._handleNewContent);
     }
 
     get loading(): boolean {
@@ -124,20 +120,18 @@ export class CostsComponent implements OnInit, OnDestroy {
 
     private _handleNewContent = (p: Page<Cost>) => {
         this._costs = p.content;
-    }
+    };
 
     findCategories() {
-        this._categorySubs = this._service
-            .getCategories()
-            .subscribe((c:any) => {
-                this._categories = c.map((s: CostsCategory) => {
-                    return {
-                        id: s.id,
-                        title: s.title,
-                        color: s.color
-                    };
-                });
+        this._categorySubs = this._service.getCategories().subscribe((c: any) => {
+            this._categories = c.map((s: CostsCategory) => {
+                return {
+                    id: s.id,
+                    title: s.title,
+                    color: s.color
+                };
             });
+        });
     }
 
     toggleFilter(v, category) {
@@ -150,7 +144,7 @@ export class CostsComponent implements OnInit, OnDestroy {
             f.push(v.value);
         } else {
             const i = f.indexOf(v.value);
-            f.splice(i,1);
+            f.splice(i, 1);
         }
         this._filter = f;
 
@@ -159,7 +153,7 @@ export class CostsComponent implements OnInit, OnDestroy {
         this.fetchCurrentPage();
     }
 
-    edit(c:Cost) {
+    edit(c: Cost) {
         this.selectedCost = c;
         this.newCosts();
     }
@@ -181,7 +175,7 @@ export class CostsComponent implements OnInit, OnDestroy {
         this.selectedCost = null;
         // this.findCosts();
         this.fetchCurrentPage();
-        this._toastr.success('Náklady úspěšně uloženy.','Uloženo!');
+        this._toastr.success('Náklady úspěšně uloženy.', 'Uloženo!');
     }
 
     onDeleted() {

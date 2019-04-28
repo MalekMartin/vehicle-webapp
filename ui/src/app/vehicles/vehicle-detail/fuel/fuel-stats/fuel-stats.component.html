@@ -16,14 +16,6 @@
         </ngx-charts-line-chart>
     </div>
 
-    <!-- <div *ngIf="loadingError">
-        Nepodařilo se načíst statistiky. <a (click)="getStats()">Načíst znovu</a>.
-    </div>
-    
-    <div *ngIf="loading" class="loading-bar">
-        <i class="icon-refresh spin"></i>
-    </div> -->
-
     <div *ngIf="!!stats">
         <va-number-stats [stats]="stats"></va-number-stats>
     </div>

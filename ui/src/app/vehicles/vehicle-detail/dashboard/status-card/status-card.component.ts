@@ -16,6 +16,9 @@ export class StatusCardComponent implements OnInit, OnDestroy {
     originalOdo: number;
     originalOdo2: number;
 
+    units: string;
+    units2: string;
+
     annualMileages: any;
 
     data: any = [];
@@ -30,23 +33,23 @@ export class StatusCardComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         forkJoin(
-            this._fuel.annualMileages(this._vehicles.vehicleId),
-            this._fuel.currentMileage(this._vehicles.vehicleId)
+            this._fuel.annualMileages(this._vehicles.state.snapshot.vehicle.info.id),
+            this._fuel.currentMileage(this._vehicles.state.snapshot.vehicle.info.id)
         )
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onSuccess);
+
+        this._vehicles.state
+            .select(s => s.vehicle.info)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(i => {
+                this.units = i.units;
+                this.units2 = i.subUnits;
+            });
     }
 
     ngOnDestroy() {
         this._onDestroy$.next();
-    }
-
-    get units(): string {
-        return this._vehicles.units;
-    }
-
-    get units2(): string {
-        return this._vehicles.units2;
     }
 
     onSelect(data: any) {
@@ -63,7 +66,7 @@ export class StatusCardComponent implements OnInit, OnDestroy {
 
         this.data = !!this.units2
             ? this._buildDataForAllUnits(this.annualMileages)
-            : this._buildDataForMainUnit(this.annualMileages)
+            : this._buildDataForMainUnit(this.annualMileages);
     };
 
     private _buildDataForAllUnits(data) {

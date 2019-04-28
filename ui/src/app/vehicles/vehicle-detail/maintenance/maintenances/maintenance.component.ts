@@ -68,7 +68,7 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this.vehicleId = this._vehicles.vehicleId;
+        this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
         if (!!this.vehicleId) {
             this._maintenance.vehicleId = this.vehicleId;
             this.setFilters();

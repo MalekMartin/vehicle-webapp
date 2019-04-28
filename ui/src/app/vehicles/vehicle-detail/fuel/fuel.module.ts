@@ -8,7 +8,8 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -41,6 +42,7 @@ import { fuelRoutes } from './fuel.routes';
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
+        MatCardModule,
         PipesModule,
         NumberStatsModule,
         PaginatorModule,

@@ -1,30 +1,40 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../../shared/api/maintenance/interval.interface';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'va-interval-card',
     templateUrl: './interval-card.component.html',
     styleUrls: ['./interval-card.component.scss']
 })
-export class IntervalCardComponent implements OnInit {
-
+export class IntervalCardComponent implements OnInit, OnDestroy {
     @Input() interval: Interval;
 
     @Output() editClicked = new EventEmitter();
 
     @Output() deleteClicked = new EventEmitter();
 
-    constructor(private _vehicles: VehicleService) { }
+    units: string;
+    units2: string;
 
-    ngOnInit() { }
+    private _onDestroy$ = new Subject();
 
-    get units(): string {
-        return this._vehicles.units;
+    constructor(private _vehicles: VehicleService) {}
+
+    ngOnInit() {
+        this._vehicles.state
+            .select(s => s.vehicle.info)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(i => {
+                this.units = i.units;
+                this.units2 = i.subUnits;
+            });
     }
 
-    get units2(): string {
-        return this._vehicles.units2;
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     edit() {

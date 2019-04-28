@@ -45,7 +45,7 @@ export class SettingsFormComponent implements OnInit {
     }
 
     private _remapInfo() {
-        const i = this._vehicles.activeVehicle.info;
+        const i = this._vehicles.state.snapshot.vehicle.info;
         return {
             vehicleId: i.id,
             units: i.units,

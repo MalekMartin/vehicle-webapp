@@ -33,7 +33,6 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._route.params.pipe(takeUntil(this._onDestroy$)).subscribe(p => {
             this.id = p['id'] || null;
-            this._vehicleService.vehicleId = p['id'] || null;
             this.page = p['page'] || 'fuel';
             if (!!this.id) {
                 this.getVehicleInfo(this.id);

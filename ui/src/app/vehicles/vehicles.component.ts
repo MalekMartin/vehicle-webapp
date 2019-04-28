@@ -12,6 +12,5 @@ export class VehiclesComponent implements OnInit {
     constructor(private _vehicles: VehicleService) { }
 
     ngOnInit() {
-        this._vehicles.refresh();
     }
 }

@@ -52,7 +52,7 @@ export class TiresComponent implements OnChanges, OnInit, OnDestroy {
                 private _tire: TiresService) { }
 
     ngOnInit() {
-        this.vehicleId = this._vehicleService.vehicleId;
+        this.vehicleId = this._vehicleService.state.snapshot.vehicle.info.id;
         this.getAllTires();
         this.refreshProperties();
     }

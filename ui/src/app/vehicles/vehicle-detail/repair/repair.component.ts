@@ -59,7 +59,7 @@ export class RepairComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._service.pageSize = 5;
-        this.vehicleId = this._vehicleService.vehicleId;
+        this.vehicleId = this._vehicleService.state.snapshot.vehicle.info.id;
         this._service.reset();
         this._service.vehicleId = this.vehicleId;
         this.setFilter();

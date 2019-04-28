@@ -30,7 +30,7 @@ export class IntervalsComponent implements OnInit, OnDestroy {
                 private _toastr: ToastsManager,
                 private _vehicles: VehicleService) {
 
-        this.vehicleId = this._vehicles.vehicleId;
+        this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
     }
 
     ngOnInit() {
