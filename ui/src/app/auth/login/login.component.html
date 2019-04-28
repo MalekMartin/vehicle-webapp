@@ -6,6 +6,11 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-xs-12">
+                <p class="invalid-token" *ngIf="!!invalidToken">Byl jsi automaticky odhlášen.</p>
+            </div>
+        </div>
+        <div class="row">
             <mat-form-field class="col-sm-12 col-xs-12 email-row">
                 <input matInput type="text" formControlName="email" placeholder="email"> 
             </mat-form-field>
@@ -30,6 +35,5 @@
                 </button>
             </div>
         </div>
-        <p *ngIf="!!invalidToken">Byl jsi automaticky odhlášen.</p>
     </form>
 </div>
