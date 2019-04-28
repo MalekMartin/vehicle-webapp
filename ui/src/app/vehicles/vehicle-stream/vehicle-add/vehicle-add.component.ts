@@ -1,12 +1,11 @@
 import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { HttpService } from '../../../core/http.service';
-import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Subject } from 'rxjs';
-import { pipe } from '@angular/core/src/render3';
 import { takeUntil } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material';
+import { VehicleStreamService } from '../../../core/stores/vehicle/vehicle-stream.service';
+import { Vehicle } from '../vehicle';
 
 @Component({
     selector: 'va-vehicle-add',
@@ -33,7 +32,7 @@ export class VehicleAddComponent implements OnDestroy {
 
     constructor(
         public dialogRef: MatDialogRef<VehicleAddComponent>,
-        private _service: VehicleService,
+        private _service: VehicleStreamService,
         private _form: FormBuilder,
         private _toastr: ToastsManager
     ) {}
@@ -58,10 +57,42 @@ export class VehicleAddComponent implements OnDestroy {
             'Vozidlo ' + this.form.value.brand + ' ' + this.form.value.model + ' vloženo',
             'Vloženo!'
         );
+        this._service.state.update(f => f.addVehicle, this._buildVehicleModel(id, this.form.value));
         this.dialogRef.close(id);
-    };
+    }
 
     private _onError = () => {
         this._toastr.error('Vozidlo nebylo vloženo', 'Chyba!');
-    };
+    }
+
+    private _buildVehicleModel(id: string, value: VehicleAddModel): Vehicle {
+        return {
+            id,
+            brand: value.brand,
+            model: value.model,
+            manufactureYear: value.manufactureYear,
+            purchaseDate: null,
+            price: 0,
+            mileage: 0,
+            engineHours: 0,
+            spz: value.spz,
+            hasFile: false,
+            dateOfSale: null,
+            lastOdo: 0,
+            units: value.units,
+            subUnits: value.subUnits
+        };
+    }
+}
+
+interface VehicleAddModel {
+    brand: string;
+    model: string;
+    manufactureYear: number;
+    spz: string;
+    previousOwners: number;
+    type: 'CAR' | 'MOTORCYCLE';
+    notes: string;
+    units: string;
+    subUnits: string;
 }

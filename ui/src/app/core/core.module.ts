@@ -6,6 +6,7 @@ import { AuthGuard } from './auth.guard';
 import { AppState } from '../app.service';
 import { DialogService } from './dialog.service';
 import { VehicleService } from './stores/vehicle/vehicle.service';
+import { VehicleStreamService } from './stores/vehicle/vehicle-stream.service';
 
 @NgModule({
     imports: [],
@@ -24,7 +25,8 @@ export class CoreModule {
                 AuthGuard,
                 AppState,
                 DialogService,
-                VehicleService
+                VehicleService,
+                VehicleStreamService
             ]
         };
     }

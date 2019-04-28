@@ -14,10 +14,6 @@ export class VehicleService {
 
     constructor(private _http: HttpService) {}
 
-    addVehicle(vehicle: Vehicle) {
-        return this._http.post('/resource/vehicle/new', vehicle);
-    }
-
     getInfo(id: string): Observable<VehicleInfo> {
         this.state.update(f => f.replaceLoading, true);
         return this._http.get<VehicleInfo>('/resource/info/' + id).pipe(
@@ -25,14 +21,6 @@ export class VehicleService {
                 this.state.update(f => f.replaceLoading, false);
             })
         );
-    }
-
-    deleteVehicle(vehicleId: string) {
-        return this._http.delete('/resource/vehicle/' + vehicleId);
-    }
-
-    refresh(): Observable<Vehicle[]> {
-        return this._http.get('/resource/vehicles');
     }
 
     getLastEvents() {

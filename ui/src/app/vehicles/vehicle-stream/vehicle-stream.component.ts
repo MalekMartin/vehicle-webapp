@@ -8,12 +8,12 @@ import {
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { VehicleService } from '../../core/stores/vehicle/vehicle.service';
 import { Vehicle } from './vehicle';
 import { VehicleAddComponent } from './vehicle-add/vehicle-add.component';
 import { VehicleDeleteConfirmComponent } from './vehicle-delete-confirm/vehicle-delete-confirm.component';
+import { VehicleStreamService } from '../../core/stores/vehicle/vehicle-stream.service';
 
 @Component({
     selector: 'va-vehicle-stream',
@@ -27,6 +27,11 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
     gridCols = 5;
     vehicles: Vehicle[];
 
+    state = merge(
+        this._service.state.select(s => s.vehicles, true),
+        this._service.state.select(s => s.loading, true)
+    );
+
     private _onDestroy$ = new Subject();
 
     @HostListener('window:resize', ['$event'])
@@ -36,7 +41,7 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
 
     constructor(
         public dialog: MatDialog,
-        private _service: VehicleService,
+        private _service: VehicleStreamService,
         private _router: Router
     ) {}
 
@@ -44,7 +49,9 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
         this.query.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe(res => {
             this.filter = res;
         });
-        this.getAllVehicles();
+        if (!this._service.state.snapshot.vehicles) {
+            this.getAllVehicles();
+        }
     }
 
     ngAfterViewInit() {
@@ -56,16 +63,15 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     getAllVehicles() {
+        this._service.state.update(f => f.replaceLoading, true);
         this._service
             .refresh()
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
-                this.vehicles = v;
+                this._service.state.update(f => f.replaceVehicles, v);
+                this._service.state.update(f => f.replaceLoading, false);
             });
     }
-    // get vehicles(): Vehicle[] {
-    //     return this._service.allVehicles;
-    // }
 
     addVehicle(e: MouseEvent) {
         e.preventDefault();

@@ -1,9 +1,9 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject } from 'rxjs';
-import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { takeUntil } from 'rxjs/operators';
 import { ToastsManager } from 'ng6-toastr';
+import { VehicleStreamService } from '../../../core/stores/vehicle/vehicle-stream.service';
 
 @Component({
     selector: 'va-vehicle-delete-confirm',
@@ -24,14 +24,14 @@ export class VehicleDeleteConfirmComponent implements OnDestroy {
     constructor(
         public dialogRef: MatDialogRef<VehicleDeleteConfirmComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { name: string; id: string },
-        private _vehicleService: VehicleService,
+        private _vehicleStreamService: VehicleStreamService,
         private _toastr: ToastsManager
     ) {}
 
     ngOnDestroy() {}
 
     delete(id: string) {
-        this._vehicleService
+        this._vehicleStreamService
             .deleteVehicle(id)
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onDeleteSuccess, this._onDeleteError);
@@ -39,10 +39,11 @@ export class VehicleDeleteConfirmComponent implements OnDestroy {
 
     private _onDeleteSuccess = () => {
         this._toastr.success('Vozidlo bylo smazáno');
+        this._vehicleStreamService.state.update(f => f.removeVehicle, this.data.id);
         this.dialogRef.close(this.data.id);
-    };
+    }
 
     private _onDeleteError = () => {
         this._toastr.error('Nepodařilo se smazat vybrané vozidlo');
-    };
+    }
 }
