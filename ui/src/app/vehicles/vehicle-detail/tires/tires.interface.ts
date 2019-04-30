@@ -1,4 +1,3 @@
-import { Property } from './_core/property';
 export interface Tire {
     id?:string;
     vehicleId?:string;
@@ -34,6 +33,15 @@ export interface TireProperties {
     value: string;
 }
 
-export interface PropertyExt extends Property {
+export interface TireProperty {
+    id?:string;
+    vehicleId?:string;
+    name:string;
+    value:string;
+    tooltip:string;
+}
+
+export interface TirePropertyExt extends TireProperty {
     status: string;
 }
+

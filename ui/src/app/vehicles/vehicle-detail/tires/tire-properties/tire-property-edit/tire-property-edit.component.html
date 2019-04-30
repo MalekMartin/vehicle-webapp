@@ -1,0 +1,9 @@
+<h3 mat-dialog-title>Přidat parametr</h3>
+<mat-dialog-content>
+    <va-tire-property-form #propertyForm></va-tire-property-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Zavřít</button>
+    <button mat-flat-button color="primary" [disabled]="!propertyForm.form.valid"
+        (click)="propertyForm.form.valid && save()">Uložit</button>
+</mat-dialog-actions>

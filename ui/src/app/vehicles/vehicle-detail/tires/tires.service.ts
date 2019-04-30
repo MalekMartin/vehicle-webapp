@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
-import { Tire } from './tires.interface';
-import { Property } from './_core/property';
+import { Tire, TireProperty } from './tires.interface';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -47,17 +46,17 @@ export class TiresService {
             .delete('/resource/tires/' + tire.id + '/delete');
     }
 
-    deleteProperty(prop:Property) {
+    deleteProperty(prop:TireProperty) {
         return this._http
             .delete('/resource/tires/' + prop.vehicleId + '/delete-property/' + prop.id);
     }
 
-    updateProperty(prop:Property) {
+    updateProperty(prop:TireProperty) {
         return this._http
             .post('/resource/tires/' + prop.vehicleId + '/update-property', prop);
     }
 
-    getProperties(vehicleId:string): Observable<Property[]> {
+    getProperties(vehicleId:string): Observable<TireProperty[]> {
         return this._http
             .get('/resource/tires/' + vehicleId + '/properties');
     }

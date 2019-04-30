@@ -1,17 +1,19 @@
-import { Component, OnChanges, Input, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { Tire, PropertyExt } from './tires.interface';
+import { Component, OnChanges, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Tire, TirePropertyExt, TireProperty } from './tires.interface';
 import { ModalDirective } from 'ngx-bootstrap';
 import { TiresService } from './tires.service';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { TireStatusDialogService } from './tire-status-form/tire-status-form.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { TiresObject } from './tires.interface';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
-import { TirePropertiesFormService } from './tire-properties-form/tire-properties-form.service';
-import { Property } from './_core/property';
 import * as _ from 'lodash';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MatDialog } from '@angular/material';
+import { TirePropertyAddComponent } from './tire-properties/tire-property-add/tire-property-add.component';
+import { takeUntil } from 'rxjs/operators';
+import { TirePropertyEditComponent } from './tire-properties/tire-property-edit/tire-property-edit.component';
 
 @Component({
     selector: 'va-tires',
@@ -19,15 +21,14 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     styleUrls: ['./tires.component.scss'],
     animations: [
         trigger('fadeId', [
-            state('void', style({opacity: 0})),
-            state('visible', style({opacity: 1})),
-            transition('void => visible', animate('200ms ease-in')),
+            state('void', style({ opacity: 0 })),
+            state('visible', style({ opacity: 1 })),
+            transition('void => visible', animate('200ms ease-in'))
         ])
     ]
 })
 export class TiresComponent implements OnChanges, OnInit, OnDestroy {
-
-    vehicleId:string;
+    vehicleId: string;
 
     @ViewChild('formModal') public editModal: ModalDirective;
     @ViewChild('previewModal') public detailModal: ModalDirective;
@@ -35,21 +36,25 @@ export class TiresComponent implements OnChanges, OnInit, OnDestroy {
 
     selectedTire: Tire;
     tireForEdit: Tire;
-    tireInChange:{tire: Tire, status: string};
-    properties: PropertyExt[];
+    tireInChange: { tire: Tire; status: string };
+    properties: TirePropertyExt[];
 
     allTires: TiresObject;
 
     _tireSubs: Subscription;
     _propSubs: Subscription;
 
-    constructor(private _tires:TiresService,
-                private _toastr:ToastsManager,
-                private _route:ActivatedRoute,
-                private _statusDialog: TireStatusDialogService,
-                private _vehicleService: VehicleService,
-                private _dialog: TirePropertiesFormService,
-                private _tire: TiresService) { }
+    private _onDestroy$ = new Subject();
+
+    constructor(
+        private _tires: TiresService,
+        private _toastr: ToastsManager,
+        private _route: ActivatedRoute,
+        private _statusDialog: TireStatusDialogService,
+        private _vehicleService: VehicleService,
+        private _dialog: MatDialog,
+        private _tire: TiresService
+    ) {}
 
     ngOnInit() {
         this.vehicleId = this._vehicleService.state.snapshot.vehicle.info.id;
@@ -65,6 +70,8 @@ export class TiresComponent implements OnChanges, OnInit, OnDestroy {
         if (!!this._propSubs) {
             this._propSubs.unsubscribe();
         }
+
+        this._onDestroy$.next();
     }
 
     ngOnChanges() {
@@ -72,10 +79,9 @@ export class TiresComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     getAllTires() {
-        this._tireSubs = this._tires.getByStatuses(this.vehicleId)
-            .subscribe((t: TiresObject) => {
-                this.allTires = t;
-            });
+        this._tireSubs = this._tires.getByStatuses(this.vehicleId).subscribe((t: TiresObject) => {
+            this.allTires = t;
+        });
     }
 
     select(tire: Tire) {
@@ -88,12 +94,11 @@ export class TiresComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     formSaved(tire: Tire) {
-        this._tires.saveTire(tire)
-            .subscribe(() => {
-                this._toastr.success('Pneumatika byla úspěšně uložena.','Uloženo!');
-                this.editModal.hide();
-                this.getAllTires();
-            });
+        this._tires.saveTire(tire).subscribe(() => {
+            this._toastr.success('Pneumatika byla úspěšně uložena.', 'Uloženo!');
+            this.editModal.hide();
+            this.getAllTires();
+        });
         this.tireForEdit = null;
     }
 
@@ -103,29 +108,25 @@ export class TiresComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     updateStatus(status: any) {
-        this._tires.updateStatus(status)
-            .subscribe(() => {
-                this._toastr.success('Stav pneumatiky byl úspěšně změněn.','Uloženo!');
-                this.getAllTires();
-            });
+        this._tires.updateStatus(status).subscribe(() => {
+            this._toastr.success('Stav pneumatiky byl úspěšně změněn.', 'Uloženo!');
+            this.getAllTires();
+        });
     }
 
-    changeTire(model:any) {
-        this._statusDialog.dialog
-            .tire(model)
-            .subscribe((res) => {
-                if (res.result) {
-                    this.statusSaved(res.tire);
-                }
-            });
+    changeTire(model: any) {
+        this._statusDialog.dialog.tire(model).subscribe(res => {
+            if (res.result) {
+                this.statusSaved(res.tire);
+            }
+        });
     }
 
-    statusSaved(tire: {tire: Tire, date: string}) {
-        this._tires.change(tire)
-            .subscribe(() => {
-                this._toastr.success('Stav pneumatiky byl úspěšně změněn.','Uloženo!');
-                this.getAllTires();
-            });
+    statusSaved(tire: { tire: Tire; date: string }) {
+        this._tires.change(tire).subscribe(() => {
+            this._toastr.success('Stav pneumatiky byl úspěšně změněn.', 'Uloženo!');
+            this.getAllTires();
+        });
     }
 
     tireEdited(tire: Tire) {
@@ -134,55 +135,66 @@ export class TiresComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     tireDeleted(tire: Tire) {
-        this._tires.delete(tire)
-            .subscribe(() => {
-                this._toastr.success('Pneumatika byla úspěšně smazána.','Smazáno!');
-                this.getAllTires();
-            });
+        this._tires.delete(tire).subscribe(() => {
+            this._toastr.success('Pneumatika byla úspěšně smazána.', 'Smazáno!');
+            this.getAllTires();
+        });
     }
 
     addProperty() {
-        this._dialog.dialog
-            .property(this._buildEmptyProp)
-            .title('Nový parametr')
-            .subscribe(res => {
-                if (res.result) {
-                    this._tire.updateProperty(res.form)
-                        .subscribe(this._onAddSuccess, this._onAddError);
+        this._dialog
+            .open(TirePropertyAddComponent, {
+                width: '400px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe((p: TireProperty | null) => {
+                if (!!p) {
+                    this.properties = [...this.properties, { ...p, status: 'active' }];
                 }
             });
     }
 
-    refreshProperties() {
-        this._propSubs = this._tire.getProperties(this.vehicleId)
-            .subscribe((p: Property[]) => {
-                this.properties = p.map(prop => {
-                    return {...prop, status: 'active'};
-                });
+    editProperty(p: TirePropertyExt) {
+        this._dialog
+            .open(TirePropertyEditComponent, {
+                width: '400px',
+                data: p
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe((p: TirePropertyExt | null) => {
+                if (!!p) {
+                    this.properties = this.properties.map(i => {
+                        return p.id === i.id ? p : i;
+                    });
+                }
             });
     }
 
-    private _onAddSuccess = (p: Property) => {
-        this._toastr.success('Nový parametr byl úspěšně vložen.');
-        // this.refreshProperties();
-        const newProperty = {...p, status: 'hidden'};
-        const properties = _.clone(this.properties);
-        properties.push(newProperty);
-
-        this.properties = properties;
+    deleteProperty(p: TirePropertyExt) {
+        // optimistic delete
+        const i = this.properties.findIndex(item => item.id === p.id);
+        this.properties.splice(i, 1);
+        this._tire
+            .deleteProperty(p)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(
+                () => {
+                    this._toastr.success('Parametr byl úspěšně smazán', 'Hotovo!');
+                },
+                () => {
+                    this._toastr.error('Parametr nebyl smazán', 'Chyba!');
+                    this.properties = [...this.properties, p];
+                }
+            );
     }
 
-    private _onAddError = () => {
-        this._toastr.error('Parametr nebyl uložen.');
-    }
-
-    private get _buildEmptyProp(): Property {
-        return {
-            id: '',
-            vehicleId: this.vehicleId,
-            name: '',
-            value: '',
-            tooltip: ''
-        };
+    refreshProperties() {
+        this._propSubs = this._tire.getProperties(this.vehicleId).subscribe((p: TireProperty[]) => {
+            this.properties = p.map(prop => {
+                return { ...prop, status: 'active' };
+            });
+        });
     }
 }

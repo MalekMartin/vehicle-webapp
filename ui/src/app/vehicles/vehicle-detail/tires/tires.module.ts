@@ -5,13 +5,13 @@ import { DatepickerModule } from '../../../shared/components/datepicker/datepick
 import { SharedModule } from '../../../shared/shared.module';
 import { TireCardComponent } from './tire-card/tire-card.component';
 import { TirePreviewComponent } from './tire-preview/tire-preview.component';
-import { TirePropertyFormModule } from './tire-properties-form/tire-properties-form.module';
-import { TirePropertiesComponent } from './tire-properties/tire-properties.component';
 import { TireStatusFormModule } from './tire-status-form/tire-status-form.module';
 import { TiresFormComponent } from './tires-form/tires-form.component';
 import { TiresComponent } from './tires.component';
 import { tiresRoutes } from './tires.routes';
 import { TiresService } from './tires.service';
+import { MatDialogModule, MatButtonModule } from '@angular/material';
+import { TirePropertiesModule } from './tire-properties/tire-properties.module';
 
 @NgModule({
     imports: [
@@ -19,9 +19,11 @@ import { TiresService } from './tires.service';
         TooltipModule,
         ModalModule,
         TireStatusFormModule,
-        TirePropertyFormModule,
+        TirePropertiesModule,
         RouterModule.forChild(tiresRoutes),
-        DatepickerModule
+        DatepickerModule,
+        MatDialogModule,
+        MatButtonModule
     ],
     exports: [TiresComponent],
     declarations: [
@@ -30,7 +32,6 @@ import { TiresService } from './tires.service';
         TirePreviewComponent,
         TireCardComponent,
         // TireStatusFormComponent,
-        TirePropertiesComponent
     ],
     providers: [TiresService]
 })

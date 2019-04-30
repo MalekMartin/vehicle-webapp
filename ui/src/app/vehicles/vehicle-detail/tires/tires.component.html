@@ -8,7 +8,9 @@
                         <a (click)="addProperty()">Přidat</a>
                 </va-section-heading-controls>
             </va-section-heading>
-            <va-tire-properties [vehicleId]="vehicleId" [properties]="properties" (changed)="refreshProperties()"></va-tire-properties>
+            <va-tire-properties [properties]="properties"
+                (delete)="deleteProperty($event)"
+                (edit)="editProperty($event)"></va-tire-properties>
         </div>
         <div class="col-md-8">
             <div class="row">
