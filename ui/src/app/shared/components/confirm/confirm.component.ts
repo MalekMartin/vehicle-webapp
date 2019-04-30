@@ -3,7 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
     selector: 'va-confirm',
-    templateUrl: 'confirm.component.html'
+    templateUrl: 'confirm.component.html',
+    styleUrls: ['./confirm.component.scss']
 })
 export class ConfirmComponent {
     constructor(
