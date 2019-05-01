@@ -12,6 +12,7 @@ import {
     MatInputModule,
     MatFormFieldModule
 } from '@angular/material';
+import { SpinnerModule } from '../../../../shared/components/spinner/spinner.module';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import {
         MatDialogModule,
         MatButtonModule,
         MatInputModule,
-        ConfirmModule
+        ConfirmModule,
+        SpinnerModule
     ],
     exports: [TirePropertiesComponent, TirePropertyAddComponent, TirePropertyEditComponent],
     declarations: [

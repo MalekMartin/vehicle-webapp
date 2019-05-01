@@ -4,7 +4,7 @@ import { ToastsManager } from 'ng6-toastr';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { TirePropertyFormComponent } from '../tire-property-form/tire-property-form.component';
 import { TireProperty } from '../../tires.interface';
-import { TiresService } from '../../tires.service';
+import { TirePropertiesService } from '../../core/tire-properties.service';
 
 @Component({
     selector: 'va-tire-property-add',
@@ -15,7 +15,7 @@ export class TirePropertyAddComponent implements OnInit {
     @ViewChild(TirePropertyFormComponent) tireForm: TirePropertyFormComponent;
 
     constructor(
-        private _tireService: TiresService,
+        private _tirePropService: TirePropertiesService,
         private _toastr: ToastsManager,
         private _vehicleService: VehicleService,
         private _dialogRef: MatDialogRef<TirePropertyAddComponent>
@@ -28,7 +28,7 @@ export class TirePropertyAddComponent implements OnInit {
     }
 
     save() {
-        this._tireService
+        this._tirePropService
             .updateProperty(this.tireForm.form.value)
             .subscribe(this._onAddSuccess, this._onAddError);
     }

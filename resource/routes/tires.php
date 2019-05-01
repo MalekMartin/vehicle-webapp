@@ -6,7 +6,8 @@ use \Psr\Http\Message\ResponseInterface as Response;
 $app->get('/resource/tires/{vehicleId}', function (Request $request, Response $response, $args) {
     $this->logger->addInfo("Tires list");
     $mapper = new Tire($this->db, $this->jwt->uid);
-    $tires = $mapper->getByAllStatuses($args['vehicleId']);
+    $tires = $mapper->getAllTiresByVehicleId($args['vehicleId']);
+    
     return $response->withJson($tires);
 });
 
@@ -14,8 +15,8 @@ $app->post('/resource/tires/{vehicleId}/add', function (Request $request, Respon
     $this->logger->addInfo("Tire add");
     $mapper = new Tire($this->db, $this->jwt->uid);
     $d = json_decode(file_get_contents('php://input'));
-    $mapper->add($d);
-    return $response->withJson($d);
+    $tire = $mapper->add($d);
+    return $response->withJson($tire);
 });
 
 $app->post('/resource/tires/{id}/status', function (Request $request, Response $response, $args) {

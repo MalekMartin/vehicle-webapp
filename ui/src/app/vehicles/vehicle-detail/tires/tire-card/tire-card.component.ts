@@ -1,26 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Tire } from '../tires.interface';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Tire, TireStatus } from '../tires.interface';
 
 @Component({
     selector: 'va-tire-card',
     templateUrl: './tire-card.component.html',
     styleUrls: ['./tire-card.component.scss']
 })
-export class TireCardComponent implements OnInit {
+export class TireCardComponent {
 
     @Input() tire: Tire;
     @Output() selected = new EventEmitter();
     @Output() showDetail = new EventEmitter();
     @Output() updateStatus = new EventEmitter();
-    @Output() tireChanged = new EventEmitter();
-    @Output() edited = new EventEmitter();
-    @Output() deleted = new EventEmitter();
+    @Output() changeTire = new EventEmitter();
+    @Output() edit = new EventEmitter<Tire>();
+    @Output() delete = new EventEmitter<Tire>();
 
     marked = false;
-
-    constructor() { }
-
-    ngOnInit() { }
 
     select(tire: Tire) {
         this.selected.emit(tire);
@@ -30,19 +26,11 @@ export class TireCardComponent implements OnInit {
         this.showDetail.emit(this.tire);
     }
 
-    newStatus(status: string) {
-        this.updateStatus.emit({tire: this.tire, status: status});
+    newStatus(status: TireStatus) {
+        this.updateStatus.emit({ tire: this.tire, status });
     }
 
-    changeTire(status: string) {
-        this.tireChanged.emit({tire: this.tire, status: status});
-    }
-
-    edit() {
-        this.edited.emit(this.tire);
-    }
-
-    delete() {
-        this.deleted.emit(this.tire);
+    changeTireClicked(status: TireStatus) {
+        this.changeTire.emit({ tire: this.tire, status: status });
     }
 }

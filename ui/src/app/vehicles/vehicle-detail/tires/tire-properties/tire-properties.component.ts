@@ -1,10 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
-import { TirePropertyExt } from '../tires.interface';
+import { TireProperty } from '../tires.interface';
 import { MatDialog } from '@angular/material';
 import { ConfirmComponent } from '../../../../shared/components/confirm/confirm.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { TirePropertiesState } from '../core/tire-properties.state';
 
 @Component({
     selector: 'va-tire-properties',
@@ -26,11 +27,11 @@ import { Subject } from 'rxjs';
     ]
 })
 export class TirePropertiesComponent implements OnDestroy {
-    @Input() properties: TirePropertyExt[];
+    @Input() state: TirePropertiesState;
 
     @Output() changed = new EventEmitter();
-    @Output() edit = new EventEmitter<TirePropertyExt>();
-    @Output() delete = new EventEmitter<TirePropertyExt>();
+    @Output() edit = new EventEmitter<TireProperty>();
+    @Output() delete = new EventEmitter<TireProperty>();
 
     private _onDestroy$ = new Subject();
 
@@ -40,7 +41,7 @@ export class TirePropertiesComponent implements OnDestroy {
         this._onDestroy$.next();
     }
 
-    deleteConfirm(prop: TirePropertyExt) {
+    deleteConfirm(prop: TireProperty) {
         this._dialog
             .open(ConfirmComponent, {
                 width: '400px',

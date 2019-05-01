@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../../../core/http.service';
-import { Tire, TireProperty } from './tires.interface';
+import { HttpService } from '../../../../core/http.service';
+import { Tire, TireProperty } from '../tires.interface';
 import { Observable } from 'rxjs';
+import { Subjective } from 'subjective';
+import { TiresState, tiresStateFns } from './tires.state';
 
 @Injectable()
 export class TiresService {
+
+    state = new Subjective(new TiresState(), tiresStateFns);
 
     constructor(private _http:HttpService) { }
 
@@ -21,7 +25,7 @@ export class TiresService {
         }
     }
 
-    getByStatuses(vehicleId) {
+    getTires(vehicleId): Observable<Tire[]> {
         return this._http
             .get('/resource/tires/' + vehicleId);
     }
@@ -44,21 +48,6 @@ export class TiresService {
     delete(tire:Tire) {
         return this._http
             .delete('/resource/tires/' + tire.id + '/delete');
-    }
-
-    deleteProperty(prop:TireProperty) {
-        return this._http
-            .delete('/resource/tires/' + prop.vehicleId + '/delete-property/' + prop.id);
-    }
-
-    updateProperty(prop:TireProperty) {
-        return this._http
-            .post('/resource/tires/' + prop.vehicleId + '/update-property', prop);
-    }
-
-    getProperties(vehicleId:string): Observable<TireProperty[]> {
-        return this._http
-            .get('/resource/tires/' + vehicleId + '/properties');
     }
 
     getHistory(tire:Tire) {

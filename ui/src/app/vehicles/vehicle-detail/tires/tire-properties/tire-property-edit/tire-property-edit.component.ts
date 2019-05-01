@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { TiresService } from '../../tires.service';
-import { TirePropertyExt } from '../../tires.interface';
+import { TireProperty } from '../../tires.interface';
 import { ToastsManager } from 'ng6-toastr';
 import { TirePropertyFormComponent } from '../tire-property-form/tire-property-form.component';
+import { TirePropertiesService } from '../../core/tire-properties.service';
 
 @Component({
     selector: 'va-tire-property-edit',
@@ -14,10 +14,10 @@ export class TirePropertyEditComponent implements OnInit {
     @ViewChild(TirePropertyFormComponent) tireForm: TirePropertyFormComponent;
 
     constructor(
-        private _tireService: TiresService,
+        private _tirePropService: TirePropertiesService,
         private _toastr: ToastsManager,
         private _dialogRef: MatDialogRef<TirePropertyEditComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: TirePropertyExt
+        @Inject(MAT_DIALOG_DATA) public data: TireProperty
     ) {}
 
     ngOnInit() {
@@ -31,12 +31,12 @@ export class TirePropertyEditComponent implements OnInit {
     }
 
     save() {
-        this._tireService
+        this._tirePropService
             .updateProperty(this.tireForm.form.value)
             .subscribe(this._onSuccess, this._onError);
     }
 
-    private _onSuccess = (p: TirePropertyExt) => {
+    private _onSuccess = (p: TireProperty) => {
         this._toastr.success('Parametr byl úspěšně upraven.');
         this._dialogRef.close(p);
     };

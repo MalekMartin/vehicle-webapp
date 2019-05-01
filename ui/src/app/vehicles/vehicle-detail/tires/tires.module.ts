@@ -9,9 +9,24 @@ import { TireStatusFormModule } from './tire-status-form/tire-status-form.module
 import { TiresFormComponent } from './tires-form/tires-form.component';
 import { TiresComponent } from './tires.component';
 import { tiresRoutes } from './tires.routes';
-import { TiresService } from './tires.service';
-import { MatDialogModule, MatButtonModule } from '@angular/material';
+import { TiresService } from './core/tires.service';
+import {
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTooltipModule,
+    MatMenuModule
+} from '@angular/material';
 import { TirePropertiesModule } from './tire-properties/tire-properties.module';
+import { TireStatusFilterPipe } from './core/tire-status-filter.pipe';
+import { TirePropertiesService } from './core/tire-properties.service';
+import { TireAddComponent } from './tire-add/tire-add.component';
+import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
+import { TireEditComponent } from './tire-edit/tire-edit.component';
+import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
 
 @NgModule({
     imports: [
@@ -22,8 +37,16 @@ import { TirePropertiesModule } from './tire-properties/tire-properties.module';
         TirePropertiesModule,
         RouterModule.forChild(tiresRoutes),
         DatepickerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         MatDialogModule,
-        MatButtonModule
+        MatButtonModule,
+        MatTooltipModule,
+        MatMenuModule,
+        ConfirmModule,
+        SpinnerModule
     ],
     exports: [TiresComponent],
     declarations: [
@@ -31,8 +54,12 @@ import { TirePropertiesModule } from './tire-properties/tire-properties.module';
         TiresFormComponent,
         TirePreviewComponent,
         TireCardComponent,
+        TireStatusFilterPipe,
+        TireAddComponent,
+        TireEditComponent
         // TireStatusFormComponent,
     ],
-    providers: [TiresService]
+    providers: [TiresService, TirePropertiesService],
+    entryComponents: [TireAddComponent, TireEditComponent, TirePreviewComponent]
 })
 export class TiresModule {}

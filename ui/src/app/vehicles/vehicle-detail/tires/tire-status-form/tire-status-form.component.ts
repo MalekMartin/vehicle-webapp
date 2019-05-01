@@ -1,51 +1,26 @@
-import {
-    Component,
-    Input,
-    Output,
-    EventEmitter,
-    ViewChild,
-    ElementRef,
-    OnDestroy,
-    AfterViewInit,
-    OnInit
-} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Tire } from '../tires.interface';
-import { Observable, Subscription, fromEvent, merge, Subject } from 'rxjs';
-import { ModalDirective } from 'ngx-bootstrap';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
-import { mapTo, takeUntil } from 'rxjs/operators';
+import { Tire, TireStatus } from '../tires.interface';
+import { TiresService } from '../core/tires.service';
+import { ToastsManager } from 'ng6-toastr';
 
 @Component({
     selector: 'va-tire-status-form',
     templateUrl: './tire-status-form.component.html',
     styleUrls: ['./tire-status-form.component.scss']
 })
-export class TireStatusFormComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('dialog') dialog: ModalDirective;
-    @ViewChild('btnClose') btnClose: ElementRef;
-    @ViewChild('btnCancel') btnCancel: ElementRef;
-    @ViewChild('btnOk') btnOk: ElementRef;
-    modalSubscription: Subscription;
-
-    @Input() set tire(t: any) {
-        this._tire = t;
-        this.form.reset({ engineHours: 0 });
-        if (this.tire && this.tire.tire) {
-            this.updatedTire = this.tire.tire;
-            this.newStatus = this.tire.status;
-        }
-    }
-    @Output() canceled = new EventEmitter();
-    @Output() saved = new EventEmitter();
-
+export class TireStatusFormComponent implements OnInit, OnDestroy {
     updatedTire: Tire;
     newStatus: string;
 
     form = this._forms.group({
         odo: ['0', Validators.required],
         odo2: ['0', Validators.required],
-        date: ['']
+        date: ['', Validators.required]
     });
 
     newOdo: number;
@@ -55,9 +30,14 @@ export class TireStatusFormComponent implements OnInit, AfterViewInit, OnDestroy
 
     private _onDestroy$ = new Subject();
 
-    private _tire;
-
-    constructor(private _forms: FormBuilder, private _vehicles: VehicleService) {}
+    constructor(
+        private _forms: FormBuilder,
+        private _vehicles: VehicleService,
+        private _tireService: TiresService,
+        private _toastr: ToastsManager,
+        private _dialogRef: MatDialogRef<TireStatusFormComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: { tire: Tire; status: TireStatus }
+    ) {}
 
     ngOnInit() {
         this._vehicles.state
@@ -67,80 +47,88 @@ export class TireStatusFormComponent implements OnInit, AfterViewInit, OnDestroy
                 this.units = v.info.units;
                 this.units2 = v.info.subUnits;
             });
-    }
 
-    subscribeToDialog(): Observable<boolean> {
-        return Observable.create(observer => {
-            const close$ = fromEvent(this.btnClose.nativeElement, 'click');
-            const cancel$ = fromEvent(this.btnCancel.nativeElement, 'click');
-            const ok$ = fromEvent(this.btnOk.nativeElement, 'click');
+        this.form
+            .get('odo')
+            .valueChanges.pipe(takeUntil(this._onDestroy$))
+            .subscribe(val => {
+                this.newOdo = this.calculateTireOdo(
+                    val,
+                    this.data.tire.odo || 0,
+                    this.data.tire.tireOdo || 0
+                );
+            });
 
-            this.modalSubscription = merge(
-                close$.pipe(mapTo(false)),
-                cancel$.pipe(mapTo(false)),
-                ok$.pipe(mapTo(true)),
-                this.dialog.onHidden.pipe(mapTo(false))
-            )
-                .pipe(takeUntil(this._onDestroy$))
-                .subscribe(result => {
-                    this.dialog.hide();
-                    observer.next({ tire: this.save(), result: result });
-                });
-        });
-    }
-
-    ngAfterViewInit() {
-        this.dialog.show();
+        this.form
+            .get('odo2')
+            .valueChanges.pipe(takeUntil(this._onDestroy$))
+            .subscribe(val => {
+                this.newOdo2 = this.calculateTireOdo(
+                    val,
+                    this.data.tire.odo2 || 0,
+                    this.data.tire.tireOdo2 || 0
+                );
+            });
     }
 
     ngOnDestroy() {
-        if (this.modalSubscription) {
-            this.modalSubscription.unsubscribe();
+        this._onDestroy$.next();
+    }
+
+    save() {
+        if (this.form.get('odo').value < this.data.tire.odo) {
+            return;
         }
-    }
-
-    get tire(): any {
-        return this._tire;
-    }
-
-    cancel() {
-        this.form.reset({ odo2: 0 });
-        this.canceled.emit();
-    }
-
-    save(): any {
-        this.updatedTire.status = this.newStatus;
-        if (this.newStatus === 'STOCK') {
-            this.updatedTire.tireOdo = this.calculateMileage;
-            this.updatedTire.tireOdo2 = this.calculateEngineHours;
+        if (!!this.units2 && this.form.get('odo2').value < this.data.tire.odo2) {
+            return;
         }
-        this.updatedTire.odo = this.form.get('odo').value;
-        this.updatedTire.odo2 = this.form.get('odo2').value;
-        if (this.newStatus === 'STOCK') {
-            if (this.updatedTire.odo >= this.form.get('odo').value) {
-                return { tire: this.updatedTire, date: this.form.get('date').value };
-            }
-        } else {
-            return { tire: this.updatedTire, date: this.form.get('date').value };
-        }
+
+        const tire: Tire = {
+            ...this.data.tire,
+            status: this.data.status,
+            tireOdo: this.data.status === 'STOCK' ? this.newOdo : this.data.tire.tireOdo,
+            tireOdo2: this.data.status === 'STOCK' ? this.newOdo2 : this.data.tire.tireOdo2,
+            odo: this.form.get('odo').value,
+            odo2: this.form.get('odo2').value
+        };
+
+        this.changeStatus(tire, this.form.get('date').value);
+        // this.updatedTire.status = this.newStatus;
+        // if (this.newStatus === 'STOCK') {
+        //     this.updatedTire.tireOdo = this.calculateMileage;
+        //     this.updatedTire.tireOdo2 = this.calculateEngineHours;
+        // }
+        // this.updatedTire.odo = this.form.get('odo').value;
+        // this.updatedTire.odo2 = this.form.get('odo2').value;
+        // if (this.newStatus === 'STOCK') {
+        //     if (this.updatedTire.odo >= this.form.get('odo').value) {
+        //         return { tire: this.updatedTire, date: this.form.get('date').value };
+        //     }
+        // } else {
+        //     return { tire: this.updatedTire, date: this.form.get('date').value };
+        // }
     }
 
-    get calculateMileage() {
-        const milesOnTire = Number(this.updatedTire.tireOdo) || 0;
-        const lastMileage = Number(this.updatedTire.odo) || 0;
-        const mileage = Number(this.form.get('odo')) || 0;
-
-        const p = mileage - lastMileage;
-        const res = milesOnTire + p;
-
+    calculateTireOdo(odo: number, lastOdo: number, tireOdo: number): number {
+        const p = odo - lastOdo;
+        const res = tireOdo + p;
         return res < 0 ? 0 : res;
     }
 
-    get calculateEngineHours() {
-        const hoursOnTire = Number(this.updatedTire.tireOdo2) || 0;
-        const lastHours = Number(this.updatedTire.odo2) || 0;
-        const hours = Number(this.form.get('odo2').value) || 0;
-        const res = hoursOnTire + (hours - lastHours);
-        return res < 0 ? 0 : res;
+    changeStatus(tire: Tire, date: string) {
+        this._tireService.state.update(f => f.updateTire, tire);
+        this._tireService
+            .change({ tire, date })
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(
+                () => {
+                    this._toastr.success('Stav pneumatiky byl úspěšně změněn.', 'Uloženo!');
+                    this._dialogRef.close();
+                },
+                () => {
+                    this._toastr.error('Stav pneumatiky se nepodařilo změnit.', 'Chyba!');
+                    this._tireService.state.update(f => f.updateTire, this.data.tire);
+                }
+            );
     }
 }
