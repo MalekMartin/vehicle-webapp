@@ -27,6 +27,7 @@ import { FuelFormComponent } from './fuel-form/fuel-form.component';
 import { FuelStatsComponent } from './fuel-stats/fuel-stats.component';
 import { FuelComponent } from './fuel.component';
 import { fuelRoutes } from './fuel.routes';
+import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
 
 @NgModule({
     imports: [
@@ -48,7 +49,8 @@ import { fuelRoutes } from './fuel.routes';
         PaginatorModule,
         SectionHeadingModule,
         CardModule,
-        SlimBarModule
+        SlimBarModule,
+        SpinnerModule
     ],
     exports: [FuelComponent],
     declarations: [

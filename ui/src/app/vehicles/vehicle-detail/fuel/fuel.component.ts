@@ -19,17 +19,12 @@ import { FuelEditComponent } from './fuel-edit/fuel-edit.component';
 })
 export class FuelComponent implements OnInit, OnDestroy {
     vehicleId: string;
-
     selectedFueling: Fuel;
-
-    fuels: Observable<Page<Fuel>>;
-    stats: Observable<any>;
-    mileageStats: Observable<MultiStatsModel[]>;
     statistics: any;
-
     mileages: any;
 
-    private _fuelings: Fuel[];
+    fuelings: Fuel[];
+    isLoading = false;
     private _onDestroy$ = new Subject();
 
     constructor(
@@ -43,10 +38,6 @@ export class FuelComponent implements OnInit, OnDestroy {
         this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
         this._service.id = this.vehicleId;
 
-        this.fuels = this._service.fetchCurrentPage();
-        this.stats = this._service.stats(this.vehicleId);
-        this.mileageStats = this._service.mileageStats(this.vehicleId);
-
         this.refresh();
     }
 
@@ -56,22 +47,22 @@ export class FuelComponent implements OnInit, OnDestroy {
     }
 
     refresh() {
-        forkJoin(this.fuels, this.stats, this.mileageStats)
+        this.isLoading = true;
+        forkJoin(
+            this._service.fetchCurrentPage(),
+            this._service.stats(this.vehicleId),
+            this._service.mileageStats(this.vehicleId)
+        )
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(([fuel, stats, mileageStats]) => {
-                this._fuelings = fuel.content;
+                this.fuelings = fuel.content;
                 this.statistics = stats;
                 this.mileages = mileageStats;
                 this._service.resetPage();
+                this.isLoading = false;
+            }, () => {
+                this.isLoading = false;
             });
-    }
-
-    get fuelings(): Fuel[] {
-        return this._fuelings;
-    }
-
-    get isLoading(): boolean {
-        return this._service.loading;
     }
 
     get fuelService(): Pageable<Fuel> {
@@ -95,7 +86,9 @@ export class FuelComponent implements OnInit, OnDestroy {
             });
     }
 
-    add() {
+    add(e: MouseEvent) {
+        e.preventDefault();
+
         this.dialog
             .open(FuelAddComponent, {
                 width: '500px'
@@ -125,6 +118,6 @@ export class FuelComponent implements OnInit, OnDestroy {
     }
 
     private _handleNewContent = (page: Page<Fuel>) => {
-        this._fuelings = page.content;
+        this.fuelings = page.content;
     };
 }

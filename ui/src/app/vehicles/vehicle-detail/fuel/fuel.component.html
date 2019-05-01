@@ -1,40 +1,45 @@
 <div class="row">
-    <div class="col-md-4">
-        <va-section-heading>
-            <va-section-heading-title>Tankování</va-section-heading-title>
-            <va-section-heading-controls>
-                <!-- <a [routerLink]="['./', { outlets: {'popup':['m','add', vehicleId]}}]">přidat</a> -->
-                <a (click)="add()">přidat</a>
-            </va-section-heading-controls>
-        </va-section-heading>
+    <div *ngIf="!isLoading && (!fuelings || !fuelings.length)" class="no-record col-sm-12">
+        <div class="message">Nebyl nalezen žádný záznam.</div>
+        <a href="" (click)="add($event)">Přidat první tankování</a>
+    </div>
+    <div *ngIf="isLoading" class="loading">
+        <va-spinner>Nahrávám...</va-spinner>
+    </div>
+    <ng-container *ngIf="!isLoading && !!fuelings && fuelings.length">
+        <div class="col-md-4">
+            <va-section-heading>
+                <va-section-heading-title>Tankování</va-section-heading-title>
+                <va-section-heading-controls>
+                    <!-- <a [routerLink]="['./', { outlets: {'popup':['m','add', vehicleId]}}]">přidat</a> -->
+                    <a href="" (click)="add($event)">přidat</a>
+                </va-section-heading-controls>
+            </va-section-heading>
 
-        <div *ngIf="isLoading && !fuelings" class="loading-bar">
-            <i class="icon-refresh spin"></i>
-        </div>
-
-        <div *ngIf="!!fuelings" class="fueling-block">
-            <va-paginator [service]="fuelService"
-                (selected)="fetchPage($event)">
-            </va-paginator>
-            
-            <div class="fuelings">
-                <va-fuel-card *ngFor="let fuel of fuelings"
-                    [fuel]="fuel"
-                    (edit)="edit($event)"
-                    (deleted)="delete($event)"></va-fuel-card>
+            <div *ngIf="isLoading && !fuelings" class="loading-bar">
+                <i class="icon-refresh spin"></i>
             </div>
 
-            <va-paginator [service]="fuelService"
-                (selected)="fetchPage($event)">
-            </va-paginator>
-        </div>
-    </div>
-    <div class="col-md-8 hidden-xs">
-        <h3>Statistiky</h3>
-        <va-fuel-stats *ngIf="vehicleId" [stats]="statistics" [mileages]="mileages"></va-fuel-stats>
-    </div>
-</div>
+            <div *ngIf="!!fuelings" class="fueling-block">
+                <va-paginator [service]="fuelService"
+                    (selected)="fetchPage($event)">
+                </va-paginator>
+                
+                <div class="fuelings">
+                    <va-fuel-card *ngFor="let fuel of fuelings"
+                        [fuel]="fuel"
+                        (edit)="edit($event)"
+                        (deleted)="delete($event)"></va-fuel-card>
+                </div>
 
-<div *ngIf="fuelings?.length == 0 && !isLoading" class="no-record">
-    Nebyl nalezen žádný záznam.
+                <va-paginator [service]="fuelService"
+                    (selected)="fetchPage($event)">
+                </va-paginator>
+            </div>
+        </div>
+        <div class="col-md-8 hidden-xs">
+            <h3>Statistiky</h3>
+            <va-fuel-stats *ngIf="vehicleId" [stats]="statistics" [mileages]="mileages"></va-fuel-stats>
+        </div>
+    </ng-container>
 </div>
