@@ -49,6 +49,14 @@
     }
 }
 
+.spinner {
+    display: inline-block;
+    position: absolute;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);
+    text-align: center;
+}
+
 @media(max-width: $mobileWidth) {
     .wrapper {
         .menu-panel {

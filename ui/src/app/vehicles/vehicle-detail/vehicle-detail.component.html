@@ -9,5 +9,9 @@
             <router-outlet></router-outlet>
         </div>
     </div>
-    <div *ngIf="state.loading">Nahrávám...</div>
+    <ng-container *ngIf="state.loading">
+        <div class="spinner">
+            <va-spinner>Nahrávám...</va-spinner>
+        </div>
+    </ng-container>
 </ng-container>
