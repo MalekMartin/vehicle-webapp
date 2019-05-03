@@ -35,12 +35,6 @@
             </va-section-heading-controls>
         </va-section-heading>
 
-        <div [@openClose]="!!stationFormExpanded ? 'expanded' : 'collapsed'">
-            <va-station-form [station]="selectedStation"
-                (saved)="saveStation()"
-                (canceled)="cancelStationForm()"></va-station-form>
-        </div>
-
         <div *ngIf="stationLoading" class="loading">
             <i class="icon-refresh spin"></i>
         </div>
@@ -48,8 +42,8 @@
         <va-station-card
             *ngFor="let station of stations"
             [station]="station"
-            (edited)="editStation($event)"
-            (deleted)="onStationDelete()"></va-station-card>
+            (edit)="editStation($event)"
+            (delete)="onStationDelete()"></va-station-card>
     </div>
 </div>
 

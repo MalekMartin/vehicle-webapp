@@ -20,44 +20,18 @@ import { InspectionAddComponent } from './inspection-add/inspection-add.componen
 import { InspectionEditComponent } from './inspection-edit/inspection-edit.component';
 import { Station } from './station.interface';
 import { TechnicalInspectionService } from './technical-inspection.service';
+import { StationAddComponent } from './station-add/station-add.component';
+import { StationEditComponent } from './station-edit/station-edit.component';
 
 @Component({
     selector: 'va-technical-inspection',
     templateUrl: './technical-inspection.component.html',
-    styleUrls: ['./technical-inspection.component.scss'],
-    animations: [
-        trigger('openClose', [
-            state('collapsed, void', style({ overflow: 'hidden', height: '0px' })),
-            state('expanded', style({ overflow: 'visible', height: AUTO_STYLE })),
-            transition('collapsed => expanded', [
-                animate(
-                    400,
-                    keyframes([
-                        style({ overflow: 'hidden', height: '0px', offset: 0 }),
-                        style({ overflow: 'hidden', height: AUTO_STYLE, offset: 0.9 }),
-                        style({ overflow: 'visible', offset: 1 })
-                    ])
-                )
-            ]),
-            transition('expanded => collapsed', [
-                animate(
-                    400,
-                    keyframes([
-                        style({ overflow: 'visible', offset: 0 }),
-                        style({ overflow: 'hidden', height: AUTO_STYLE, offset: 0.1 }),
-                        style({ overflow: 'hidden', height: '0px', offset: 1 })
-                    ])
-                )
-            ])
-        ])
-    ]
+    styleUrls: ['./technical-inspection.component.scss']
 })
 export class TechnicalInspectionComponent implements OnInit, OnDestroy {
     vehicleId: string;
-    stationFormExpanded = false;
     stations: Station[];
     inspections: Inspection[];
-    selectedStation: Station = null;
     stationLoading = false;
     units: string;
     units2: string;
@@ -127,27 +101,33 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
             });
     }
 
-    saveStation() {
-        this.getStations();
-        this.toggleStationState();
-    }
-
-    cancelStationForm() {
-        this.toggleStationState();
-    }
-
-    toggleStationState() {
-        this.stationFormExpanded = !this.stationFormExpanded;
-    }
-
     addStk() {
-        this.stationFormExpanded = true;
-        this.selectedStation = null;
+        this._dialog
+            .open(StationAddComponent, {
+                width: '400px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(stk => {
+                if (!!stk) this.stations = [...this.stations, stk];
+            });
     }
 
     editStation(s: Station) {
-        this.selectedStation = s;
-        this.stationFormExpanded = true;
+        this._dialog
+            .open(StationEditComponent, {
+                width: '400px',
+                data: s
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(stk => {
+                if (!!stk) {
+                    this.stations = this.stations.map(s => {
+                        return s.id === stk.id ? stk : s;
+                    });
+                }
+            });
     }
 
     onStationDelete() {

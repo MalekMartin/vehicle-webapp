@@ -24,6 +24,8 @@ import {
 } from '@angular/material';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
+import { StationAddComponent } from './station-add/station-add.component';
+import { StationEditComponent } from './station-edit/station-edit.component';
 
 @NgModule({
     imports: [
@@ -50,9 +52,16 @@ import { SpinnerModule } from '../../../shared/components/spinner/spinner.module
         StationCardComponent,
         InspectionCardComponent,
         InspectionAddComponent,
-        InspectionEditComponent
+        InspectionEditComponent,
+        StationAddComponent,
+        StationEditComponent
     ],
     providers: [TechnicalInspectionService],
-    entryComponents: [InspectionAddComponent, InspectionEditComponent]
+    entryComponents: [
+        InspectionAddComponent,
+        InspectionEditComponent,
+        StationAddComponent,
+        StationEditComponent
+    ]
 })
 export class TechnicalInspectionModule {}
