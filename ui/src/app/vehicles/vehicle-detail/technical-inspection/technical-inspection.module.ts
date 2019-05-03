@@ -23,6 +23,7 @@ import {
     MatCheckboxModule
 } from '@angular/material';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
+import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { ConfirmModule } from '../../../shared/components/confirm/confirm.module
         MatNativeDateModule,
         MatSelectModule,
         MatCheckboxModule,
-        ConfirmModule
+        ConfirmModule,
+        SpinnerModule
     ],
     exports: [TechnicalInspectionComponent],
     declarations: [
