@@ -8,14 +8,17 @@ import {
     trigger
 } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
+import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 import { Page } from '../../../utils/pageable';
-import { Inspection } from './inspection';
-import { Station } from './station';
+import { Inspection } from './inspection.interface';
+import { InspectionAddComponent } from './inspection-add/inspection-add.component';
+import { InspectionEditComponent } from './inspection-edit/inspection-edit.component';
+import { Station } from './station.interface';
 import { TechnicalInspectionService } from './technical-inspection.service';
 
 @Component({
@@ -51,11 +54,9 @@ import { TechnicalInspectionService } from './technical-inspection.service';
 })
 export class TechnicalInspectionComponent implements OnInit, OnDestroy {
     vehicleId: string;
-    inspectionFormExpanded = false;
     stationFormExpanded = false;
     stations: Station[];
     inspections: Inspection[];
-    selectedInspection: Inspection = null;
     selectedStation: Station = null;
     stationLoading = false;
     units: string;
@@ -66,8 +67,8 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
     constructor(
         private _service: TechnicalInspectionService,
         private _toastr: ToastsManager,
-        private _route: ActivatedRoute,
-        private _vehicleService: VehicleService
+        private _vehicleService: VehicleService,
+        private _dialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -93,14 +94,14 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
         this._service
             .fetchCurrentPage()
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(this._handleNewContent);
+            .subscribe(this._handleNewContent, this._handleContentError);
     }
 
     fetchPage(p: number) {
         this._service
             .fetchPage(p)
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(this._handleNewContent);
+            .subscribe(this._handleNewContent, this._handleContentError);
     }
 
     getStations() {
@@ -108,15 +109,22 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
         this._service
             .getStations()
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe((s: Station[]) => {
-                this.stations = s;
-                this.stationLoading = false;
-            });
+            .subscribe(this._onStationsSuccess, this._onStationsError);
     }
 
-    addTk() {
-        this.selectedInspection = null;
-        this.inspectionFormExpanded = true;
+    openAddForm(e: MouseEvent) {
+        e.preventDefault();
+        this._dialog
+            .open(InspectionAddComponent, {
+                width: '400px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(d => {
+                if (!!d) {
+                    this.fetchCurrentPage();
+                }
+            });
     }
 
     saveStation() {
@@ -128,16 +136,8 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
         this.toggleStationState();
     }
 
-    toggleInspectionState() {
-        this.inspectionFormExpanded = !this.inspectionFormExpanded;
-    }
-
     toggleStationState() {
         this.stationFormExpanded = !this.stationFormExpanded;
-    }
-
-    onInspectionDelete() {
-        this.fetchCurrentPage();
     }
 
     addStk() {
@@ -154,22 +154,72 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
         this.getStations();
     }
 
-    onSave() {
-        this.inspectionFormExpanded = false;
-        this.fetchCurrentPage();
-    }
-
     inspectionEdit(i: Inspection) {
-        this.selectedInspection = i;
-        this.inspectionFormExpanded = true;
+        this._dialog
+            .open(InspectionEditComponent, {
+                width: '400px',
+                data: i
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(d => {
+                if (!!d) {
+                    this.fetchCurrentPage();
+                }
+            });
     }
 
-    cancelInspection() {
-        this.selectedInspection = null;
-        this.inspectionFormExpanded = false;
+    confirmDelete(i: Inspection) {
+        this._dialog
+            .open(ConfirmComponent, {
+                width: '400px',
+                data: {
+                    title: 'Smazat TK',
+                    message: 'Opravdu chceš smazat tuto TK?',
+                    yes: 'Ano, smazat',
+                    no: 'Ne'
+                }
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(res => {
+                if (!!res) {
+                    this.delete(i);
+                }
+            });
+    }
+
+    delete(i: Inspection) {
+        this.inspections = this.inspections.filter(v => v.id !== i.id);
+        return this._service
+            .deleteInspection(i)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(
+                () => {
+                    this._toastr.success('Technická kontrolo byla odstraněna.', 'Smazáno');
+                },
+                () => {
+                    this._toastr.error('Chyba při mazání technické kontroly', 'Chyba');
+                    this.inspections = [...this.inspections, i];
+                }
+            );
     }
 
     private _handleNewContent = (i: Page<Inspection>) => {
         this.inspections = i.content;
+    };
+
+    private _handleContentError = () => {
+        this._toastr.error('Nepodařilo se nahrát data', 'Chyba');
+    };
+
+    private _onStationsSuccess = (s: Station[]) => {
+        this.stations = s;
+        this.stationLoading = false;
+    };
+
+    private _onStationsError = () => {
+        this.stationLoading = false;
+        this._toastr.error('Nepodařilo se nahrát technické stanice', 'Chyba');
     };
 }

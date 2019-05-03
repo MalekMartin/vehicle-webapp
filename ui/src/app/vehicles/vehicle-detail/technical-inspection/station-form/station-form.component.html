@@ -1,39 +1,39 @@
 <form [formGroup]="form" (submit)="form.valid && save()">
     <div class="row">
-        <va-form-item [control]="form.controls.name" class="col-md-6">
-            <label for="name">Název STK:</label>
-            <input type="text" id="name" class="form-control" formControlName="name">
-        </va-form-item>
-        <va-form-item [control]="form.controls.address" class="col-md-6">
-            <label for="address">Address:</label>
-            <input type="text" id="address" class="form-control" formControlName="address">
-        </va-form-item>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="text" id="name" formControlName="name"
+                placeholder="Název STK">
+        </mat-form-field>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="text" id="address" formControlName="address"
+                placeholder="Address">
+        </mat-form-field>
     </div>
     <div class="row">
-        <va-form-item [control]="form.controls.city" class="col-md-6">
-            <label for="city">Město:</label>
-            <input type="text" id="city" class="form-control" formControlName="city">
-        </va-form-item>
-        <va-form-item [control]="form.controls.zipCode" class="col-md-6">
-            <label for="zipCode">PSČ:</label>
-            <input type="text" id="zipCode" class="form-control" formControlName="zipCode">
-        </va-form-item>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="text" id="city" formControlName="city"
+                placeholder="Město">
+        </mat-form-field>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="text" id="zipCode" formControlName="zipCode"
+                placeholder="PSČ">
+        </mat-form-field>
     </div>
     <div class="row">
-        <va-form-item [control]="form.controls.phone" class="col-md-6">
-            <label for="phone">Telefon:</label>
-            <input type="text" id="phone" class="form-control" formControlName="phone">
-        </va-form-item>
-        <va-form-item [control]="form.controls.web" class="col-md-6">
-            <label for="web">Web:</label>
-            <input type="text" id="web" class="form-control" formControlName="web">
-        </va-form-item>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="text" id="phone" formControlName="phone"
+                placeholder="Telefon">
+        </mat-form-field>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="text" id="web" formControlName="web"
+                placeholder="Web">
+        </mat-form-field>
     </div>
     <div class="row">
-        <va-form-item [control]="form.controls.notes" class="col-md-12">
-            <label for="notes">Poznámky:</label>
-            <textarea type="text" id="notes" class="form-control" formControlName="notes"></textarea>
-        </va-form-item>
+        <mat-form-field class="col-md-12">
+            <textarea matInput type="text" id="notes" formControlName="notes"
+                placeholder="Poznámky"></textarea>
+        </mat-form-field>
     </div>
     
     <div class="row">

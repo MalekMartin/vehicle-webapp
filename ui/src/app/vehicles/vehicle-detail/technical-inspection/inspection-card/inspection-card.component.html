@@ -31,10 +31,10 @@
         </va-progress>
 
         <div class="actions">
-            <a [routerLink]="['./', { outlets: {'modal':['m','edit', inspection.id]}}]">
+            <a (click)="edit.emit(inspection)">
                 Upravit
             </a>
-            <a class="delete" (click)="delete(inspection)">
+            <a class="delete" (click)="delete.emit(inspection)">
                 Smazat
             </a>
         </div>

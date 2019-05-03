@@ -3,7 +3,7 @@
         <va-section-heading>
             <va-section-heading-title>Technické kontroly</va-section-heading-title>
             <va-section-heading-controls>
-                <a [routerLink]="['./', { outlets: {'modal':['m','add', vehicleId]}}]">přidat</a>
+                <a href="" (click)="openAddForm($event)">přidat</a>
             </va-section-heading-controls>
         </va-section-heading>
 
@@ -20,8 +20,8 @@
                     [units]="units"
                     [units2]="units2"
                     [inspection]="inspection"
-                    (edited)="inspectionEdit($event)"
-                    (deleted)="onInspectionDelete()"></va-inspection-card>
+                    (edit)="inspectionEdit($event)"
+                    (delete)="confirmDelete($event)"></va-inspection-card>
             </div>
 
             <va-paginator (selected)="fetchPage($event)" [service]="inspectionService"></va-paginator>
