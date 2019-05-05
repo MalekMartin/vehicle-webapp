@@ -43,9 +43,9 @@ export class IntervalFormComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this._maintenances.intervalSubject
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(v => this._setForm(v));
+        // this._maintenances.intervalSubject
+        //     .pipe(takeUntil(this._onDestroy$))
+        //     .subscribe(v => this._setForm(v));
 
         this._vehicles.state.select(s => s.vehicle)
             .pipe(takeUntil(this._onDestroy$))
@@ -59,11 +59,11 @@ export class IntervalFormComponent implements OnInit, OnDestroy {
         this._onDestroy$.next();
     }
 
-    save() {
-        this._maintenances
-            .saveInterval(this.form.value)
-            .subscribe(this._onSaveSuccess, this._onSaveError);
-    }
+    // save() {
+    //     this._maintenances
+    //         .saveInterval(this.form.value)
+    //         .subscribe(this._onSaveSuccess, this._onSaveError);
+    // }
 
     cancel() {
         this.form.reset();
@@ -82,13 +82,13 @@ export class IntervalFormComponent implements OnInit, OnDestroy {
         });
     }
 
-    private _onSaveSuccess = () => {
-        this._toastr.success('Interval byl úspěšně uložen.');
-        this.form.reset();
-        this.saved.emit();
-    };
+    // private _onSaveSuccess = () => {
+    //     this._toastr.success('Interval byl úspěšně uložen.');
+    //     this.form.reset();
+    //     this.saved.emit();
+    // };
 
-    private _onSaveError = () => {
-        this._toastr.error('Chyba při ukládání intervalu1');
-    };
+    // private _onSaveError = () => {
+    //     this._toastr.error('Chyba při ukládání intervalu1');
+    // };
 }

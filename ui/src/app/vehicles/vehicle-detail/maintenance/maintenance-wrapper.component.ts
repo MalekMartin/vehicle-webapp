@@ -14,6 +14,7 @@ import { Page } from '../../../utils/pageable';
 import { MaintenanceAddComponent } from './maintenances/maintenance-add/maintenance-add.component';
 import { MaintenanceDoneComponent } from './maintenances/maintenance-done/maintenance-done.component';
 import { MaintenanceEditComponent } from './maintenances/maintenance-edit/maintenance-edit.component';
+import { IntervalAddComponent } from './intervals/interval-add/interval-add.component';
 
 @Component({
     selector: 'va-maintenance-wrapper',
@@ -65,8 +66,11 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
         return !!this.intervals && !!this.intervals.find(i => !i.inProgress);
     }
 
-    refreshIntervals(id: string) {
-        this._service.getIntervals(id).subscribe(this._handleIntervals);
+    refreshIntervals(vehicleId: string) {
+        this._service
+            .getIntervals(vehicleId)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._handleIntervals);
     }
 
     refreshAll() {
@@ -85,9 +89,17 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
     }
 
     openAddInterval() {
-        this.action = 'INTERVAL';
-        this._service.intervalSubject.next(this._service.buildEmptyInterval(this.vehicleId));
-        this.modal.show();
+        this._dialog
+            .open(IntervalAddComponent, {
+                width: '600px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(res => {
+                if (!!res) {
+                    this.refreshIntervals(this.vehicleId);
+                }
+            });
     }
 
     finishMaintenance(m: Maintenance[]) {

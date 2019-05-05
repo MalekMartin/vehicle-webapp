@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { ModalDirective } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../shared/api/maintenance/interval.interface';
 import { MaintenanceService } from '../../../../shared/api/maintenance/maintenance.service';
@@ -13,46 +12,38 @@ import { MaintenanceService } from '../../../../shared/api/maintenance/maintenan
     styleUrls: ['./intervals.component.scss']
 })
 export class IntervalsComponent implements OnInit, OnDestroy {
-
-    @ViewChild('modal') modal: ModalDirective;
-
     @Output() intervalsUpdated = new EventEmitter();
 
     vehicleId: string;
 
     selected: Interval;
-
-    private _intervalsSubs: Subscription;
     private _intervals: Interval[];
+    private _onDestroy$ = new Subject();
 
-    constructor(private _route: ActivatedRoute,
-                private _maintenanceService: MaintenanceService,
-                private _toastr: ToastsManager,
-                private _vehicles: VehicleService) {
-
+    constructor(
+        private _maintenanceService: MaintenanceService,
+        private _toastr: ToastsManager,
+        private _vehicles: VehicleService
+    ) {
         this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
     }
 
     ngOnInit() {
-        this._intervalsSubs = this._maintenanceService.intervalsSubject.subscribe(i => {
+        this._maintenanceService.intervalsSubject.pipe(takeUntil(this._onDestroy$)).subscribe(i => {
             this._intervals = i;
         });
     }
 
     ngOnDestroy() {
-        if (this._intervalsSubs) {
-            this._intervalsSubs.unsubscribe();
-        }
+        this._onDestroy$.next();
     }
 
     get runningIntervals() {
         if (!this.intervals) return 0;
 
-        return this.intervals
-            .filter((i) => {
-                return !!i.inProgress;
-            })
-            .length;
+        return this.intervals.filter(i => {
+            return !!i.inProgress;
+        }).length;
     }
 
     get intervals(): Interval[] {
@@ -61,32 +52,20 @@ export class IntervalsComponent implements OnInit, OnDestroy {
 
     edit(interval: Interval) {
         this._maintenanceService.intervalSubject.next(interval);
-        this.modal.show();
     }
 
     delete(id: string) {
         this._maintenanceService
             .deleteInterval(id)
-            .subscribe(this._onDeleteSuccess,this._onDeleteError);
-    }
-
-    cancel() {
-        this.selected = null;
-        this.modal.hide();
-    }
-
-    saved() {
-        this.selected = null;
-        this.modal.hide();
-        this.intervalsUpdated.emit(this.vehicleId);
+            .subscribe(this._onDeleteSuccess, this._onDeleteError);
     }
 
     private _onDeleteSuccess = () => {
         this._toastr.success('Interval byl smazán.');
         this.intervalsUpdated.emit(this.vehicleId);
-    }
+    };
 
     private _onDeleteError = () => {
         this._toastr.error('Chyba při mazání intervalu!');
-    }
+    };
 }
