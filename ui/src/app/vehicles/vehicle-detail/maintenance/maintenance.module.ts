@@ -13,6 +13,19 @@ import { MaintenanceCardComponent } from './maintenances/maintenance-card/mainte
 import { MaintenanceDoneComponent } from './maintenances/maintenance-done/maintenance-done.component';
 import { MaintenaceFormComponent } from './maintenances/maintenance-form/maintenance-form.component';
 import { MaintenanceComponent } from './maintenances/maintenance.component';
+import {
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatDialogModule
+} from '@angular/material';
+import { MaintenanceAddComponent } from './maintenances/maintenance-add/maintenance-add.component';
+import { MaintenanceEditComponent } from './maintenances/maintenance-edit/maintenance-edit.component';
+import { MatTooltipModule } from '@angular/material';
 
 const MODULES = [
     SharedModule,
@@ -21,7 +34,16 @@ const MODULES = [
     ProgressbarModule,
     GarageModule,
     RouterModule.forChild(maintenanceRoutes),
-    DatepickerModule
+    DatepickerModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatTooltipModule
 ];
 
 const COMPONENTS = [
@@ -29,7 +51,9 @@ const COMPONENTS = [
     MaintenaceFormComponent,
     MaintenanceCardComponent,
     MaintenanceDoneComponent,
-    MaintenanceWrapperComponent
+    MaintenanceWrapperComponent,
+    MaintenanceAddComponent,
+    MaintenanceEditComponent
 ];
 
 const PIPES = [MaintenancePipe];
@@ -38,6 +62,7 @@ const PIPES = [MaintenancePipe];
     imports: [...MODULES],
     exports: [MaintenanceWrapperComponent],
     declarations: [...COMPONENTS, ...PIPES],
-    providers: [RepairService]
+    providers: [RepairService],
+    entryComponents: [MaintenanceDoneComponent, MaintenanceAddComponent, MaintenanceEditComponent]
 })
 export class MaintenanceModule {}

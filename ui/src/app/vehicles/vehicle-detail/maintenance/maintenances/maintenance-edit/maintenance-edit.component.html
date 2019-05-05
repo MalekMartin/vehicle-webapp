@@ -1,0 +1,9 @@
+<h3 mat-dialog-title>Upravit běžící interval</h3>
+<mat-dialog-content>
+    <va-maintenance-form #formRef></va-maintenance-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button type="button" mat-flat-button mat-dialog-close>Zavřít</button>
+    <button type="button" mat-flat-button color="primary" [disabled]="formRef.form.invalid"
+        (click)="formRef.form.valid && save()">Uložit</button>
+</mat-dialog-actions>

@@ -56,7 +56,7 @@ class Maintenance {
         repair.id AS repairId, repair.title AS repairTitle
         FROM maintenance
         JOIN intervals ON maintenance.intervalId = intervals.id
-        LEFT JOIN repair ON maintenance.id = repair.maintenanceId
+        LEFT JOIN repair ON maintenance.repairId = repair.id
         WHERE maintenance.vehicleId = ?
         AND maintenance.userId = ?'
         . $this->_prepareFilter($filter)
@@ -180,8 +180,6 @@ class Maintenance {
     }
 
     public function finishMaintenance($d) {
-
-
         $query = $this->db->prepare('UPDATE maintenance
             SET odoDone = ?, odo2Done = ?, dateDone = ?,
             notes = ?, status = ?, garageId = ?
