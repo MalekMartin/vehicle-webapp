@@ -18,6 +18,9 @@ class Interval {
         $query = $this->db->prepare('INSERT INTO intervals (vehicleId, name, odo, odo2, months, note, userId)
         VALUES (?,?,?,?,?,?,?)');
         $query->execute(array($d->vehicleId, $d->name, $d->odo, $d->odo2, $d->months, $d->note, $this->uid));
+        $lastId = $this->db->lastInsertId();
+        $d->id = $lastId;
+        return $d;
     }
 
     private function updateInterval($d) {
@@ -27,13 +30,14 @@ class Interval {
 
         $query = $this->db->prepare('UPDATE intervals SET name = ?, odo = ?, odo2 = ?, months = ?, note = ? WHERE id = ? AND userId = ?');
         $query->execute(array($d->name, $d->odo, $d->odo2, $d->months, $d->note, $d->id, $this->uid));
+        return $d;
     }
 
     public function saveInterval($d) {
         if ($d->id) {
-            $this->updateInterval($d);
+            return $this->updateInterval($d);
         } else {
-            $this->insertInterval($d);
+            return $this->insertInterval($d);
         }
     }
 

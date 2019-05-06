@@ -17,6 +17,7 @@ import { InitialsModule } from '../../../../shared/components/initials/initials.
 import { MileageModule } from '../../../../shared/components/mileage/mileage.module';
 import { PipesModule } from '../../../../shared/pipes/pipes.module';
 import { CardModule } from '../../../../shared/components/card/card.module';
+import { IntervalEditComponent } from './interval-edit/interval-edit.component';
 
 const MODULES = [
     CommonModule,
@@ -36,14 +37,13 @@ const MODULES = [
 const COMPONENTS = [
     IntervalsComponent,
     IntervalFormComponent,
-    IntervalCardComponent,
-    IntervalAddComponent
+    IntervalCardComponent
 ];
 
 @NgModule({
     imports: [...MODULES],
     exports: [...COMPONENTS],
-    declarations: [...COMPONENTS],
-    entryComponents: [IntervalAddComponent]
+    declarations: [...COMPONENTS, IntervalAddComponent, IntervalEditComponent],
+    entryComponents: [IntervalAddComponent, IntervalEditComponent]
 })
 export class IntervalsModule {}

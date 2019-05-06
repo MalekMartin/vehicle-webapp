@@ -5,6 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../shared/api/maintenance/interval.interface';
 import { MaintenanceService } from '../../../../shared/api/maintenance/maintenance.service';
+import { MatDialog } from '@angular/material';
+import { IntervalEditComponent } from './interval-edit/interval-edit.component';
 
 @Component({
     selector: 'va-intervals',
@@ -23,7 +25,8 @@ export class IntervalsComponent implements OnInit, OnDestroy {
     constructor(
         private _maintenanceService: MaintenanceService,
         private _toastr: ToastsManager,
-        private _vehicles: VehicleService
+        private _vehicles: VehicleService,
+        private _dialog: MatDialog
     ) {
         this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
     }
@@ -51,7 +54,16 @@ export class IntervalsComponent implements OnInit, OnDestroy {
     }
 
     edit(interval: Interval) {
-        this._maintenanceService.intervalSubject.next(interval);
+        this._dialog.open(IntervalEditComponent, {
+            width: '600px',
+            data: interval
+        }).afterClosed()
+        .pipe(takeUntil(this._onDestroy$))
+        .subscribe(res => {
+            if (res) {
+                this.intervalsUpdated.emit();
+            }
+        });
     }
 
     delete(id: string) {
