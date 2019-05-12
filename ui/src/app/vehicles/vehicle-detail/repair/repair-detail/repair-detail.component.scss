@@ -1,16 +1,35 @@
 @import "../../../../../style/theme/conf.scss";
 
+.loading {
+    margin: 20px;
+    text-align: center;
+}
+
+.tasks {
+    margin-top: 10px;
+}
+
 .task-control {
-    text-align: right;
-    padding-bottom: 10px;
+    display: flex;
+    width: 100%;
 
     .edit-button {
+        flex-grow: 0;
+        margin: auto 0;
         font-size: 14px;
         text-transform: uppercase;
         cursor: pointer;
         color: #337ab7;
         font-weight: 500;
         text-decoration: none;
+    }
+
+    .title {
+        flex-grow: 1;
+    }
+
+    .space {
+        flex-grow: 1;
     }
 }
 
@@ -52,5 +71,15 @@
                 }
             }
         }
+    }
+}
+
+.maintenance {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+
+    &:last-child {
+        border: 0;
     }
 }

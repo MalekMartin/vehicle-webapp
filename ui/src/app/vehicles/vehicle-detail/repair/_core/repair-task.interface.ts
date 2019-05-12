@@ -6,5 +6,7 @@ export interface RepairTask {
     quantity: number;
     priceNoTax: number;
     price: number;
-    type: 'MATERIAL' | 'WORK' | 'OTHER';
+    type: RepairItemType;
 }
+
+export type RepairItemType = 'MATERIAL' | 'WORK' | 'OTHER';

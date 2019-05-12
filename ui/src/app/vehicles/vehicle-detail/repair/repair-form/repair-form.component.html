@@ -1,88 +1,56 @@
-<div class="modal fade" bsModal #dialog="bs-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button #btnClose type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">{{title}}</h4>
-            </div>
-            <div class="modal-body">
+<form [formGroup]="form">
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="text" id="title" placeholder="Název" formControlName="title">
+        </mat-form-field>
 
-                <form [formGroup]="form">
-                    <div class="row">
-                        <va-form-item class="col-md-6" [control]="form.get('title')">
-                            <label for="title">Název:</label>
-                            <input type="text" id="title" class="form-control" formControlName="title">
-                        </va-form-item>
-
-                        <va-form-item class="col-md-6" [control]="form.get('garageId')">
-                            <label for="garage">Servis:</label>
-                            <select type="text" id="garage" class="form-control" formControlName="garageId">
-                                <option *ngFor="let g of garages" [value]="g.id">{{g.name}}</option>
-                            </select>
-                            <a class="add-servise-link"
-                                [routerLink]="['/services']"
-                                (click)="dialog.hide()">+ Přidat servis</a>
-                        </va-form-item>
-                    </div>
-
-                    <div class="row">
-                        <va-form-item class="col-md-3" [control]="form.get('odo')">
-                            <label for="odo">{{units}}:</label>
-                            <input type="text" id="odo" class="form-control" formControlName="odo">
-                        </va-form-item>
-
-                        <va-form-item *ngIf="!!units2" class="col-md-3" [control]="form.get('odo2')">
-                            <label for="odo2">{{units2}}:</label>
-                            <input type="text" id="odo2" class="form-control" formControlName="odo2">
-                        </va-form-item>
-
-                        <va-form-item class="col-md-3" [control]="form.get('date')">
-                            <label for="date">Datum:</label>
-                            <va-date-picker type="text" id="date" formControlName="date"></va-date-picker>
-                        </va-form-item>
-
-                        <va-form-item class="col-md-3" [control]="form.get('totalPrice')">
-                            <label for="totalPrice">Celková cena:</label>
-                            <input type="text" id="totalPrice" class="form-control" formControlName="totalPrice">
-                        </va-form-item>
-                    </div>
-
-                    <div class="row">
-                        <va-form-item class="col-md-6" [control]="form.get('taxToggle')">
-                            <label for="taxToggle" tooltip="Bude p">DPH:</label>
-                            <div>
-                                <va-checkbox id="tax" formControlName="taxToggle"></va-checkbox>
-                                Ceny dílů budu zadávat bez DPH
-                            </div>
-                        </va-form-item>
-
-                        <va-form-item class="col-md-6" [control]="form.get('tax')">
-                            <label for="tax" tooltip="Bude p">DPH (%):</label>
-                            <input type="text" id="tax" class="form-control" formControlName="tax">
-                        </va-form-item>
-                    </div>
-
-                    <div class="row">
-                        <va-form-item class="col-md-12" [control]="form.get('notes')">
-                            <label for="notes">Poznámky:</label>
-                            <textarea type="text" id="notes" class="form-control" formControlName="notes"></textarea>
-                        </va-form-item>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button #btnCancel type="button" class="btn btn-default">Zrušit</button>
-                            <button #btnSave type="button"
-                                class="btn btn-primary"
-                                [disabled]="!form.valid"
-                                (click)="form.valid && save()">Uložit</button>
-                        </div>
-                    </div>
-                </form>
-                
-            </div>
-        </div>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <mat-select type="text" id="garage" placeholder="Servis" formControlName="garageId">
+                <mat-option *ngFor="let g of garages | async" [value]="g.id">{{g.name}}</mat-option>
+            </mat-select>
+            <mat-hint>
+                <a class="add-servise-link"
+                    [routerLink]="['/services']"
+                    (click)="hideDialog.emit()">+ Přidat servis</a>
+            </mat-hint>
+        </mat-form-field>
     </div>
-</div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-3 col-xs-12">
+            <input matInput type="number" id="odo" [placeholder]="units" formControlName="odo">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!!units2" class="col-sm-3 col-xs-12">
+            <input matInput type="number" id="odo2" [placeholder]="units2" formControlName="odo2">
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-3 col-xs-12">
+            <input matInput type="text" id="date" formControlName="date" [matDatepicker]="picker" placeholder="Datum">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-3 col-xs-12">
+            <input matInput type="number" id="totalPrice" placeholder="Celková cena" formControlName="totalPrice">
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <mat-checkbox id="tax" formControlName="taxToggle">
+                Ceny dílů budu zadávat bez DPH
+            </mat-checkbox>
+        </div>
+
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="tax" placeholder="DPH (%)" formControlName="tax">
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-12 col-xs-12">
+            <textarea matInput type="text" id="notes" placeholder="Poznámky" formControlName="notes"></textarea>
+        </mat-form-field>
+    </div>
+</form>

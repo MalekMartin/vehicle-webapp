@@ -1,0 +1,9 @@
+<h3 mat-dialog-title>Upravit položku</h3>
+<mat-dialog-content>
+    <va-repair-item-form></va-repair-item-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Zavřít</button>
+    <button mat-flat-button color="primary" [disabled]="formRef.form.invalid"
+        (click)="formRef.form.valid && save()">Uložit</button>
+</mat-dialog-actions>

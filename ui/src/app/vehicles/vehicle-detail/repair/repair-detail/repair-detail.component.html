@@ -1,8 +1,8 @@
-<div class="v-card">
+<ng-container *ngIf="!loading && !!repair">
     <div class="row">
         <div class="col-md-12">
             <va-section-heading>
-                <va-section-heading-title>{{!!repair ? repair.title : 'Nahrávám detail opravy...'}}</va-section-heading-title>
+                <va-section-heading-title>{{repair.title}}</va-section-heading-title>
                 <va-section-heading-controls *ngIf="!!repair">
                     <a class="edit-button" (click)="edit($event)">Upravit</a>
                 </va-section-heading-controls>
@@ -38,34 +38,34 @@
         </div>
     </div>
 
-    <div class="task-control">
-        <a class="edit-button" (click)="addTask()">Přidat položku</a>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <va-repair-tasks [repair]="repair" (editTask)="editTask($event)"></va-repair-tasks>
+    <div class="row" *ngIf="!!maintenances && !!maintenances.length">
+        <div class="col-sm-12">
+            <h4>Dokončuje údržby</h4>
+            <div *ngFor="let m of maintenances" class="maintenance">
+                {{m.interval.name}}
+            </div>
         </div>
     </div>
-</div>
 
-<div bsModal #modal="bs-modal" class="modal fade"
-    tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
-    (onHidden)="closeModal()">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="closeModal()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">
-                    <span *ngIf="!selectedTask || !selectedTask.id">Přidat položku</span>
-                    <span *ngIf="selectedTask && selectedTask.id">Upravit položku</span>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <va-repair-task-form [repair]="repair" [task]="selectedTask"
-                    (saved)="onTaskSave()" (canceled)="closeModal()"></va-repair-task-form>
+    <div class="tasks">
+        <div class="task-control">
+            <h4>Položky opravy</h4>
+            <div class="space"></div>
+            <a class="edit-button" (click)="addItem()">Přidat položku</a>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div *ngIf="itemsLoading" class="loading">
+                    <va-spinner></va-spinner>
+                </div>
+                <va-repair-items *ngIf="!itemsLoading && !!repairItems"
+                    [repair]="repair"
+                    [items]="repairItems"
+                    (editTask)="editItem($event)"></va-repair-items>
             </div>
         </div>
     </div>
+</ng-container>
+<div *ngIf="loading" class="loading">
+    <va-spinner>Nahrávám...</va-spinner>
 </div>

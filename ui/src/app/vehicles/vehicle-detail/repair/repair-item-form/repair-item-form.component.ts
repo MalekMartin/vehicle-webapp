@@ -5,12 +5,12 @@ import { Repair } from '../_core/repair.interface';
 import { Validators, FormBuilder } from '@angular/forms';
 
 @Component({
-    selector: 'va-repair-task-form',
-    templateUrl: './repair-task-form.component.html',
-    styleUrls: ['./repair-task-form.component.scss']
+    selector: 'va-repair-item-form',
+    templateUrl: './repair-item-form.component.html',
+    styleUrls: ['./repair-item-form.component.scss']
 })
 
-export class RepairTaskFormComponent implements OnInit {
+export class RepairItemFormComponent implements OnInit {
 
     @Input() set task(t: RepairTask) {
         if (t) {
@@ -49,7 +49,7 @@ export class RepairTaskFormComponent implements OnInit {
         title: ['', [Validators.required, Validators.maxLength(128)]],
         note: ['', Validators.maxLength(255)],
         quantity: [1, Validators.required],
-        priceNoTax: [0, Validators.required],
+        priceNoTax: ['', Validators.required],
         price: [0, Validators.required],
         type: ['MATERIAL']
     });

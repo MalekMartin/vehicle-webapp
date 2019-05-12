@@ -15,10 +15,10 @@
 
         <tbody>
                 
-            <tr *ngIf="!!tasks.MATERIAL && !!tasks.MATERIAL.length">
+            <tr *ngIf="!!items.MATERIAL && !!items.MATERIAL.length">
                 <td colspan="8" class="td-section">Materiál</td>
             </tr>
-            <tr *ngFor="let task of tasks.MATERIAL; let i = index">
+            <tr *ngFor="let task of items['MATERIAL']; let i = index">
                 <td>{{i + 1}}.</td>
                 <td>{{task.title}}</td>
                 <td class="hidden-xs">{{task.note}}</td>
@@ -34,10 +34,10 @@
                 </td>
             </tr>
 
-                <tr *ngIf="!!tasks.WORK && !!tasks.WORK.length">
+                <tr *ngIf="!!items.WORK && !!items.WORK.length">
                     <td colspan="8" class="td-section">Práce</td>
                 </tr>
-                <tr *ngFor="let task of tasks.WORK; let i = index">
+                <tr *ngFor="let task of items['WORK']; let i = index">
                     <td>{{i + 1}}.</td>
                     <td>{{task.title}}</td>
                     <td class="hidden-xs">{{task.note}}</td>
@@ -53,10 +53,10 @@
                     </td>
                 </tr>
 
-            <tr *ngIf="!!tasks.OTHER && !!tasks.OTHER.length">
+            <tr *ngIf="!!items.OTHER && !!items.OTHER.length">
                 <td colspan="8" class="td-section">Ostatní</td>
             </tr>
-            <tr *ngFor="let task of tasks.OTHER; let i = index">
+            <tr *ngFor="let task of items['OTHER']; let i = index">
                 <td>{{i + 1}}.</td>
                 <td>{{task.title}}</td>
                 <td class="hidden-xs">{{task.note}}</td>
@@ -73,12 +73,9 @@
             </tr>
         </tbody>
 
-        <tbody *ngIf="!tasks || tasks.length < 1">
+        <tbody *ngIf="!items">
             <tr>
                 <td *ngIf="!loading" colspan="8" class="no-results">Nebyly nalezeny žádné položky</td>
-                <td *ngIf="loading" colspan="8" class="text-center">
-                    <i class="icon-refresh spin"></i>
-                </td>
             </tr>
         </tbody>
 

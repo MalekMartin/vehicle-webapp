@@ -1,9 +1,10 @@
 <?php
-require 'Dto/PageDto.php';
+// require 'Dto/PageDto.php';
 class Repair {
 
     private $db;
     private $uid;
+    private $maintenances;
 
     public $first = false;
     public $last = false;
@@ -19,6 +20,7 @@ class Repair {
     public function __construct($db, $uid) {
         $this->db = $db;
         $this->uid = $uid;
+        $this->maintenances = new Maintenance($db, $uid);
     }
 
     private function _prepareQuery() {
@@ -172,6 +174,10 @@ class Repair {
             WHERE repair.id = ? AND repair.userId = ?');
         $query->execute(array($id, $this->uid));
         return $query->fetch();
+    }
+
+    public function getMaintenancesByRepairId($vehicleId, $repairId) {
+        return $this->maintenances->getMaintenancesByRepairId($vehicleId, $repairId);
     }
 
     public function getRepair($id) {
