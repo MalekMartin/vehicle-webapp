@@ -1,32 +1,37 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { PageScrollService } from 'ng2-page-scroll';
+import { TooltipModule } from 'ngx-bootstrap';
 import { GarageModule } from '../../../car-services/garage/garage.module';
 import { GarageService } from '../../../car-services/garage/garage.service';
-import { SharedModule } from '../../../shared/shared.module';
+import { CardModule } from '../../../shared/components/card/card.module';
+import { FilterModule } from '../../../shared/components/filter/filter.module';
+import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
+import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
+import { RepairAddComponent } from './repair-add/repair-add.component';
 import { RepairCardComponent } from './repair-card/repair-card.component';
 import { RepairDetailComponent } from './repair-detail/repair-detail.component';
+import { RepairEditComponent } from './repair-edit/repair-edit.component';
 import { RepairFormModule } from './repair-form/repair-form.module';
+import { RepairItemAddComponent } from './repair-item-add/repair-item-add.component';
+import { RepairItemEditComponent } from './repair-item-edit/repair-item-edit.component';
 import { RepairItemFormComponent } from './repair-item-form/repair-item-form.component';
 import { RepairItemsComponent } from './repair-items/repair-items.component';
 import { RepairComponent } from './repair.component';
 import { repairRoutes } from './repair.routes';
 import { RepairService } from './repair.service';
-import { TooltipModule } from 'ngx-bootstrap';
-import { RepairAddComponent } from './repair-add/repair-add.component';
-import {
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule
-} from '@angular/material';
-import { RepairEditComponent } from './repair-edit/repair-edit.component';
-import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
-import { RepairItemAddComponent } from './repair-item-add/repair-item-add.component';
-import { RepairItemEditComponent } from './repair-item-edit/repair-item-edit.component';
-import { FilterModule } from '../../../shared/components/filter/filter.module';
+import { PaginatorModule } from '../../../shared/components/paginator/paginator.module';
+import { NumberStatsModule } from '../../../shared/components/number-stats/number-stats.module';
+import { PipesModule } from '../../../shared/pipes/pipes.module';
 
 const COMPONENTS = [
     RepairComponent,
@@ -50,14 +55,19 @@ const MAT_MODULES = [
 
 @NgModule({
     imports: [
-        SharedModule,
         CommonModule,
+        ReactiveFormsModule,
+        CardModule,
+        SectionHeadingModule,
         RepairFormModule,
         GarageModule,
         TooltipModule,
         RouterModule.forChild(repairRoutes),
         SpinnerModule,
         FilterModule,
+        PaginatorModule,
+        NumberStatsModule,
+        PipesModule,
         ...MAT_MODULES
     ],
     exports: [],
