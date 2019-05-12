@@ -1,21 +1,18 @@
-import { NgModule } from '@angular/core';
-import { ModalModule } from 'ngx-bootstrap';
-import { SharedModule } from '../../../../shared/shared.module';
-import { RepairFormComponent } from './repair-form.component';
-import { DatepickerModule } from '../../../../shared/components/datepicker/datepicker.module';
-import { MatCheckboxModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
 } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { RepairFormComponent } from './repair-form.component';
 
 @NgModule({
     imports: [
@@ -32,6 +29,6 @@ import { RouterModule } from '@angular/router';
         MatCheckboxModule
     ],
     exports: [RepairFormComponent],
-    declarations: [RepairFormComponent],
+    declarations: [RepairFormComponent]
 })
 export class RepairFormModule {}

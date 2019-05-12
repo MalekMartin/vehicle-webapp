@@ -1,22 +1,23 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
-import { TireStatusFormComponent } from './tire-status-form.component';
-import { ModalModule } from 'ngx-bootstrap';
-import { SharedModule } from '../../../../shared/shared.module';
-import { DatepickerModule } from '../../../../shared/components/datepicker/datepicker.module';
-import { MatDatepickerModule, MatNativeDateModule, MatTooltipModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
+    MatButtonModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatNativeDateModule,
+    MatTooltipModule
 } from '@angular/material';
+import { PipesModule } from '../../../../shared/pipes/pipes.module';
+import { TireStatusFormComponent } from './tire-status-form.component';
 
 @NgModule({
     imports: [
-        ModalModule,
-        SharedModule,
-        DatepickerModule,
+        CommonModule,
+        ReactiveFormsModule,
+        PipesModule,
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,

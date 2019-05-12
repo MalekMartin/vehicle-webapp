@@ -10,14 +10,13 @@ import {
     MatSelectModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../../shared/shared.module';
+import { InfoDetailItemModule } from './info-detail-item/info-detail-item.module';
 import { EngineModule } from './info-engine/engine.module';
 import { InfoDetailComponent } from './info-general/info-detail/info-detail.component';
 import { InfoFormComponent } from './info-general/info-form/info-form.component';
 import { InfoComponent } from './info.component';
 import { infoRoutes } from './info.routes';
 import { TradeModule } from './trade/trade.module';
-import { InfoDetailItemModule } from './info-detail-item/info-detail-item.module';
 
 const MODULES = [
     EngineModule,
@@ -39,7 +38,7 @@ const COMPONENTS = [InfoComponent, InfoDetailComponent, InfoFormComponent];
 
 @NgModule({
     imports: [...MODULES],
-    exports: [InfoComponent, SharedModule],
+    exports: [InfoComponent],
     declarations: [...COMPONENTS],
     providers: [],
     entryComponents: [InfoFormComponent]

@@ -1,17 +1,16 @@
-import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { LoginComponent } from './login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AuthService } from '../../core/auth.service';
-import { XHRBackend, Response, ResponseOptions, HttpModule } from '@angular/http';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule, XHRBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Router } from '@angular/router';
-import { SharedModule } from '../../shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ToastModule, ToastOptions, ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { mockBackendResponse } from '../../../testing/http';
+import { AuthService } from '../../core/auth.service';
 import { CoreModule } from '../../core/core.module';
 import { jwtMock } from '../../core/token.store.spec';
-import { mockBackendResponse } from '../../../testing/http';
+import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
 
