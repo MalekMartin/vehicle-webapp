@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { VehicleDetailComponent } from './vehicle-detail.component';
-import { ModalModule } from 'ngx-bootstrap';
 import { DetailHeaderComponent } from './detail-header/detail-header.component';
 import { RouterModule } from '@angular/router';
 import { VehicleSettingsModule } from './vehicle-settings/vehicle-settings.module';
@@ -17,7 +16,6 @@ import { InitialsModule } from '../../shared/components/initials/initials.module
         CommonModule,
         SpinnerModule,
         InitialsModule,
-        ModalModule,
         RouterModule,
         VehicleSettingsModule,
         ManualsModule,
