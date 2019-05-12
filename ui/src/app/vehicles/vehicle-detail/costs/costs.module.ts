@@ -31,6 +31,7 @@ import { NumberStatsModule } from '../../../shared/components/number-stats/numbe
 import { CardModule } from '../../../shared/components/card/card.module';
 import { PipesModule } from '../../../shared/pipes/pipes.module';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
+import { FilterModule } from '../../../shared/components/filter/filter.module';
 
 const PIPES = [CostsPipe];
 
@@ -65,7 +66,8 @@ const COMPONENTS = [
         NumberStatsModule,
         CardModule,
         PipesModule,
-        ConfirmModule
+        ConfirmModule,
+        FilterModule
     ],
     exports: [],
     declarations: [...COMPONENTS, ...PIPES],

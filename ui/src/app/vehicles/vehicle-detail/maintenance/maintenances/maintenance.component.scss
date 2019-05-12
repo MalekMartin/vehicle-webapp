@@ -56,29 +56,17 @@
     }
 }
 
-.filters {
-
-    display: flex;
-    margin-bottom: 10px;
-
-    .filter {
-        flex-grow: 1;
-
-        &:nth-child(odd) {
-            margin-right: 3px;
-        }
-
-        &:nth-child(even) {
-            margin-left: 3px;
-        }
-    }
-}
-
 .intervals {
     margin: 5px 0px;
 
     va-maintenance-card {
         display: block;
         margin: 5px 0px 5px 0px;
+    }
+}
+
+va-filter {
+    .icon-search {
+        padding-right: 8px;
     }
 }

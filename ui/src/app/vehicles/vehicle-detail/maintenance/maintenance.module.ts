@@ -26,6 +26,7 @@ import {
 import { MaintenanceAddComponent } from './maintenances/maintenance-add/maintenance-add.component';
 import { MaintenanceEditComponent } from './maintenances/maintenance-edit/maintenance-edit.component';
 import { MatTooltipModule } from '@angular/material';
+import { FilterModule } from '../../../shared/components/filter/filter.module';
 
 const MODULES = [
     SharedModule,
@@ -43,7 +44,8 @@ const MODULES = [
     MatNativeDateModule,
     MatButtonModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FilterModule
 ];
 
 const COMPONENTS = [

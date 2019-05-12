@@ -15,25 +15,23 @@
             </div>
 
             <div>
-                <form [formGroup]="form">
-                    <div class="filter-title">
-                        <i class="icon-filter"></i>
-                        Filtr
-                    </div>
-                    <div class="row">
-                        <mat-form-field class="col-sm-6 col-xs-12">
-                            <i matPrefix class="icon-search"></i>
-                            <input matInput formControlName="query" placeholder="Hledat...">
-                        </mat-form-field>
-                        <mat-form-field class="col-sm-6 col-xs-12">
-                            <mat-select id="categiry" formControlName="category">
-                                <mat-option value="">všechny kategorie</mat-option>
-                                <mat-option *ngFor="let category of categories"
-                                    [value]="category.id">{{category.title}}</mat-option> 
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </form>
+                <va-filter title="Filtr">
+                    <form [formGroup]="form">
+                        <div class="row">
+                            <mat-form-field class="col-sm-6 col-xs-12">
+                                <i matPrefix class="icon-search"></i>
+                                <input matInput formControlName="query" placeholder="Hledat...">
+                            </mat-form-field>
+                            <mat-form-field class="col-sm-6 col-xs-12">
+                                <mat-select id="categiry" formControlName="category">
+                                    <mat-option value="">všechny kategorie</mat-option>
+                                    <mat-option *ngFor="let category of categories"
+                                        [value]="category.id">{{category.title}}</mat-option> 
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </va-filter>
 
                 <div *ngIf="!!costs" class="cost-cards">
                     <va-cost-card *ngFor="let cost of costs.content"

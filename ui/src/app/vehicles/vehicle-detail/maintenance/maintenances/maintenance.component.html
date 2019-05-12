@@ -1,21 +1,22 @@
 <div>
-    <form [formGroup]="form" class="filters">
-        <va-form-item class="filter" [control]="form.get('status')">
-            <select id="status" class="form-control" formControlName="status">
-                <option *ngFor="let status of statuses" [value]="status.key">{{status.label}}</option>
-            </select>
-        </va-form-item>
-        <va-form-item class="filter" [control]="form.get('interval')">
-            <select id="interval" class="form-control" formControlName="interval">
-                <option value="">všechny intervaly</option>
-                <option *ngFor="let interval of intervals" [value]="interval.id">{{interval.name}}</option>
-            </select>
-        </va-form-item>
-    </form>
+    <va-filter title="Filtr">
+        <form [formGroup]="form" class="filters">
+            <div class="row">
+                <mat-form-field class="col-sm-4 col-xs-12">
+                    <mat-select id="status" formControlName="status">
+                        <mat-option *ngFor="let status of statuses" [value]="status.key">{{status.label}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-sm-8 col-xs-12">
+                    <mat-select id="interval" formControlName="interval">
+                        <mat-option value="">všechny intervaly</mat-option>
+                        <mat-option *ngFor="let interval of intervals" [value]="interval.id">{{interval.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+    </va-filter>
 </div>
-        
-<va-paginator [service]="maintenanceService"
-    (selected)="fetchPage($event)"></va-paginator>
         
 <div class="actions" *ngIf="!!maintenances">
     <a *ngIf="!maintenanceAction" (click)="setAction(true)">Označit...</a>
