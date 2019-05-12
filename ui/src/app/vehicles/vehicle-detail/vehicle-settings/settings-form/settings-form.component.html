@@ -1,25 +1,23 @@
-<form [formGroup]="form" (submit)="form.valid && save()">
-    <div class="row">
-        <va-form-item [control]="form.get('units')" class="col-sm-6">
-            <label for="units">Hlavní jednotky:</label>
-            <input type="text" id="units" class="form-control" formControlName="units">
-        </va-form-item>
-        <va-form-item [control]="form.get('subUnits')" class="col-sm-6">
-            <label for="subUnits">Vedlejší jednotky:</label>
-            <input type="text" id="subUnits" class="form-control" formControlName="subUnits">
-        </va-form-item>
-    </div>
-    <div class="row">
-        <va-form-item [control]="form.get('tankCapacity')" class="col-sm-6">
-            <label for="tankCapacity">Objem n:</label>
-            <input type="text" id="tankCapacity" class="form-control" formControlName="tankCapacity">
-        </va-form-item>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
-            <button type="submit" class="btn btn-primary" [class.disabled]="!form.valid">Uložit</button>
+<h3 mat-dialog-title>Upravit nastavení</h3>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="row">
+            <mat-form-field class="col-sm-6 col-xs-12">
+                <input matInput type="text" id="units" placeholder="Hlavní jednotky" formControlName="units">
+            </mat-form-field>
+            <mat-form-field class="col-sm-6 col-xs-12">
+                <input matInput type="text" id="subUnits" placeholder="Vedlejší jednotky" formControlName="subUnits">
+            </mat-form-field>
         </div>
-    </div>
-</form>
+        <div class="row">
+            <mat-form-field class="col-sm-6 col-xs-12">
+                <input matInput type="number" id="tankCapacity" placeholder="Objem nádrže" formControlName="tankCapacity">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Zrušit</button>
+    <button mat-flat-button color="primary" [disabled]="form.invalid"
+        (click)="form.valid && save()">Uložit</button>
+</mat-dialog-actions>
