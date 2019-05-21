@@ -1,12 +1,30 @@
-<form [formGroup]="formUrl">
-    <div class="row">
-        <va-form-item [control]="formUrl.get('title')" class="col-sm-6">
-            <label for="title">Název manuálu:</label>
-            <input id="title" class="form-control" formControlName="title">
-        </va-form-item>
-        <va-form-item [control]="formUrl.get('url')" class="col-sm-6">
-            <label for="url">URL manuálu:</label>
-            <input id="url" class="form-control" formControlName="url">
-        </va-form-item>
+<div class="files column">
+    <va-manuals-list [manuals]="manuals"></va-manuals-list>
+</div>
+<div class="file-upload column">
+    <div class="dropzone" [class.nv-file-over]="hasBaseDropZoneOver">
+        <div *ngIf="!isUploading; else spinner" ng2FileDrop
+            (fileOver)="fileOverBase($event)"
+            [uploader]="uploader"
+            class="my-drop-zone">
+            <ng-container *ngIf="!uploader.queue.length">
+                <div class="description">
+                    <i class="icon-upload"></i>
+                    <span>Přetáhni soubor sem</span>
+                </div>
+                <div>nebo</div>
+                <input type="file" ng2FileSelect [uploader]="uploader" />
+            </ng-container>
+            <div *ngFor="let item of uploader.queue">{{item.file.name}}</div>
+        </div>
+        <ng-template #spinner>
+            <va-spinner>Soubor se nahrává...</va-spinner>
+        </ng-template>
     </div>
-</form>
+    <div class="actions">
+        <button mat-flat-button
+            color="primary"
+            type="button"
+            (click)="uploader.uploadAll()">Nahrát</button>
+    </div>
+</div>
