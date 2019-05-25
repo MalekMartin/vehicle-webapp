@@ -65,3 +65,14 @@
         }
     }
 }
+
+@media print {
+    .wrapper {
+        display: block;
+        background: transparent;
+
+        .menu-panel {
+            display: none;
+        }
+    }
+}

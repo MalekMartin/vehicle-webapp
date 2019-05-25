@@ -24,3 +24,13 @@ h3 {
         }
     }
 }
+
+@media print {
+    .heading {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    .controls {
+        display: none;
+    }
+}

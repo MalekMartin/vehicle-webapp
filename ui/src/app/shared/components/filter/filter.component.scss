@@ -28,3 +28,9 @@
         padding-right: 8px;
     }
 }
+
+@media print {
+    :host {
+        display: none;
+    }
+}

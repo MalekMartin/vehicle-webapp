@@ -66,3 +66,12 @@
         }
     }
 }
+
+@media print {
+    .wrapper {
+        border: 1px solid #ccc;
+    }
+    .menu {
+        display: none;
+    }
+}

@@ -11,13 +11,15 @@
                 <va-tire-properties [state]="propState"
                     (delete)="deleteProperty($event)"
                     (edit)="editProperty($event)"></va-tire-properties>
-                </ng-container>
+            </ng-container>
         </div>
         <div class="col-md-8">
             <ng-container *ngIf="(tireState | async) as tireState">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>Aktuálně používané</h3>
+                        <va-section-heading>
+                            <va-section-heading-title>Aktuálně používané</va-section-heading-title>
+                        </va-section-heading>
                         <ng-container *ngIf="!tireState.loading; else loadingActiveRef">
                             <div *ngFor="let tire of tireState.tires | tireStatusFilter: 'ACTIVE'">
                                 <va-tire-card [tire]="tire" (selected)="select($event)"
@@ -57,7 +59,9 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>Smetiště</h3>
+                            <va-section-heading>
+                                <va-section-heading-title>Smetiště</va-section-heading-title>
+                            </va-section-heading>
                         <div class="trash" *ngIf="!tireState.loading; else loadingTrashRef">
                             <ng-container *ngFor="let tire of tireState.tires | tireStatusFilter: 'TRASH'">
                                 <va-tire-card [tire]="tire" (selected)="select($event)"

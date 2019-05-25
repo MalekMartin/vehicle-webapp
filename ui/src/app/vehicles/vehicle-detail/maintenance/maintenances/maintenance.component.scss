@@ -70,3 +70,13 @@ va-filter {
         padding-right: 8px;
     }
 }
+
+@media print {
+    .actions {
+        display: none;
+    }
+
+    va-filter {
+        display: none;
+    }
+}

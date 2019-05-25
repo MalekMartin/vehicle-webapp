@@ -8,3 +8,13 @@
         height: calc(100vh - 50px);
     }
 }
+
+@media print {
+    va-top-menu {
+        display: none;
+    }
+    .main-content {
+        height: auto;
+        overflow: auto;
+    }
+}
