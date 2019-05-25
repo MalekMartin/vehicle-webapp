@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 
 @Component({
     selector: 'va-fuel-add',
@@ -19,11 +20,18 @@ export class FuelAddComponent implements OnInit, OnDestroy {
     constructor(
         private _fuelService: FuelService,
         public dialogRef: MatDialogRef<FuelAddComponent>,
-        private _toastr: ToastsManager
+        private _toastr: ToastsManager,
+        private _vehicleService: VehicleService
     ) {}
 
     ngOnInit() {
         this.fuelForm.form.get('date').setValue(new Date());
+        this._vehicleService.state
+            .select(s => s.vehicle)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                this.fuelForm.form.get('vehicleId').setValue(v.info.id);
+            });
     }
 
     ngOnDestroy() {
@@ -39,9 +47,9 @@ export class FuelAddComponent implements OnInit, OnDestroy {
     private _onSuccess = () => {
         this._toastr.success('Tankování bylo uloženo', 'Hotovo');
         this.dialogRef.close('DONE');
-    }
+    };
 
     private _onError = () => {
         this._toastr.error('Tankování se nepodařilo uložit', 'Chyba');
-    }
+    };
 }
