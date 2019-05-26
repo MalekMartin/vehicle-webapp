@@ -1,0 +1,10 @@
+va-maintenance-card {
+    display: block;
+    margin-bottom: 5px;
+}
+
+@media print {
+    a {
+        display: none;
+    }
+}

@@ -49,3 +49,10 @@ $app->get('/resource/maintenance/{vehicleId}/expired', function (Request $reques
     $m = $mapper->getExpiredCount($args['vehicleId']);
     return $response->withJson($m);
 });
+
+$app->get('/resource/maintenance/{vehicleId}/all', function (Request $request, Response $response, $args) {
+    $this->logger->addInfo("Get all maintenances");
+    $mapper = new Maintenance($this->db, $this->jwt->uid);
+    $m = $mapper->getAllMaintenances($args['vehicleId']);
+    return $response->withJson($m);
+});

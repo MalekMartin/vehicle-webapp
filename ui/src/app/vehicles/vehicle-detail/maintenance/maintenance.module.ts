@@ -29,11 +29,11 @@ import { MaintenanceWrapperComponent } from './maintenance-wrapper.component';
 import { MaintenancePipe } from './maintenance.pipe';
 import { maintenanceRoutes } from './maintenance.routes';
 import { MaintenanceAddComponent } from './maintenances/maintenance-add/maintenance-add.component';
-import { MaintenanceCardComponent } from './maintenances/maintenance-card/maintenance-card.component';
 import { MaintenanceDoneComponent } from './maintenances/maintenance-done/maintenance-done.component';
 import { MaintenanceEditComponent } from './maintenances/maintenance-edit/maintenance-edit.component';
 import { MaintenaceFormComponent } from './maintenances/maintenance-form/maintenance-form.component';
 import { MaintenanceComponent } from './maintenances/maintenance.component';
+import { MaintenanceCardModule } from './maintenances/maintenance-card/maintenance-card.module';
 
 const MODULES = [
     CommonModule,
@@ -58,13 +58,13 @@ const MODULES = [
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
-    FilterModule
+    FilterModule,
+    MaintenanceCardModule
 ];
 
 const COMPONENTS = [
     MaintenanceComponent,
     MaintenaceFormComponent,
-    MaintenanceCardComponent,
     MaintenanceDoneComponent,
     MaintenanceWrapperComponent,
     MaintenanceAddComponent,

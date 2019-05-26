@@ -5,7 +5,8 @@
             <va-section-heading-title>Nastavené intervaly</va-section-heading-title>
             <va-section-heading-controls>
                 <a *ngIf="canRunInterval" (click)="runInterval()">spustit</a>
-                <a>Tisk</a>
+                <a [routerLink]="['/vehicle', vehicleId, 'maintenance', 'print']"
+                    skipLocationChange>Tisk</a>
             </va-section-heading-controls>
         </va-section-heading>
 

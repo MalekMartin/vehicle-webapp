@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
@@ -10,7 +9,6 @@ import { Interval } from '../../../shared/api/maintenance/interval.interface';
 import { Maintenance } from '../../../shared/api/maintenance/maintenance.interface';
 import { MaintenanceService } from '../../../shared/api/maintenance/maintenance.service';
 import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { Page } from '../../../utils/pageable';
 import { MaintenanceAddComponent } from './maintenances/maintenance-add/maintenance-add.component';
 import { MaintenanceDoneComponent } from './maintenances/maintenance-done/maintenance-done.component';
 import { MaintenanceEditComponent } from './maintenances/maintenance-edit/maintenance-edit.component';
@@ -21,18 +19,9 @@ import { IntervalAddComponent } from './intervals/interval-add/interval-add.comp
     templateUrl: 'maintenance-wrapper.component.html'
 })
 export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
-    @ViewChild('modal') modal: ModalDirective;
-
     vehicleId: string;
-    action: 'NEW' | 'FINISH' | 'INTERVAL' = null;
     intervals: Interval[];
     selection: Maintenance[];
-
-    form = this._fb.group({
-        status: [''],
-        interval: ['']
-    });
-
     maintenances: Maintenance[];
     selectedMaintenance: Maintenance;
 
@@ -113,15 +102,6 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
             .subscribe(this._onMaintenanceFinished);
     }
 
-    closeModal() {
-        this.selectedMaintenance = null;
-        this.modal.hide();
-    }
-
-    clearAction() {
-        this.action = null;
-    }
-
     fetchCurrentPage() {
         this._service.fetchCurrentPage().subscribe();
     }
@@ -141,10 +121,6 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
             });
     }
 
-    private _handleNewContent = (m: Page<Maintenance>) => {
-        this._service.maintenanceSubject.next(m);
-    };
-
     private _handleIntervals = (i: Interval[]) => {
         this.intervals = i;
         this._service.intervalsSubject.next(i);
@@ -160,8 +136,6 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
     private _onMaintenanceFinished = repairId => {
         if (!!repairId) {
             this.fetchCurrentPage();
-
-            this.action = null;
             this._confirm.dialog
                 .title('Přejít na servisní práce')
                 .message('Přeješ si přejít na detail vytvořené servisní práce?')

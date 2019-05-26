@@ -13,6 +13,7 @@
             <div class="flex-1">
                 <span class="title">{{maintenance.interval.name}}</span>
                 <span *ngIf="maintenance.status === 'DONE'" class="flag-done">DOKONČENO</span>
+                <span *ngIf="maintenance.status === 'IN_PROGRESS'" class="flag-in-progress">PROBÍHÁ</span>
                 <span *ngIf="maintenance.status === 'CANCELED'" class="flag-canceled">ZRUŠENO</span>
                 <a *ngIf="maintenance.repairId"
                     matTooltip="Servicní práce"
@@ -24,7 +25,7 @@
         </div>
     </va-card-title>
 
-    <va-card-menu *ngIf="canEdit">
+    <va-card-menu *ngIf="canEdit && showMenu">
         <div class="flex-0">
             <div class="btn-group" dropdown>
                 <i id="maintenance-button" class="icon-menu-dots" dropdownToggle></i>

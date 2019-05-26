@@ -46,7 +46,7 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
     ];
 
     form = this._fb.group({
-        status: [''],
+        status: ['IN_PROGRESS'],
         interval: ['']
     });
 
@@ -57,8 +57,7 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
         private _fb: FormBuilder,
         private _confirm: ConfirmDialogService,
         private _toastr: ToastsManager,
-        private _vehicles: VehicleService,
-        private _dialog: MatDialog
+        private _vehicles: VehicleService
     ) {}
 
     ngOnInit() {
@@ -68,7 +67,8 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
             this.setFilters();
         }
 
-        this._maintenance.maintenanceSubject
+        this._maintenance.state
+            .select(s => s.maintenances)
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._handleNewContent);
 
@@ -249,10 +249,11 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
     };
 
     private _handleNewContent = (m: Page<Maintenance>) => {
-        this.maintenances = m.content.map(v => {
-            const index = this.selected.findIndex(s => s.id === v.id);
-            return { ...v, selected: index > -1 ? true : false };
-        });
+        this.maintenances = !!m
+            ? m.content.map(v => {
+                  return { ...v, selected: !!this.selected.find(s => s.id === v.id) };
+              })
+            : [];
     };
 }
 

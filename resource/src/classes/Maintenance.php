@@ -89,6 +89,28 @@ class Maintenance {
         return $query->fetchAll();
     }
 
+    private function _findAllMaintenances($id) {
+        $query = $this->db->prepare('SELECT maintenance.id AS mId, maintenance.odo AS mOdo, maintenance.odo2 AS mOdo2, maintenance.`date`, maintenance.notes,
+        status, price, intervals.id AS iId, intervals.name, intervals.odo AS iOdo, intervals.odo2 AS iOdo2, intervals.months,
+        intervals.note, maintenance.vehicleId, maintenance.odoDone, maintenance.odo2Done, maintenance.dateDone,
+        (SELECT MAX(odo) FROM fuel WHERE vehicleId = ?) AS currentOdo,
+        (SELECT MAX(odo2) FROM fuel WHERE vehicleId = ?) AS currentOdo2,
+        repair.id AS repairId, repair.title AS repairTitle
+        FROM maintenance
+        JOIN intervals ON maintenance.intervalId = intervals.id
+        LEFT JOIN repair ON maintenance.repairId = repair.id
+        WHERE maintenance.vehicleId = ?
+        AND maintenance.userId = ? ORDER BY maintenance.`date` DESC, maintenance.id DESC');
+        $query->execute(array($id, $id, $id, $this->uid));
+
+        return $query->fetchAll();
+    }
+
+    public function getAllMaintenances($id) {
+        $data = $this->_findAllMaintenances($id);
+        return $this->_assembleMaintenance($data);
+    }
+
     public function getMaintenancesByRepairId($vehicleId, $repairId) {
         $data = $this->_findMaintenanceByRepairId($vehicleId, $repairId);
         return !!$data && !!count($data) ? $this->_assembleMaintenance($data) : [];

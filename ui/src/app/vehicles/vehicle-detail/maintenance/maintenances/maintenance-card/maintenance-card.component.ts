@@ -27,6 +27,7 @@ export class MaintenanceCardComponent implements OnInit, OnDestroy {
         this._showCheckbox = v;
         this.checkboxState = v ? 'opened' : 'closed';
     }
+    @Input() showMenu = true;
 
     @Output() canceled = new EventEmitter();
 
