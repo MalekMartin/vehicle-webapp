@@ -1,9 +1,14 @@
 <div class="wrapper">
 
-    <div class="chart-wrapper" *ngIf="!!data && data.length">
-        <ngx-charts-line-chart
+    <div class="chart-toggle">
+        <span class="switch" (click)="changeChart('FUEL')">Tankování</span>
+        <span class="switch" (click)="changeChart('MILEAGE')">Nájezd</span>
+    </div>
+
+    <div class="chart-wrapper">
+        <ngx-charts-line-chart *ngIf="!!mileageData && chart === 'MILEAGE'"
             [scheme]="colorScheme"
-            [results]="data"
+            [results]="mileageData"
             [gradient]="gradient"
             [xAxis]="showXAxis"
             [yAxis]="showYAxis"
@@ -14,6 +19,19 @@
             [yAxisLabel]="yAxisLabel"
             [autoScale]="autoScale">
         </ngx-charts-line-chart>
+
+        <ngx-charts-bar-vertical-2d *ngIf="!!fuelData && !!fuelData.length && chart === 'FUEL'"
+            [scheme]="colorScheme"
+            [results]="fuelData"
+            [gradient]="false"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="true"
+            [showXAxisLabel]="false"
+            [showYAxisLabel]="true"
+            xAxisLabel="Období"
+            yAxisLabel="Natankované množství">
+        </ngx-charts-bar-vertical-2d>
     </div>
 
     <div *ngIf="!!stats">

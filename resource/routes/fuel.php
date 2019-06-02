@@ -46,6 +46,14 @@ $app->get('/resource/fuelings/{id}/mileage-stats', function (Request $request, R
     return $response->withJson($fuelings);
 });
 
+$app->get('/resource/fuelings/{id}/fuel-stats', function (Request $request, Response $response, $args) {
+    $this->logger->addInfo("Get fuel stats for vehicle id - " . $args['id']);
+    $mapper = new Fuel($this->db, $args['id'], $this->jwt->uid);
+    $limit = isset($_GET['limit']) && $_GET['limit'] >= 0 ? $_GET['limit'] : 12;
+    $fuelings = $mapper->getFuelStats($args['id'], $limit);
+    return $response->withJson($fuelings);
+});
+
 $app->post('/resource/fuelings/delete', function (Request $request, Response $response) {
     $this->logger->addInfo("Fueling delete");
     $d = json_decode(file_get_contents('php://input'));

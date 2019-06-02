@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { forkJoin, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { forkJoin, Subject, of } from 'rxjs';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
 
@@ -32,37 +32,34 @@ export class StatusCardComponent implements OnInit, OnDestroy {
     constructor(private _vehicles: VehicleService, private _fuel: FuelService) {}
 
     ngOnInit() {
-        forkJoin(
-            this._fuel.annualMileages(this._vehicles.state.snapshot.vehicle.info.id),
-            this._fuel.currentMileage(this._vehicles.state.snapshot.vehicle.info.id)
-        )
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(this._onSuccess);
-
         this._vehicles.state
             .select(s => s.vehicle.info)
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(i => {
-                this.units = i.units;
-                this.units2 = i.subUnits;
-            });
+            .pipe(
+                switchMap(info => {
+                    return forkJoin(
+                        this._fuel.annualMileages(info.id),
+                        this._fuel.currentMileage(info.id),
+                        of(info)
+                    )
+                }),
+                takeUntil(this._onDestroy$)
+            )
+            .subscribe(this._onSuccess);
     }
 
     ngOnDestroy() {
         this._onDestroy$.next();
     }
 
-    onSelect(data: any) {
-        // TODO
-    }
+    private _onSuccess = ([annutalMielages, currentMileage, info]) => {
+        this.units = info.units;
+        this.units2 = info.subUnits;
+        this.odo = currentMileage.odo;
+        this.odo2 = currentMileage.odo2;
+        this.originalOdo = currentMileage.originalOdo;
+        this.originalOdo2 = currentMileage.originalOdo2;
 
-    private _onSuccess = val => {
-        this.odo = val[1].odo;
-        this.odo2 = val[1].odo2;
-        this.originalOdo = val[1].originalOdo;
-        this.originalOdo2 = val[1].originalOdo2;
-
-        this.annualMileages = val[0];
+        this.annualMileages = annutalMielages;
 
         this.data = !!this.units2
             ? this._buildDataForAllUnits(this.annualMileages)

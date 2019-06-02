@@ -67,4 +67,9 @@ export class FuelService extends Pageable<Fuel> {
         return this._http
             .get(`resource/fuelings/${id}/mileage-stats`);
     }
+
+    fuelStats(id: string, limit: number): Observable<MultiStatsModel[]> {
+        return this._http
+            .get(`resource/fuelings/${id}/fuel-stats?limit=${limit}`);
+    }
 }

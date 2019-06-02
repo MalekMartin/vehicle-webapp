@@ -435,6 +435,35 @@ class Fuel {
         return array_reverse($data);
     }
 
+    private function _getFuelStats($vehicleId) {
+        $query = $this->db->prepare('SELECT SUM(quantity) as quantity, SUM(price) as price, MONTH(date) as month, YEAR(date) as year
+            FROM `fuel`
+            WHERE vehicleId = ?
+            GROUP BY month, year
+            ORDER BY year DESC, month DESC');
+        $query->execute(array($vehicleId));
+        return $query->fetchAll();
+    }
+
+    public function getFuelStats($vehicleId, $limit) {        
+        $data = $this->_getFuelStats($vehicleId);
+
+        $data = array_slice($data, 0, $limit);
+        $data = array_reverse($data);
+
+        $series = [];
+        foreach($data as $d) {
+            $series[] = array(
+                'name' => $d['year'].'/'. ($d['month'] > 9 ? $d['month'] : '0'.$d['month']),
+                'series' => [array(
+                    'name' => 'litry',
+                    'value' => round(intval($d['quantity']), 2)
+                )]
+            );
+        }
+        return $series;
+    }
+
     public function getMileageStats($id) {
         $units = $this->getUnits($id);
 

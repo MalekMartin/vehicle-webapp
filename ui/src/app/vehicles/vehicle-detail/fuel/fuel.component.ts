@@ -21,7 +21,8 @@ export class FuelComponent implements OnInit, OnDestroy {
     vehicleId: string;
     selectedFueling: Fuel;
     statistics: any;
-    mileages: any;
+    mileages: MultiStatsModel[];
+    fuelStats: MultiStatsModel[]
 
     fuelings: Fuel[];
     isLoading = false;
@@ -51,13 +52,15 @@ export class FuelComponent implements OnInit, OnDestroy {
         forkJoin(
             this._service.fetchCurrentPage(),
             this._service.stats(this.vehicleId),
-            this._service.mileageStats(this.vehicleId)
+            this._service.mileageStats(this.vehicleId),
+            this._service.fuelStats(this.vehicleId, 12)
         )
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(([fuel, stats, mileageStats]) => {
+            .subscribe(([fuel, stats, mileageStats, fuelStats]) => {
                 this.fuelings = fuel.content;
                 this.statistics = stats;
                 this.mileages = mileageStats;
+                this.fuelStats = fuelStats;
                 this._service.resetPage();
                 this.isLoading = false;
             }, () => {

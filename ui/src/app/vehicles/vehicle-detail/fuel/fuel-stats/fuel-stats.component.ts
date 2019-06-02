@@ -15,14 +15,18 @@ export class FuelStatsComponent implements OnInit, OnDestroy {
     loading = true;
     loadingError = false;
 
+    chart: FuelChartType = 'FUEL';
+
     @Input() set stats(value: any) {
         this._stats = value;
     }
 
     @Input() set mileages(value: MultiStatsModel[]) {
-        if (value) {
-            this.data = value;
-        }
+        this.mileageData = !!value ? value : null;
+    }
+
+    @Input() set fuelStats(value: MultiStatsModel) {
+        this.fuelData = !!value ? value : null;
     }
 
     view: any[] = [700, 400];
@@ -44,7 +48,8 @@ export class FuelStatsComponent implements OnInit, OnDestroy {
     // line, area
     autoScale = true;
 
-    data: MultiStatsModel[];
+    fuelData: MultiStatsModel;
+    mileageData: MultiStatsModel[];
 
     private _stats: any;
     private _fuelings: Fuel[] = [];
@@ -66,4 +71,10 @@ export class FuelStatsComponent implements OnInit, OnDestroy {
     get stats() {
         return this._stats;
     }
+
+    changeChart(type: FuelChartType) {
+        this.chart = type;
+    }
 }
+
+type FuelChartType = 'FUEL' | 'MILEAGE';
