@@ -112,7 +112,7 @@ va-card-left {
     }
 }
 
-va-card /deep/ {
+va-card ::ng-deep {
     .left-part {
         display: flex;
     }

@@ -100,7 +100,7 @@
     }
 }
 
-:host /deep/ {
+:host ::ng-deep {
     va-card-left {
         display: flex;
     }

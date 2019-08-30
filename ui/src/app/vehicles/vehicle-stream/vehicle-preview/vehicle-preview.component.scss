@@ -85,7 +85,7 @@ va-card-content {
         
 }
 
-:host /deep/ {
+:host ::ng-deep {
     va-card {
         .wrapper {
             padding: 0;

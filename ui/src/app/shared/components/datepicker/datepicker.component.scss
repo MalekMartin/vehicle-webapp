@@ -27,7 +27,7 @@ ul {
     left: auto;
 }
 
-:host /deep/ {
+:host ::ng-deep {
     datepicker {
 
         datepicker-inner {
