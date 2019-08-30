@@ -1,24 +1,18 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ToastsManager } from 'ng6-toastr';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { VehicleInfo } from '../../../vehicle-stream/vehicle';
+import { Settings, SettingsService } from '../settings.service';
 
 @Component({
     selector: 'va-settings-form',
     templateUrl: 'settings-form.component.html',
     styleUrls: ['./settings-form.component.scss']
 })
-
-export class SettingsFormComponent implements OnInit {
-
-    // @Input() set model(m: any) {
-    //     this.form.setValue({
-    //         vehicleId: m.vehicleId,
-    //         units: m.units,
-    //         subUnits: m.subUnits,
-    //         tankCapacity: m.tankCapacity
-    //     });
-    // }
-
+export class SettingsFormComponent implements OnInit, OnDestroy {
     @Output() saved = new EventEmitter();
     @Output() canceled = new EventEmitter();
 
@@ -29,28 +23,42 @@ export class SettingsFormComponent implements OnInit {
         tankCapacity: ['']
     });
 
-    constructor(private _fb: FormBuilder,
-                private _vehicles: VehicleService) { }
+    private _onDestroy$ = new Subject();
+
+    constructor(
+        private _fb: FormBuilder,
+        private _settingsService: SettingsService,
+        private _toastr: ToastsManager,
+        private _dialogRef: MatDialogRef<SettingsFormComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: VehicleInfo
+    ) {}
 
     ngOnInit() {
-        this.form.setValue(this._remapInfo());
+        this.form.setValue({
+            vehicleId: this.data.info.id,
+            units: this.data.info.units,
+            subUnits: this.data.info.subUnits,
+            tankCapacity: this.data.info.tankCapacity
+        });
+    }
+
+    ngOnDestroy() {
+        this._onDestroy$.next();
     }
 
     save() {
-        this.saved.emit(this.form.value);
+        this._settingsService
+            .saveSettings(this.form.value)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._onSettingsSuccess, this._onSettingsError);
     }
 
-    cancel() {
-        this.canceled.emit();
-    }
+    private _onSettingsSuccess = (res: Settings) => {
+        this._toastr.success('Nastavení bylo uloženo', 'Hotovo');
+        this._dialogRef.close(res);
+    };
 
-    private _remapInfo() {
-        const i = this._vehicles.activeVehicle.info;
-        return {
-            vehicleId: i.id,
-            units: i.units,
-            subUnits: i.subUnits,
-            tankCapacity: i.tankCapacity
-        };
-    }
+    private _onSettingsError = () => {
+        this._toastr.error('Nastavení nebylo uloženo', 'Chyba!');
+    };
 }

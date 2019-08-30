@@ -2,39 +2,31 @@
     <div class="col-sm-12">
 
         <div class="header">
-            <h1 class="text-center">Přehled vozidel</h1>
+            <h1>Přehled vozidel</h1>
             <div class="spacer"></div>
             <div class="search">
-                <input type="text" class="form-control" placeholder="Hledat..." [formControl]="query">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Hledat..." [formControl]="query">
+                </mat-form-field>
             </div>
         </div>
-        
+
         <div class="actions">
             <a href="" (click)="addVehicle($event)">Přidat vozidlo</a>
         </div>
+        <div *ngIf="(state | async) as s">
+            <mat-grid-list [cols]="gridCols" rowHeight="4:3" gutterSize="5px">
+                <mat-grid-tile *ngFor="let vehicle of s.vehicles | vehicleFilter: filter">
+                    <a [routerLink]="['/vehicle', vehicle.id, 'fuel']" class="card">
+                        <va-vehicle-card
+                            [vehicle]="vehicle" (deleted)="onDelete($event)"></va-vehicle-card>
+                        <mat-grid-tile-footer>{{vehicle.brand}} {{vehicle.model}}</mat-grid-tile-footer>
+                    </a>
+                </mat-grid-tile>
+            </mat-grid-list>
 
-        <div *ngIf="vehicles" class="vehicle-cards">
-            <va-vehicle-card *ngFor="let vehicle of vehicles | vehicleFilter: filter"
-                [vehicle]="vehicle" (deleted)="onDelete($event)"></va-vehicle-card>
-        </div>
-    </div>
-</div>
-
-<div bsModal #modal="bs-modal" class="modal fade"
-    tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
-    (onHidden)="closeModal()">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="closeModal()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">
-                    Přidat nové vozidlo
-                </h4>
-            </div>
-            <div class="modal-body">
-                <va-vehicle-add (saved)="onSave($event)" (canceled)="closeModal()"></va-vehicle-add>
+            <div *ngIf="s.loading">
+                Loading vehicles...
             </div>
         </div>
     </div>

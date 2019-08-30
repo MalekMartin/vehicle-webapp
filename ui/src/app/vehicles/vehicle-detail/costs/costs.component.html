@@ -3,24 +3,10 @@
         <va-section-heading>
             <va-section-heading-title>Náklady</va-section-heading-title>
             <va-section-heading-controls>
-                <a [routerLink]="['./', { outlets: {'popup':['m','add', vehicleId]}}]">Přidat</a>
+                <a href="" (click)="addCosts($event)">Přidat</a>
                 <a (click)="categorySettings()">Kategorie</a>
             </va-section-heading-controls>
         </va-section-heading>
-
-        <form [formGroup]="form">
-            <div class="filter">
-                <input class="form-control" formControlName="query" placeholder="hledat...">
-            </div>
-
-            <div class="filter">
-                <select id="categiry" class="form-control" formControlName="category">
-                    <option value="">všechny kategorie</option>
-                    <option *ngFor="let category of categories"
-                        [value]="category.id">{{category.title}}</option> 
-                </select>
-            </div>
-        </form>
 
         <div class="costs-content">
 
@@ -28,21 +14,36 @@
                 <i class="icon-refresh spin"></i>
             </div>
 
-            <div class="costs" *ngIf="!!costs">
+            <div>
+                <va-filter title="Filtr">
+                    <form [formGroup]="form">
+                        <div class="row">
+                            <mat-form-field class="col-sm-6 col-xs-12">
+                                <i matPrefix class="icon-search"></i>
+                                <input matInput formControlName="query" placeholder="Hledat...">
+                            </mat-form-field>
+                            <mat-form-field class="col-sm-6 col-xs-12">
+                                <mat-select id="categiry" formControlName="category">
+                                    <mat-option value="">všechny kategorie</mat-option>
+                                    <mat-option *ngFor="let category of categories"
+                                        [value]="category.id">{{category.title}}</mat-option> 
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </va-filter>
 
-                <va-paginator [service]="costService"
-                    (selected)="fetchPage($event)"></va-paginator>
-
-                <div class="cost-cards">
-                    <va-cost-card *ngFor="let cost of costs"
+                <div *ngIf="!!costs" class="cost-cards">
+                    <va-cost-card *ngFor="let cost of costs.content"
                         [cost]="cost"
-                        (deleted)="onDeleted()"></va-cost-card>
+                        (edit)="editCosts($event)"
+                        (delete)="confirmDelete($event)"></va-cost-card>
                 </div>
 
-                <va-paginator [service]="costService"
+                <va-paginator *ngIf="!!costs" [service]="costService"
                     (selected)="fetchPage($event)"></va-paginator>
             </div>
-            <div *ngIf="(!costs || costs.length < 1) && !loading">
+            <div *ngIf="(!costs || costs.content.length < 1) && !loading">
                 Nebyly nalezeny žádné záznamy.
             </div>
         </div>
@@ -52,23 +53,4 @@
         <h3>Statistiky</h3>
         <va-cost-stats [vehicleId]="vehicleId" [categories]="categories"></va-cost-stats>
     </div>
-</div>
-
-<router-outlet (deactivate)="fetchCurrentPage()" name="popup"></router-outlet>
-
-<div bsModal #formModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" (click)="close()" aria-label="Close">
-          <span aria-hidden="true"><i class="icon-clear"></i></span>
-        </button>
-        <h4 class="modal-title">{{modalTitle}}</h4>
-      </div>
-      <div class="modal-body">
-          <va-cost-category-form *ngIf="modalBody === 'category'"
-                (closeClicked)="close()"></va-cost-category-form>
-      </div>
-    </div>
-  </div>
 </div>

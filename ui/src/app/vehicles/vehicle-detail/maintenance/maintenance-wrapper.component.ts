@@ -1,148 +1,153 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MaintenanceService } from '../../../shared/api/maintenance/maintenance.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
-import { Page } from '../../../utils/pageable';
-import { Maintenance } from '../../../shared/api/maintenance/maintenance.interface';
-import { Subscription } from 'rxjs';
 import { Interval } from '../../../shared/api/maintenance/interval.interface';
-import { ModalDirective } from 'ngx-bootstrap';
+import { Maintenance } from '../../../shared/api/maintenance/maintenance.interface';
+import { MaintenanceService } from '../../../shared/api/maintenance/maintenance.service';
+import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
+import { MaintenanceAddComponent } from './maintenances/maintenance-add/maintenance-add.component';
+import { MaintenanceDoneComponent } from './maintenances/maintenance-done/maintenance-done.component';
+import { MaintenanceEditComponent } from './maintenances/maintenance-edit/maintenance-edit.component';
+import { IntervalAddComponent } from './intervals/interval-add/interval-add.component';
 
 @Component({
     selector: 'va-maintenance-wrapper',
     templateUrl: 'maintenance-wrapper.component.html'
 })
-
 export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
-
-    @ViewChild('modal') modal: ModalDirective;
-
     vehicleId: string;
-    action: 'NEW' | 'FINISH' | 'INTERVAL' = null;
     intervals: Interval[];
     selection: Maintenance[];
-
-    form = this._fb.group({
-        status: [''],
-        interval: ['']
-    });
-
     maintenances: Maintenance[];
     selectedMaintenance: Maintenance;
 
-    private _selectedStatusSubs: Subscription;
-    private _maintenanceSubs: Subscription;
+    private _onDestroy$ = new Subject();
 
-    constructor(private _service: MaintenanceService,
-                private _route: ActivatedRoute,
-                private _fb: FormBuilder,
-                private _confirm: ConfirmDialogService,
-                private _toastr: ToastsManager,
-                private _router: Router,
-                private _vehicles: VehicleService) { }
+    constructor(
+        private _service: MaintenanceService,
+        private _fb: FormBuilder,
+        private _confirm: ConfirmDialogService,
+        private _router: Router,
+        private _vehicles: VehicleService,
+        private _dialog: MatDialog
+    ) {}
 
     ngOnInit() {
         this._service.pageSize = 5;
 
-        this.vehicleId = this._vehicles.vehicleId;
+        this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
         if (!!this.vehicleId) {
             this._service.vehicleId = this.vehicleId;
             this.refreshIntervals(this.vehicleId);
-            this._maintenanceSubs = this._service.fetchCurrentPage().subscribe();
+            this.fetchCurrentPage();
         }
     }
 
     ngOnDestroy() {
-        if (this._maintenanceSubs) {
-            this._maintenanceSubs.unsubscribe();
-        }
+        this._onDestroy$.next();
     }
 
-    get hasNonActiveIntervals(): boolean {
-        return this.intervals
-                    ? this.intervals.filter(i => {
-                            return i.inProgress === false;
-                        })
-                        .length > 0
-                    : false;
+    get canRunInterval(): boolean {
+        return !!this.intervals && !!this.intervals.find(i => !i.inProgress);
     }
 
-    refreshIntervals(id: string) {
-        this._service.getIntervals(id)
+    refreshIntervals(vehicleId: string) {
+        this._service
+            .getIntervals(vehicleId)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._handleIntervals);
     }
 
     refreshAll() {
-        this._maintenanceSubs = this._service.fetchCurrentPage().subscribe();
+        this.fetchCurrentPage();
         this.refreshIntervals(this.vehicleId);
     }
 
-    openNewDialog() {
-        this.action = 'NEW';
-        this.modal.show();
+    runInterval() {
+        this._dialog
+            .open(MaintenanceAddComponent, {
+                width: '600px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._maintenanceAdded);
     }
 
     openAddInterval() {
-        this.action = 'INTERVAL';
-        this._service.intervalSubject.next(this._service.buildEmptyInterval(this.vehicleId));
-        this.modal.show();
-    }
-
-    openFinishDialog(m: {action: 'NEW' | 'FINISH' | 'INTERVAL'; maintenances: Maintenance[]}) {
-        this.action = m.action;
-        this.selection = m.maintenances;
-        this.modal.show();
-    }
-
-    closeModal() {
-        this.selectedMaintenance = null;
-        this.modal.hide();
-    }
-
-    clearAction() {
-        this.action = null;
-    }
-
-    addedMaintenance() {
-        this.modal.hide();
-        this._maintenanceSubs = this._service.fetchCurrentPage().subscribe();
-        this.refreshIntervals(this.vehicleId);
-    }
-
-    onUpdate(m: Maintenance) {
-        // this._service.intervalSubject.next(m);
-        this.selectedMaintenance = m;
-        this.action = 'NEW';
-        this.modal.show();
-    }
-
-    finished(repair) {
-        this.modal.hide();
-        this.action = null;
-        this._maintenanceSubs = this._service.fetchCurrentPage().subscribe();
-        // this.setAction(null);
-        this.action = null;
-        this._confirm.dialog
-            .title('Přejít na servisní práce')
-            .message('Přeješ si přejít na detail vytvořené servisní práce?')
-            .ok('Ano')
-            .cancel('Ne')
-            .subscribe((res) => {
-                if (res) {
-                    this._router.navigate(['/vehicle/' + this.vehicleId + '/repairs/' + repair]);
+        this._dialog
+            .open(IntervalAddComponent, {
+                width: '600px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(res => {
+                if (!!res) {
+                    this.refreshIntervals(this.vehicleId);
                 }
             });
     }
 
-    private _handleNewContent = (m: Page<Maintenance>) => {
-        this._service.maintenanceSubject.next(m);
+    finishMaintenance(m: Maintenance[]) {
+        this._dialog
+            .open(MaintenanceDoneComponent, {
+                width: '600px',
+                data: m
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._onMaintenanceFinished);
+    }
+
+    fetchCurrentPage() {
+        this._service.fetchCurrentPage().subscribe();
+    }
+
+    editMaintenance(maintenance: Maintenance) {
+        this._dialog
+            .open(MaintenanceEditComponent, {
+                width: '600px',
+                data: maintenance
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(res => {
+                if (!!res) {
+                    this.fetchCurrentPage();
+                }
+            });
     }
 
     private _handleIntervals = (i: Interval[]) => {
         this.intervals = i;
         this._service.intervalsSubject.next(i);
-    }
+    };
+
+    private _maintenanceAdded = res => {
+        if (!!res) {
+            this.fetchCurrentPage();
+            this.refreshIntervals(this.vehicleId);
+        }
+    };
+
+    private _onMaintenanceFinished = repairId => {
+        if (!!repairId) {
+            this.fetchCurrentPage();
+            this._confirm.dialog
+                .title('Přejít na servisní práce')
+                .message('Přeješ si přejít na detail vytvořené servisní práce?')
+                .ok('Ano')
+                .cancel('Ne')
+                .subscribe(res => {
+                    if (res) {
+                        this._router.navigate([
+                            '/vehicle/' + this.vehicleId + '/repairs/' + repairId
+                        ]);
+                    }
+                });
+        }
+    };
 }

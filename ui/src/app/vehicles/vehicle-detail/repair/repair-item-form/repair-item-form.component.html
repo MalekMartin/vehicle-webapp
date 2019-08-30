@@ -1,0 +1,28 @@
+<form [formGroup]="form" (submit)="form.valid && save()">
+    <div class="row">
+        <mat-form-field class="col-sm-12 col-xs-12">
+            <input matInput type="text" id="title" formControlName="title" placeholder="Název">
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-12 col-xs-12">
+            <mat-select type="text" id="type" formControlName="type" placeholder="Typ">
+                <mat-option [value]="'MATERIAL'">materiál</mat-option>
+                <mat-option [value]="'WORK'">práce</mat-option>
+                <mat-option [value]="'OTHER'">ostatní</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-12 col-xs-12">
+            <textarea matInput type="text" id="note" formControlName="note" placeholder="Poznámky"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="quantity" formControlName="quantity" placeholder="Množství">
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="priceNoTax" formControlName="priceNoTax"
+                [placeholder]="tax > 0 ? 'Cena bez DPH' : 'Cena'">
+        </mat-form-field>
+    </div>    
+</form>

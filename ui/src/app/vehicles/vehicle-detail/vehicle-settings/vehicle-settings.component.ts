@@ -1,13 +1,15 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { FileItem, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
+import { VehicleInfo } from '../../vehicle-stream/vehicle';
 import { VehicleImageService } from '../../vehicle-stream/vehicle-images.service';
+import { SettingsFormComponent } from './settings-form/settings-form.component';
 import { Settings, SettingsService } from './settings.service';
 
 @Component({
@@ -18,34 +20,26 @@ import { Settings, SettingsService } from './settings.service';
 export class VehicleSettingsComponent implements OnInit, OnDestroy {
     loading = false;
     isUploading = false;
-    visible = false;
-
+    vehicle: VehicleInfo;
     vehicleId: string;
     hasBaseDropZoneOver = false;
-
     settings: Settings;
+    units: string;
+    units2: string;
+    tankCapacity: number;
 
-    @ViewChild('formModal') formModal: ModalDirective;
-
-    _url = '/resource/file/new';
-    _token: string;
-
-    _maxFileSize = 6000000;
-
-    _options = {
-        maxFileSize: this._maxFileSize,
+    url = '/resource/file/new';
+    maxFileSize = 6000000;
+    options = {
+        maxFileSize: this.maxFileSize,
         method: 'post',
         removeAfterUpload: true,
-        url: this._url,
+        url: this.url,
         autoUpload: true,
         headers: [{ name: 'Authorization', value: 'Bearer ' + this._auth.accessToken }]
     };
 
-    uploader = new FileUploader(this._options);
-
-    units: string;
-    units2: string;
-    tankCapacity: number;
+    uploader = new FileUploader(this.options);
 
     private _onDestroy$ = new Subject();
 
@@ -55,14 +49,15 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
         private _toastr: ToastsManager,
         private _auth: AuthService,
         private _images: VehicleImageService,
-        private _vehicles: VehicleService
+        private _vehicles: VehicleService,
+        private _dialog: MatDialog
     ) {
         this.uploader.onWhenAddingFileFailed = (item, filter, options) => {
             this.isUploading = false;
             if (filter.name === 'fileSize') {
                 this._toastr.error(
                     'Překročil jsi povolenou maximální velikost souboru (' +
-                        (this._maxFileSize / (1024 * 1024)).toFixed(2) +
+                        (this.maxFileSize / (1024 * 1024)).toFixed(2) +
                         'MB).',
                     'Soubor je příliš velký!'
                 );
@@ -99,6 +94,7 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
                 if (!!v) {
+                    this.vehicle = v;
                     this.units = v.info.units;
                     this.units2 = v.info.subUnits;
                     this.tankCapacity = v.info.tankCapacity;
@@ -131,20 +127,17 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
     }
 
     edit() {
-        this.visible = true;
-        this.formModal.show();
-    }
-
-    onSave(model: Settings) {
-        this._settings
-            .saveSettings(model)
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(this._onSettingsSuccess);
-    }
-
-    onCancel() {
-        this.formModal.hide();
-        this.visible = false;
+        this._dialog
+            .open(SettingsFormComponent, {
+                width: '600px',
+                data: this.vehicle
+            })
+            .afterClosed()
+            .subscribe(v => {
+                if (!!v) {
+                    this.updateVehicleInfo(v);
+                }
+            });
     }
 
     private _onImageDeleteSuccess = () => {
@@ -155,17 +148,15 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
         this._toastr.error('Obrázek se nepodařilo smazat.', 'Chyba!');
     };
 
-    private _onSettingsSuccess = (res: Settings) => {
-        this._toastr.success('Nastavení bylo uloženo');
-        this.formModal.hide();
-        this.visible = false;
-        this.getVehicleInfo();
-    };
-
-    private getVehicleInfo() {
-        this._vehicles
-            .getInfo(this.vehicleId)
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe();
+    private updateVehicleInfo(v: Settings) {
+        this._vehicles.state.update(f => f.replaceVehicle, {
+            ...this.vehicle,
+            info: {
+                ...this.vehicle.info,
+                units: v.units,
+                subUnits: v.subUnits,
+                tankCapacity: v.tankCapacity
+            }
+        });
     }
 }

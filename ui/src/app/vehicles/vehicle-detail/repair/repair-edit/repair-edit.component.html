@@ -1,0 +1,9 @@
+<h3 mat-dialog-title>Přidat servisní práci</h3>
+<mat-dialog-content>
+    <va-repair-form #formRef (hideDialog)="close()"></va-repair-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Zavřít</button>
+    <button mat-flat-button color="primary" [disabled]="formRef.form.invalid"
+        (click)="formRef.form.valid && save()">Uložit</button>
+</mat-dialog-actions>

@@ -107,5 +107,6 @@ require "../../routes/maintenance.php";
 require "../../routes/garage.php";
 require "../../routes/repair.php";
 require "../../routes/event.php";
+require "../../routes/manuals.php";
 
 $app->run();

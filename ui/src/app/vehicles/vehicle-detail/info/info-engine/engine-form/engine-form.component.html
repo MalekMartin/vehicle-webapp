@@ -1,0 +1,96 @@
+<h3 mat-dialog-title>Motor</h3>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="row">
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="number" id="displacement" formControlName="displacement"
+                    placeholder="Obsah (ccm)">
+                <mat-error *ngIf="form.get('displacement').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="number" id="cylinders" formControlName="cylinders"
+                    placeholder="Počet válců">
+                <mat-error *ngIf="form.get('cylinders').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="number" id="power" formControlName="power" placeholder="Výkon (kW)">
+                <mat-error *ngIf="form.get('power').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="number" id="transmission" formControlName="transmission" placeholder="Rychlostní stupně">
+                <mat-error *ngIf="form.get('transmission').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-6 col-xs-12">
+                <mat-select id="engineType" formControlName="engineType" placeholder="Typ motoru">
+                    <mat-option value="2T">2-taktní</mat-option>
+                    <mat-option value="4T">4-taktní</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('engineType').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6 col-xs-12">
+                <mat-select id="transmissionType" formControlName="transmissionType"
+                    placeholder="Převodovka">
+                    <mat-option value="MANUAL">manuální</mat-option>
+                    <mat-option value="AUTOMATIC">automatická</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('transmissionType').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-6 col-xs-12">
+                    <mat-select id="fuel" formControlName="fuel" placeholder="Palivo">
+                        <mat-option value="BENZIN">benzin</mat-option>
+                        <mat-option value="DIESEL">nafta</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('fuel').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput id="engineOil" formControlName="engineOil"
+                    placeholder="Převodový olej" matTooltip="Olej předepsaný výrobcem / používaný olej">
+                <mat-error *ngIf="form.get('engineOil').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row" *ngIf="form.get('engineType').value === '2T'">
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput id="fuelOil" formControlName="fuelOil" placeholder="Olej do paliva">
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput id="dilutionRatio" formControlName="dilutionRatio" placeholder="Poměr ředění">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button type="button" (click)="cancel()">Zrušit</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid"
+        (click)="form.valid && save()">Uložit</button>
+</mat-dialog-actions>

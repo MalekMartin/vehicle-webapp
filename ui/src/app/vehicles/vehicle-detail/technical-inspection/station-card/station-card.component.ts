@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Station } from '../station';
+import { Station } from '../station.interface';
 import { TechnicalInspectionService } from '../technical-inspection.service';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
@@ -12,7 +12,8 @@ import { ConfirmDialogService } from '../../../../shared/components/confirm-dial
 export class StationCardComponent implements OnInit {
 
     @Input() station: Station;
-    @Output() deleted = new EventEmitter();
+    @Output() delete = new EventEmitter<Station>();
+    @Output() edit = new EventEmitter<Station>();
 
     constructor(private _service: TechnicalInspectionService,
                 private _toastr: ToastsManager,
@@ -20,27 +21,27 @@ export class StationCardComponent implements OnInit {
 
     ngOnInit() { }
 
-    onDelete(s: Station) {
-        this._dialog.dialog
-            .title('Smazat STK')
-            .message('Opravdu chceš smazat STK <b>' + s.name + '</b>?')
-            .ok('Ano, smazat')
-            .cancel('Ne')
-            .subscribe((res: boolean) => {
-                if (res) {
-                    this.delete(s);
-                }
-            });
-    }
+    // onDelete(s: Station) {
+    //     this._dialog.dialog
+    //         .title('Smazat STK')
+    //         .message('Opravdu chceš smazat STK <b>' + s.name + '</b>?')
+    //         .ok('Ano, smazat')
+    //         .cancel('Ne')
+    //         .subscribe((res: boolean) => {
+    //             if (res) {
+    //                 this.delete.emit(s);
+    //             }
+    //         });
+    // }
 
-    delete(s: Station) {
-        this._service
-            .deleteStation(s)
-            .subscribe((station: Station) => {
-                this._toastr.success('Stanice technické kontroly <strong>'
-                    + station.name + '</strong> byla smazána','Smazáno');
-                this.deleted.emit();
-            });
-    }
+    // delete(s: Station) {
+    //     this._service
+    //         .deleteStation(s)
+    //         .subscribe((station: Station) => {
+    //             this._toastr.success('Stanice technické kontroly <strong>'
+    //                 + station.name + '</strong> byla smazána','Smazáno');
+    //             this.deleted.emit();
+    //         });
+    // }
 
 }

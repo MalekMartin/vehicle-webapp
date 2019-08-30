@@ -43,19 +43,19 @@ describe('VehicleService', () => {
         });
     });
 
-    it('should return all vehicles', inject([VehicleService], (vehicleService: VehicleService) => {
+    // it('should return all vehicles', inject([VehicleService], (vehicleService: VehicleService) => {
 
-        const vehiclesMock = [{
-            ...vehicleMock,
-            id: '132',
-            brand: 'Renault',
-            model: 'Laguna II'
-        }];
+    //     const vehiclesMock = [{
+    //         ...vehicleMock,
+    //         id: '132',
+    //         brand: 'Renault',
+    //         model: 'Laguna II'
+    //     }];
 
-        (<any>vehicleService)._vehicles = vehiclesMock;
+    //     (<any>vehicleService)._vehicles = vehiclesMock;
 
-        expect(vehicleService.allVehicles).toEqual(vehiclesMock);
-    }));
+    //     expect(vehicleService.allVehicles).toEqual(vehiclesMock);
+    // }));
 
     it('should call add vehicle post method', inject([VehicleService]
         , (vehicleService: VehicleService) => {

@@ -8,7 +8,7 @@
                     (fileOver)="fileOverBase($event)"
                     [uploader]="uploader"
                     class="my-drop-zone"
-                    *ngIf="!isUploading">
+                    *ngIf="!isUploading"> 
                 <div><i class="icon-upload"></i> Nahrát obrázek</div>
             </div>
             <div class="spinner" *ngIf="isUploading">
@@ -48,21 +48,5 @@
                 <div class="value">{{tankCapacity + ' l'}}</div>
             </div>
         </div>        
-    </div>
-</div>
-
-<div bsModal #formModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="onCancel()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Pneumatika</h4>
-            </div>
-            <div class="modal-body">
-                <va-settings-form *ngIf="visible" (saved)="onSave($event)" (canceled)="onCancel()"></va-settings-form>
-            </div>
-        </div>
     </div>
 </div>

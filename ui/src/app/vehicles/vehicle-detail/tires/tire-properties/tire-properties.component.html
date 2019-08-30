@@ -1,29 +1,20 @@
 <div class="content">
-    <!-- <table class="properties">
-        <tr class="property"
-            *ngFor="let prop of properties"
-            [@delete]="prop.status"
-            (@delete.done)="finishDeletion(prop, $event)"
-            [@add]="prop.status">
-
-            <td class="name">{{prop.name}}:</td>
-            <td class="value">{{prop.value}}</td>
-            <td class="controls">
-                <div class="control"><i class="icon-edit" (click)="edit(prop)"></i></div>
-                <div class="control"><i class="icon-bin" (click)="delete(prop)"></i></div>
-            </td>
-        </tr>
-    </table> -->
-    <div *ngFor="let prop of properties">
-        <div class="prop-block">
-            <div class="prop">
-                <div class="name">{{prop.name}}</div>
-                <div class="value">{{prop.value}}</div>
-            </div>
-            <div class="controls">
-                <div class="control"><i class="icon-edit" (click)="edit(prop)"></i></div>
-                <div class="control"><i class="icon-bin" (click)="delete(prop)"></i></div>
+    <ng-container *ngIf="!state.loading && !!state.properties && !!state.properties.length">
+        <div *ngFor="let prop of state.properties">
+            <div class="prop-block">
+                <div class="prop">
+                    <div class="name">{{prop.name}}</div>
+                    <div class="value">{{prop.value}}</div>
+                </div>
+                <div class="controls">
+                    <div class="control"><i class="icon-edit" (click)="edit.emit(prop)"></i></div>
+                    <div class="control"><i class="icon-bin" (click)="deleteConfirm(prop)"></i></div>
+                </div>
             </div>
         </div>
+    </ng-container>
+    <div *ngIf="!state.loading && (!state.properties || !state.properties.length)">Nebyly nalezeny žádné parametry.</div>
+    <div *ngIf="state.loading" class="loading">
+        <va-spinner>Nahrávám...</va-spinner>
     </div>
 </div>

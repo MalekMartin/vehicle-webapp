@@ -1,0 +1,9 @@
+<h3 mat-dialog-title>Vytvořit interval</h3>
+<mat-dialog-content>
+    <va-interval-form #ref></va-interval-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Zavřít</button>
+    <button mat-flat-button color="primary" [disabled]="ref.form.invalid"
+        (click)="ref.form.valid && save()">Uložit</button>
+</mat-dialog-actions>

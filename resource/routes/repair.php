@@ -34,6 +34,13 @@ $app->get('/resource/repairs/{vehicleId}/tasks', function (Request $request, Res
     return $response->withJson($tasks);
 });
 
+$app->get('/resource/repairs/{vehicleId}/maintenances/{repairId}', function (Request $request, Response $response, $args) {
+    $this->logger->addInfo("Repair maintenances list" . $args['vehicleId']);
+    $mapper = new Repair($this->db, $this->jwt->uid);
+    $data = $mapper->getMaintenancesByRepairId($args['vehicleId'], $args['repairId']);
+    return $response->withJson($data);
+});
+
 $app->delete('/resource/repairs/task/{id}', function (Request $request, Response $response, $args) {
     $this->logger->addInfo("Repair task delete " . $args['id']);
     $mapper = new Repair($this->db, $this->jwt->uid);

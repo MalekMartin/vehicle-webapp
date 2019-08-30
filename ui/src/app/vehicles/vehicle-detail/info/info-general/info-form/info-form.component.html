@@ -1,0 +1,63 @@
+<h3 mat-dialog-title>Obecné informace</h3>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="row">
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="text" id="brand" placeholder="Značka" formControlName="brand">
+                <mat-error *ngIf="form.get('brand').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="text" id="model" placeholder="Model" formControlName="model">
+                <mat-error *ngIf="form.get('model').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="number" id="manufactureYear"
+                    placeholder="Rok výroby" formControlName="manufactureYear">
+                <mat-error *ngIf="form.get('manufactureYear').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+                <mat-error *ngIf="form.get('manufactureYear').hasError('pattern')">
+                    Zadaná hodnota musí být 4 místné číslo (např: 2019)
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="number" id="previousOwners"
+                    placeholder="Předchozí majitelé" formControlName="previousOwners">
+                <mat-error *ngIf="form.get('previousOwners').hasError('pattern')">
+                    Tato hodnota není <strong>platná</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-6 col-xs-12">
+                <mat-select id="type"
+                    placeholder="Typ vozidla" formControlName="type">
+                    <mat-option value="CAR">auto</mat-option>
+                    <mat-option value="MOTORCYCLE">motocykl</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-6 col-xs-12">
+                <input matInput type="text" id="spz" placeholder="SPZ" formControlName="spz">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-12 col-xs-12">
+                <textarea matInput type="text" id="notes"
+                    placeholder="Poznámky" formControlName="notes"></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button type="button" (click)="cancel()">Zrušit</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid"
+        (click)="form.valid && save()">Uložit</button>
+</mat-dialog-actions>

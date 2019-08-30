@@ -1,16 +1,16 @@
-import { Component, OnInit, OnChanges, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Category, CostsService } from '../../../../shared/api/costs/costs.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'va-cost-category-form',
     templateUrl: './cost-category-form.component.html',
     styleUrls: ['./cost-category-form.component.scss']
 })
-export class CostCategoryComponent implements OnInit {
-
-    @Output() closeClicked = new EventEmitter();
+export class CostCategoryFormComponent implements OnInit, OnDestroy {
 
     loading = false;
     loadingError = false;
@@ -22,33 +22,35 @@ export class CostCategoryComponent implements OnInit {
         color: ['']
     });
 
-    private categories: Category[];
-    private category: Category = null;
+    categories: Category[];
+    private _onDestroy$ = new Subject();
 
-    constructor(private _form: FormBuilder,
-                private costs: CostsService,
-                private toastr: ToastsManager) {
-    }
+    constructor(
+        private _form: FormBuilder,
+        private costs: CostsService,
+        private toastr: ToastsManager
+    ) {}
 
     ngOnInit() {
         this.findCategories();
     }
 
+    ngOnDestroy() {
+        this._onDestroy$.next();
+    }
+
     save() {
         this.costs
             .addCategory(this.form.value)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this.saveSuccess, this.saveError);
     }
 
-    close() {
-        this.form.reset();
-        this.closeClicked.emit();
-    }
-
-
     findCategories() {
         this.loading = true;
-        this.costs.getCategories()
+        this.costs
+            .getCategories()
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._hadleCategories, this._loadingError);
     }
 
@@ -62,7 +64,9 @@ export class CostCategoryComponent implements OnInit {
     }
 
     delete(c: Category) {
-        this.costs.deleteCategory(c)
+        this.costs
+            .deleteCategory(c)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onDeleteSuccess, this._onDeleteError);
     }
 
@@ -70,31 +74,29 @@ export class CostCategoryComponent implements OnInit {
         this.form.reset();
         this.findCategories();
         this.toastr.success('Kategorie uložena.', 'Uloženo');
-    }
+    };
 
     private saveError = () => {
         this.toastr.error('Chyba při ukládání.', 'Chyba');
-    }
+    };
 
     private _onDeleteSuccess = () => {
         this.toastr.success('Kategorie byla úspěšně odstraněna.', 'Hotovo!');
         this.findCategories();
-    }
+    };
 
-    private _onDeleteError = (e) => {
+    private _onDeleteError = e => {
         this.toastr.error('Kategorie nelze odstranit pokud je používána.', 'Chyba!');
-    }
+    };
 
     private _hadleCategories = (c: Category[]) => {
         this.categories = c;
         this.loading = false;
         this.loadingError = false;
-    }
+    };
 
     private _loadingError = () => {
         this.loading = false;
         this.loadingError = true;
-    }
-
-
+    };
 }

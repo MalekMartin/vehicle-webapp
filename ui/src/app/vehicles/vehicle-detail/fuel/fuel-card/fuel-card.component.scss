@@ -1,3 +1,7 @@
+mat-card {
+    margin-bottom: 6px;
+}
+
 va-card {
     
     // &:hover {
@@ -67,6 +71,12 @@ va-card {
                 &:last-child {
                     border: 0px !important;
                 }
+
+                .units {
+                    font-weight: normal;
+                    margin: 0;
+                    padding: 0;
+                }
             }
         }
     }
@@ -130,5 +140,25 @@ va-card {
     }
     .icon-more-vertical {
         cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 361px) {
+    va-card {
+        .header {
+            display: block;
+
+            .spacer {
+                display: none;
+            }
+        }
+
+        .value {
+            &.title {
+                span {
+                    white-space: normal;
+                }
+            }
+        }
     }
 }

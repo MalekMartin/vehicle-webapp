@@ -6,6 +6,7 @@ src/vendor/*
 
 # Uploaded files
 uploads/*
+manuals/*
 
 # Logs
 logs/*

@@ -6,6 +6,17 @@
     padding-bottom: 20px;
 }
 
+.inpection-wrapper {
+    position: relative;
+    .loading {
+        text-align: center;
+        padding: 20px;
+        position: absolute;
+        left: calc(50% - 35px);
+        top: 25px;
+    }
+}
+
 .inspections {
     margin: 5px 0px 5px 0px;
 
@@ -13,11 +24,6 @@
         display: block;
         margin-bottom: 3px;
     }
-}
-
-.loading {
-    text-align: center;
-    padding: 20px;
 }
 
 va-station-card {

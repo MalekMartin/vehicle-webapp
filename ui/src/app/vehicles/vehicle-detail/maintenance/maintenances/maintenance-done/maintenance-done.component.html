@@ -1,76 +1,53 @@
-<form [formGroup]="form" (submit)="form.valid && save()">
-    <div class="row">
-        <va-form-item [control]="form.get('repairTitle')" class="col-sm-12">
-            <label for="repairTitle">Název opravy:</label>
-            <input type="text" id="repairTitle" class="form-control" formControlName="repairTitle">
-        </va-form-item>
-    </div>
-    <div class="row">
-        <va-form-item [control]="form.get('odo')" class="col-sm-6">
-            <label for="odo">km:</label>
-            <input type="text" id="odo" class="form-control" formControlName="odo">
-        </va-form-item>
-        <va-form-item [control]="form.get('odo2')" class="col-sm-6">
-            <label for="odo2">mh:</label>
-            <input type="text" id="odo2" class="form-control" formControlName="odo2">
-        </va-form-item>
-    </div>
+<h3 mat-dialog-title>Dokončit běžící intervaly</h3>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="row">
+            <mat-form-field class="col-sm-12 col-xs-12">
+                <input matInput type="text" id="repairTitle" formControlName="repairTitle" placeholder="Název opravy">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="col-sm-6 col-xs-12">
+                <input matInput type="number" id="odo" formControlName="odo" [placeholder]="units">
+            </mat-form-field>
+            <mat-form-field class="col-sm-6 col-xs-12" *ngIf="!!units2">
+                <input matInput type="number" id="odo2" formControlName="odo2" [placeholder]="units2">
+            </mat-form-field>
+        </div>
 
-    <div class="row">
-        <va-form-item [control]="form.get('date')" class="col-sm-6">
-            <label for="date">Datum:</label>
-            <va-date-picker id="date" formControlName="date"></va-date-picker>
-        </va-form-item>
-        <va-form-item [control]="form.get('garageId')" class="col-sm-6">
-            <label for="garageId">Provedeno v servise:</label>
-            <select id="garageId" formControlName="garageId" class="form-control">
-                <option [value]="g.id" *ngFor="let g of garages">{{g.name}}</option>
-            </select>
-        </va-form-item>
-        
-    </div>
+        <div class="row">
+            <mat-form-field class="col-sm-6 col-xs-12">
+                <input matInput id="date" [matDatepicker]="picker" formControlName="date" placeholder="Datum">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-sm-6 col-xs-12">
+                <mat-select id="garageId" formControlName="garageId" placeholder="Servis">
+                    <mat-option [value]="g.id" *ngFor="let g of garages">{{g.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+        </div>
 
-    <div class="row">
-        <va-form-item [control]="form.get('price')" class="col-sm-6">
-            <label for="price">Cena:</label>
-            <input type="text" id="price" class="form-control" formControlName="price">
-        </va-form-item>
-        
-        <!-- <va-form-item [control]="form.get('repairId" class="col-sm-6">
-            <label for="repairId">Provedeno vrámci opravy:</label>
-            <select id="repairId" formControlName="repairId" class="form-control">
-                <option value=""></option>
-                <option [value]="g.id" *ngFor="let g of garages">{{g.name}}</option>
-            </select>
-        </va-form-item> -->
-    </div>
+        <div class="row">
+            <mat-form-field class="col-sm-6 col-xs-12">
+                <input matInput type="number" id="price" formControlName="price" placeholder="Cena">
+            </mat-form-field>
 
-    <div class="row">
-        <va-form-item [control]="form.get('notes')" class="col-sm-12">
-            <label for="notes">Poznámky:</label>
-            <textarea id="notes" class="form-control" formControlName="notes"></textarea>
-        </va-form-item>
-    </div>
+            <div class="col-sm-6 col-xs-12">
+                <mat-checkbox formControlName="repeat">Opakovat</mat-checkbox>
+            </div>
+        </div>
 
-    <div class="row">
-        <va-form-item [control]="form.get('repeat')" class="col-sm-6">
-            <label for="repeat">Opakovat</label>
-            <va-checkbox id="repeat" formControlName="repeat"></va-checkbox>
-        </va-form-item>
-    </div>
-
-    <div *ngIf="showWarning" class="alert warning">
-        <i class="icon-warning-black"></i>
-        <div class="message">Některé z vybraných položek nemohou být dokončeny.</div>
-    </div>
-
-    <div *ngIf="hasError" class="alert error">
-        <i class="icon-warning-black"></i>
-        <div class="message">Vybrané položky nelze dokončit, upravte výběr.</div>
-    </div>
-
-    <div class="text-center">
-        <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid && !hasIds">Uložit</button>
-    </div>
-</form>
+        <div class="row">
+            <mat-form-field class="col-sm-12 col-xs-12">
+                <textarea matInput id="notes" formControlName="notes" placeholder="Poznámky"></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button type="button" mat-flat-button mat-dialog-close>Zrušit</button>
+    <button type="button" mat-flat-button color="primary" [disabled]="form.invalid"
+        (click)="form.valid && finish()">Dokončit</button>
+</mat-dialog-actions>

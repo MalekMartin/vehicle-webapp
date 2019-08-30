@@ -28,19 +28,21 @@
 
     .middle-part {
         flex-grow: 1;
+        max-width: 100%;
+        .body {
+            display: flex;
+        
+            .content {
+                flex-grow: 1;
+                max-width: 100%;
+            }
+        
+            .menu {
+                flex-grow: 0;
+            }
+        }
     }
 
-    .body {
-        display: flex;
-    
-        .content {
-            flex-grow: 1;
-        }
-    
-        .menu {
-            flex-grow: 0;
-        }
-    }
 }
 
 :host /deep/ {
@@ -62,5 +64,14 @@
                 cursor: pointer;
             }
         }
+    }
+}
+
+@media print {
+    .wrapper {
+        border: 1px solid #ccc;
+    }
+    .menu {
+        display: none;
     }
 }

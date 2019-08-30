@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { ColorFormStringDirective } from './color-from-string.directive';
 import { HighlightDirective } from './highlight.directive';
 import { WidthDirective } from './width.directive';
+import { MatchLinksDirective } from './highlight-links.directive';
 
 const DIRECTIVES = [
     ColorFormStringDirective,
     HighlightDirective,
-    WidthDirective
+    WidthDirective,
+    MatchLinksDirective
 ]
 
 @NgModule({

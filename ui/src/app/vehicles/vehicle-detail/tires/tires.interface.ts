@@ -1,23 +1,24 @@
-import { Property } from './_core/property';
 export interface Tire {
-    id?:string;
-    vehicleId?:string;
+    id?: string;
+    vehicleId?: string;
     dot: number;
-    purchaseDate:string;
-    priceEach:number;
-    quantity:number;
-    totalPrice:number;
-    description:string;
-    status:string;
-    brand:string;
-    model:string;
-    dimensions:string;
-    notes:string;
-    odo:number;
-    odo2:number;
-    tireOdo:number;
-    tireOdo2:number;
+    purchaseDate: string;
+    priceEach: number;
+    quantity: number;
+    totalPrice: number;
+    description: string;
+    status: TireStatus;
+    brand: string;
+    model: string;
+    dimensions: string;
+    notes: string;
+    odo: number;
+    odo2: number;
+    tireOdo: number;
+    tireOdo2: number;
 }
+
+export type TireStatus = 'ACTIVE' | 'STOCK' | 'TRASH';
 
 export interface TiresObject {
     active: Tire[];
@@ -34,6 +35,10 @@ export interface TireProperties {
     value: string;
 }
 
-export interface PropertyExt extends Property {
-    status: string;
+export interface TireProperty {
+    id?: string;
+    vehicleId?: string;
+    name: string;
+    value: string;
+    tooltip: string;
 }

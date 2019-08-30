@@ -1,27 +1,60 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+    MatButtonModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatTooltipModule
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { ModalModule, TooltipModule } from 'ngx-bootstrap';
+import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
-import { SharedModule } from '../../../shared/shared.module';
+import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
+import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
+import { PipesModule } from '../../../shared/pipes/pipes.module';
+import { TirePropertiesService } from './core/tire-properties.service';
+import { TireStatusFilterPipe } from './core/tire-status-filter.pipe';
+import { TiresService } from './core/tires.service';
+import { TireAddComponent } from './tire-add/tire-add.component';
 import { TireCardComponent } from './tire-card/tire-card.component';
+import { TireEditComponent } from './tire-edit/tire-edit.component';
 import { TirePreviewComponent } from './tire-preview/tire-preview.component';
-import { TirePropertyFormModule } from './tire-properties-form/tire-properties-form.module';
-import { TirePropertiesComponent } from './tire-properties/tire-properties.component';
+import { TirePropertiesModule } from './tire-properties/tire-properties.module';
 import { TireStatusFormModule } from './tire-status-form/tire-status-form.module';
 import { TiresFormComponent } from './tires-form/tires-form.component';
 import { TiresComponent } from './tires.component';
 import { tiresRoutes } from './tires.routes';
-import { TiresService } from './tires.service';
+import { CardModule } from '../../../shared/components/card/card.module';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
+        ReactiveFormsModule,
         TooltipModule,
         ModalModule,
         TireStatusFormModule,
-        TirePropertyFormModule,
+        TirePropertiesModule,
         RouterModule.forChild(tiresRoutes),
-        DatepickerModule
+        DatepickerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatMenuModule,
+        ConfirmModule,
+        SpinnerModule,
+        SectionHeadingModule,
+        PipesModule,
+        CardModule
     ],
     exports: [TiresComponent],
     declarations: [
@@ -29,9 +62,11 @@ import { TiresService } from './tires.service';
         TiresFormComponent,
         TirePreviewComponent,
         TireCardComponent,
-        // TireStatusFormComponent,
-        TirePropertiesComponent
+        TireStatusFilterPipe,
+        TireAddComponent,
+        TireEditComponent
     ],
-    providers: [TiresService]
+    providers: [TiresService, TirePropertiesService],
+    entryComponents: [TireAddComponent, TireEditComponent, TirePreviewComponent]
 })
 export class TiresModule {}

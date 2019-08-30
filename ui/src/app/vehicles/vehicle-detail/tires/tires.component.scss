@@ -28,3 +28,9 @@ va-tire-card {
         }
     }
 }
+
+@media print {
+    .trash {
+        display: block;
+    }
+}

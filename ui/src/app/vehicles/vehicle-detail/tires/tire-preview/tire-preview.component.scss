@@ -42,10 +42,22 @@
         text-align: center;
         padding: 40px 0;
     }
-    .icon-arrow-up {
+
+    .history-action {
+        font-size: 18px;
+    }
+    .icon-chevron-up {
         color: limegreen;
     }
-    .icon-arrow-down {
+    .icon-chevron-down {
         color: red;
+    }
+}
+
+.loading {
+    display: flex;
+
+    va-spinner {
+        margin: auto;
     }
 }

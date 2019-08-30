@@ -1,27 +1,38 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../../../shared/shared.module';
-import { EngineComponent } from './engine.component';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule
+} from '@angular/material';
+import { InfoDetailItemModule } from '../info-detail-item/info-detail-item.module';
 import { EngineDetailComponent } from './engine-detail/engine-detail.component';
-import { EngineFormComponent } from './engineForm/engine-form.component';
-import { TooltipModule } from 'ngx-bootstrap';
-
+import { EngineFormComponent } from './engine-form/engine-form.component';
+import { PipesModule } from '../../../../shared/pipes/pipes.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        // TooltipModule
+        MatCardModule,
+        MatButtonModule,
+        InfoDetailItemModule,
+        MatDialogModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatTooltipModule,
+        PipesModule
     ],
-    exports: [
-        EngineComponent
-    ],
-    declarations: [
-        EngineDetailComponent,
-        EngineFormComponent,
-        EngineComponent
-    ],
+    exports: [EngineDetailComponent],
+    declarations: [EngineDetailComponent, EngineFormComponent],
     providers: [],
+    entryComponents: [EngineFormComponent]
 })
-export class EngineModule { }
+export class EngineModule {}

@@ -15,7 +15,7 @@ class Auth
 
     public $key;
 
-    private $expiresIn = 60 * 60;
+    private $expiresIn = 60 * 60 * 24;
 
     public function __construct($db)
     {

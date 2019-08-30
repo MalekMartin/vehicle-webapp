@@ -11,23 +11,6 @@ export const fuelRoutes: Routes = [
     },
     {
         path: 'detail',
-        component: FuelComponent,
-        children: [
-            {
-                path: 'm',
-                component: RoutedModalComponent,
-                outlet: 'popup',
-                children: [
-                    {
-                        path: 'add/:vehicleId',
-                        component: FuelFormComponent,
-                    },
-                    {
-                        path: 'edit/:id',
-                        component: FuelFormComponent,
-                    }
-                ]
-            }
-        ]
+        component: FuelComponent
     }
 ];

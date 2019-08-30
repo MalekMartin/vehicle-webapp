@@ -1,29 +1,42 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../../../shared/shared.module';
-import { TradeFormComponent } from './tradeForm/trade-form.component';
-import { TradeComponent } from './trade.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule
+} from '@angular/material';
 import { TooltipModule } from 'ngx-bootstrap';
-import { TradeDetailComponent } from './tradeDetail/trade-detail.component';
 import { DatepickerModule } from '../../../../shared/components/datepicker/datepicker.module';
+import { PipesModule } from '../../../../shared/pipes/pipes.module';
+import { InfoDetailItemModule } from '../info-detail-item/info-detail-item.module';
+import { TradeDetailComponent } from './trade-detail/trade-detail.component';
+import { TradeFormComponent } from './trade-form/trade-form.component';
 
 @NgModule({
     imports: [
-        SharedModule,
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         TooltipModule,
-        DatepickerModule
+        DatepickerModule,
+        MatDialogModule,
+        MatCardModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        InfoDetailItemModule,
+        PipesModule
     ],
-    exports: [
-        TradeComponent,
-        TradeFormComponent
-    ],
-    declarations: [
-        TradeFormComponent,
-        TradeComponent,
-        TradeDetailComponent
-    ],
+    exports: [TradeDetailComponent],
+    declarations: [TradeFormComponent, TradeDetailComponent],
     providers: [],
+    entryComponents: [TradeFormComponent]
 })
-export class TradeModule { }
+export class TradeModule {}

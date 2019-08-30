@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TIRE_STATUSES } from '../_core/tire-status';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { TIRE_STATUSES } from '../core/tire-status';
 import { Tire } from '../tires.interface';
 
 @Component({
@@ -9,7 +9,6 @@ import { Tire } from '../tires.interface';
     styleUrls: ['./tires-form.component.scss']
 })
 export class TiresFormComponent implements OnInit {
-
     @Input() set tire(t: Tire) {
         this.form.reset();
         if (t) {
@@ -18,12 +17,12 @@ export class TiresFormComponent implements OnInit {
         }
         if (!t) {
             this._tire = null;
-            this.form.patchValue({status: 'STOCK'});
+            this.form.patchValue({ status: 'STOCK' });
         }
     }
     @Input() set vehicleId(id: string) {
         if (id) {
-            this.form.patchValue({vehicleId: id});
+            this.form.patchValue({ vehicleId: id });
         }
     }
 
@@ -34,12 +33,12 @@ export class TiresFormComponent implements OnInit {
 
     form = this._form.group({
         id: [''],
-        vehicleId: [''],
-        dot: ['', Validators.maxLength(4)],
+        vehicleId: ['', Validators.required],
+        dot: ['', Validators.max(9999)],
         purchaseDate: [''],
         priceEach: ['', [Validators.required]],
-        quantity: ['',[Validators.required,Validators.pattern('[0-9]+')]],
-        totalPrice: ['',Validators.required],
+        quantity: ['', [Validators.required, Validators.min(1)]],
+        totalPrice: ['', Validators.required],
         description: ['', Validators.required],
         status: ['', Validators.required],
         brand: ['', Validators.required],
@@ -55,10 +54,9 @@ export class TiresFormComponent implements OnInit {
     private _vehicleId: string;
     private _tire: Tire;
 
-    constructor(private _form:FormBuilder) { }
+    constructor(private _form: FormBuilder) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     get vehicleId(): string {
         return this._vehicleId;

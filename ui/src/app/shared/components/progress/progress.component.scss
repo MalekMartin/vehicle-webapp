@@ -33,3 +33,13 @@ $height: 18px;
         }
     }
 }
+
+@media print {
+    .wrapper {
+        border: 1px solid #ddd;
+
+        .before {
+            border-right: 1px solid #ddd; 
+        }
+    }
+}

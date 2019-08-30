@@ -4,12 +4,14 @@
         <va-section-heading>
             <va-section-heading-title>Nastavené intervaly</va-section-heading-title>
             <va-section-heading-controls>
-                <a *ngIf="hasNonActiveIntervals" (click)="openNewDialog()">spustit</a>
+                <a *ngIf="canRunInterval" (click)="runInterval()">spustit</a>
+                <a [routerLink]="['/vehicle', vehicleId, 'maintenance', 'print']"
+                    skipLocationChange>Tisk</a>
             </va-section-heading-controls>
         </va-section-heading>
 
-        <va-maintenances (onFinish)="openFinishDialog($event)"
-            (onUpdate)="onUpdate($event)"
+        <va-maintenances (finishMaintenance)="finishMaintenance($event)"
+            (editMaintenance)="editMaintenance($event)"
             (refreshAll)="refreshAll()"></va-maintenances>
     </div>
 
@@ -20,41 +22,6 @@
                 <a (click)="openAddInterval()">přidat</a>
             </va-section-heading-controls>
         </va-section-heading>
-        <va-intervals (intervalsUpdated)="refreshIntervals($event)"></va-intervals>
-    </div>
-</div>
-
-<div bsModal #modal="bs-modal" class="modal fade"
-    tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
-    (onHidden)="clearAction()">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="closeModal()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">
-                    <span *ngIf="action === 'NEW'">Přidat údržbu</span>
-                    <span *ngIf="action === 'FINISH'">Dokončit údržbu</span>
-                    <span *ngIf="action === 'INTERVAL'">Přidat interval</span>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <va-maintenance-form *ngIf="action === 'NEW'"
-                    [vehicleId]="vehicleId"
-                    [maintenance]="selectedMaintenance"
-                    (saved)="addedMaintenance()"
-                    (canceled)="closeModal()"></va-maintenance-form>
-                <va-maintenance-done *ngIf="action === 'FINISH'"
-                    [maintenance]="selection"
-                    [vehicleId]="vehicleId"
-                    (canceled)="closeModal()"
-                    (saved)="finished()"></va-maintenance-done>
-                <va-interval-form *ngIf="action === 'INTERVAL'"
-                    (canceled)="closeModal()"
-                    (saved)="closeModal()">
-                </va-interval-form>
-            </div>
-        </div>
+        <va-intervals (intervalsUpdated)="refreshIntervals(vehicleId)"></va-intervals>
     </div>
 </div>

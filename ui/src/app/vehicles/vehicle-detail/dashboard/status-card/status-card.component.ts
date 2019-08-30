@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { forkJoin, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { forkJoin, Subject, of } from 'rxjs';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
 
@@ -16,6 +16,9 @@ export class StatusCardComponent implements OnInit, OnDestroy {
     originalOdo: number;
     originalOdo2: number;
 
+    units: string;
+    units2: string;
+
     annualMileages: any;
 
     data: any = [];
@@ -29,11 +32,18 @@ export class StatusCardComponent implements OnInit, OnDestroy {
     constructor(private _vehicles: VehicleService, private _fuel: FuelService) {}
 
     ngOnInit() {
-        forkJoin(
-            this._fuel.annualMileages(this._vehicles.vehicleId),
-            this._fuel.currentMileage(this._vehicles.vehicleId)
-        )
-            .pipe(takeUntil(this._onDestroy$))
+        this._vehicles.state
+            .select(s => s.vehicle.info)
+            .pipe(
+                switchMap(info => {
+                    return forkJoin(
+                        this._fuel.annualMileages(info.id),
+                        this._fuel.currentMileage(info.id),
+                        of(info)
+                    )
+                }),
+                takeUntil(this._onDestroy$)
+            )
             .subscribe(this._onSuccess);
     }
 
@@ -41,29 +51,19 @@ export class StatusCardComponent implements OnInit, OnDestroy {
         this._onDestroy$.next();
     }
 
-    get units(): string {
-        return this._vehicles.units;
-    }
+    private _onSuccess = ([annutalMielages, currentMileage, info]) => {
+        this.units = info.units;
+        this.units2 = info.subUnits;
+        this.odo = currentMileage.odo;
+        this.odo2 = currentMileage.odo2;
+        this.originalOdo = currentMileage.originalOdo;
+        this.originalOdo2 = currentMileage.originalOdo2;
 
-    get units2(): string {
-        return this._vehicles.units2;
-    }
-
-    onSelect(data: any) {
-        // TODO
-    }
-
-    private _onSuccess = val => {
-        this.odo = val[1].odo;
-        this.odo2 = val[1].odo2;
-        this.originalOdo = val[1].originalOdo;
-        this.originalOdo2 = val[1].originalOdo2;
-
-        this.annualMileages = val[0];
+        this.annualMileages = annutalMielages;
 
         this.data = !!this.units2
             ? this._buildDataForAllUnits(this.annualMileages)
-            : this._buildDataForMainUnit(this.annualMileages)
+            : this._buildDataForMainUnit(this.annualMileages);
     };
 
     private _buildDataForAllUnits(data) {

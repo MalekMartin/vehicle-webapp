@@ -1,0 +1,77 @@
+<h3 mat-dialog-title>Upravit {{data.type === 'seller' ? 'prodejce' : 'kupujícího'}}</h3>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="row">
+            <mat-form-field class="col-md-6">
+                <input matInput type="text" formControlName="company" placeholder="Firma / Osoba">
+                <mat-error *ngIf="form.get('company').hasError('required')">
+                    Toto pole je <strong>povinné</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-md-6">
+                <input matInput type="text" id="address" formControlName="address" placeholder="Adresa">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-6">
+                <input matInput type="text" id="city" formControlName="city" placeholder="Město">
+            </mat-form-field>
+            <mat-form-field class="col-md-6">
+                <input matInput type="text" id="zipCode" formControlName="zipCode" placeholder="PSČ">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-6">
+                <input matInput type="text" id="phone" formControlName="phone" placeholder="Telefon">
+            </mat-form-field>
+            <mat-form-field class="col-md-6">
+                <input matInput type="email" id="email" formControlName="email" placeholder="Email">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-12">
+                <input matInput type="text" id="contactPerson" formControlName="contactPerson" placeholder="Kontaktní osoba">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-12">
+                <textarea matInput type="text" id="notes" formControlName="notes" placeholder="Poznámky"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-6">
+                <input matInput [matDatepicker]="picker" formControlName="date"
+                    [placeholder]="'Datum ' + (data.type === 'seller' ? 'koupě' : 'prodeje')">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <!-- <mat-datepicker formControlName="date"></mat-datepicker> -->
+                <!-- <va-date-picker id="date" formControlName="date"
+                    [placeholder]="'Datum ' + (data.type === 'seller' ? 'koupě' : 'prodeje')"></va-date-picker> -->
+            </mat-form-field>
+            <mat-form-field class="col-md-6">
+                <input matInput type="number" id="price" formControlName="price" placeholder="Cena">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field class="col-md-6">
+                <input matInput type="number" id="odo" formControlName="odo"
+                    [placeholder]="'Ujeté ' + data.vehicle.info.units">
+            </mat-form-field>
+            <mat-form-field class="col-md-6" *ngIf="data.vehicle.info.subUnits">
+                <input matInput type="number" id="odo2" formControlName="odo2"
+                    [placeholder]="'Ujeté ' + data.vehicle.info.subUnits">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button type="button" (click)="cancel()">Zrušit</button>
+    <button mat-flat-button color="primary" type="submit"
+        [disabled]="!form.valid" (click)="form.valid && save()">Uložit</button>
+</mat-dialog-actions>

@@ -31,69 +31,6 @@
     }
 }
 
-// .nav {
-//     li {
-//         a {
-//             cursor: pointer;
-
-//             &.active {
-//                 background-color: #cccccc;
-//                 color: #ffffff;
-//             }
-//         }
-//     }    
-// }
-
-.va-menu {
-    // display: flex;
-    background-color: #dddddd;
-    padding: 10px 0;
-
-    .va-menu-options {
-        padding: 0;
-        margin: 0;
-        flex-grow: 1;
-
-        li {
-            list-style-type: none;
-            position: relative;
-            // display: inline-block;
-        }
-    }
-
-    a {
-        padding: 10px 20px;
-        // display: block;
-        color: #333333;
-        font-size: 13px;
-        font-weight: 500;
-        text-decoration: none;
-        text-transform: uppercase;
-
-        &.label-option {
-            display: block;
-        }
-        &.icon-option {
-            display: none;
-        }
-
-        &.active, &.active-icon {
-            background-color: #999999;
-            color: #ffffff;
-
-            &:before {
-                content:"\A";
-                border-style: solid;
-                border-width: 8px 10px 8px 0;
-                border-color: transparent #F7F7F7 transparent transparent;
-                position: absolute;
-                right: 0px;
-                top: 11px;
-            }
-        }
-    }
-}
-
 .dropdown-menu {
     margin-left: 139px;
     margin-top: -4px;
@@ -112,6 +49,14 @@
     }
 }
 
+.spinner {
+    display: inline-block;
+    position: absolute;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);
+    text-align: center;
+}
+
 @media(max-width: $mobileWidth) {
     .wrapper {
         .menu-panel {
@@ -119,19 +64,15 @@
             min-width: 50px;
         }
     }
+}
 
-    .va-menu {
-        a {
-            padding: 10px 0px;
-            text-align: center;
+@media print {
+    .wrapper {
+        display: block;
+        background: transparent;
 
-            &.label-option {
-                display: none;
-            }
-            &.icon-option {
-                display: block;
-                font-size: 16px;
-            }
+        .menu-panel {
+            display: none;
         }
     }
 }

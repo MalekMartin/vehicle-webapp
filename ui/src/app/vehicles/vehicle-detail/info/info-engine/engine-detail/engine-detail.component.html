@@ -1,39 +1,30 @@
-<div class="row">
-    <div class="col-md-3">Obsah:</div>
-    <div class="col-md-3">{{engine.displacement}} cm<sup>3</sup></div>
-
-    <div class="col-md-3">Počet válců:</div>
-    <div class="col-md-3">{{engine.cylinders}}</div>
-</div>
-
-<div class="row">
-    <div class="col-md-3">Výkon:</div>
-    <div class="col-md-3">{{engine.power}} kW {{engine.power | toHorsePower}}</div>
-
-    <div class="col-md-3">Poč. rychl. stupňů:</div>
-    <div class="col-md-3">{{engine.transmission}}</div>
-</div>
-
-<div class="row">
-    <div class="col-md-3">Motor:</div>
-    <div class="col-md-3">{{engine.engineType}}</div>
-
-    <div class="col-md-3">Převodovka:</div>
-    <div class="col-md-3">{{engine.transmissionType}}</div>
-</div>
-
-<div class="row">
-    <div class="col-md-3">Palivo:</div>
-    <div class="col-md-3">{{engine.fuel}}</div>
-
-    <div class="col-md-3">Olej:</div>
-    <div class="col-md-3">{{engine.engineOil}}</div>
-</div>
-
-<div class="row" *ngIf="engine.fuelOil">
-    <div class="col-md-3">Olej do benzinu:</div>
-    <div class="col-md-3">{{engine.fuelOil}}</div>
-
-    <div class="col-md-3">Poměr ředění</div>
-    <div class="col-md-3">{{engine.dilutionRatio}}</div>
-</div>
+<mat-card>
+    <mat-card-title>Motor</mat-card-title>
+    <mat-card-content *ngIf="!!vehicle.engine">
+        <va-info-detail-item label="Obsah"
+            [value]="vehicle.engine.displacement + ' ccm'"></va-info-detail-item>
+        <va-info-detail-item label="Počet válců"
+            [value]="vehicle.engine.cylinders"></va-info-detail-item>
+        <va-info-detail-item label="Výkon"
+            [value]="vehicle.engine.power + ' kW ' + (vehicle.engine.power | toHorsePower)"></va-info-detail-item>
+        <va-info-detail-item label="Rychl. stupně"
+            [value]="vehicle.engine.transmission"></va-info-detail-item>
+        <va-info-detail-item label="Motor"
+            [value]="vehicle.engine.engineType"></va-info-detail-item>
+        <va-info-detail-item label="Převodovka"
+            [value]="vehicle.engine.transmissionType"></va-info-detail-item>
+        <va-info-detail-item label="Palivo"
+            [value]="vehicle.engine.fuel"></va-info-detail-item>
+        <va-info-detail-item label="Olej"
+            [value]="vehicle.engine.engineOil"></va-info-detail-item>
+        <ng-container *ngIf="vehicle.engine.fuelOil">
+            <va-info-detail-item label="Olej do paliva"
+                [value]="vehicle.engine.fuelOil"></va-info-detail-item>
+            <va-info-detail-item label="Poměr ředění"
+                [value]="vehicle.engine.dilutionRatio"></va-info-detail-item>
+        </ng-container>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button color="primary" (click)="edit()">Upravit</button>
+    </mat-card-actions>
+</mat-card>

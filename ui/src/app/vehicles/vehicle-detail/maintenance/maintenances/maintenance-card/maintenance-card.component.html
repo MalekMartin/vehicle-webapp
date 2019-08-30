@@ -2,10 +2,9 @@
     <va-card-left>
         <div class="color" [vaColorFromString]="maintenance.interval.name"></div>
         <div class="checkbox-panel">
-            <va-checkbox
+            <mat-checkbox
                 [@toggle]="checkboxState" 
-                (click)="toggleSelect()"
-                [formControl]="control"></va-checkbox>
+                [formControl]="control"></mat-checkbox>
         </div>
     </va-card-left>
 
@@ -14,12 +13,19 @@
             <div class="flex-1">
                 <span class="title">{{maintenance.interval.name}}</span>
                 <span *ngIf="maintenance.status === 'DONE'" class="flag-done">DOKONČENO</span>
+                <span *ngIf="maintenance.status === 'IN_PROGRESS'" class="flag-in-progress">PROBÍHÁ</span>
                 <span *ngIf="maintenance.status === 'CANCELED'" class="flag-canceled">ZRUŠENO</span>
+                <a *ngIf="maintenance.repairId"
+                    matTooltip="Servicní práce"
+                    class="repair-link"
+                    [routerLink]="['/vehicle', maintenance.vehicleId, 'repairs', maintenance.repairId]">
+                    {{maintenance.repairTitle}}
+                </a>
             </div>
         </div>
     </va-card-title>
 
-    <va-card-menu *ngIf="canEdit">
+    <va-card-menu *ngIf="canEdit && showMenu">
         <div class="flex-0">
             <div class="btn-group" dropdown>
                 <i id="maintenance-button" class="icon-menu-dots" dropdownToggle></i>
@@ -64,7 +70,7 @@
 
         <div *ngIf="maintenance.status === 'IN_PROGRESS'" class="progress-bars">
             <div *ngIf="maintenance.interval.odo > 0" class="odo">
-                <va-progress [tooltip]="'vyprší při ' + (maintenance.expirations.odo | formatNumber) + ' km'"
+                <va-progress [matTooltip]="'vyprší při ' + (maintenance.expirations.odo | formatNumber) + ' km'"
                         [start]="maintenance.odo" 
                         [end]="maintenance.expirations.odo"
                         [now]="maintenance.currents.odo">
@@ -73,7 +79,7 @@
             </div>
 
             <div *ngIf="maintenance.interval.odo2 > 0" class="engine-hours">
-                <va-progress [tooltip]="'vyprší při ' + (maintenance.expirations.odo2 | formatNumber) + ' mh'"
+                <va-progress [matTooltip]="'vyprší při ' + (maintenance.expirations.odo2 | formatNumber) + ' mh'"
                         [start]="maintenance.odo2"
                         [end]="maintenance.expirations.odo2"
                         [now]="maintenance.currents.odo2">
@@ -82,7 +88,7 @@
             </div>
 
             <div *ngIf="maintenance.interval.months > 0" class="engine-hours">
-                <va-progress [tooltip]="'vyprší ' + (maintenance.expirations.date | moment: 'DD.MM.YYYY')"
+                <va-progress [matTooltip]="'vyprší ' + (maintenance.expirations.date | moment: 'DD.MM.YYYY')"
                         [start]="start"
                         [end]="end"
                         [now]="now">
@@ -91,10 +97,5 @@
             </div>
         </div>
     </va-card-footer>
-
-    <div *ngIf="maintenance.repairId" class="repair-link">
-        <a [routerLink]="['/vehicle/' + maintenance.vehicleId + '/repairs']"
-            [queryParams]="{repairId: maintenance.repairId}">{{maintenance.repairTitle}}</a>
-    </div>
 
 </va-card>

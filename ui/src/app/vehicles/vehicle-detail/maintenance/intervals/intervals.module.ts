@@ -2,16 +2,36 @@ import { NgModule } from '@angular/core';
 
 import { IntervalsComponent } from './intervals.component';
 import { IntervalFormComponent } from './interval-form/interval-form.component';
-import { SharedModule } from '../../../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IntervalCardComponent } from './intervals-card/interval-card.component';
 import { TooltipModule } from 'ngx-bootstrap';
+import {
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule
+} from '@angular/material';
+import { IntervalAddComponent } from './interval-add/interval-add.component';
+import { CommonModule } from '@angular/common';
+import { InitialsModule } from '../../../../shared/components/initials/initials.module';
+import { MileageModule } from '../../../../shared/components/mileage/mileage.module';
+import { PipesModule } from '../../../../shared/pipes/pipes.module';
+import { CardModule } from '../../../../shared/components/card/card.module';
+import { IntervalEditComponent } from './interval-edit/interval-edit.component';
 
 const MODULES = [
-    SharedModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TooltipModule
+    TooltipModule,
+    InitialsModule,
+    MileageModule,
+    PipesModule,
+    CardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
 ];
 
 const COMPONENTS = [
@@ -21,11 +41,9 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    imports: [
-        ...MODULES
-    ],
+    imports: [...MODULES],
     exports: [...COMPONENTS],
-    declarations: [...COMPONENTS],
-    providers: [],
+    declarations: [...COMPONENTS, IntervalAddComponent, IntervalEditComponent],
+    entryComponents: [IntervalAddComponent, IntervalEditComponent]
 })
-export class IntervalsModule { }
+export class IntervalsModule {}

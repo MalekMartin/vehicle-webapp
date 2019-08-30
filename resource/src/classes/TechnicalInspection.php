@@ -27,6 +27,7 @@ class TechnicalInspection {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $query->execute(array($d->vehicleId, $d->date, $d->expirationDate, $d->repeated,
         $d->note, $d->price, $d->stationId, $d->odo, $d->odo2, $this->uid));
+        return $this->db->lastInsertId();
     }
 
     private function updateInspection($d) {
@@ -44,8 +45,11 @@ class TechnicalInspection {
 
         if ($data->id) {
             $this->updateInspection($data);
+            return $data;
         } else {
-            $this->insertInspection($data);
+            $id = $this->insertInspection($data);
+            $data->id = $id;
+            return $data;
         }
     }
 
