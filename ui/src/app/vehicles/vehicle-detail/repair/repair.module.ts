@@ -9,7 +9,6 @@ import {
     MatSelectModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { PageScrollService } from 'ng2-page-scroll';
 import { TooltipModule } from 'ngx-bootstrap';
 import { GarageModule } from '../../../car-services/garage/garage.module';
 import { GarageService } from '../../../car-services/garage/garage.service';

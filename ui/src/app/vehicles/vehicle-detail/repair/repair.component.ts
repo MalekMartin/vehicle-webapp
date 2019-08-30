@@ -3,13 +3,11 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { PageScrollInstance, PageScrollService } from 'ng2-page-scroll';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { GarageService } from '../../../car-services/garage/garage.service';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
-import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { NumberStat } from '../../../shared/components/number-stats/number-stats.component';
 import { Page } from '../../../utils/pageable';
 import { RepairAddComponent } from './repair-add/repair-add.component';
@@ -40,8 +38,6 @@ export class RepairComponent implements OnInit, OnDestroy {
         private _route: ActivatedRoute,
         private _service: RepairService,
         private _toastr: ToastsManager,
-        private _confirm: ConfirmDialogService,
-        private _scroll: PageScrollService,
         private _fb: FormBuilder,
         private _services: GarageService,
         private _vehicleService: VehicleService,
@@ -124,14 +120,6 @@ export class RepairComponent implements OnInit, OnDestroy {
             .fetchPage(p)
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._handleNewContent);
-    }
-
-    scrollToRepair() {
-        const pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(
-            this.document,
-            'repair-' + this.repairToScroll
-        );
-        this._scroll.start(pageScrollInstance);
     }
 
     addNewRepair() {

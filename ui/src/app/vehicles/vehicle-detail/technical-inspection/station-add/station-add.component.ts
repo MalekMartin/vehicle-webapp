@@ -13,7 +13,7 @@ import { ToastsManager } from 'ng6-toastr';
 })
 export class StationAddComponent implements OnInit, OnDestroy {
 
-    @ViewChild(StationFormComponent) stationFormRef: StationFormComponent;
+    @ViewChild(StationFormComponent, {static: false}) stationFormRef: StationFormComponent;
 
     private _onDestroy$ = new Subject();
 

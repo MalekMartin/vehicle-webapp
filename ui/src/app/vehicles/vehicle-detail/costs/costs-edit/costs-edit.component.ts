@@ -13,7 +13,7 @@ import { Cost } from '../cost.interface';
     styleUrls: ['./costs-edit.component.scss']
 })
 export class CostsEditComponent implements OnInit, OnDestroy {
-    @ViewChild(CostsFormComponent) costsRef: CostsFormComponent;
+    @ViewChild(CostsFormComponent, {static: false}) costsRef: CostsFormComponent;
 
     private _onDestroy$ = new Subject();
 

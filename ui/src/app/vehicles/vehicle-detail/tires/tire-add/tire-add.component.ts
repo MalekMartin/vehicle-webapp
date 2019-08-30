@@ -13,7 +13,7 @@ import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service'
     styleUrls: ['./tire-add.component.scss']
 })
 export class TireAddComponent implements OnInit, OnDestroy {
-    @ViewChild(TiresFormComponent) formRef: TiresFormComponent;
+    @ViewChild(TiresFormComponent, {static: false}) formRef: TiresFormComponent;
 
     private _onDestroy$ = new Subject();
 

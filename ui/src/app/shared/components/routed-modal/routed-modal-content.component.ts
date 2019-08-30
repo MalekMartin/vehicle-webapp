@@ -13,7 +13,7 @@ export class RoutedModalContentComponent implements OnInit, AfterViewInit {
     @Input() backdrop: boolean | 'static' = false;
     @Output() cancel = new EventEmitter();
 
-    @ViewChild('routedModal') dialog: ModalDirective;
+    @ViewChild('routedModal', {static: false}) dialog: ModalDirective;
 
     keyboard = true;
 

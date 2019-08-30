@@ -21,7 +21,7 @@ import { ConfirmComponent } from '../../../shared/components/confirm/confirm.com
     styleUrls: ['./costs.component.scss']
 })
 export class CostsComponent implements OnInit, OnDestroy {
-    @ViewChild('formModal') modal: ModalDirective;
+    @ViewChild('formModal', {static: false}) modal: ModalDirective;
 
     vehicleId: string;
     costs: Page<Cost>;

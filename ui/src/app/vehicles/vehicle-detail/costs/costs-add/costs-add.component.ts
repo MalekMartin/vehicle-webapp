@@ -12,7 +12,7 @@ import { MatDialogRef } from '@angular/material';
     styleUrls: ['./costs-add.component.scss']
 })
 export class CostsAddComponent implements OnInit, OnDestroy {
-    @ViewChild(CostsFormComponent) costsRef: CostsFormComponent;
+    @ViewChild(CostsFormComponent, {static: false}) costsRef: CostsFormComponent;
 
     private _onDestroy$ = new Subject();
 

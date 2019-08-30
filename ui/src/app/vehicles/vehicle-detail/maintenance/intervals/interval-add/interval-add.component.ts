@@ -12,7 +12,7 @@ import { ToastsManager } from 'ng6-toastr';
     templateUrl: 'interval-add.component.html'
 })
 export class IntervalAddComponent implements OnInit, OnDestroy {
-    @ViewChild(IntervalFormComponent) formRef: IntervalFormComponent;
+    @ViewChild(IntervalFormComponent, {static: false}) formRef: IntervalFormComponent;
     private _onDestroy$ = new Subject();
     constructor(
         private _dialogRef: MatDialogRef<IntervalAddComponent>,

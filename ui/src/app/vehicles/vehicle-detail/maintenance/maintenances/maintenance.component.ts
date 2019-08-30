@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material';
     styleUrls: ['./maintenance.component.scss']
 })
 export class MaintenanceComponent implements OnInit, OnDestroy {
-    @ViewChild('modal') modal: ModalDirective;
+    @ViewChild('modal', {static: false}) modal: ModalDirective;
 
     @Output() finishMaintenance = new EventEmitter<Maintenance[]>();
     @Output() editMaintenance = new EventEmitter<Maintenance>();

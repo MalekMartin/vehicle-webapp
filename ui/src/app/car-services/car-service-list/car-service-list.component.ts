@@ -15,7 +15,7 @@ export class CarServiceListComponent implements OnInit {
 
     services: Service[];
 
-    @ViewChild('modal') modal: ModalDirective;
+    @ViewChild('modal', {static: false}) modal: ModalDirective;
 
     constructor(private _services: CarServiceService,
                 private _garages: GarageService,

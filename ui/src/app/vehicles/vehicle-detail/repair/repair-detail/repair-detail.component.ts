@@ -21,7 +21,7 @@ import { Repair } from '../_core/repair.interface';
     styleUrls: ['./repair-detail.component.scss']
 })
 export class RepairDetailComponent implements OnInit, OnDestroy {
-    @ViewChild('modal') modal: ModalDirective;
+    @ViewChild('modal', {static: false}) modal: ModalDirective;
 
     expanded = false;
     repair: Repair;

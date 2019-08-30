@@ -12,7 +12,7 @@ import { Interval } from '../../../../../shared/api/maintenance/interval.interfa
     templateUrl: 'interval-edit.component.html'
 })
 export class IntervalEditComponent implements OnInit, OnDestroy {
-    @ViewChild(IntervalFormComponent) formRef: IntervalFormComponent;
+    @ViewChild(IntervalFormComponent, {static: false}) formRef: IntervalFormComponent;
     private _onDestroy$ = new Subject();
     constructor(
         private _dialogRef: MatDialogRef<IntervalEditComponent>,

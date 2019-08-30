@@ -13,7 +13,7 @@ import { Inspection } from '../inspection.interface';
     styleUrls: ['./inspection-edit.component.scss']
 })
 export class InspectionEditComponent implements OnInit, OnDestroy {
-    @ViewChild(InspectionFormComponent) formCmp: InspectionFormComponent;
+    @ViewChild(InspectionFormComponent, {static: false}) formCmp: InspectionFormComponent;
 
     private _onDestroy$ = new Subject();
 

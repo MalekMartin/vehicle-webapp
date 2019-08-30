@@ -14,7 +14,7 @@ import { Station } from '../station.interface';
 })
 export class StationEditComponent implements OnInit, OnDestroy {
 
-    @ViewChild(StationFormComponent) stationFormRef: StationFormComponent;
+    @ViewChild(StationFormComponent, {static: false}) stationFormRef: StationFormComponent;
 
     private _onDestroy$ = new Subject();
 

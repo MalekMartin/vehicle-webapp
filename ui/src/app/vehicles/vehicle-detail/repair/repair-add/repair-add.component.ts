@@ -12,7 +12,7 @@ import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service'
     templateUrl: 'repair-add.component.html'
 })
 export class RepairAddComponent implements OnInit, OnDestroy {
-    @ViewChild(RepairFormComponent) formRef: RepairFormComponent;
+    @ViewChild(RepairFormComponent, {static: false}) formRef: RepairFormComponent;
 
     private _onDestroy$ = new Subject();
 
