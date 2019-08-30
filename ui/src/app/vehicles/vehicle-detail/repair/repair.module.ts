@@ -71,7 +71,7 @@ const MAT_MODULES = [
     ],
     exports: [],
     declarations: [...COMPONENTS],
-    providers: [RepairService, PageScrollService, GarageService],
+    providers: [RepairService, GarageService],
     entryComponents: [
         RepairAddComponent,
         RepairEditComponent,
