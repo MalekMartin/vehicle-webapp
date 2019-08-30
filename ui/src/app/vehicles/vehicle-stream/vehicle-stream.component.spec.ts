@@ -1,6 +1,6 @@
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ConnectionBackend, HttpModule, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { ConnectionBackend, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastModule, ToastOptions, ToastsManager } from 'ng6-toastr/ng2-toastr';
@@ -12,6 +12,7 @@ import { OrderByDatePipe } from '../../shared/pipes/order-by-date.pipe';
 import { VehicleFilterPipe } from '../../shared/pipes/vehicle-filter.pipe';
 import { VehicleStreamComponent } from './vehicle-stream.component';
 import { vehicleMock } from '../../core/stores/vehicle/vehicle.service.spec';
+import { HttpClientModule } from '@angular/common/http';
 
 
 describe('VehicleStreamComponent', () => {
@@ -23,7 +24,7 @@ describe('VehicleStreamComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpModule,
+                HttpClientModule,
                 RouterTestingModule,
                 CoreModule.forRoot(),
                 ToastModule,

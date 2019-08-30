@@ -5,13 +5,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
-import { XHRBackend, Response, ResponseOptions, HttpModule } from '@angular/http';
+import { XHRBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Router } from '@angular/router';
-import { SharedModule } from '../../shared/shared.module';
 import { CoreModule } from '../../core/core.module';
 import { jwtMock } from '../../core/token.store.spec';
 import { mockBackendResponse } from '../../../testing/http';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('LoginComponent', () => {
 
@@ -21,7 +21,7 @@ describe('LoginComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpModule,
+                HttpClientModule,
                 FormsModule,
                 ReactiveFormsModule,
                 CoreModule.forRoot(),

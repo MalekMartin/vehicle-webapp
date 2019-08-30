@@ -1,17 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CoreModule } from './core.module';
 import { HttpService } from './http.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HttpService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpModule,
+                HttpClientModule,
                 RouterTestingModule,
                 CoreModule.forRoot(),
                 ToastModule,

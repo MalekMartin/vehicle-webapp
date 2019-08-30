@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { VehiclePreviewComponent } from './vehicle-preview.component';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { HttpModule, XHRBackend } from '@angular/http';
+import { XHRBackend } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CoreModule } from '../../../core/core.module';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
@@ -13,6 +13,7 @@ import { NumberFormatPipe } from '../../../shared/pipes/number-format.pipe';
 import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
 import { SettingsService } from '../../vehicle-detail/vehicle-settings/settings.service';
 import { vehicleMock } from '../../../core/stores/vehicle/vehicle.service.spec';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('VehiclePreviewComponent', () => {
     let fixture: ComponentFixture<VehiclePreviewComponent>;
@@ -21,8 +22,14 @@ describe('VehiclePreviewComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpModule, RouterTestingModule, CoreModule.forRoot(), ToastModule],
-            declarations: [VehiclePreviewComponent, MomentPipe, FromNowPipe, PricePipe, NumberFormatPipe],
+            imports: [HttpClientModule, RouterTestingModule, CoreModule.forRoot(), ToastModule],
+            declarations: [
+                VehiclePreviewComponent,
+                MomentPipe,
+                FromNowPipe,
+                PricePipe,
+                NumberFormatPipe
+            ],
             schemas: [NO_ERRORS_SCHEMA],
             providers: [
                 VehicleService,
@@ -41,7 +48,7 @@ describe('VehiclePreviewComponent', () => {
     it('onInit - should call getImageByVehicleId', () => {
         const spy = spyOn((<any>component)._settings, 'getImageByVehicleId').and.callThrough();
 
-        component.vehicle = {...vehicleMock};
+        component.vehicle = { ...vehicleMock };
 
         fixture.detectChanges();
 

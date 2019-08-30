@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
-import { HttpModule, XHRBackend } from '@angular/http';
+import { XHRBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastModule, ToastOptions, ToastsManager } from 'ng6-toastr/ng2-toastr';
@@ -8,6 +8,7 @@ import { CoreModule } from '../../core.module';
 import { VehicleService } from './vehicle.service';
 import { Vehicle } from '../../../vehicles/vehicle-stream/vehicle';
 import { mockBackendResponse } from '../../../../testing/http';
+import { HttpClientModule } from '@angular/common/http';
 
 export const vehicleMock: Vehicle = {
     id: '1',
@@ -27,7 +28,7 @@ describe('VehicleService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpModule,
+                HttpClientModule,
                 RouterTestingModule,
                 CoreModule.forRoot(),
                 ToastModule

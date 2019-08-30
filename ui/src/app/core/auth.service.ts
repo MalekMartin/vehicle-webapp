@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStore } from './token.store';
-import { Http, Headers, RequestOptionsArgs, Response } from '@angular/http';
+import { Headers, RequestOptionsArgs, Response } from '@angular/http';
 import { Subscription, Observable } from 'rxjs';
 import { Jwt } from './jwt';
 import * as moment from 'moment';
@@ -9,6 +9,8 @@ import * as moment from 'moment';
 import { StorageService } from '../shared/api/storage.service';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpResponseType } from './http.service';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +20,7 @@ export class AuthService {
     private _saveBorder = 60;
 
     constructor(
-        private http: Http,
+        private http: HttpClient,
         @Inject(TokenStore) private _tokenStore: TokenStore,
         private _router: Router,
         private _storage: StorageService
@@ -76,14 +78,15 @@ export class AuthService {
             return;
         }
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        const headers = {
+            'Content-Type': 'application/json'
+        };
         if (!!this.accessToken) {
-            headers.append('Authorization', 'Bearer ' + this.accessToken);
+            headers['Authorization'] = 'Bearer ' + this.accessToken;
         }
 
         this._subscription = this.http
-            .get(buildUrl('/auth/account'), { headers: headers })
+            .get(buildUrl('/auth/account'), { headers: new HttpHeaders(headers) })
             .pipe(map((response: Response) => response.json()))
             .subscribe(user => (this._user = user));
     }
@@ -92,7 +95,7 @@ export class AuthService {
         const creds = 'username=' + username + '&password=' + password + '&grant_type=password';
         this._tokenStore.rememberMe = rememberMe;
         return this.http
-            .post(buildUrl('/auth/token'), creds, this._loginOptions)
+            .post(buildUrl('/auth/token'), creds, this._loginOptions())
             .pipe(map(this.mapLoginResponse));
     }
 
@@ -119,12 +122,6 @@ export class AuthService {
         return this.http.post(buildUrl('/auth/finish_registration'), value);
     }
 
-    private mapLoginResponse = (response: Response) => {
-        const jwt = <Jwt>response.json();
-        this._tokenStore.token = jwt;
-        this.scheduleRefresh(jwt.expires_in);
-    };
-
     private scheduleRefresh(expiresIn: number) {
         const expiresDate = moment().add(expiresIn - this._saveBorder, 'seconds');
         this._tokenStore.expiresDate = moment(expiresDate).format();
@@ -141,7 +138,7 @@ export class AuthService {
             this._tokenStore.token.refresh_token +
             '&grant_type=refresh_token';
         this.http
-            .post(buildUrl('/auth/token_refresh'), creds, this._loginOptions)
+            .post(buildUrl('/auth/token_refresh'), creds, this._loginOptions())
             .subscribe(this.mapLoginResponse, this._invalidToken);
     };
 
@@ -152,12 +149,19 @@ export class AuthService {
         this._router.navigate(['/login', { invalid_token: true }]);
     };
 
-    private get _loginOptions(): RequestOptionsArgs {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        headers.append('Authorization', 'Basic d2ViX2FwcDo=');
-        return { headers: headers };
+    private _loginOptions(responseType: HttpResponseType = 'json'): any {
+        const headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Basic d2ViX2FwcDo='
+        };
+        return { headers: new HttpHeaders(headers), responseType };
     }
+
+    private mapLoginResponse = response => {
+        const jwt = <Jwt>response.json();
+        this._tokenStore.token = jwt;
+        this.scheduleRefresh(jwt.expires_in);
+    };
 }
 
 function buildUrl(url: string): string {

@@ -1,6 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
 import {
-    HttpModule,
     XHRBackend,
     ResponseOptions,
     Response
@@ -15,13 +14,14 @@ import { jwtMock } from './token.store.spec';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { mockBackendResponse } from '../../testing/http';
 import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AuthService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpModule,
+                HttpClientModule,
                 RouterTestingModule,
                 CoreModule.forRoot(),
                 ToastModule,
