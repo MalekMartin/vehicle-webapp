@@ -8,8 +8,9 @@ export const maintenanceRoutes: Routes = [
     },
     {
         path: 'print',
-        loadChildren:
-            'app/vehicles/vehicle-detail/maintenance/maintenances/maintenances-print/maintenances-print.module#MaintenancesPrintModule'
-            
+        loadChildren: () =>
+            import('./maintenances/maintenances-print/maintenances-print.module').then(
+                m => m.MaintenancesPrintModule
+            )
     }
 ];
