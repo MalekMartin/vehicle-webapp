@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-    MatButtonModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatTooltipModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { ModalModule, TooltipModule } from 'ngx-bootstrap';
+import { CardModule } from '../../../shared/components/card/card.module';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
 import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
@@ -30,7 +29,6 @@ import { TireStatusFormModule } from './tire-status-form/tire-status-form.module
 import { TiresFormComponent } from './tires-form/tires-form.component';
 import { TiresComponent } from './tires.component';
 import { tiresRoutes } from './tires.routes';
-import { CardModule } from '../../../shared/components/card/card.module';
 
 @NgModule({
     imports: [

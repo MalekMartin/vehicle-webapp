@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { MaintenanceCardComponent } from './maintenance-card.component';
-import { CardModule } from '../../../../../shared/components/card/card.module';
-import { MatCheckboxModule, MatTooltipModule } from '@angular/material';
-import { DirectivesModule } from '../../../../../shared/directives/directives.module';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { CardModule } from '../../../../../shared/components/card/card.module';
 import { ProgressModule } from '../../../../../shared/components/progress/progress.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { DirectivesModule } from '../../../../../shared/directives/directives.module';
 import { PipesModule } from '../../../../../shared/pipes/pipes.module';
+import { MaintenanceCardComponent } from './maintenance-card.component';
 
 @NgModule({
     imports: [

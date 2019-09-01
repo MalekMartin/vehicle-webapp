@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { RepairItemFormComponent } from '../repair-item-form/repair-item-form.component';
 import { Subject } from 'rxjs';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Repair } from '../_core/repair.interface';
 import { RepairService } from '../repair.service';
 import { ToastsManager } from 'ng6-toastr';
@@ -12,12 +12,12 @@ import { RepairTask } from '../_core/repair-task.interface';
     templateUrl: 'repair-item-edit.component.html'
 })
 export class RepairItemEditComponent implements OnInit, OnDestroy {
-    @ViewChild(RepairItemFormComponent, {static: false}) formRef: RepairItemFormComponent;
+    @ViewChild(RepairItemFormComponent, { static: false }) formRef: RepairItemFormComponent;
 
     private _onDestroy$ = new Subject();
     constructor(
         private _dialogRef: MatDialogRef<RepairItemEditComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: {repair: Repair, item: RepairTask},
+        @Inject(MAT_DIALOG_DATA) public data: { repair: Repair; item: RepairTask },
         private _repairService: RepairService,
         private _toastr: ToastsManager
     ) {}

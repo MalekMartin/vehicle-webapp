@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { Repair } from '../_core/repair.interface';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { RepairEditComponent } from '../repair-edit/repair-edit.component';
 
 @Component({

@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './login.component';
 import { RouterModule } from '@angular/router';
-import {
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule
-} from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     imports: [

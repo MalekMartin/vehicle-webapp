@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { IntervalFormComponent } from '../interval-form/interval-form.component';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
@@ -12,13 +12,13 @@ import { ToastsManager } from 'ng6-toastr';
     templateUrl: 'interval-add.component.html'
 })
 export class IntervalAddComponent implements OnInit, OnDestroy {
-    @ViewChild(IntervalFormComponent, {static: false}) formRef: IntervalFormComponent;
+    @ViewChild(IntervalFormComponent, { static: false }) formRef: IntervalFormComponent;
     private _onDestroy$ = new Subject();
     constructor(
         private _dialogRef: MatDialogRef<IntervalAddComponent>,
         private _vehilceService: VehicleService,
         private _maintenance: MaintenanceService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastsManager
     ) {}
 
     ngOnInit() {

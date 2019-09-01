@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Info } from '../../../../vehicle-stream/vehicle';
 import { ToastsManager } from 'ng6-toastr';
 import { Subject } from 'rxjs';
@@ -14,7 +14,6 @@ import { VehicleInfoFormModel } from '../../../../../core/stores/vehicle/vehicle
     styleUrls: ['./info-form.component.scss']
 })
 export class InfoFormComponent implements OnInit, OnDestroy {
-
     form = this._form.group({
         id: ['', Validators.required],
         brand: ['', [Validators.required, Validators.maxLength(128)]],
@@ -68,9 +67,9 @@ export class InfoFormComponent implements OnInit, OnDestroy {
         this._toastr.success('Informace o vozidle byly úspěšně aktualizovány.');
         this._vehicleService.state.update(f => f.replaceVehicleInfoFromForm, res);
         this.dialogRef.close();
-    }
+    };
 
     private _onUpdateError = () => {
         this._toastr.error('Info nebylo aktualizováno.');
-    }
+    };
 }

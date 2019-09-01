@@ -12,17 +12,6 @@ import { costsRoutes } from './costs.routes';
 import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
-import {
-    MatCardModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatListModule
-} from '@angular/material';
 import { DirectivesModule } from '../../../shared/directives/directives.module';
 import { CostsEditComponent } from './costs-edit/costs-edit.component';
 import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
@@ -32,6 +21,14 @@ import { CardModule } from '../../../shared/components/card/card.module';
 import { PipesModule } from '../../../shared/pipes/pipes.module';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 import { FilterModule } from '../../../shared/components/filter/filter.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 const PIPES = [CostsPipe];
 

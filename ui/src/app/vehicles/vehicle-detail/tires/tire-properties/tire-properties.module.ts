@@ -1,18 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ConfirmModule } from '../../../../shared/components/confirm/confirm.module';
+import { SpinnerModule } from '../../../../shared/components/spinner/spinner.module';
 import { TirePropertiesComponent } from './tire-properties.component';
-import { TirePropertyFormComponent } from './tire-property-form/tire-property-form.component';
 import { TirePropertyAddComponent } from './tire-property-add/tire-property-add.component';
 import { TirePropertyEditComponent } from './tire-property-edit/tire-property-edit.component';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ConfirmModule } from '../../../../shared/components/confirm/confirm.module';
-import {
-    MatDialogModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule
-} from '@angular/material';
-import { SpinnerModule } from '../../../../shared/components/spinner/spinner.module';
+import { TirePropertyFormComponent } from './tire-property-form/tire-property-form.component';
 
 @NgModule({
     imports: [

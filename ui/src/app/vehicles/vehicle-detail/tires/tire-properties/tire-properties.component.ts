@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
 import { TireProperty } from '../tires.interface';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../shared/components/confirm/confirm.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -18,8 +18,6 @@ import { TirePropertiesState } from '../core/tire-properties.state';
             transition('active => deleted', animate('200ms ease-in'))
         ]),
         trigger('add', [
-            // state('void', style({transform: 'translateX(-100%)'})),
-            // state('void', style({transform: 'translateX(0)'})),
             state('hidden', style({ transform: 'translateX(-100%)' })),
             state('active', style({ transform: 'translateX(0)' })),
             transition('hidden => active', animate('200ms ease'))

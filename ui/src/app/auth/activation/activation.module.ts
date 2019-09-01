@@ -5,8 +5,10 @@ import { ActivationStatusComponent } from './activation-status/activation-status
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
 import { FormItemModule } from '../../shared/forms/form-item/form-item.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [

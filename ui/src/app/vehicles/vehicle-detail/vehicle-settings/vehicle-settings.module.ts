@@ -1,20 +1,17 @@
-import { NgModule } from '@angular/core';
-
-import { VehicleSettingsComponent } from './vehicle-settings.component';
-import { FileUploadModule } from 'ng2-file-upload';
-import { SettingsService } from './settings.service';
 import { CommonModule } from '@angular/common';
-import { SettingsFormComponent } from './settings-form/settings-form.component';
-import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
-import { ModalModule } from 'ngx-bootstrap';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FileUploadModule } from 'ng2-file-upload';
+import { ModalModule } from 'ngx-bootstrap';
+import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
 import { FormItemModule } from '../../../shared/forms/form-item/form-item.module';
-import {
-    MatFormFieldModule,
-    MatDialogModule,
-    MatInputModule,
-    MatButtonModule
-} from '@angular/material';
+import { SettingsFormComponent } from './settings-form/settings-form.component';
+import { SettingsService } from './settings.service';
+import { VehicleSettingsComponent } from './vehicle-settings.component';
 
 const COMPONENTS = [VehicleSettingsComponent, SettingsFormComponent];
 

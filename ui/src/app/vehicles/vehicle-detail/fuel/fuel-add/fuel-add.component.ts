@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FuelFormComponent } from '../fuel-form/fuel-form.component';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

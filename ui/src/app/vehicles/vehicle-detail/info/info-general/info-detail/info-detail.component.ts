@@ -1,5 +1,5 @@
-import { Component, OnChanges, Input, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { InfoFormComponent } from '../info-form/info-form.component';
 
@@ -9,14 +9,13 @@ import { InfoFormComponent } from '../info-form/info-form.component';
     styleUrls: ['./info-detail.component.scss']
 })
 export class InfoDetailComponent implements OnDestroy {
-
     @Input() info: any;
 
     owners: number[];
 
-    private _onDestroy$ = new Subject()
+    private _onDestroy$ = new Subject();
 
-    constructor(public dialog: MatDialog) { }
+    constructor(public dialog: MatDialog) {}
 
     ngOnDestroy(): void {
         this._onDestroy$.next();

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { RepairItemFormComponent } from '../repair-item-form/repair-item-form.component';
 import { Subject } from 'rxjs';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Repair } from '../_core/repair.interface';
 import { RepairService } from '../repair.service';
 import { ToastsManager } from 'ng6-toastr';
@@ -11,7 +11,7 @@ import { ToastsManager } from 'ng6-toastr';
     templateUrl: 'repair-item-add.component.html'
 })
 export class RepairItemAddComponent implements OnInit, OnDestroy {
-    @ViewChild(RepairItemFormComponent, {static: false}) formRef: RepairItemFormComponent;
+    @ViewChild(RepairItemFormComponent, { static: false }) formRef: RepairItemFormComponent;
 
     private _onDestroy$ = new Subject();
     constructor(

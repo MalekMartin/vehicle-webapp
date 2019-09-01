@@ -1,16 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-    MatButtonModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatTooltipModule,
-    MatCardModule
-} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CardModule } from '../../../shared/components/card/card.module';
@@ -28,6 +17,15 @@ import { FuelStatsComponent } from './fuel-stats/fuel-stats.component';
 import { FuelComponent } from './fuel.component';
 import { fuelRoutes } from './fuel.routes';
 import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     imports: [

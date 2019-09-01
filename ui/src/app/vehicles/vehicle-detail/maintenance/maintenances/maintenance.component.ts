@@ -10,7 +10,6 @@ import { Interval } from '../../../../shared/api/maintenance/interval.interface'
 import { Maintenance } from '../../../../shared/api/maintenance/maintenance.interface';
 import { MaintenanceService } from '../../../../shared/api/maintenance/maintenance.service';
 import { takeUntil } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
 
 @Component({
     selector: 'va-maintenances',
@@ -18,7 +17,7 @@ import { MatDialog } from '@angular/material';
     styleUrls: ['./maintenance.component.scss']
 })
 export class MaintenanceComponent implements OnInit, OnDestroy {
-    @ViewChild('modal', {static: false}) modal: ModalDirective;
+    @ViewChild('modal', { static: false }) modal: ModalDirective;
 
     @Output() finishMaintenance = new EventEmitter<Maintenance[]>();
     @Output() editMaintenance = new EventEmitter<Maintenance>();

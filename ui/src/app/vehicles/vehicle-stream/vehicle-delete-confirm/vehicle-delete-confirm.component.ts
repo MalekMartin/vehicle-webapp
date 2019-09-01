@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ToastsManager } from 'ng6-toastr';
@@ -41,9 +41,9 @@ export class VehicleDeleteConfirmComponent implements OnDestroy {
         this._toastr.success('Vozidlo bylo smazáno');
         this._vehicleStreamService.state.update(f => f.removeVehicle, this.data.id);
         this.dialogRef.close(this.data.id);
-    }
+    };
 
     private _onDeleteError = () => {
         this._toastr.error('Nepodařilo se smazat vybrané vozidlo');
-    }
+    };
 }

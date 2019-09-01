@@ -1,10 +1,10 @@
-import { Component, Input, Output, EventEmitter, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Trade } from '../../../../../shared/api/trade/trade';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { VehicleInfo } from '../../../../vehicle-stream/vehicle';
-import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
+import { Trade } from '../../../../../shared/api/trade/trade';
+import { VehicleInfo } from '../../../../vehicle-stream/vehicle';
 
 @Component({
     selector: 'va-trade-form',

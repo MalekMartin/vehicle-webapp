@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { InspectionFormComponent } from '../inspection-form/inspection-form.component';
 import { takeUntil } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { Inspection } from '../inspection.interface';
     styleUrls: ['./inspection-edit.component.scss']
 })
 export class InspectionEditComponent implements OnInit, OnDestroy {
-    @ViewChild(InspectionFormComponent, {static: false}) formCmp: InspectionFormComponent;
+    @ViewChild(InspectionFormComponent, { static: false }) formCmp: InspectionFormComponent;
 
     private _onDestroy$ = new Subject();
 

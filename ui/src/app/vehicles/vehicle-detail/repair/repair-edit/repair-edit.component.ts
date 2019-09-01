@@ -4,7 +4,7 @@ import { RepairService } from '../repair.service';
 import { ToastsManager } from 'ng6-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Repair } from '../_core/repair.interface';
 
 @Component({
@@ -12,7 +12,7 @@ import { Repair } from '../_core/repair.interface';
     templateUrl: 'repair-edit.component.html'
 })
 export class RepairEditComponent implements OnInit, OnDestroy {
-    @ViewChild(RepairFormComponent, {static: false}) formRef: RepairFormComponent;
+    @ViewChild(RepairFormComponent, { static: false }) formRef: RepairFormComponent;
 
     private _onDestroy$ = new Subject();
 
@@ -56,7 +56,7 @@ export class RepairEditComponent implements OnInit, OnDestroy {
         this._dialogRef.close();
     }
 
-    private _onSaveSuccess = (r) => {
+    private _onSaveSuccess = r => {
         this._toastr.success('Oprava byla úspěšně uložena', 'Hotovo!');
         this._dialogRef.close(r);
     };

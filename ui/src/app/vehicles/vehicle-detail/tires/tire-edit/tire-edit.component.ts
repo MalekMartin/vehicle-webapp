@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { TiresService } from '../core/tires.service';
 import { TiresFormComponent } from '../tires-form/tires-form.component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ToastsManager } from 'ng6-toastr';
@@ -14,7 +14,7 @@ import { Tire } from '../tires.interface';
     styleUrls: ['./tire-edit.component.scss']
 })
 export class TireEditComponent implements OnInit, OnDestroy {
-    @ViewChild(TiresFormComponent, {static: false}) formRef: TiresFormComponent;
+    @ViewChild(TiresFormComponent, { static: false }) formRef: TiresFormComponent;
 
     private _onDestroy$ = new Subject();
 

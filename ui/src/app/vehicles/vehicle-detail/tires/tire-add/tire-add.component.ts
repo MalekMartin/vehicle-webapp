@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { TiresService } from '../core/tires.service';
 import { TiresFormComponent } from '../tires-form/tires-form.component';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ToastsManager } from 'ng6-toastr';
@@ -13,7 +13,7 @@ import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service'
     styleUrls: ['./tire-add.component.scss']
 })
 export class TireAddComponent implements OnInit, OnDestroy {
-    @ViewChild(TiresFormComponent, {static: false}) formRef: TiresFormComponent;
+    @ViewChild(TiresFormComponent, { static: false }) formRef: TiresFormComponent;
 
     private _onDestroy$ = new Subject();
 
@@ -25,11 +25,10 @@ export class TireAddComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.formRef.form
-            .patchValue({
-                vehicleId: this._vehicleService.state.snapshot.vehicle.info.id,
-                status: 'STOCK'
-            });
+        this.formRef.form.patchValue({
+            vehicleId: this._vehicleService.state.snapshot.vehicle.info.id,
+            status: 'STOCK'
+        });
     }
 
     ngOnDestroy() {

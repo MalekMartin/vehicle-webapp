@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { VehicleInfo } from '../../../../vehicle-stream/vehicle';
 import { EngineFormComponent } from '../engine-form/engine-form.component';
 

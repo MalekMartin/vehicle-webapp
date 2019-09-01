@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ConfirmComponent } from './confirm.component';
-import { MatDialogModule, MatButtonModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [MatDialogModule, MatButtonModule],

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ToastsManager } from 'ng6-toastr';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { TirePropertyFormComponent } from '../tire-property-form/tire-property-form.component';
@@ -12,7 +12,7 @@ import { TirePropertiesService } from '../../core/tire-properties.service';
     styleUrls: ['./tire-property-add.component.scss']
 })
 export class TirePropertyAddComponent implements OnInit {
-    @ViewChild(TirePropertyFormComponent, {static: false}) tireForm: TirePropertyFormComponent;
+    @ViewChild(TirePropertyFormComponent, { static: false }) tireForm: TirePropertyFormComponent;
 
     constructor(
         private _tirePropService: TirePropertiesService,

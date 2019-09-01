@@ -1,27 +1,18 @@
-import {
-    animate,
-    AUTO_STYLE,
-    keyframes,
-    state,
-    style,
-    transition,
-    trigger
-} from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 import { Page } from '../../../utils/pageable';
-import { Inspection } from './inspection.interface';
 import { InspectionAddComponent } from './inspection-add/inspection-add.component';
 import { InspectionEditComponent } from './inspection-edit/inspection-edit.component';
-import { Station } from './station.interface';
-import { TechnicalInspectionService } from './technical-inspection.service';
+import { Inspection } from './inspection.interface';
 import { StationAddComponent } from './station-add/station-add.component';
 import { StationEditComponent } from './station-edit/station-edit.component';
+import { Station } from './station.interface';
+import { TechnicalInspectionService } from './technical-inspection.service';
 
 @Component({
     selector: 'va-technical-inspection',

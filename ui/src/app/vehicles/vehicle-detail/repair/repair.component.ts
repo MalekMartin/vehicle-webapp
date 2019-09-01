@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { DOCUMENT } from "@angular/common";
+import { MatDialog } from '@angular/material/dialog';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Subject } from 'rxjs';

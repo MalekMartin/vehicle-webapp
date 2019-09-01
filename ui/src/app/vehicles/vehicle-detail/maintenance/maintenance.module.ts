@@ -1,17 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-    MatButtonModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    MatTooltipModule
-} from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap';
 import { GarageModule } from '../../../car-services/garage/garage.module';
@@ -34,6 +29,9 @@ import { MaintenanceEditComponent } from './maintenances/maintenance-edit/mainte
 import { MaintenaceFormComponent } from './maintenances/maintenance-form/maintenance-form.component';
 import { MaintenanceComponent } from './maintenances/maintenance.component';
 import { MaintenanceCardModule } from './maintenances/maintenance-card/maintenance-card.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MODULES = [
     CommonModule,

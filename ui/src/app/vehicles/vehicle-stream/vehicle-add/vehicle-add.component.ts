@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { VehicleStreamService } from '../../../core/stores/vehicle/vehicle-stream.service';
 import { Vehicle } from '../vehicle';
 
@@ -59,11 +59,11 @@ export class VehicleAddComponent implements OnDestroy {
         );
         this._service.state.update(f => f.addVehicle, this._buildVehicleModel(id, this.form.value));
         this.dialogRef.close(id);
-    }
+    };
 
     private _onError = () => {
         this._toastr.error('Vozidlo nebylo vloženo', 'Chyba!');
-    }
+    };
 
     private _buildVehicleModel(id: string, value: VehicleAddModel): Vehicle {
         return {

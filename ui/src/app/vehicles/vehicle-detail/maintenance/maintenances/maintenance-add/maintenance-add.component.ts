@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MaintenaceFormComponent } from '../maintenance-form/maintenance-form.component';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
 import { ToastsManager } from 'ng6-toastr';
@@ -12,7 +12,7 @@ import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.servi
     templateUrl: 'maintenance-add.component.html'
 })
 export class MaintenanceAddComponent implements OnInit, OnDestroy {
-    @ViewChild(MaintenaceFormComponent, {static: false}) formRef: MaintenaceFormComponent;
+    @ViewChild(MaintenaceFormComponent, { static: false }) formRef: MaintenaceFormComponent;
     private _onDestroy$ = new Subject();
 
     constructor(

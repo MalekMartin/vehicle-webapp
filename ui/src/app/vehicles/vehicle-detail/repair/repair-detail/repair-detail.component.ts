@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastsManager } from 'ng6-toastr';
@@ -21,7 +21,7 @@ import { Repair } from '../_core/repair.interface';
     styleUrls: ['./repair-detail.component.scss']
 })
 export class RepairDetailComponent implements OnInit, OnDestroy {
-    @ViewChild('modal', {static: false}) modal: ModalDirective;
+    @ViewChild('modal', { static: false }) modal: ModalDirective;
 
     expanded = false;
     repair: Repair;

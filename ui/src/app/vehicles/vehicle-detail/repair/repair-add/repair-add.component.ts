@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
-import { RepairFormComponent } from '../repair-form/repair-form.component';
-import { RepairService } from '../repair.service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ToastsManager } from 'ng6-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
+import { RepairFormComponent } from '../repair-form/repair-form.component';
+import { RepairService } from '../repair.service';
 
 @Component({
     selector: 'va-repair-add',
     templateUrl: 'repair-add.component.html'
 })
 export class RepairAddComponent implements OnInit, OnDestroy {
-    @ViewChild(RepairFormComponent, {static: false}) formRef: RepairFormComponent;
+    @ViewChild(RepairFormComponent, { static: false }) formRef: RepairFormComponent;
 
     private _onDestroy$ = new Subject();
 

@@ -1,15 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { forkJoin, Observable, Subscription, Subject } from 'rxjs';
+import { forkJoin, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Fuel } from '../../../shared/api/fuel/fuel';
 import { FuelService } from '../../../shared/api/fuel/fuel.service';
 import { MultiStatsModel } from '../../../shared/api/stats.interface';
 import { Page, Pageable } from '../../../utils/pageable';
-import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
-import { MatDialog } from '@angular/material';
 import { FuelAddComponent } from './fuel-add/fuel-add.component';
-import { takeUntil } from 'rxjs/operators';
 import { FuelEditComponent } from './fuel-edit/fuel-edit.component';
 
 @Component({
@@ -22,7 +21,7 @@ export class FuelComponent implements OnInit, OnDestroy {
     selectedFueling: Fuel;
     statistics: any;
     mileages: MultiStatsModel[];
-    fuelStats: MultiStatsModel[]
+    fuelStats: MultiStatsModel[];
 
     fuelings: Fuel[];
     isLoading = false;
@@ -56,16 +55,19 @@ export class FuelComponent implements OnInit, OnDestroy {
             this._service.fuelStats(this.vehicleId, 12)
         )
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(([fuel, stats, mileageStats, fuelStats]) => {
-                this.fuelings = fuel.content;
-                this.statistics = stats;
-                this.mileages = mileageStats;
-                this.fuelStats = fuelStats;
-                this._service.resetPage();
-                this.isLoading = false;
-            }, () => {
-                this.isLoading = false;
-            });
+            .subscribe(
+                ([fuel, stats, mileageStats, fuelStats]) => {
+                    this.fuelings = fuel.content;
+                    this.statistics = stats;
+                    this.mileages = mileageStats;
+                    this.fuelStats = fuelStats;
+                    this._service.resetPage();
+                    this.isLoading = false;
+                },
+                () => {
+                    this.isLoading = false;
+                }
+            );
     }
 
     get fuelService(): Pageable<Fuel> {

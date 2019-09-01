@@ -1,13 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule
-} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap';
 import { GarageModule } from '../../../car-services/garage/garage.module';
@@ -31,6 +24,11 @@ import { RepairService } from './repair.service';
 import { PaginatorModule } from '../../../shared/components/paginator/paginator.module';
 import { NumberStatsModule } from '../../../shared/components/number-stats/number-stats.module';
 import { PipesModule } from '../../../shared/pipes/pipes.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 const COMPONENTS = [
     RepairComponent,

@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 import { merge, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
