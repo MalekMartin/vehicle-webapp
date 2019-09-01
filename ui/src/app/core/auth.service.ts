@@ -1,16 +1,14 @@
-import { Injectable, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { TokenStore } from './token.store';
-import { Headers, RequestOptionsArgs, Response } from '@angular/http';
-import { Subscription, Observable } from 'rxjs';
-import { Jwt } from './jwt';
-import * as moment from 'moment';
-
-import { StorageService } from '../shared/api/storage.service';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpResponseType } from './http.service';
+import { Inject, Injectable } from '@angular/core';
+import { Response } from '@angular/http';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { StorageService } from '../shared/api/storage.service';
+import { buildUrl, HttpResponseType } from './http-fns';
+import { Jwt } from './jwt';
+import { TokenStore } from './token.store';
 
 @Injectable()
 export class AuthService {
@@ -87,7 +85,7 @@ export class AuthService {
 
         this._subscription = this.http
             .get(buildUrl('/auth/account'), { headers: new HttpHeaders(headers) })
-            .pipe(map((response: Response) => response.json()))
+            .pipe(map((response: Response) => response))
             .subscribe(user => (this._user = user));
     }
 
@@ -151,25 +149,16 @@ export class AuthService {
 
     private _loginOptions(responseType: HttpResponseType = 'json'): any {
         const headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: 'Basic d2ViX2FwcDo='
+            'Content-Type': 'application/x-www-form-urlencoded'
         };
+        headers['Authorization'] = 'Basic d2ViX2FwcDo=';
         return { headers: new HttpHeaders(headers), responseType };
     }
 
     private mapLoginResponse = response => {
-        const jwt = <Jwt>response.json();
+        // const jwt = <Jwt>response.json();
+        const jwt = response;
         this._tokenStore.token = jwt;
         this.scheduleRefresh(jwt.expires_in);
     };
-}
-
-function buildUrl(url: string): string {
-    let u = '';
-    if (url.startsWith('/')) {
-        u = url.substr(1);
-    } else {
-        u = url;
-    }
-    return environment.baseUrl + '/' + u;
 }

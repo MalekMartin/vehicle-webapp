@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
-import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-export interface HttpOptions {
-    headers?: { [header: string]: string };
-    responseType?: HttpResponseType;
-}
-
-export type HttpResponseType = 'arraybuffer' | 'blob' | 'json' | 'text';
+import { HttpClient } from '@angular/common/http';
+import { buildUrl, HttpOptions, securityHeaders } from './http-fns';
 
 @Injectable()
 export class HttpService {
@@ -39,46 +32,12 @@ export class HttpService {
         ) as any) as Observable<T>;
     }
 
-    /**
-     * Http Headers
-     * - application/json
-     * - Bearer token
-     */
-    securityHeaders(
-        accessToken?: string,
-        extraHeaders?: HttpOptions['headers'],
-        responseType?: HttpOptions['responseType']
-    ) {
-        const headers = {
-            'Content-Type': 'application/json'
-        };
-        if (!!accessToken) {
-            headers['Authorization'] = 'Bearer ' + accessToken;
-        }
-        // extend by extra headers
-        if (extraHeaders) {
-            // NOTE: intentionally mutate headers object
-            Object.assign(headers, extraHeaders);
-        }
-        return { headers: new HttpHeaders(headers), responseType };
-    }
-
     private _securityOptions(options?: HttpOptions): any {
         const headers = options ? options.headers : undefined;
-        return this.securityHeaders(
+        return securityHeaders(
             this._auth.accessToken,
             headers,
             !!options && !!options.responseType ? options.responseType : undefined
         );
     }
-}
-
-function buildUrl(url: string): string {
-    let u = '';
-    if (url.startsWith('/')) {
-        u = url.substr(1);
-    } else {
-        u = url;
-    }
-    return environment.baseUrl + '/' + u;
 }
