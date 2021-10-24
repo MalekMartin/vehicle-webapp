@@ -18,7 +18,7 @@ $config['addContentLengthHeader'] = false;
 $config['db']['host']   = "localhost";
 $config['db']['user']   = getenv('DB_USER');
 $config['db']['pass']   = getenv('DB_PWD');
-$config['db']['dbname'] = "moto";
+$config['db']['dbname'] = "vehicle";
 $jwtSecret =  getenv("JWT_SECRET");
 
 $app = new \Slim\App(["settings" => $config]);

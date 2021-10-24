@@ -151,7 +151,7 @@ export class AuthService {
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded'
         };
-        headers['Authorization'] = 'Basic d2ViX2FwcDo=';
+        // headers['Authorization'] = 'Basic d2ViX2FwcDo=';
         return { headers: new HttpHeaders(headers), responseType };
     }
 

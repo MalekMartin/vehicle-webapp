@@ -9,7 +9,7 @@ uploads/*
 manuals/*
 
 # Logs
-logs/*
+src/logs/*
 
 # .htaccess configuration
 .htaccess
