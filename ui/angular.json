@@ -14,21 +14,20 @@
             "builder": "@angular-devkit/build-angular:browser",
             "options": {
             "aot": true,
-              "outputPath": "dist/vehicle-webapp",
-              "index": "src/index.html",
-              "main": "src/main.ts",
-              "polyfills": "src/polyfills.ts",
-              "tsConfig": "src/tsconfig.app.json",
-              "assets": [
-                "src/favicon.ico",
-                "src/assets"
-              ],
-              "styles": [
-                "src/styles.scss"
-              ],
-              "scripts": [],
-              "es5BrowserSupport": true
-            },
+            "outputPath": "dist/vehicle-webapp",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          },
             "configurations": {
               "production": {
                 "fileReplacements": [
