@@ -14,7 +14,7 @@ import { Tire } from '../tires.interface';
     styleUrls: ['./tire-edit.component.scss']
 })
 export class TireEditComponent implements OnInit, OnDestroy {
-    @ViewChild(TiresFormComponent, { static: false }) formRef: TiresFormComponent;
+    @ViewChild(TiresFormComponent) formRef: TiresFormComponent;
 
     private _onDestroy$ = new Subject();
 

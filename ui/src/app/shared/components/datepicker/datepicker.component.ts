@@ -22,8 +22,8 @@ export const DATEPICKER_CONTROL_VALUE_ACCESSOR: Provider = {
 export class DatepickerComponent implements OnInit, OnDestroy, ControlValueAccessor {
     dt = new FormControl();
 
-    @ViewChild(BsDropdownDirective, {static: false}) dropdown: BsDropdownDirective;
-    @ViewChild(DatePickerComponent, {static: false}) datepicker: DatePickerComponent;
+    @ViewChild(BsDropdownDirective) dropdown: BsDropdownDirective;
+    @ViewChild(DatePickerComponent) datepicker: DatePickerComponent;
 
     private _onDestroy$ = new Subject();
     // Placeholders for the callbacks which are later provided

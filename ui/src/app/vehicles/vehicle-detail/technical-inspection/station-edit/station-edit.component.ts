@@ -13,7 +13,7 @@ import { Station } from '../station.interface';
     styleUrls: ['./station-edit.component.scss']
 })
 export class StationEditComponent implements OnInit, OnDestroy {
-    @ViewChild(StationFormComponent, { static: false }) stationFormRef: StationFormComponent;
+    @ViewChild(StationFormComponent) stationFormRef: StationFormComponent;
 
     private _onDestroy$ = new Subject();
 

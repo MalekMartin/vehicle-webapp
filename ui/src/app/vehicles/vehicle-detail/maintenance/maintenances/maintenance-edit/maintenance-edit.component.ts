@@ -12,7 +12,7 @@ import { Maintenance } from '../../../../../shared/api/maintenance/maintenance.i
     templateUrl: 'maintenance-edit.component.html'
 })
 export class MaintenanceEditComponent implements OnInit, OnDestroy {
-    @ViewChild(MaintenaceFormComponent, { static: false }) formRef: MaintenaceFormComponent;
+    @ViewChild(MaintenaceFormComponent) formRef: MaintenaceFormComponent;
     private _onDestroy$ = new Subject();
 
     constructor(

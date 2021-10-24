@@ -12,7 +12,7 @@ import { TirePropertiesService } from '../../core/tire-properties.service';
     styleUrls: ['./tire-property-add.component.scss']
 })
 export class TirePropertyAddComponent implements OnInit {
-    @ViewChild(TirePropertyFormComponent, { static: false }) tireForm: TirePropertyFormComponent;
+    @ViewChild(TirePropertyFormComponent) tireForm: TirePropertyFormComponent;
 
     constructor(
         private _tirePropService: TirePropertiesService,

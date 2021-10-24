@@ -12,7 +12,7 @@ import { ToastsManager } from 'ng6-toastr';
     styleUrls: ['./station-add.component.scss']
 })
 export class StationAddComponent implements OnInit, OnDestroy {
-    @ViewChild(StationFormComponent, { static: false }) stationFormRef: StationFormComponent;
+    @ViewChild(StationFormComponent) stationFormRef: StationFormComponent;
 
     private _onDestroy$ = new Subject();
 

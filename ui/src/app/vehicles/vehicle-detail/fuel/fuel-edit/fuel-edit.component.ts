@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
     styleUrls: ['./fuel-edit.component.scss']
 })
 export class FuelEditComponent implements OnInit, OnDestroy {
-    @ViewChild(FuelFormComponent, {static: false}) fuelForm: FuelFormComponent;
+    @ViewChild(FuelFormComponent) fuelForm: FuelFormComponent;
 
     private _onDestroy$ = new Subject();
 

@@ -11,7 +11,7 @@ import { ToastsManager } from 'ng6-toastr';
     templateUrl: 'repair-item-add.component.html'
 })
 export class RepairItemAddComponent implements OnInit, OnDestroy {
-    @ViewChild(RepairItemFormComponent, { static: false }) formRef: RepairItemFormComponent;
+    @ViewChild(RepairItemFormComponent) formRef: RepairItemFormComponent;
 
     private _onDestroy$ = new Subject();
     constructor(

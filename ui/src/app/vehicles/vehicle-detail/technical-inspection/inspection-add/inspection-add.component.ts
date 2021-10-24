@@ -14,7 +14,7 @@ import { Inspection } from '../inspection.interface';
     styleUrls: ['./inspection-add.component.scss']
 })
 export class InspectionAddComponent implements OnInit, OnDestroy {
-    @ViewChild(InspectionFormComponent, { static: false }) formCmp: InspectionFormComponent;
+    @ViewChild(InspectionFormComponent) formCmp: InspectionFormComponent;
 
     private _onDestroy$ = new Subject();
 

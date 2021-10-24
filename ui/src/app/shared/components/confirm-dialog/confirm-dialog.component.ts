@@ -9,9 +9,9 @@ import { mapTo } from 'rxjs/operators';
     styleUrls: ['./confirm-dialog.component.scss']
 })
 export class ConfirmDialogComponent implements OnDestroy, AfterViewInit {
-    @ViewChild('dialog', {static: false}) dialog: ModalDirective;
-    @ViewChild('btnCancel', {static: false}) btnCancel: ElementRef;
-    @ViewChild('btnOk', {static: false}) btnOk: ElementRef;
+    @ViewChild('dialog') dialog: ModalDirective;
+    @ViewChild('btnCancel') btnCancel: ElementRef;
+    @ViewChild('btnOk') btnOk: ElementRef;
     modalSubscription: Subscription;
 
     title: string;

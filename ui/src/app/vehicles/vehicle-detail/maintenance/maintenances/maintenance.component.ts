@@ -17,7 +17,7 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./maintenance.component.scss']
 })
 export class MaintenanceComponent implements OnInit, OnDestroy {
-    @ViewChild('modal', { static: false }) modal: ModalDirective;
+    @ViewChild('modal') modal: ModalDirective;
 
     @Output() finishMaintenance = new EventEmitter<Maintenance[]>();
     @Output() editMaintenance = new EventEmitter<Maintenance>();

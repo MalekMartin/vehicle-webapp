@@ -13,7 +13,7 @@ import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service'
     styleUrls: ['./fuel-add.component.scss']
 })
 export class FuelAddComponent implements OnInit, OnDestroy {
-    @ViewChild(FuelFormComponent, {static: false}) fuelForm: FuelFormComponent;
+    @ViewChild(FuelFormComponent) fuelForm: FuelFormComponent;
 
     private _onDestroy$ = new Subject();
 
