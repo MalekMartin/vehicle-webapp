@@ -3,7 +3,7 @@ import { CostsFormComponent } from '../costs-form/costs-form.component';
 import { Subject } from 'rxjs';
 import { CostsService } from '../../../../shared/api/costs/costs.service';
 import { takeUntil } from 'rxjs/operators';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -18,7 +18,7 @@ export class CostsAddComponent implements OnInit, OnDestroy {
 
     constructor(
         private _costsService: CostsService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _dialogRef: MatDialogRef<CostsAddComponent>
     ) {}
 

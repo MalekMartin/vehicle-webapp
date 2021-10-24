@@ -1,16 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { VehiclePreviewComponent } from './vehicle-preview.component';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { XHRBackend } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CoreModule } from '../../../core/core.module';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
-import { MockBackend } from '@angular/http/testing';
 import { MomentPipe } from '../../../shared/pipes/moment.pipe';
 import { FromNowPipe } from '../../../shared/pipes/from-now.pipe';
 import { PricePipe } from '../../../shared/pipes/price.pipe';
 import { NumberFormatPipe } from '../../../shared/pipes/number-format.pipe';
-import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { SettingsService } from '../../vehicle-detail/vehicle-settings/settings.service';
 import { vehicleMock } from '../../../core/stores/vehicle/vehicle.service.spec';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,7 +20,7 @@ describe('VehiclePreviewComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule, RouterTestingModule, CoreModule.forRoot(), ToastModule],
+            imports: [HttpClientModule, RouterTestingModule, CoreModule.forRoot(), ToastrModule],
             declarations: [
                 VehiclePreviewComponent,
                 MomentPipe,
@@ -34,9 +32,7 @@ describe('VehiclePreviewComponent', () => {
             providers: [
                 VehicleService,
                 SettingsService,
-                ToastsManager,
-                ToastOptions,
-                { provide: XHRBackend, useClass: MockBackend }
+                ToastrService,
             ]
         });
 

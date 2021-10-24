@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Inspection } from '../inspection.interface';
 import * as moment from 'moment';
 import { TechnicalInspectionService } from '../technical-inspection.service';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class InspectionCardComponent implements OnInit {
     valid = false;
 
     constructor(private _service: TechnicalInspectionService,
-                private _toastr: ToastsManager,
+                private _toastr: ToastrService,
                 private _vehicles: VehicleService) { }
 
     ngOnInit() {

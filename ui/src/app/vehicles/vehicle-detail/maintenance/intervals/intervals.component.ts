@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
@@ -24,7 +24,7 @@ export class IntervalsComponent implements OnInit, OnDestroy {
 
     constructor(
         private _maintenanceService: MaintenanceService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _vehicles: VehicleService,
         private _dialog: MatDialog
     ) {

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Category, CostsService } from '../../../../shared/api/costs/costs.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -28,7 +28,7 @@ export class CostCategoryFormComponent implements OnInit, OnDestroy {
     constructor(
         private _form: FormBuilder,
         private costs: CostsService,
-        private toastr: ToastsManager
+        private toastr: ToastrService
     ) {}
 
     ngOnInit() {

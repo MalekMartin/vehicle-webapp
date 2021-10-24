@@ -6,8 +6,7 @@ import { NO_ERRORS_SCHEMA, ViewContainerRef, DebugElement } from '@angular/core'
 
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
-import { AppState } from './app.service';
-import { ToastsManager, ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ComponentFixture } from '@angular/core/testing';
 
 describe('App', () => {
@@ -18,11 +17,9 @@ describe('App', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ToastModule],
+      imports: [ToastrModule.forRoot()],
       providers: [
         AppComponent,
-        ToastsManager,
-        ToastOptions,
         ViewContainerRef,
       ],
       declarations: [AppComponent],

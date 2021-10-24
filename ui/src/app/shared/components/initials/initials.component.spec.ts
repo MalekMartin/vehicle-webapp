@@ -3,7 +3,7 @@ import { InitialsComponent } from './initials.component';
 import { CoreModule } from '../../../core/core.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ColorFormStringDirective } from '../../directives/color-from-string.directive';
-import { ToastModule, ToastsManager, ToastOptions } from 'ng6-toastr/ng2-toastr';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
 
 describe('InitialsComponent', () => {
 
@@ -15,7 +15,7 @@ describe('InitialsComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 CoreModule.forRoot(),
-                ToastModule
+                ToastrModule
             ],
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [
@@ -23,8 +23,7 @@ describe('InitialsComponent', () => {
                 ColorFormStringDirective,
             ],
             providers: [
-                ToastsManager,
-                ToastOptions,
+                ToastrService,
             ]
         });
     });

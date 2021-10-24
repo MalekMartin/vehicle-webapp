@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MaintenaceFormComponent } from '../maintenance-form/maintenance-form.component';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 
@@ -18,7 +18,7 @@ export class MaintenanceAddComponent implements OnInit, OnDestroy {
     constructor(
         private _dialogRef: MatDialogRef<MaintenanceAddComponent>,
         private _maintenance: MaintenanceService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _vehicleService: VehicleService
     ) {}
 

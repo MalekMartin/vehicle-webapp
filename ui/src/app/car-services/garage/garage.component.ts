@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GarageService } from './garage.service';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Garage } from '../garage-form/garage-form.component';
 
 @Component({
@@ -14,7 +14,7 @@ export class GarageComponent implements OnInit {
     selected: Garage = null;
 
     constructor(private _garages: GarageService,
-                private _toastr: ToastsManager) { }
+                private _toastr: ToastrService) { }
 
     ngOnInit() {
         this._garages.refresh();

@@ -10,7 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
-import { BsDropdownModule, DatepickerModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CardModule } from '../../shared/components/card/card.module';
 import { InitialsModule } from '../../shared/components/initials/initials.module';
@@ -29,7 +29,6 @@ const MODULES = [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    DatepickerModule,
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
@@ -65,7 +64,6 @@ const COMPONENTS = [
     providers: [
         VehicleImageService,
         ErrorStateMatcher
-        // { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
     ],
     entryComponents: [VehicleAddComponent, VehicleDeleteConfirmComponent]
 })

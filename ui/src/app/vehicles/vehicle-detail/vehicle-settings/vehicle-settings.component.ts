@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { FileItem, FileUploader } from 'ng2-file-upload/ng2-file-upload';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { FileItem, FileUploader } from 'ng2-file-upload';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
@@ -46,7 +46,7 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
     constructor(
         private _route: ActivatedRoute,
         private _settings: SettingsService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _auth: AuthService,
         private _images: VehicleImageService,
         private _vehicles: VehicleService,

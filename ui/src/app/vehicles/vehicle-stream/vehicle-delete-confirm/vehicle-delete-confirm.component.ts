@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { VehicleStreamService } from '../../../core/stores/vehicle/vehicle-stream.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class VehicleDeleteConfirmComponent implements OnDestroy {
         public dialogRef: MatDialogRef<VehicleDeleteConfirmComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { name: string; id: string },
         private _vehicleStreamService: VehicleStreamService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnDestroy() {}

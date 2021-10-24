@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CostsAddComponent } from './costs-add/costs-add.component';
 import { CostsEditComponent } from './costs-edit/costs-edit.component';
 import { CostCategoryFormComponent } from './cost-category-form/cost-category-form.component';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 
 @Component({
@@ -41,7 +41,7 @@ export class CostsComponent implements OnInit, OnDestroy {
         private _fb: FormBuilder,
         private _vehicles: VehicleService,
         private _dialog: MatDialog,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService,
     ) {
         this._service.pageSize = 5;
     }

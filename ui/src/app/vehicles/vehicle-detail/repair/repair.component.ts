@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { GarageService } from '../../../car-services/garage/garage.service';
@@ -37,7 +37,7 @@ export class RepairComponent implements OnInit, OnDestroy {
     constructor(
         private _route: ActivatedRoute,
         private _service: RepairService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _fb: FormBuilder,
         private _services: GarageService,
         private _vehicleService: VehicleService,

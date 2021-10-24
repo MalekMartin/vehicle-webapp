@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TireProperty } from '../../tires.interface';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { TirePropertyFormComponent } from '../tire-property-form/tire-property-form.component';
 import { TirePropertiesService } from '../../core/tire-properties.service';
 
@@ -15,7 +15,7 @@ export class TirePropertyEditComponent implements OnInit {
 
     constructor(
         private _tirePropService: TirePropertiesService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _dialogRef: MatDialogRef<TirePropertyEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: TireProperty
     ) {}

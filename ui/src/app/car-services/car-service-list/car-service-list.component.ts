@@ -3,7 +3,7 @@ import { CarServiceService, Service } from '../vehicle-repairs.service';
 import { GarageService } from '../garage/garage.service';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Garage } from '../garage-form/garage-form.component';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'va-car-service-list',
@@ -19,7 +19,7 @@ export class CarServiceListComponent implements OnInit {
 
     constructor(private _services: CarServiceService,
                 private _garages: GarageService,
-                private _toastr: ToastsManager) { }
+                private _toastr: ToastrService) { }
 
     ngOnInit() {
         this._garages.refresh();

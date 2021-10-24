@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
@@ -18,7 +18,7 @@ export class RepairAddComponent implements OnInit, OnDestroy {
 
     constructor(
         private _repairService: RepairService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _dialogRef: MatDialogRef<RepairAddComponent>,
         private _vehicleService: VehicleService
     ) {}

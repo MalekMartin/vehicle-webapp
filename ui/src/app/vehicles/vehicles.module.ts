@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpService } from '../core/http.service';
 import { ModalModule } from 'ngx-bootstrap';
-import { DatepickerModule } from 'ngx-bootstrap';
 import { VehicleDetailModule } from './vehicle-detail/vehicle-detail.module';
 import { VehicleStreamModule } from './vehicle-stream/vehicle-stream.module';
 import { AuthService } from '../core/auth.service';
@@ -17,7 +16,6 @@ const MODULES = [
     CommonModule,
     RouterModule,
     ModalModule,
-    DatepickerModule,
     VehicleDetailModule,
     VehicleStreamModule
 ];

@@ -11,7 +11,6 @@ import { CostCardComponent } from './cost-card/cost-card.component';
 import { costsRoutes } from './costs.routes';
 import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
 import { DirectivesModule } from '../../../shared/directives/directives.module';
 import { CostsEditComponent } from './costs-edit/costs-edit.component';
 import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
@@ -48,7 +47,6 @@ const COMPONENTS = [
         ReactiveFormsModule,
         NgxChartsModule,
         RouterModule.forChild(costsRoutes),
-        DatepickerModule,
         DirectivesModule,
         MatCardModule,
         MatInputModule,

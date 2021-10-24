@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { Trade } from '../../../../../shared/api/trade/trade';
 import { VehicleInfo } from '../../../../vehicle-stream/vehicle';
@@ -35,7 +35,7 @@ export class TradeFormComponent implements OnInit, OnDestroy {
         public dialogRef: MatDialogRef<TradeFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { vehicle: VehicleInfo; type: 'buyer' | 'seller' },
         private _vehicleService: VehicleService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnInit() {

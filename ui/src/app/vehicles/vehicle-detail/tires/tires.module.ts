@@ -13,7 +13,6 @@ import { RouterModule } from '@angular/router';
 import { ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { CardModule } from '../../../shared/components/card/card.module';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
-import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
 import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
 import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
 import { PipesModule } from '../../../shared/pipes/pipes.module';
@@ -39,7 +38,6 @@ import { tiresRoutes } from './tires.routes';
         TireStatusFormModule,
         TirePropertiesModule,
         RouterModule.forChild(tiresRoutes),
-        DatepickerModule,
         MatFormFieldModule,
         MatInputModule,
         MatDatepickerModule,

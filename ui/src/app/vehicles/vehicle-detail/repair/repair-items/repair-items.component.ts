@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angu
 import { Repair } from '../_core/repair.interface';
 import { RepairService } from '../repair.service';
 import { RepairTask } from '../_core/repair-task.interface';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
 import * as _ from 'lodash';
 
@@ -19,7 +19,7 @@ export class RepairItemsComponent implements OnInit, OnDestroy {
 
     constructor(
         private _service: RepairService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _confirm: ConfirmDialogService
     ) {}
 

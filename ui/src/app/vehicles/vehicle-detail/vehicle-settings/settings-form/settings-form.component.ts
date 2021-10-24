@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleInfo } from '../../../vehicle-stream/vehicle';
@@ -28,7 +28,7 @@ export class SettingsFormComponent implements OnInit, OnDestroy {
     constructor(
         private _fb: FormBuilder,
         private _settingsService: SettingsService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _dialogRef: MatDialogRef<SettingsFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: VehicleInfo
     ) {}

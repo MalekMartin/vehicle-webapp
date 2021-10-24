@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../core/auth.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class LoginComponent implements OnDestroy {
         private _form: FormBuilder,
         private _auth: AuthService,
         private _router: Router,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _route: ActivatedRoute
     ) {}
 

@@ -3,7 +3,7 @@ import { CostsFormComponent } from '../costs-form/costs-form.component';
 import { Subject } from 'rxjs';
 import { CostsService } from '../../../../shared/api/costs/costs.service';
 import { takeUntil } from 'rxjs/operators';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Cost } from '../cost.interface';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -19,7 +19,7 @@ export class CostsEditComponent implements OnInit, OnDestroy {
 
     constructor(
         private _costsService: CostsService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _dialogRef: MatDialogRef<CostsEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: Cost
     ) {}

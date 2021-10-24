@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
@@ -29,7 +29,7 @@ export class FuelComponent implements OnInit, OnDestroy {
 
     constructor(
         private _service: FuelService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _vehicles: VehicleService,
         public dialog: MatDialog
     ) {}

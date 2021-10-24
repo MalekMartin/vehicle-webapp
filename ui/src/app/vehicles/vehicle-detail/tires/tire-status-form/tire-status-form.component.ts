@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Tire, TireStatus } from '../tires.interface';
 import { TiresService } from '../core/tires.service';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'va-tire-status-form',
@@ -34,7 +34,7 @@ export class TireStatusFormComponent implements OnInit, OnDestroy {
         private _forms: FormBuilder,
         private _vehicles: VehicleService,
         private _tireService: TiresService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _dialogRef: MatDialogRef<TireStatusFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { tire: Tire; status: TireStatus }
     ) {}

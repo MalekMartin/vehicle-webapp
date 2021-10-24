@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -34,7 +34,7 @@ export class VehicleAddComponent implements OnDestroy {
         public dialogRef: MatDialogRef<VehicleAddComponent>,
         private _service: VehicleStreamService,
         private _form: FormBuilder,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnDestroy() {

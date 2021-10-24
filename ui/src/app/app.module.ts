@@ -4,10 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import {
     BsDropdownModule,
-    DatepickerModule,
     ModalModule,
     TypeaheadModule,
     TooltipModule,
@@ -25,7 +24,6 @@ import { AuthModule } from './auth/auth.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { CarServiceModule } from './car-services/vehicle-repairs.module';
 import { CoreModule } from './core/core.module';
-import { ToastCustomOption } from './core/toast-custom.options';
 import { EventsModule } from './events/events.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 
@@ -34,14 +32,13 @@ const APP_PROVIDERS = [...APP_RESOLVER_PROVIDERS, AppState];
 
 const MODULES = [
     BrowserModule,
-    ToastModule.forRoot(),
+    ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES, { useHash: false }),
     ModalModule,
     BsDropdownModule.forRoot(),
-    DatepickerModule.forRoot(),
     ProgressbarModule.forRoot(),
     TypeaheadModule,
     TooltipModule.forRoot(),
@@ -73,7 +70,6 @@ type StoreType = {
         // expose our Services and Providers into Angular's dependency injection
         // ENV_PROVIDERS,
         APP_PROVIDERS,
-        { provide: ToastOptions, useClass: ToastCustomOption }
         // {provide: ComponentsHelper, useClass: ComponentsHelper}
     ]
 })

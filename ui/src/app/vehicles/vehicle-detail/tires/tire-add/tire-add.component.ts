@@ -4,7 +4,7 @@ import { TiresFormComponent } from '../tires-form/tires-form.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class TireAddComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private _tireService: TiresService,
         private _dialogRef: MatDialogRef<TireAddComponent>,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _vehicleService: VehicleService
     ) {}
 

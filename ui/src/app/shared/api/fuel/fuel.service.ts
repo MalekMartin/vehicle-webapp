@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
 import { Fuel } from './fuel';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Pageable, Page } from '../../../utils/pageable';
 import { Observable } from 'rxjs';
 import { MultiStatsModel } from '../stats.interface';
@@ -12,7 +12,7 @@ export class FuelService extends Pageable<Fuel> {
     public id: string;
 
     constructor(private _http: HttpService,
-                private _toastr:ToastsManager) {
+                private _toastr: ToastrService) {
         super();
         this.pageSize = 5;
     }

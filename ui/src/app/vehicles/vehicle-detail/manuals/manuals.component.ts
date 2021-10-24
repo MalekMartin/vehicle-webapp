@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { FileItem, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FileItem, FileUploader } from 'ng2-file-upload';
 import { AuthService } from '../../../core/auth.service';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -42,7 +42,7 @@ export class ManualsComponent implements OnInit, OnDestroy {
     constructor(
         private _form: FormBuilder,
         private _auth: AuthService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _vehicleService: VehicleService,
         private _manualService: ManualService
     ) {}

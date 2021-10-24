@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { Page } from '../../../../utils/pageable';
 import { FormBuilder } from '@angular/forms';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../shared/api/maintenance/interval.interface';
 import { Maintenance } from '../../../../shared/api/maintenance/maintenance.interface';
@@ -55,7 +55,7 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
         private _maintenance: MaintenanceService,
         private _fb: FormBuilder,
         private _confirm: ConfirmDialogService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _vehicles: VehicleService
     ) {}
 

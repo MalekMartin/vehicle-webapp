@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GarageService } from '../../../../../car-services/garage/garage.service';
@@ -40,7 +40,7 @@ export class MaintenanceDoneComponent implements OnInit, OnDestroy {
     constructor(
         private _form: FormBuilder,
         private _service: MaintenanceService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _garages: GarageService,
         private _repairs: RepairService,
         private _vehicleService: VehicleService,

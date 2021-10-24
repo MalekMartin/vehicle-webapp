@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GarageService } from '../garage/garage.service';
 import { Subscription } from 'rxjs';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'va-car-service-detail',
@@ -21,7 +21,7 @@ export class CarServiceDetailComponent implements OnInit, OnDestroy {
 
     constructor(private _route: ActivatedRoute,
                 private _garages: GarageService,
-                private _toastr: ToastsManager) { }
+                private _toastr: ToastrService) { }
 
     ngOnInit() {
         this._route.params

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -40,7 +40,7 @@ export class RepairDetailComponent implements OnInit, OnDestroy {
         private _repairs: RepairService,
         private _dialog: MatDialog,
         private _vehicleService: VehicleService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnInit() {

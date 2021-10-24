@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Info } from '../../../../vehicle-stream/vehicle';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
@@ -31,7 +31,7 @@ export class InfoFormComponent implements OnInit, OnDestroy {
         private _form: FormBuilder,
         @Inject(MAT_DIALOG_DATA) public data: Info,
         public dialogRef: MatDialogRef<InfoFormComponent>,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _vehicleService: VehicleService
     ) {}
 

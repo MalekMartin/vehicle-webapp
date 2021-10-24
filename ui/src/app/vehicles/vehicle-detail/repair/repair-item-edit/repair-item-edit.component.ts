@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Repair } from '../_core/repair.interface';
 import { RepairService } from '../repair.service';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { RepairTask } from '../_core/repair-task.interface';
 
 @Component({
@@ -19,7 +19,7 @@ export class RepairItemEditComponent implements OnInit, OnDestroy {
         private _dialogRef: MatDialogRef<RepairItemEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { repair: Repair; item: RepairTask },
         private _repairService: RepairService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnInit() {

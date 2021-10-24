@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Fuel } from '../../../../shared/api/fuel/fuel';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { MultiStatsModel } from '../../../../shared/api/stats.interface';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';

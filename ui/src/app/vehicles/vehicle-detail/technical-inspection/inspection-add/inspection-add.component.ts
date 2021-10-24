@@ -5,7 +5,7 @@ import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service'
 import { InspectionFormComponent } from '../inspection-form/inspection-form.component';
 import { takeUntil } from 'rxjs/operators';
 import { TechnicalInspectionService } from '../technical-inspection.service';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Inspection } from '../inspection.interface';
 
 @Component({
@@ -22,7 +22,7 @@ export class InspectionAddComponent implements OnInit, OnDestroy {
         private _dialogRef: MatDialogRef<InspectionAddComponent>,
         private _inspectionService: TechnicalInspectionService,
         private _vehicleService: VehicleService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnInit() {}

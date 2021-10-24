@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { InspectionFormComponent } from '../inspection-form/inspection-form.component';
 import { takeUntil } from 'rxjs/operators';
 import { TechnicalInspectionService } from '../technical-inspection.service';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Inspection } from '../inspection.interface';
 
 @Component({
@@ -21,7 +21,7 @@ export class InspectionEditComponent implements OnInit, OnDestroy {
         private _dialogRef: MatDialogRef<InspectionEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: Inspection,
         private _inspectionService: TechnicalInspectionService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnInit() {

@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap';
 import { GarageModule } from '../../../car-services/garage/garage.module';
 import { CardModule } from '../../../shared/components/card/card.module';
-import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
 import { FilterModule } from '../../../shared/components/filter/filter.module';
 import { PaginatorModule } from '../../../shared/components/paginator/paginator.module';
 import { ProgressModule } from '../../../shared/components/progress/progress.module';
@@ -46,7 +45,6 @@ const MODULES = [
     DirectivesModule,
     GarageModule,
     RouterModule.forChild(maintenanceRoutes),
-    DatepickerModule,
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,

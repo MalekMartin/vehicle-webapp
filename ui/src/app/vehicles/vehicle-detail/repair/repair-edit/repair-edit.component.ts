@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { RepairFormComponent } from '../repair-form/repair-form.component';
 import { RepairService } from '../repair.service';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -18,7 +18,7 @@ export class RepairEditComponent implements OnInit, OnDestroy {
 
     constructor(
         private _repairService: RepairService,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _dialogRef: MatDialogRef<RepairEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: Repair
     ) {}

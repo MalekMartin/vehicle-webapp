@@ -5,7 +5,7 @@ import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.servi
 import { IntervalFormComponent } from '../interval-form/interval-form.component';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
 import { takeUntil } from 'rxjs/operators';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'va-interval-add',
@@ -18,7 +18,7 @@ export class IntervalAddComponent implements OnInit, OnDestroy {
         private _dialogRef: MatDialogRef<IntervalAddComponent>,
         private _vehilceService: VehicleService,
         private _maintenance: MaintenanceService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnInit() {

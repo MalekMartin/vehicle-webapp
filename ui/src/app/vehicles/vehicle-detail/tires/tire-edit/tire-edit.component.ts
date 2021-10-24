@@ -4,7 +4,7 @@ import { TiresFormComponent } from '../tires-form/tires-form.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Tire } from '../tires.interface';
 
@@ -21,7 +21,7 @@ export class TireEditComponent implements OnInit, OnDestroy {
     constructor(
         private _tireService: TiresService,
         private _dialogRef: MatDialogRef<TireEditComponent>,
-        private _toastr: ToastsManager,
+        private _toastr: ToastrService,
         private _vehicleService: VehicleService,
         @Inject(MAT_DIALOG_DATA) public data: Tire
     ) {}

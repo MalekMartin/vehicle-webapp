@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TechnicalInspectionService } from '../technical-inspection.service';
 import { StationFormComponent } from '../station-form/station-form.component';
 import { takeUntil } from 'rxjs/operators';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'va-station-add',
@@ -19,7 +19,7 @@ export class StationAddComponent implements OnInit, OnDestroy {
     constructor(
         private _dialogRef: MatDialogRef<StationAddComponent>,
         private _tkService: TechnicalInspectionService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnInit() {}

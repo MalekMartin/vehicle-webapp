@@ -12,7 +12,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { CardModule } from '../../../shared/components/card/card.module';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
-import { DatepickerModule } from '../../../shared/components/datepicker/datepicker.module';
 import { PaginatorModule } from '../../../shared/components/paginator/paginator.module';
 import { ProgressModule } from '../../../shared/components/progress/progress.module';
 import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
@@ -40,7 +39,6 @@ import { TechnicalInspectionService } from './technical-inspection.service';
         PipesModule,
         ProgressModule,
         RouterModule.forChild(technicalRoutes),
-        DatepickerModule,
         MatDialogModule,
         MatButtonModule,
         MatFormFieldModule,

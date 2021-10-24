@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IntervalFormComponent } from '../interval-form/interval-form.component';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
 import { takeUntil } from 'rxjs/operators';
-import { ToastsManager } from 'ng6-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Interval } from '../../../../../shared/api/maintenance/interval.interface';
 
 @Component({
@@ -18,7 +18,7 @@ export class IntervalEditComponent implements OnInit, OnDestroy {
         private _dialogRef: MatDialogRef<IntervalEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: Interval,
         private _maintenance: MaintenanceService,
-        private _toastr: ToastsManager
+        private _toastr: ToastrService
     ) {}
 
     ngOnInit() {

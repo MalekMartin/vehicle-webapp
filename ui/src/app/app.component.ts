@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'va-app',
@@ -10,8 +10,8 @@ import { ToastsManager } from 'ng6-toastr/ng2-toastr';
 export class AppComponent {
     viewContainerRef: ViewContainerRef;
 
-    constructor(public toastr: ToastsManager, viewContainerRef: ViewContainerRef) {
+    constructor(public toastr: ToastrService, viewContainerRef: ViewContainerRef) {
         this.viewContainerRef = viewContainerRef;
-        this.toastr.setRootViewContainerRef(viewContainerRef);
+        // this.toastr.setRootViewContainerRef(viewContainerRef);
     }
 }
