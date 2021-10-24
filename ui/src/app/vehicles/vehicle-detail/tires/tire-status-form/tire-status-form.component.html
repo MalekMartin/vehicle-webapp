@@ -11,13 +11,13 @@
         </div>
         <div class="row">
             <mat-form-field class="col-sm-12">
-                <input matInput type="text" id="odo" formControlName="odo" [placeholder]="'ODO (' + units + ')'">
+                <input matInput type="number" id="odo" formControlName="odo" [placeholder]="'ODO (' + units + ')'">
                 <mat-hint *ngIf="data.status === 'STOCK'">Nový nájezd: {{newOdo | formatNumber}} {{units}}</mat-hint>
             </mat-form-field>
         </div>
         <div class="row">
             <mat-form-field *ngIf="!!units2" class="col-sm-12">
-                <input matInput type="text" id="odo2" formControlName="odo2" [placeholder]="'ODO (' + units2 + ')'">
+                <input matInput type="number" id="odo2" formControlName="odo2" [placeholder]="'ODO (' + units2 + ')'">
                 <mat-hint *ngIf="data.status === 'STOCK'">Nový nájezd: {{newOdo2 | formatNumber}} {{units2}}</mat-hint>
             </mat-form-field>
         </div>

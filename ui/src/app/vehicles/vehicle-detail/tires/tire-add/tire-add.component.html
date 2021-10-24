@@ -4,6 +4,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-flat-button mat-dialog-close>Zavřít</button>
-    <button mat-flat-button color="primary" [disabled]="!tireForm.form.valid"
-        (click)="tireForm.form.valid && save()">Uložit</button>
+    <button mat-flat-button color="primary" [disabled]="!tireForm?.form?.valid"
+        (click)="tireForm?.form?.valid && save()">Uložit</button>
 </mat-dialog-actions>

@@ -110,8 +110,8 @@ export class TireStatusFormComponent implements OnInit, OnDestroy {
     }
 
     calculateTireOdo(odo: number, lastOdo: number, tireOdo: number): number {
-        const p = odo - lastOdo;
-        const res = tireOdo + p;
+        const p = Number(odo) - Number(lastOdo);
+        const res = Number(tireOdo) + p;
         return res < 0 ? 0 : res;
     }
 

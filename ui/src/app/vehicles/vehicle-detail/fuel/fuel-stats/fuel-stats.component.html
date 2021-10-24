@@ -20,7 +20,7 @@
             [autoScale]="autoScale">
         </ngx-charts-line-chart>
 
-        <ngx-charts-bar-vertical-2d *ngIf="!!fuelData && !!fuelData.length && chart === 'FUEL'"
+        <ngx-charts-bar-vertical-2d *ngIf="!!fuelData && !!fuelData?.series?.length && chart === 'FUEL'"
             [scheme]="colorScheme"
             [results]="fuelData"
             [gradient]="false"

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { TiresService } from '../core/tires.service';
 import { TiresFormComponent } from '../tires-form/tires-form.component';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service'
     templateUrl: 'tire-add.component.html',
     styleUrls: ['./tire-add.component.scss']
 })
-export class TireAddComponent implements OnInit, OnDestroy {
+export class TireAddComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(TiresFormComponent, { static: false }) formRef: TiresFormComponent;
 
     private _onDestroy$ = new Subject();
@@ -25,6 +25,9 @@ export class TireAddComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
+    }
+
+    ngAfterViewInit() {
         this.formRef.form.patchValue({
             vehicleId: this._vehicleService.state.snapshot.vehicle.info.id,
             status: 'STOCK'
@@ -47,6 +50,10 @@ export class TireAddComponent implements OnInit, OnDestroy {
         this._dialogRef.close('DONE');
         this._tireService.state.update(f => f.addTire, t);
     };
+
+    get formValid() {
+        return this.formRef;
+    }
 
     private _onError = () => {
         this._toastr.success('Pneumatika nebyla uložena', 'Chyba');
