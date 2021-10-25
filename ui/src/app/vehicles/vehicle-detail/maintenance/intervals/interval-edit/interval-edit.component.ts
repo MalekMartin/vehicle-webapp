@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IntervalFormComponent } from '../interval-form/interval-form.component';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
