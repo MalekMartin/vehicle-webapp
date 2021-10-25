@@ -58,6 +58,6 @@
     "ts-node": "~3.0.4",
     "tslint": "~6.1.0",
     "typescript": "4.0.8",
-    "subjective": "6.1.0"
+    "subjective": "6.3.0"
   }
 }
