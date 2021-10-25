@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../../shared/api/maintenance/interval.interface';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -24,9 +24,11 @@ export class IntervalCardComponent implements OnInit, OnDestroy {
     constructor(private _vehicles: VehicleService) {}
 
     ngOnInit() {
-        this._vehicles.state
-            .select(s => s.vehicle.info)
-            .pipe(takeUntil(this._onDestroy$))
+        this._vehicles.vehicle
+            .pipe(
+                map(v => v.info),
+                takeUntil(this._onDestroy$)
+            )
             .subscribe(i => {
                 this.units = i.units;
                 this.units2 = i.subUnits;

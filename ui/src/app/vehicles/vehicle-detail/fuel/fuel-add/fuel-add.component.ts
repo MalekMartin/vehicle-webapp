@@ -26,8 +26,7 @@ export class FuelAddComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.fuelForm.form.get('date').setValue(new Date());
-        this._vehicleService.state
-            .select(s => s.vehicle)
+        this._vehicleService.vehicle
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
                 this.fuelForm.form.get('vehicleId').setValue(v.info.id);

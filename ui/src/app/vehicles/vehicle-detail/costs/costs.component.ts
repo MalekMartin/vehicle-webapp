@@ -47,7 +47,7 @@ export class CostsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
+        this.vehicleId = this._vehicles.snapshot.info.id;
         this._service.id = this.vehicleId;
         this.fetchCurrentPage();
         this.findCategories();

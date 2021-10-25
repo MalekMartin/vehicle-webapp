@@ -39,7 +39,7 @@ export class FuelStatsComponent implements OnInit, OnDestroy {
     showXAxisLabel = true;
     xAxisLabel = 'Datum';
     showYAxisLabel = true;
-    yAxisLabel = this._vehicle.state.snapshot.vehicle.info.units;
+    yAxisLabel = this._vehicle.snapshot.info.units;
 
     colorScheme = {
         domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']

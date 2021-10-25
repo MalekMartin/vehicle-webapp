@@ -24,7 +24,7 @@ export class IntervalAddComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.formRef.form
             .get('vehicleId')
-            .setValue(this._vehilceService.state.snapshot.vehicle.info.id);
+            .setValue(this._vehilceService.snapshot.info.id);
     }
 
     ngOnDestroy() {

@@ -58,7 +58,7 @@ export class TiresComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.vehicleId = this._vehicleService.state.snapshot.vehicle.info.id;
+        this.vehicleId = this._vehicleService.snapshot.info.id;
         this.getAllTires();
         this.getProperties();
     }

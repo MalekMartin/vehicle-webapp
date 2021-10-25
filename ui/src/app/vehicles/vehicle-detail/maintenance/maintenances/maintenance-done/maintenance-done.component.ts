@@ -49,13 +49,13 @@ export class MaintenanceDoneComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.units = this._vehicleService.state.snapshot.vehicle.info.units;
-        this.units2 = this._vehicleService.state.snapshot.vehicle.info.subUnits;
+        this.units = this._vehicleService.snapshot.info.units;
+        this.units2 = this._vehicleService.snapshot.info.subUnits;
 
         const intervalNames = this.data.map(m => m.interval.name);
 
         this.form.get('ids').setValue(this.data.map(i => i.id));
-        this.form.get('vehicleId').setValue(this._vehicleService.state.snapshot.vehicle.info.id);
+        this.form.get('vehicleId').setValue(this._vehicleService.snapshot.info.id);
         this.form.get('repairTitle').setValue(intervalNames.join(', '));
 
         this._garages.refresh();

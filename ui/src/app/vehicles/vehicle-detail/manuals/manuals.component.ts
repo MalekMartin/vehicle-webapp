@@ -49,13 +49,13 @@ export class ManualsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this._vehicleService.state.select(s => s.vehicle.info.id)
+        this._vehicleService.vehicle
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(id => {
+            .subscribe(vehicle => {
                 this.uploader.options.additionalParameter = {
-                    vehicleId: id
+                    vehicleId: vehicle.info.id
                 };
-                this.getManuals(id)
+                this.getManuals(vehicle.info.id)
             });
 
         this.uploader.onWhenAddingFileFailed = (item, filter, options) => {

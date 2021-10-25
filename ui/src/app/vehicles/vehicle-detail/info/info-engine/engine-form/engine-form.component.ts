@@ -69,7 +69,7 @@ export class EngineFormComponent implements OnInit, OnDestroy {
     }
 
     private _onSaveSuccess = () => {
-        this._vehicleService.state.update(f => f.replaceEngine, this.form.value);
+        this._vehicleService.updateVehicleSubject({...this._vehicleService.snapshot, engine: this.form.value});
         this._toastr.success('Změny byly úspěšně uloženy.', 'Uloženo!');
         this.dialogRef.close();
     };

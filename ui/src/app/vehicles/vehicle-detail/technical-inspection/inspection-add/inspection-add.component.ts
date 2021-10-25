@@ -35,7 +35,7 @@ export class InspectionAddComponent implements OnInit, OnDestroy {
         this._inspectionService
             .saveInspection({
                 ...this.formCmp.form.value,
-                vehicleId: this._vehicleService.state.snapshot.vehicle.info.id
+                vehicleId: this._vehicleService.snapshot.info.id
             })
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._success, this._error);

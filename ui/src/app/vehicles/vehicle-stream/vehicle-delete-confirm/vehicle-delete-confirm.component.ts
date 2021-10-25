@@ -39,7 +39,7 @@ export class VehicleDeleteConfirmComponent implements OnDestroy {
 
     private _onDeleteSuccess = () => {
         this._toastr.success('Vozidlo bylo smazáno');
-        this._vehicleStreamService.state.update(f => f.removeVehicle, this.data.id);
+        this._vehicleStreamService.updateVehicleStream(this._vehicleStreamService.vehicles.filter(v => v.id === this.data.id));
         this.dialogRef.close(this.data.id);
     };
 

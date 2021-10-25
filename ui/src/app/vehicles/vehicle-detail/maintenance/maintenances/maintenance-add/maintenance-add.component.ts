@@ -25,7 +25,7 @@ export class MaintenanceAddComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.formRef.form
             .get('vehicleId')
-            .setValue(this._vehicleService.state.snapshot.vehicle.info.id);
+            .setValue(this._vehicleService.snapshot.info.id);
     }
 
     ngOnDestroy() {

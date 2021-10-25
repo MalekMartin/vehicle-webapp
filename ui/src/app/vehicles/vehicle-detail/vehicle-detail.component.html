@@ -1,17 +1,15 @@
-<ng-container *ngIf="(state | async) as state">
-    <div class="wrapper" *ngIf="!!vehicle && !state.loading">
-        <div class="menu-panel">
-            <va-vehicle-detail-menu></va-vehicle-detail-menu>
-        </div>
-
-        <div class="content-panel">
-            <va-detail-header></va-detail-header>
-            <router-outlet></router-outlet>
-        </div>
+<div class="wrapper" *ngIf="!!vehicle && !loading">
+    <div class="menu-panel">
+        <va-vehicle-detail-menu></va-vehicle-detail-menu>
     </div>
-    <ng-container *ngIf="state.loading">
-        <div class="spinner">
-            <va-spinner>Nahrávám...</va-spinner>
-        </div>
-    </ng-container>
+
+    <div class="content-panel">
+        <va-detail-header></va-detail-header>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<ng-container *ngIf="loading">
+    <div class="spinner">
+        <va-spinner>Nahrávám...</va-spinner>
+    </div>
 </ng-container>

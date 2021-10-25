@@ -47,7 +47,7 @@ export class IntervalFormComponent implements OnInit, OnDestroy {
         //     .pipe(takeUntil(this._onDestroy$))
         //     .subscribe(v => this._setForm(v));
 
-        this._vehicles.state.select(s => s.vehicle)
+        this._vehicles.vehicle
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
                 this.units = v.info.units;

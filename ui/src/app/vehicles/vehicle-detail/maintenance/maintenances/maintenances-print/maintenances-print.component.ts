@@ -22,8 +22,7 @@ export class MaintenancesPrintComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this._vehicleService.state
-            .select(s => s.vehicle)
+        this._vehicleService.vehicle
             .pipe(
                 tap(v => {
                     this.vehicleId = v.info.id;

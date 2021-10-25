@@ -29,7 +29,7 @@ export class TireAddComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.formRef.form.patchValue({
-            vehicleId: this._vehicleService.state.snapshot.vehicle.info.id,
+            vehicleId: this._vehicleService.snapshot.info.id,
             status: 'STOCK'
         });
     }

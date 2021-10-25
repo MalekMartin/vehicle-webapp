@@ -80,7 +80,7 @@ export class RepairDetailComponent implements OnInit, OnDestroy {
     getMaintenances() {
         this._repairs
             .getRelatedMaintenances(
-                this._vehicleService.state.snapshot.vehicle.info.id,
+                this._vehicleService.snapshot.info.id,
                 this._repairId
             )
             .pipe(takeUntil(this._onDestroy$))

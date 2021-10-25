@@ -31,8 +31,7 @@ export class FuelFormComponent implements OnInit, OnDestroy {
     constructor(private _form: FormBuilder, private _vehicles: VehicleService) {}
 
     ngOnInit() {
-        this._vehicles.state
-            .select(s => s.vehicle)
+        this._vehicles.vehicle
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
                 if (v) {

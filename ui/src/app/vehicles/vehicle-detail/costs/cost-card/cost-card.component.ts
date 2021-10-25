@@ -22,12 +22,11 @@ export class CostCardComponent implements OnInit, OnDestroy {
     constructor(private _vehicles: VehicleService) {}
 
     ngOnInit() {
-        this._vehicles.state
-            .select(s => s.vehicle, true)
+        this._vehicles.vehicle
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(v => {
-                this.units = v.vehicle.info.units;
-                this.units2 = v.vehicle.info.subUnits;
+            .subscribe(vehicle => {
+                this.units = vehicle.info.units;
+                this.units2 = vehicle.info.subUnits;
             });
     }
 

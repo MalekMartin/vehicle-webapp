@@ -89,8 +89,7 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
         };
         this.uploader.clearQueue();
 
-        this._vehicles.state
-            .select(s => s.vehicle)
+        this._vehicles.vehicle
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
                 if (!!v) {
@@ -149,7 +148,7 @@ export class VehicleSettingsComponent implements OnInit, OnDestroy {
     };
 
     private updateVehicleInfo(v: Settings) {
-        this._vehicles.state.update(f => f.replaceVehicle, {
+        this._vehicles.updateVehicleSubject({
             ...this.vehicle,
             info: {
                 ...this.vehicle.info,

@@ -24,7 +24,7 @@ export class TirePropertyAddComponent implements OnInit {
     ngOnInit() {
         this.tireForm.form
             .get('vehicleId')
-            .setValue(this._vehicleService.state.snapshot.vehicle.info.id);
+            .setValue(this._vehicleService.snapshot.info.id);
     }
 
     save() {

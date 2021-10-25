@@ -57,7 +57,7 @@ export class VehicleAddComponent implements OnDestroy {
             'Vozidlo ' + this.form.value.brand + ' ' + this.form.value.model + ' vloženo',
             'Vloženo!'
         );
-        this._service.state.update(f => f.addVehicle, this._buildVehicleModel(id, this.form.value));
+        this._service.updateVehicleStream([...this._service.vehicles, this._buildVehicleModel(id, this.form.value)]);
         this.dialogRef.close(id);
     };
 

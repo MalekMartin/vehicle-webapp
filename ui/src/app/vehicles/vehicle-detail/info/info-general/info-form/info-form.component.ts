@@ -1,28 +1,31 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Info } from '../../../../vehicle-stream/vehicle';
-import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
-import { VehicleInfoFormModel } from '../../../../../core/stores/vehicle/vehicle.interface';
+import { Component, Inject, OnInit, OnDestroy } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Info } from "../../../../vehicle-stream/vehicle";
+import { ToastrService } from "ngx-toastr";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { VehicleService } from "../../../../../core/stores/vehicle/vehicle.service";
+import { VehicleInfoFormModel } from "../../../../../core/stores/vehicle/vehicle.interface";
 
 @Component({
-    selector: 'va-info-form',
-    templateUrl: './info-form.component.html',
-    styleUrls: ['./info-form.component.scss']
+    selector: "va-info-form",
+    templateUrl: "./info-form.component.html",
+    styleUrls: ["./info-form.component.scss"],
 })
 export class InfoFormComponent implements OnInit, OnDestroy {
     form = this._form.group({
-        id: ['', Validators.required],
-        brand: ['', [Validators.required, Validators.maxLength(128)]],
-        model: ['', [Validators.required, Validators.maxLength(128)]],
-        manufactureYear: ['', [Validators.required, Validators.pattern('[0-9]{4}')]],
-        spz: ['', [Validators.maxLength(16)]],
-        previousOwners: ['', [Validators.pattern('[0-9]*')]],
-        type: ['', [Validators.required]],
-        notes: ['']
+        id: ["", Validators.required],
+        brand: ["", [Validators.required, Validators.maxLength(128)]],
+        model: ["", [Validators.required, Validators.maxLength(128)]],
+        manufactureYear: [
+            "",
+            [Validators.required, Validators.pattern("[0-9]{4}")],
+        ],
+        spz: ["", [Validators.maxLength(16)]],
+        previousOwners: ["", [Validators.pattern("[0-9]*")]],
+        type: ["", [Validators.required]],
+        notes: [""],
     });
 
     private _onDestroy$ = new Subject();
@@ -44,7 +47,7 @@ export class InfoFormComponent implements OnInit, OnDestroy {
             spz: this.data.spz,
             previousOwners: this.data.previousOwners,
             type: this.data.type,
-            notes: this.data.notes
+            notes: this.data.notes,
         });
     }
 
@@ -64,12 +67,18 @@ export class InfoFormComponent implements OnInit, OnDestroy {
     }
 
     private _onUpdateSuccess = (res: VehicleInfoFormModel) => {
-        this._toastr.success('Informace o vozidle byly úspěšně aktualizovány.');
-        this._vehicleService.state.update(f => f.replaceVehicleInfoFromForm, res);
+        this._toastr.success("Informace o vozidle byly úspěšně aktualizovány.");
+        this._vehicleService.updateVehicleSubject({
+            ...this._vehicleService.snapshot,
+            info: {
+                ...this._vehicleService.snapshot.info,
+                ...res,
+            },
+        });
         this.dialogRef.close();
     };
 
     private _onUpdateError = () => {
-        this._toastr.error('Info nebylo aktualizováno.');
+        this._toastr.error("Info nebylo aktualizováno.");
     };
 }

@@ -73,9 +73,9 @@ export class TradeFormComponent implements OnInit, OnDestroy {
     private _onSuccess = (t: Trade) => {
         this._toastr.success(this.title + ' úspěšně upraven', 'Uloženo');
         if (this.data.type === 'seller') {
-            this._vehicleService.state.update(f => f.replaceSeller, t);
+            this._vehicleService.updateVehicleSubject({...this._vehicleService.snapshot, seller: t})
         } else {
-            this._vehicleService.state.update(f => f.replaceBuyer, t);
+            this._vehicleService.updateVehicleSubject({...this._vehicleService.snapshot, buyer: t})
         }
         this.dialogRef.close();
     };

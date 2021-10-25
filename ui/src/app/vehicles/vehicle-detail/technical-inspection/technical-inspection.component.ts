@@ -38,7 +38,7 @@ export class TechnicalInspectionComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getStations();
-        this.vehicleId = this._vehicleService.state.snapshot.vehicle.info.id;
+        this.vehicleId = this._vehicleService.snapshot.info.id;
         this._service.vehicleId = this.vehicleId;
         this.fetchCurrentPage();
     }

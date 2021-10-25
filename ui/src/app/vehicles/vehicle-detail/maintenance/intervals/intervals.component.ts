@@ -28,7 +28,7 @@ export class IntervalsComponent implements OnInit, OnDestroy {
         private _vehicles: VehicleService,
         private _dialog: MatDialog
     ) {
-        this.vehicleId = this._vehicles.state.snapshot.vehicle.info.id;
+        this.vehicleId = this._vehicles.snapshot.info.id;
     }
 
     ngOnInit() {

@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit, HostListener, AfterViewInit } from '@angu
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Subject, merge } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, merge, combineLatest } from 'rxjs';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import { Vehicle } from './vehicle';
 import { VehicleAddComponent } from './vehicle-add/vehicle-add.component';
 import { VehicleDeleteConfirmComponent } from './vehicle-delete-confirm/vehicle-delete-confirm.component';
@@ -19,11 +19,15 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
     expanded = false;
     query = new FormControl('');
     gridCols = 5;
-    vehicles: Vehicle[];
 
-    state = merge(
-        this._service.state.select(s => s.vehicles, true),
-        this._service.state.select(s => s.loading, true)
+    state = combineLatest([
+        this._service.vehicles$,
+        this._service.loading$,
+    ]).pipe(
+        map(([vehicles, loading]) => ({vehicles, loading})),
+        tap(v => {
+            console.log(v)
+        })
     );
 
     private _onDestroy$ = new Subject();
@@ -43,7 +47,7 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
         this.query.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe(res => {
             this.filter = res;
         });
-        if (!this._service.state.snapshot.vehicles) {
+        if (!this._service.vehicles) {
             this.getAllVehicles();
         }
     }
@@ -57,14 +61,10 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     getAllVehicles() {
-        this._service.state.update(f => f.replaceLoading, true);
         this._service
             .refresh()
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(v => {
-                this._service.state.update(f => f.replaceVehicles, v);
-                this._service.state.update(f => f.replaceLoading, false);
-            });
+            .subscribe();
     }
 
     addVehicle(e: MouseEvent) {

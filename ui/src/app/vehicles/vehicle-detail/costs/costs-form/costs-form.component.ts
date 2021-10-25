@@ -53,8 +53,7 @@ export class CostsFormComponent implements OnInit, OnDestroy {
             this.categories = c;
         });
 
-        this._vehicles.state
-            .select(s => s.vehicle)
+        this._vehicles.vehicle
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
                 this.units = v.info.units;

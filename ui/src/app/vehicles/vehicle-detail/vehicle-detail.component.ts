@@ -14,11 +14,10 @@ import { VehicleInfo } from '../vehicle-stream/vehicle';
     styleUrls: ['./vehicle-detail.component.scss']
 })
 export class VehicleDetailComponent implements OnInit, OnDestroy {
-    vehicle: VehicleInfo;
     id: string;
     page: MenuOptionPage;
 
-    state = this._vehicleService.state.select(s => s.loading, true);
+    loading = false;
 
     private _onDestroy$ = new Subject();
 
@@ -27,7 +26,7 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _vehicleService: VehicleService,
         private _images: VehicleImageService,
-        private _settings: SettingsService
+        private _settings: SettingsService,
     ) {}
 
     ngOnInit() {
@@ -38,10 +37,20 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
                 this.getVehicleInfo(this.id);
             }
         });
+
+        this._vehicleService.loading.pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                // this.vehicle = v;
+                this.loading = v;
+            });
     }
 
     ngOnDestroy() {
         this._onDestroy$.next();
+    }
+
+    get vehicle() {
+        return this._vehicleService.snapshot;
     }
 
     getVehicleInfo(id: string) {
@@ -52,8 +61,6 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     }
 
     private _onInfoFound = info => {
-        this.vehicle = info;
-        this._vehicleService.state.update(f => f.replaceVehicle, info);
         this._findVehicleImage();
     };
 

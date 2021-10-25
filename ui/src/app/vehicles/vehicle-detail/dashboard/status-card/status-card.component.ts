@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { forkJoin, Subject, of } from 'rxjs';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
 
@@ -32,9 +32,9 @@ export class StatusCardComponent implements OnInit, OnDestroy {
     constructor(private _vehicles: VehicleService, private _fuel: FuelService) {}
 
     ngOnInit() {
-        this._vehicles.state
-            .select(s => s.vehicle.info)
+        this._vehicles.vehicle
             .pipe(
+                map(v => v.info),
                 switchMap(info => {
                     return forkJoin(
                         this._fuel.annualMileages(info.id),
