@@ -2,15 +2,19 @@ import { NgModule } from '@angular/core';
 import { EventsComponent } from './events.component';
 import { CoreModule } from '../core/core.module';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../core/auth.guard';
 import { HttpService } from '../core/http.service';
 import { EventComponent } from './event/event.component';
+import { CommonModule } from '@angular/common';
+import { PipesModule } from '../shared/pipes/pipes.module';
+import { CardModule } from '../shared/components/card/card.module';
 
 const MODULES = [
+    CommonModule,
     CoreModule.forRoot(),
-    SharedModule,
     RouterModule,
+    PipesModule,
+    CardModule,
 ];
 
 const COMPONENTS = [

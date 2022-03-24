@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { FuelComponent } from './fuel.component';
-import { RoutedModalComponent } from '../../../shared/components/routed-modal/routed-modal.component';
-import { FuelFormComponent } from './fuel-form/fuel-form.component';
 
 export const fuelRoutes: Routes = [
     {

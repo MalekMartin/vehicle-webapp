@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { VehiclesComponent } from './vehicles.component';
-import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpService } from '../core/http.service';
@@ -10,14 +9,15 @@ import { VehicleStreamModule } from './vehicle-stream/vehicle-stream.module';
 import { AuthService } from '../core/auth.service';
 import { TokenStore } from '../core/token.store';
 import { AuthGuard } from '../core/auth.guard';
+import { TopMenuModule } from '../shared/components/top-menu/top-menu.module';
 
 const MODULES = [
-    SharedModule,
     CommonModule,
     RouterModule,
     ModalModule,
     VehicleDetailModule,
-    VehicleStreamModule
+    VehicleStreamModule,
+    TopMenuModule,
 ];
 
 const COMPONENTS = [
@@ -37,6 +37,6 @@ const COMPONENTS = [
         TokenStore,
         AuthGuard,
     ],
-    exports: [SharedModule]
+    exports: []
 })
 export class VehiclesModule { }

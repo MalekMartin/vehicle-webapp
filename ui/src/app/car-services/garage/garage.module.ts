@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { GarageService } from './garage.service';
 import { GarageComponent } from './garage.component';
-import { SharedModule } from '../../shared/shared.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-    imports: [SharedModule],
+    imports: [CommonModule],
     exports: [GarageComponent],
     declarations: [GarageComponent],
     providers: [GarageService],
