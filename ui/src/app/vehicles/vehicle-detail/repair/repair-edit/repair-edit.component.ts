@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
-import { RepairFormComponent } from '../repair-form/repair-form.component';
-import { RepairService } from '../repair.service';
-import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Repair } from '../_core/repair.interface';
+import { Component, OnInit, ViewChild, OnDestroy, Inject } from "@angular/core";
+import { RepairFormComponent } from "../repair-form/repair-form.component";
+import { RepairService } from "../repair.service";
+import { ToastrService } from "ngx-toastr";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Repair } from "../_core/repair.interface";
 
 @Component({
-    selector: 'va-repair-edit',
-    templateUrl: 'repair-edit.component.html'
+    selector: "va-repair-edit",
+    templateUrl: "repair-edit.component.html",
 })
 export class RepairEditComponent implements OnInit, OnDestroy {
     @ViewChild(RepairFormComponent) formRef: RepairFormComponent;
@@ -23,21 +23,7 @@ export class RepairEditComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: Repair
     ) {}
 
-    ngOnInit() {
-        this.formRef.form.setValue({
-            id: this.data.id,
-            vehicleId: this.data.vehicleId,
-            title: this.data.title,
-            odo: this.data.odo,
-            odo2: this.data.odo2,
-            date: this.data.date,
-            garageId: this.data.garageId,
-            totalPrice: this.data.totalPrice,
-            notes: this.data.notes,
-            tax: this.data.tax,
-            taxToggle: !!this.data.tax
-        });
-    }
+    ngOnInit() {}
 
     ngOnDestroy() {
         this._onDestroy$.next();
@@ -56,12 +42,12 @@ export class RepairEditComponent implements OnInit, OnDestroy {
         this._dialogRef.close();
     }
 
-    private _onSaveSuccess = r => {
-        this._toastr.success('Oprava byla úspěšně uložena', 'Hotovo!');
+    private _onSaveSuccess = (r) => {
+        this._toastr.success("Oprava byla úspěšně uložena", "Hotovo!");
         this._dialogRef.close(r);
     };
 
     private _onSaveError = () => {
-        this._toastr.error('Servisní práci se nepodařilo uložit', 'Chyba!');
+        this._toastr.error("Servisní práci se nepodařilo uložit", "Chyba!");
     };
 }

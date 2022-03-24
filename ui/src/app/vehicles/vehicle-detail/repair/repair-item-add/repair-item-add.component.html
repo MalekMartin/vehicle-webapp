@@ -1,9 +1,9 @@
 <h3 mat-dialog-title>Přidat položku</h3>
 <mat-dialog-content>
-    <va-repair-item-form></va-repair-item-form>
+    <va-repair-item-form [repairId]="data.id"></va-repair-item-form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-flat-button mat-dialog-close>Zavřít</button>
-    <button mat-flat-button color="primary" [disabled]="formRef.form.invalid"
-        (click)="formRef.form.valid && save()">Uložit</button>
+    <button mat-flat-button color="primary" [disabled]="!isFormValid"
+        (click)="isFormValid && save()">Uložit</button>
 </mat-dialog-actions>

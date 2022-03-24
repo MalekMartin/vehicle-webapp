@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 @Component({
-    selector: 'va-confirm',
-    templateUrl: 'confirm.component.html',
-    styleUrls: ['./confirm.component.scss']
+    selector: "va-confirm",
+    templateUrl: "confirm.component.html",
+    styleUrls: ["./confirm.component.scss"],
 })
 export class ConfirmComponent {
     constructor(
@@ -13,7 +13,7 @@ export class ConfirmComponent {
     ) {}
 
     confirm() {
-        this._dialogRef.close('YES');
+        this._dialogRef.close("YES");
     }
 }
 

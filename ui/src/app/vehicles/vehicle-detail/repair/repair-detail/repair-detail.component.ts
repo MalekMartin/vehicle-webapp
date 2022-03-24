@@ -97,6 +97,10 @@ export class RepairDetailComponent implements OnInit, OnDestroy {
             .subscribe(this._onTasksSuccess, this._onTasksError);
     }
 
+    itemsUpdated() {
+        this.getRepairItems(this.repair.id);
+    }
+
     onTaskSave() {
         this.getRepair();
     }
@@ -124,6 +128,7 @@ export class RepairDetailComponent implements OnInit, OnDestroy {
             .afterClosed()
             .subscribe(v => {
                 if (!!v) {
+                    this.getRepairItems(this.repair.id);
                 }
             });
     }
@@ -137,6 +142,7 @@ export class RepairDetailComponent implements OnInit, OnDestroy {
             .afterClosed()
             .subscribe(v => {
                 if (!!v) {
+                    this.getRepairItems(this.repair.id);
                 }
             });
     }

@@ -1,10 +1,11 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GarageService } from '../../../../car-services/garage/garage.service';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { VValidators } from '../../../../shared/forms/validators';
+import { Repair } from '../_core/repair.interface';
 
 @Component({
     selector: 'va-repair-form',
@@ -12,6 +13,23 @@ import { VValidators } from '../../../../shared/forms/validators';
     styleUrls: ['./repair-form.component.scss']
 })
 export class RepairFormComponent implements OnInit, OnDestroy {
+
+    @Input() set repair(r: Repair) {
+        this.form.setValue({
+            id: r.id,
+            vehicleId: r.vehicleId,
+            title: r.title,
+            odo: r.odo,
+            odo2: r.odo2,
+            date: r.date,
+            garageId: r.garageId,
+            totalPrice: r.totalPrice,
+            notes: r.notes,
+            tax: r.tax,
+            taxToggle: !!r.tax
+        });
+    }
+
     @Output() hideDialog = new EventEmitter();
 
     form = this._form.group({

@@ -61,7 +61,8 @@
                 <va-repair-items *ngIf="!itemsLoading && !!repairItems"
                     [repair]="repair"
                     [items]="repairItems"
-                    (editTask)="editItem($event)"></va-repair-items>
+                    (editTask)="editItem($event)"
+                    (updated)="itemsUpdated()"></va-repair-items>
             </div>
         </div>
     </div>

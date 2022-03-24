@@ -29,6 +29,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 
 const COMPONENTS = [
     RepairComponent,
@@ -65,6 +66,7 @@ const MAT_MODULES = [
         PaginatorModule,
         NumberStatsModule,
         PipesModule,
+        ConfirmModule,
         ...MAT_MODULES
     ],
     exports: [],

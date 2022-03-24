@@ -12,6 +12,10 @@ import { Validators, FormBuilder } from '@angular/forms';
 
 export class RepairItemFormComponent implements OnInit {
 
+    @Input() set repairId(id: string) {
+        this.form.get('repairId').setValue(id);
+    }
+
     @Input() set task(t: RepairTask) {
         if (t) {
             this._task = t;

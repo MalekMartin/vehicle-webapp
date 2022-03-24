@@ -22,8 +22,10 @@ export class RepairItemEditComponent implements OnInit, OnDestroy {
         private _toastr: ToastrService
     ) {}
 
-    ngOnInit() {
-        this.formRef.form.setValue(this.data.item);
+    ngOnInit() {}
+
+    get isFormValid() {
+        return !!this.formRef && !!this.formRef.form ? this.formRef.form.valid : false;
     }
 
     ngOnDestroy() {

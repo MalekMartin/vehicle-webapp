@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -11,7 +11,7 @@ import { RepairService } from '../repair.service';
     selector: 'va-repair-add',
     templateUrl: 'repair-add.component.html'
 })
-export class RepairAddComponent implements OnInit, OnDestroy {
+export class RepairAddComponent implements AfterViewInit, OnDestroy {
     @ViewChild(RepairFormComponent) formRef: RepairFormComponent;
 
     private _onDestroy$ = new Subject();
@@ -23,10 +23,12 @@ export class RepairAddComponent implements OnInit, OnDestroy {
         private _vehicleService: VehicleService
     ) {}
 
-    ngOnInit() {
-        this.formRef.form
-            .get('vehicleId')
-            .setValue(this._vehicleService.snapshot.info.id);
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.formRef.form
+                .get('vehicleId')
+                .setValue(this._vehicleService.snapshot.info.id);
+        });
     }
 
     ngOnDestroy() {

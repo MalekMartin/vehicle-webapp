@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
-import { RepairItemFormComponent } from '../repair-item-form/repair-item-form.component';
-import { Subject } from 'rxjs';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Repair } from '../_core/repair.interface';
-import { RepairService } from '../repair.service';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit, ViewChild, OnDestroy, Inject } from "@angular/core";
+import { RepairItemFormComponent } from "../repair-item-form/repair-item-form.component";
+import { Subject } from "rxjs";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Repair } from "../_core/repair.interface";
+import { RepairService } from "../repair.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
-    selector: 'va-repair-item-add',
-    templateUrl: 'repair-item-add.component.html'
+    selector: "va-repair-item-add",
+    templateUrl: "repair-item-add.component.html",
 })
 export class RepairItemAddComponent implements OnInit, OnDestroy {
     @ViewChild(RepairItemFormComponent) formRef: RepairItemFormComponent;
@@ -21,12 +21,14 @@ export class RepairItemAddComponent implements OnInit, OnDestroy {
         private _toastr: ToastrService
     ) {}
 
-    ngOnInit() {
-        this.formRef.form.get('repairId').setValue(this.data.id);
-    }
+    ngOnInit() {}
 
     ngOnDestroy() {
         this._onDestroy$.next();
+    }
+
+    get isFormValid() {
+        return !!this.formRef && !!this.formRef.form && this.formRef.form.valid;
     }
 
     save() {
@@ -37,20 +39,23 @@ export class RepairItemAddComponent implements OnInit, OnDestroy {
             .subscribe(this._onUpdateSuccess, this._onUpdateError);
     }
 
-    private _onUpdateSuccess = v => {
-        this._toastr.success('Nová položka byla přidána.', 'Hotovo!');
+    private _onUpdateSuccess = (v) => {
+        this._toastr.success("Nová položka byla přidána.", "Hotovo!");
         this._dialogRef.close(v);
     };
 
     private _onUpdateError = () => {
-        this._toastr.error('Nepodařilo se přidat zadanou položku.', 'Chyba!');
+        this._toastr.error("Nepodařilo se přidat zadanou položku.", "Chyba!");
     };
 
     private _calculatePrice() {
         if (!!this.data.tax && this.data.tax > 0) {
-            return this.formRef.form.get('priceNoTax').value * (this.data.tax / 100 + 1);
+            return (
+                this.formRef.form.get("priceNoTax").value *
+                (this.data.tax / 100 + 1)
+            );
         } else {
-            return this.formRef.form.get('priceNoTax').value;
+            return this.formRef.form.get("priceNoTax").value;
         }
     }
 }
