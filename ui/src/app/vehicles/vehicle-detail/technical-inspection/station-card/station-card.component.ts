@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Station } from '../station.interface';
 import { TechnicalInspectionService } from '../technical-inspection.service';
 import { ToastrService } from 'ngx-toastr';
-import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
+import { ConfirmService } from '../../../../shared/components/confirm/confirm.service';
 
 @Component({
     selector: 'va-station-card',
@@ -17,7 +17,7 @@ export class StationCardComponent implements OnInit {
 
     constructor(private _service: TechnicalInspectionService,
                 private _toastr: ToastrService,
-                private _dialog: ConfirmDialogService) { }
+                private _dialog: ConfirmService) { }
 
     ngOnInit() { }
 

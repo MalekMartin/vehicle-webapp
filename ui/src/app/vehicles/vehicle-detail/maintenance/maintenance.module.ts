@@ -31,6 +31,7 @@ import { MaintenanceCardModule } from './maintenances/maintenance-card/maintenan
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 
 const MODULES = [
     CommonModule,
@@ -55,7 +56,8 @@ const MODULES = [
     MatDialogModule,
     MatTooltipModule,
     FilterModule,
-    MaintenanceCardModule
+    MaintenanceCardModule,
+    ConfirmModule,
 ];
 
 const COMPONENTS = [

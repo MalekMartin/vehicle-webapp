@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Fuel } from '../../../../shared/api/fuel/fuel';
-import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { MomentPipe } from '../../../../shared/pipes/moment.pipe';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { takeUntil } from 'rxjs/operators';
@@ -24,7 +23,6 @@ export class FuelCardComponent implements OnInit, OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
-        private _modal: ConfirmDialogService,
         private _moment: MomentPipe,
         private _vehicles: VehicleService,
         private confirm: ConfirmService,

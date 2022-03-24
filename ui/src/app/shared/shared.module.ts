@@ -8,7 +8,6 @@ import { ApiModule } from './api/api.module';
 import { StorageService } from './api/storage.service';
 import { CardModule } from './components/card/card.module';
 import { CheckboxModule } from './components/checkbox/checkbox.module';
-import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
 import { InitialsModule } from './components/initials/initials.module';
 import { MileageModule } from './components/mileage/mileage.module';
 import { NumberStatsModule } from './components/number-stats/number-stats.module';
@@ -32,7 +31,6 @@ const MODULES = [
     ReactiveFormsModule,
     ModalModule,
     FileUploadModule,
-    ConfirmDialogModule,
     RoutedModalModule,
     CardModule,
     SectionHeadingModule,

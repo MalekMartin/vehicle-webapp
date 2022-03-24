@@ -1,16 +1,23 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
-import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { Repair } from '../_core/repair.interface';
-import { MatDialog } from '@angular/material/dialog';
-import { RepairEditComponent } from '../repair-edit/repair-edit.component';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+} from "@angular/core";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { VehicleService } from "../../../../core/stores/vehicle/vehicle.service";
+import { Repair } from "../_core/repair.interface";
+import { MatDialog } from "@angular/material/dialog";
+import { RepairEditComponent } from "../repair-edit/repair-edit.component";
+import { ConfirmService } from "../../../../shared/components/confirm/confirm.service";
 
 @Component({
-    selector: 'va-repair-card',
-    templateUrl: './repair-card.component.html',
-    styleUrls: ['./repair-card.component.scss']
+    selector: "va-repair-card",
+    templateUrl: "./repair-card.component.html",
+    styleUrls: ["./repair-card.component.scss"],
 })
 export class RepairCardComponent implements OnInit, OnDestroy {
     @Input() repair: Repair;
@@ -23,7 +30,7 @@ export class RepairCardComponent implements OnInit, OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
-        private _confirm: ConfirmDialogService,
+        private _confirm: ConfirmService,
         private _vehicles: VehicleService,
         private _dialog: MatDialog
     ) {}
@@ -31,7 +38,7 @@ export class RepairCardComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._vehicles.vehicle
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(v => {
+            .subscribe((v) => {
                 this.units = v.info.units;
                 this.units2 = v.info.subUnits;
             });
@@ -42,16 +49,16 @@ export class RepairCardComponent implements OnInit, OnDestroy {
     }
 
     deleteConfirm() {
-        this._confirm.dialog
-            .title('Opravdu chceš smazat servisní práci?')
-            .message(
-                'Servisní práce <i>' +
+        this._confirm
+            .open(
+                "Servisní práce <i>" +
                     this.repair.title +
-                    '</i> bude smazána i se souvisejícími údržbamy.'
+                    "</i> bude smazána i se souvisejícími údržbamy.",
+                "Opravdu chceš smazat servisní práci?",
+                "Ano, smazat"
             )
-            .ok('Smazat')
-            .cancel('zpět')
-            .subscribe(res => {
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe((res) => {
                 if (res) {
                     this.onDelete.emit(this.repair);
                 }
@@ -61,11 +68,11 @@ export class RepairCardComponent implements OnInit, OnDestroy {
     edit(event: MouseEvent) {
         this._dialog
             .open(RepairEditComponent, {
-                width: '600px',
-                data: this.repair
+                width: "600px",
+                data: this.repair,
             })
             .afterClosed()
-            .subscribe(res => {
+            .subscribe((res) => {
                 if (res) {
                     this.repair = res;
                 }

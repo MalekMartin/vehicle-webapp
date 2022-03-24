@@ -8,11 +8,11 @@ import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../shared/api/maintenance/interval.interface';
 import { Maintenance } from '../../../shared/api/maintenance/maintenance.interface';
 import { MaintenanceService } from '../../../shared/api/maintenance/maintenance.service';
-import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { MaintenanceAddComponent } from './maintenances/maintenance-add/maintenance-add.component';
 import { MaintenanceDoneComponent } from './maintenances/maintenance-done/maintenance-done.component';
 import { MaintenanceEditComponent } from './maintenances/maintenance-edit/maintenance-edit.component';
 import { IntervalAddComponent } from './intervals/interval-add/interval-add.component';
+import { ConfirmService } from '../../../shared/components/confirm/confirm.service';
 
 @Component({
     selector: 'va-maintenance-wrapper',
@@ -30,7 +30,7 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
     constructor(
         private _service: MaintenanceService,
         private _fb: FormBuilder,
-        private _confirm: ConfirmDialogService,
+        private _confirm: ConfirmService,
         private _router: Router,
         private _vehicles: VehicleService,
         private _dialog: MatDialog
@@ -136,11 +136,8 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
     private _onMaintenanceFinished = repairId => {
         if (!!repairId) {
             this.fetchCurrentPage();
-            this._confirm.dialog
-                .title('Přejít na servisní práce')
-                .message('Přeješ si přejít na detail vytvořené servisní práce?')
-                .ok('Ano')
-                .cancel('Ne')
+            this._confirm.open('Přeješ si přejít na detail vytvořené servisní práce?', 'Přejít na servisní práce')
+                .pipe(takeUntil(this._onDestroy$))
                 .subscribe(res => {
                     if (res) {
                         this._router.navigate([
