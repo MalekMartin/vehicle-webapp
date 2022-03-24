@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { FuelFormComponent } from '../fuel-form/fuel-form.component';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service'
     templateUrl: 'fuel-add.component.html',
     styleUrls: ['./fuel-add.component.scss']
 })
-export class FuelAddComponent implements OnInit, OnDestroy {
+export class FuelAddComponent implements AfterViewInit, OnDestroy {
     @ViewChild(FuelFormComponent) fuelForm: FuelFormComponent;
 
     private _onDestroy$ = new Subject();
@@ -24,13 +24,16 @@ export class FuelAddComponent implements OnInit, OnDestroy {
         private _vehicleService: VehicleService
     ) {}
 
-    ngOnInit() {
-        this.fuelForm.form.get('date').setValue(new Date());
-        this._vehicleService.vehicle
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(v => {
-                this.fuelForm.form.get('vehicleId').setValue(v.info.id);
-            });
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.fuelForm.form.get('date').setValue(new Date());
+            this._vehicleService.vehicle
+                .pipe(takeUntil(this._onDestroy$))
+                .subscribe(v => {
+                    console.log(v);
+                    this.fuelForm.form.get('vehicleId').setValue(v.info.id);
+                });
+        })
     }
 
     ngOnDestroy() {
@@ -38,8 +41,20 @@ export class FuelAddComponent implements OnInit, OnDestroy {
     }
 
     save() {
+        const value = this.fuelForm.form.value;
         this._fuelService
-            .addFueling(this.fuelForm.form.value)
+            .addFueling({
+                id: "",
+                date: value.date,
+                fullTank: value.fullTank,
+                note: value.note,
+                odo: Number(value.odo),
+                odo2: Number(value.odo2),
+                price: Number(value.price),
+                pricePerLiter: Number(value.pricePerLiter),
+                quantity: Number(value.quantity),
+                vehicleId: value.vehicleId,
+            })
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onSuccess, this._onError);
     }

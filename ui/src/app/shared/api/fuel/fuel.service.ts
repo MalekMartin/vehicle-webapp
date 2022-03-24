@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
-import { Fuel } from './fuel';
+import { Fuel, FuelModel } from './fuel';
 import { ToastrService } from 'ngx-toastr';
 import { Pageable, Page } from '../../../utils/pageable';
 import { Observable } from 'rxjs';
@@ -28,7 +28,7 @@ export class FuelService extends Pageable<Fuel> {
             .subscribe();
     }
 
-    addFueling(fueling) {
+    addFueling(fueling: FuelModel) {
         return this._http
             .post('/resource/fuelings/new', fueling);
     }

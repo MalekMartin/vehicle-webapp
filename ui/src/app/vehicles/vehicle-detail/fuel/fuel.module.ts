@@ -26,6 +26,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 
 @NgModule({
     imports: [
@@ -48,7 +49,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         SectionHeadingModule,
         CardModule,
         SlimBarModule,
-        SpinnerModule
+        SpinnerModule,
+        ConfirmModule,
     ],
     exports: [FuelComponent],
     declarations: [

@@ -1,7 +1,9 @@
 <?php
 
+// use \Psr\Http\Message\ServerRequestInterface as Request;
+// use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
+use \Slim\Http\Response as Response;
 
 $app->get('/resource/fueling/{id}', function (Request $request, Response $response, $args) {
     $this->logger->addInfo("Fueling list for vehicle id - " . $args['id']);
@@ -14,8 +16,12 @@ $app->post('/resource/fuelings/new', function (Request $request, Response $respo
     $this->logger->addInfo("Fueling add");
     $d = json_decode(file_get_contents('php://input'));
     $mapper = new Fuel($this->db, $d->vehicleId, $this->jwt->uid);
-    $mapper->addNew($d);
-    return $response->withJson($d);
+    $result = $mapper->addNew($d);
+    if ($result) {
+        return $response->withStatus(201)->write('[]');
+    } else {
+        return $response->withStatus(500)->write([]);
+    }
 });
 
 $app->get('/resource/fuelings/{id}/stats', function (Request $request, Response $response, $args) {
@@ -57,9 +63,13 @@ $app->get('/resource/fuelings/{id}/fuel-stats', function (Request $request, Resp
 $app->post('/resource/fuelings/delete', function (Request $request, Response $response) {
     $this->logger->addInfo("Fueling delete");
     $d = json_decode(file_get_contents('php://input'));
-    $mapper = new Fuel($this->db, $args['id'], $this->jwt->uid);
-    $mapper->delete($d);
-    return $response->withJson($args['id']);
+    $mapper = new Fuel($this->db, $d->vehicleId, $this->jwt->uid);
+    $res = $mapper->delete($d);
+    if ($res) {
+        return $response->withStatus(200);
+    } else {
+        return $response->withStatus(500);
+    }
 });
 
 $app->post('/resource/fuelings/{VehicleId}/{fuelingId}', function (Request $request, Response $response, $args) {

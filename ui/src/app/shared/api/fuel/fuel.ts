@@ -14,3 +14,16 @@ export interface Fuel {
     hoursDistance?: number;
     consumptionHours?: number;
 }
+
+export interface FuelModel {
+    date: string;
+    fullTank: boolean;
+    id?: string;
+    note: string;
+    odo: number;
+    odo2: number;
+    price: number;
+    pricePerLiter: number;
+    quantity: number;
+    vehicleId: string;
+}

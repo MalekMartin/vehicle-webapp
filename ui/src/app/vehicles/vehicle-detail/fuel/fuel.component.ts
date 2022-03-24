@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { forkJoin, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { EMPTY, forkJoin, Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Fuel } from '../../../shared/api/fuel/fuel';
 import { FuelService } from '../../../shared/api/fuel/fuel.service';
@@ -38,7 +38,7 @@ export class FuelComponent implements OnInit, OnDestroy {
         this.vehicleId = this._vehicles.snapshot.info.id;
         this._service.id = this.vehicleId;
 
-        this.refresh();
+        this.refresh().pipe(takeUntil(this._onDestroy$)).subscribe();
     }
 
     ngOnDestroy() {
@@ -48,25 +48,26 @@ export class FuelComponent implements OnInit, OnDestroy {
 
     refresh() {
         this.isLoading = true;
-        forkJoin(
+        return forkJoin([
             this._service.fetchCurrentPage(),
             this._service.stats(this.vehicleId),
             this._service.mileageStats(this.vehicleId),
             this._service.fuelStats(this.vehicleId, 12)
-        )
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(
-                ([fuel, stats, mileageStats, fuelStats]) => {
-                    this.fuelings = fuel.content;
-                    this.statistics = stats;
-                    this.mileages = mileageStats;
-                    this.fuelStats = fuelStats;
-                    this._service.resetPage();
-                    this.isLoading = false;
-                },
-                () => {
-                    this.isLoading = false;
-                }
+        ])
+            .pipe(
+                tap(
+                    ([fuel, stats, mileageStats, fuelStats]) => {
+                        this.fuelings = fuel.content;
+                        this.statistics = stats;
+                        this.mileages = mileageStats;
+                        this.fuelStats = fuelStats;
+                        this._service.resetPage();
+                        this.isLoading = false;
+                    },
+                    () => {
+                        this.isLoading = false;
+                    }
+                ),
             );
     }
 
@@ -84,11 +85,12 @@ export class FuelComponent implements OnInit, OnDestroy {
     delete(fueling) {
         this._service
             .delete(fueling)
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(() => {
-                this._toastr.success('Tankování bylo úspěšně smazáno.', 'Smazáno!');
-                this.refresh();
-            });
+            .pipe(
+                tap(() => this._toastr.success('Tankování bylo úspěšně smazáno.', 'Smazáno!')),
+                switchMap(() => this.refresh()),
+                takeUntil(this._onDestroy$)
+            )
+            .subscribe();
     }
 
     add(e: MouseEvent) {
@@ -99,12 +101,11 @@ export class FuelComponent implements OnInit, OnDestroy {
                 width: '500px'
             })
             .afterClosed()
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(val => {
-                if (!!val) {
-                    this.refresh();
-                }
-            });
+            .pipe(
+                switchMap(res => res ? this.refresh() : EMPTY),
+                takeUntil(this._onDestroy$)
+            )
+            .subscribe();
     }
 
     edit(fuel: Fuel) {
@@ -114,12 +115,11 @@ export class FuelComponent implements OnInit, OnDestroy {
                 data: fuel
             })
             .afterClosed()
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(val => {
-                if (!!val) {
-                    this.refresh();
-                }
-            });
+            .pipe(
+                switchMap(res => res ? this.refresh() : EMPTY),
+                takeUntil(this._onDestroy$)
+            )
+            .subscribe();
     }
 
     private _handleNewContent = (page: Page<Fuel>) => {
