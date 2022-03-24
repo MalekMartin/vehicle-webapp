@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { FuelFormComponent } from '../fuel-form/fuel-form.component';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
     templateUrl: 'fuel-edit.component.html',
     styleUrls: ['./fuel-edit.component.scss']
 })
-export class FuelEditComponent implements OnInit, OnDestroy {
+export class FuelEditComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(FuelFormComponent) fuelForm: FuelFormComponent;
 
     private _onDestroy$ = new Subject();
@@ -25,18 +25,24 @@ export class FuelEditComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
+        
+    }
+
+    ngAfterViewInit(): void {
         if (!!this.data) {
-            this.fuelForm.form.setValue({
-                id: this.data.id,
-                vehicleId: this.data.vehicleId,
-                date: this.data.date,
-                quantity: this.data.quantity,
-                pricePerLiter: this.data.pricePerLiter,
-                price: this.data.price,
-                odo: this.data.odo,
-                odo2: this.data.odo2,
-                fullTank: this.data.fullTank,
-                note: this.data.note
+            setTimeout(() => {
+                this.fuelForm.form.setValue({
+                    id: this.data.id,
+                    vehicleId: this.data.vehicleId,
+                    date: this.data.date,
+                    quantity: this.data.quantity,
+                    pricePerLiter: this.data.pricePerLiter,
+                    price: this.data.price,
+                    odo: this.data.odo,
+                    odo2: this.data.odo2,
+                    fullTank: this.data.fullTank,
+                    note: this.data.note
+                });
             });
         }
     }
