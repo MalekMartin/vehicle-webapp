@@ -1,48 +1,26 @@
-<form [formGroup]="form" (submit)="form.valid && save()">
+<form [formGroup]="form">
     <div class="row">
-        <div class="col-sm-12">
-            <va-form-item [control]="form.get('name')">
-                <label for="name">Název intervalu:</label>
-                <input id="name" class="form-control" formControlName="name">
-            </va-form-item>
-        </div>
+        <mat-form-field class="col-sm-12 col-xs-12">
+            <input matInput id="name" placeholder="Název intervalu" formControlName="name">
+        </mat-form-field>
     </div>
     <p>
         Opakovat po:
     </p>
     <div class="row">
-        <div class="col-sm-4">
-            <va-form-item [control]="form.get('odo')">
-                <label for="odo">{{units}}:</label>
-                <input id="odo" class="form-control" formControlName="odo">
-            </va-form-item>
-        </div>
-        <div class="col-sm-4" *ngIf="units2">
-            <va-form-item [control]="form.get('odo2')">
-                <label for="odo2">{{units2}}:</label>
-                <input id="odo2" class="form-control" formControlName="odo2">
-            </va-form-item>
-        </div>
-        <div class="col-sm-4">
-            <va-form-item [control]="form.get('months')">
-                <label for="months">Měsíce:</label>
-                <input id="months" class="form-control" formControlName="months">
-            </va-form-item>
-        </div>
+        <mat-form-field class="col-sm-4 col-xs-12">
+            <input matInput id="odo" [placeholder]="units" formControlName="odo">
+        </mat-form-field>
+        <mat-form-field *ngIf="units2" class="col-sm-4 col-xs-12">
+            <input matInput id="odo2" [placeholder]="units2" formControlName="odo2">
+        </mat-form-field>
+        <mat-form-field class="col-sm-4 col-xs-12">
+            <input matInput id="months" placeholder="Měsíce" formControlName="months">
+        </mat-form-field>
     </div>
     <div class="row">
-        <div class="col-sm-12">
-            <va-form-item [control]="form.get('note')">
-                <label for="note">Poznámka:</label>
-                <input id="note" class="form-control" formControlName="note">
-            </va-form-item>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
-            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Uložit</button>
-        </div>
+        <mat-form-field class="col-sm-12 col-xs-12">
+            <input matInput id="note" placeholder="Poznámka" formControlName="note">
+        </mat-form-field>
     </div>
 </form>

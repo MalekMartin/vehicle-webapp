@@ -41,7 +41,7 @@ export class CostsCardComponent implements OnInit, OnDestroy {
                 private _vehicles: VehicleService) { }
 
     ngOnInit() {
-        this.vehicleId = this._vehicles.vehicleId;
+        this.vehicleId = this._vehicles.snapshot.info.id;
         this._costsSubs = this._costs.getAllCosts(this.vehicleId)
             .subscribe(this._onSuccess);
     }

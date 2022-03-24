@@ -20,8 +20,7 @@ export class InfoComponent implements OnInit, OnDestroy {
     constructor(private _vehicleService: VehicleService) {}
 
     ngOnInit() {
-        this._vehicleService.state
-            .select(s => s.vehicle)
+        this._vehicleService.vehicle
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._handleContent);
     }

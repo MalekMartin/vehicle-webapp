@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../../core/http.service';
-import { Fuel } from './fuel';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { Fuel, FuelModel } from './fuel';
+import { ToastrService } from 'ngx-toastr';
 import { Pageable, Page } from '../../../utils/pageable';
 import { Observable } from 'rxjs';
 import { MultiStatsModel } from '../stats.interface';
@@ -12,7 +12,7 @@ export class FuelService extends Pageable<Fuel> {
     public id: string;
 
     constructor(private _http: HttpService,
-                private _toastr:ToastsManager) {
+                private _toastr: ToastrService) {
         super();
         this.pageSize = 5;
     }
@@ -28,7 +28,7 @@ export class FuelService extends Pageable<Fuel> {
             .subscribe();
     }
 
-    addFueling(fueling) {
+    addFueling(fueling: FuelModel) {
         return this._http
             .post('/resource/fuelings/new', fueling);
     }
@@ -66,5 +66,10 @@ export class FuelService extends Pageable<Fuel> {
     mileageStats(id: string): Observable<MultiStatsModel[]> {
         return this._http
             .get(`resource/fuelings/${id}/mileage-stats`);
+    }
+
+    fuelStats(id: string, limit: number): Observable<MultiStatsModel[]> {
+        return this._http
+            .get(`resource/fuelings/${id}/fuel-stats?limit=${limit}`);
     }
 }

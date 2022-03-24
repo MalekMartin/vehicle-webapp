@@ -1,7 +1,7 @@
 <?php
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
+use \Slim\Http\Response as Response;
 
 $app->post('/resource/maintenance/update', function (Request $request, Response $response, $args) {
     $this->logger->addInfo("Maintenance update");
@@ -36,10 +36,9 @@ $app->post('/resource/maintenance/cancel', function (Request $request, Response 
 });
 
 $app->post('/resource/maintenance/{vehicleId}', function (Request $request, Response $response, $args) {
-    $this->logger->addInfo("Maintenance list");
-    $d = json_decode(file_get_contents('php://input'));
+    // $this->logger->addInfo("Maintenance list");
     $mapper = new Maintenance($this->db, $this->jwt->uid);
-    $Maintenance = $mapper->getMaintenances($args['vehicleId'], $d);
+    $Maintenance = $mapper->getMaintenances($args['vehicleId'], $request->getParsedBody());
     return $response->withJson($Maintenance);
 });
 
@@ -47,5 +46,12 @@ $app->get('/resource/maintenance/{vehicleId}/expired', function (Request $reques
     $this->logger->addInfo("Expired maintenance count");
     $mapper = new Maintenance($this->db, $this->jwt->uid);
     $m = $mapper->getExpiredCount($args['vehicleId']);
+    return $response->withJson($m);
+});
+
+$app->get('/resource/maintenance/{vehicleId}/all', function (Request $request, Response $response, $args) {
+    $this->logger->addInfo("Get all maintenances");
+    $mapper = new Maintenance($this->db, $this->jwt->uid);
+    $m = $mapper->getAllMaintenances($args['vehicleId']);
     return $response->withJson($m);
 });

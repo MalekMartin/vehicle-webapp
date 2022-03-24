@@ -30,20 +30,9 @@ h3 {
     padding: 20px;
 }
 
-form {
-
-    display: flex;
-
-    .filter {
-        
-        flex-grow: 1;
-
-        &:nth-child(odd) {
-            margin-right: 3px
-        }
-        &:nth-child(even) {
-            margin-left: 3px
-        }
+va-filter {
+    .icon-search {
+        padding-right: 8px;
     }
 }
 

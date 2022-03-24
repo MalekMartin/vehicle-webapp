@@ -4,21 +4,19 @@ import { Component, OnInit, Input } from '@angular/core';
     selector: 'va-activation-status',
     styleUrls: ['activation-status.component.scss'],
     template: `
-        <h3>{{header}}</h3>
-        <div>{{message}}</div>
+        <h3>{{ header }}</h3>
+        <div>{{ message }}</div>
 
         <a [routerLink]="['/login']">Zpět na přihlášní</a>
     `
 })
-
 export class ActivationStatusComponent implements OnInit {
-
     @Input() status: 'NOT_FOUND' | 'EXPIRED' | 'ERROR' | null;
 
     header: string;
     message: string;
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit() {
         this.header = STATUSES[this.status].header;
@@ -27,15 +25,15 @@ export class ActivationStatusComponent implements OnInit {
 }
 
 const STATUSES = {
-    'NOT_FOUND': {
+    NOT_FOUND: {
         header: 'Aktivační kód neexistuje',
         message: 'Tento aktivační kód nebyl nalezen. Prosím otevřete odkaz v aktivačním emailu.'
     },
-    'EXPIRED': {
+    EXPIRED: {
         header: 'Aktivační kód je neplatný',
         message: 'Pro obdržení nového aktivačního kódu se musíte znovu zaregistrovat'
     },
-    'ERROR': {
+    ERROR: {
         header: 'Chyba',
         message: 'Nastala nečekaná chyba. Zkuste aktivaci později'
     }

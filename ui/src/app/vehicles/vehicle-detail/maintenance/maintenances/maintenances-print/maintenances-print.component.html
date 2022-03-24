@@ -1,0 +1,4 @@
+<a [routerLink]="['/vehicle', vehicleId, 'maintenance']">Zpět</a>
+<va-maintenance-card *ngFor="let m of maintenances"
+        [maintenance]="m"
+        [showMenu]="false"></va-maintenance-card>

@@ -3,11 +3,10 @@
         <div class="header">
             <div class="value title">
                 <span>{{fuel.date | moment: 'DD.MM.YYYY'}}</span>
-                <span *ngIf="!!units">{{fuel.odo | formatNumber}} {{units}}</span>
-                <span *ngIf="!!units2">{{fuel.odo2 | formatNumber}} {{units2}}</span>
-                <span tooltip="Množství">{{fuel.quantity | formatNumber }} l</span>
+                <span *ngIf="!!units">{{fuel.odo | formatNumber}} <span class="units">{{units}}</span></span>
+                <span *ngIf="!!units2">{{fuel.odo2 | formatNumber}} <span class="units">{{units2}}</span></span>
+                <span matTooltip="Množství">{{fuel.quantity | formatNumber }} <span class="units">l</span></span>
             </div>
-            <div class="spacer"></div>
             <div class="spacer"></div>
             <div class="value nowrap">{{fuel.price | price}}</div>
         </div>
@@ -23,9 +22,9 @@
             <div class="spacer"></div>
             <div class="value consumptions">
                 <div class="value not-full" *ngIf="!fuel.fullTank">Částečné tankování</div>
-                <span *ngIf="fuel.consumption" tooltip="Spotřeba" placement="bottom"
+                <span *ngIf="fuel.consumption" matTooltip="Spotřeba" placement="bottom"
                     class="consumption">{{fuel.consumption | formatNumber}} l/100 {{units}}</span>
-                <span *ngIf="fuel.consumptionHours" tooltip="Spotřeba" placement="bottom"
+                <span *ngIf="fuel.consumptionHours" matTooltip="Spotřeba" placement="bottom"
                     class="consumption">{{fuel.consumptionHours | formatNumber}} l/1 {{units2}}</span>
             </div>
         </div>
@@ -37,7 +36,7 @@
                 [showTooltip]="true"></va-slim-bar>
         </div>
         <div class="actions">
-            <a class="action-button" [routerLink]="['./', { outlets: {'popup':['m','edit', fuel.id]}}]">
+            <a class="action-button" (click)="edit.emit(fuel)">
                 Upravit
             </a>
             <a (click)="delete()" class="action-button delete">

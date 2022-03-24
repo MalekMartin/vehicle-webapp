@@ -25,7 +25,7 @@ class Fuel {
         $this->db = $db;
         $this->uid = $uid;
         $this->id = $vid;
-        $this->odo = new Odo($db, $vid);
+        $this->odo = new Odo($this->db, $vid);
     }
 
     private function insertFueling($d) {
@@ -33,12 +33,22 @@ class Fuel {
 
         $query = $this->db->prepare('INSERT INTO fuel (vehicleId, `date`, quantity, pricePerLiter, price, odo, odo2, fullTank, note, userId)
                 VALUES (?,?,?,?,?,?,?,?,?,?)');
-        $query->execute(array($d->vehicleId, $d->date, $d->quantity, $d->pricePerLiter, $d->price, $d->odo, $d->odo2, $fullTank, $d->note, $this->uid));
-        $this->odo->updateOdo($d->odo, $d->odo2);
+
+        try {
+            $this->db->beginTransaction();
+            $res = $query->execute(array($d->vehicleId, $d->date, $d->quantity, $d->pricePerLiter, $d->price, $d->odo, $d->odo2, $fullTank, $d->note, $this->uid));
+            $this->odo->updateOdo($d->odo, $d->odo2);
+            $this->db->commit();
+            return $res;
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            return false;
+            throw($e);
+        }
     }
 
     public function addNew($data) {
-        $this->insertFueling($data);
+        return $this->insertFueling($data);
     }
 
     private function updateFueling($d) {
@@ -322,11 +332,9 @@ class Fuel {
 
     public function delete($d) {
         $query = $this->db->prepare('DELETE FROM fuel WHERE id = ? AND userId = ?');
-        $query->execute(array($d->id, $this->uid));
-
+        $res = $query->execute(array($d->id, $this->uid));
         $this->odo->onOdoRemove($d->odo, $d->odo2);
-
-        return $id;
+        return $res;
     }
 
     private function getDistance($last, $current) {
@@ -433,6 +441,35 @@ class Fuel {
                             : $data[0]['odo2'];
 
         return array_reverse($data);
+    }
+
+    private function _getFuelStats($vehicleId) {
+        $query = $this->db->prepare('SELECT SUM(quantity) as quantity, SUM(price) as price, MONTH(date) as month, YEAR(date) as year
+            FROM `fuel`
+            WHERE vehicleId = ?
+            GROUP BY month, year
+            ORDER BY year DESC, month DESC');
+        $query->execute(array($vehicleId));
+        return $query->fetchAll();
+    }
+
+    public function getFuelStats($vehicleId, $limit) {        
+        $data = $this->_getFuelStats($vehicleId);
+
+        $data = array_slice($data, 0, $limit);
+        $data = array_reverse($data);
+
+        $series = [];
+        foreach($data as $d) {
+            $series[] = array(
+                'name' => $d['year'].'/'. ($d['month'] > 9 ? $d['month'] : '0'.$d['month']),
+                'series' => [array(
+                    'name' => 'litry',
+                    'value' => round(intval($d['quantity']), 2)
+                )]
+            );
+        }
+        return $series;
     }
 
     public function getMileageStats($id) {

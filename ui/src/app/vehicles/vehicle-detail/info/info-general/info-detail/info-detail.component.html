@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-title>Obecné</mat-card-title>
+    <mat-card-content>
+        <va-info-detail-item label="Rok výroby"
+            [value]="info.manufactureYear"></va-info-detail-item>
+        <va-info-detail-item *ngIf="info.previousOwners" label="Předchozí majitelé"
+            [value]="info.previousOwners"></va-info-detail-item>
+        <va-info-detail-item *ngIf="info.spz" label="SPZ"
+            [value]="info.spz"></va-info-detail-item>
+        <va-info-detail-item *ngIf="info.notes" label="Poznámky"
+            [value]="info.notes"
+            [wrap]="true"></va-info-detail-item>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button color="primary" (click)="edit()">Upravit</button>
+    </mat-card-actions>
+</mat-card>

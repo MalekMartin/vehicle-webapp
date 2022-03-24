@@ -16,6 +16,9 @@ class Tire {
         ');
         $query->execute(array($d->vehicleId,$d->dot,$d->purchaseDate,$d->priceEach,$d->quantity,$d->totalPrice,
             $d->description,$d->status,$d->brand,$d->model,$d->dimensions,$d->notes, $this->uid));
+        $lastId = $this->db->lastInsertId();
+        $d->id = $lastId;
+        return $d;
     }
 
 
@@ -24,6 +27,14 @@ class Tire {
             odo2, notes, description, brand, model, dimensions, status, tireOdo, tireOdo2
             FROM tires WHERE vehicleId = ? AND status = ? AND userId = ?');
         $query->execute(array($id,$status,$this->uid));
+        return $query->fetchAll();
+    }
+
+    private function findTiresByVehicleId($id) {
+        $query = $this->db->prepare('SELECT id, vehicleId, dot, purchaseDate, quantity, priceEach, totalPrice, odo,
+            odo2, notes, description, brand, model, dimensions, status, tireOdo, tireOdo2
+            FROM tires WHERE vehicleId = ? AND userId = ?');
+        $query->execute(array($id, $this->uid));
         return $query->fetchAll();
     }
 
@@ -55,6 +66,40 @@ class Tire {
             array_push($all, $tire);
         }
         return $all;
+    }
+
+    private function getTiresByVehicleId($id) {
+        $tires = $this->findTiresByVehicleId($id);
+
+        $all = array();
+
+        foreach($tires as $v) {
+            $tire = array(
+                'id' => $v['id'],
+                'vehicleId' => $v['vehicleId'],
+                'dot' => $v['dot'],
+                'purchaseDate' => $v['purchaseDate'],
+                'quantity' => $v['quantity'],
+                'priceEach' => $v['priceEach'],
+                'totalPrice' => $v['totalPrice'],
+                'odo' => $v['odo'],
+                'odo2' => $v['odo2'],
+                'notes' => $v['notes'],
+                'description' => $v['description'],
+                'brand' => $v['brand'],
+                'model' => $v['model'],
+                'dimensions' => $v['dimensions'],
+                'status' => $v['status'],
+                'tireOdo' => $v['tireOdo'],
+                'tireOdo2' => $v['tireOdo2']
+            );
+            array_push($all, $tire);
+        }
+        return $all;
+    }
+
+    public function getAllTiresByVehicleId($id) {
+        return $this->getTiresByVehicleId($id);
     }
 
     public function getByAllStatuses($id) {

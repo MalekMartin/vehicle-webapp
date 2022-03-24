@@ -1,0 +1,95 @@
+<div class="content">
+    <table class="va-table" *ngIf="!!repair">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Název</th>
+                <th class="hidden-xs">Poznámka</th>
+                <th class="hidden-xs">Množství</th>
+                <th *ngIf="repair.tax > 0s" class="hidden-xs">DPH</th>
+                <th *ngIf="repair.tax > 0s" class="text-right hidden-xs">Cena bez DPH</th>
+                <th class="text-right">Cena s DPH</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+                
+            <tr *ngIf="!!items.MATERIAL && !!items.MATERIAL.length">
+                <td colspan="8" class="td-section">Materiál</td>
+            </tr>
+            <tr *ngFor="let task of items['MATERIAL']; let i = index">
+                <td>{{i + 1}}.</td>
+                <td>{{task.title}}</td>
+                <td class="hidden-xs">{{task.note}}</td>
+                <td class="hidden-xs">{{task.quantity}}</td>
+                <td *ngIf="repair.tax > 0s" class="hidden-xs">{{repair.tax}}%</td>
+                <td *ngIf="repair.tax > 0s" class="text-right hidden-xs">{{task.priceNoTax | formatNumber}}</td>
+                <td class="text-right">
+                    <span tooltip="Cena/ks: {{task.price | price}}" placement="left">{{(task.price * task.quantity) | price}}</span>
+                </td>
+                <td class="text-right actions">
+                    <i class="icon-edit" (click)="editTask.emit(task)"></i>
+                    <i class="icon-bin" (click)="deleteTask(task)"></i>
+                </td>
+            </tr>
+
+                <tr *ngIf="!!items.WORK && !!items.WORK.length">
+                    <td colspan="8" class="td-section">Práce</td>
+                </tr>
+                <tr *ngFor="let task of items['WORK']; let i = index">
+                    <td>{{i + 1}}.</td>
+                    <td>{{task.title}}</td>
+                    <td class="hidden-xs">{{task.note}}</td>
+                    <td class="hidden-xs">{{task.quantity}}</td>
+                    <td *ngIf="repair.tax > 0s" class="hidden-xs">{{repair.tax}}%</td>
+                    <td *ngIf="repair.tax > 0s" class="text-right hidden-xs">{{task.priceNoTax | formatNumber}}</td>
+                    <td class="text-right">
+                        <span tooltip="Cena/ks: {{task.price | price}}" placement="left">{{(task.price * task.quantity) | price}}</span>
+                    </td>
+                    <td class="text-right actions">
+                        <i class="icon-edit" (click)="editTask.emit(task)"></i>
+                        <i class="icon-bin" (click)="deleteTask(task)"></i>
+                    </td>
+                </tr>
+
+            <tr *ngIf="!!items.OTHER && !!items.OTHER.length">
+                <td colspan="8" class="td-section">Ostatní</td>
+            </tr>
+            <tr *ngFor="let task of items['OTHER']; let i = index">
+                <td>{{i + 1}}.</td>
+                <td>{{task.title}}</td>
+                <td class="hidden-xs">{{task.note}}</td>
+                <td class="hidden-xs">{{task.quantity}}</td>
+                <td *ngIf="repair.tax > 0s" class="hidden-xs">{{repair.tax}}%</td>
+                <td *ngIf="repair.tax > 0s" class="text-right hidden-xs">{{task.priceNoTax | formatNumber}}</td>
+                <td class="text-right">
+                    <span tooltip="Cena/ks: {{task.price | price}}" placement="left">{{(task.price * task.quantity) | price}}</span>
+                </td>
+                <td class="text-right actions">
+                    <i class="icon-edit" (click)="editTask.emit(task)"></i>
+                    <i class="icon-bin" (click)="deleteTask(task)"></i>
+                </td>
+            </tr>
+        </tbody>
+
+        <tbody *ngIf="!items">
+            <tr>
+                <td *ngIf="!loading" colspan="8" class="no-results">Nebyly nalezeny žádné položky</td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td></td>
+                <td>Cena celkem</td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td *ngIf="repair.tax > 0s" class="hidden-xs"></td>
+                <td *ngIf="repair.tax > 0s" class="hidden-xs"></td>
+                <td class="text-right">{{repair.totalPrice | price}}</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

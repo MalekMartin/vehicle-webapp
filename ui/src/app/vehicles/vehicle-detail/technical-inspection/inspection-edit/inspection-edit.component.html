@@ -1,0 +1,9 @@
+<h3 mat-dialog-title>Přidat TK</h3>
+<mat-dialog-content>
+    <va-inspection-form #formRef></va-inspection-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Zavřít</button>
+    <button mat-flat-button color="primary" [disabled]="!formRef.form.valid"
+        (click)="formRef.form.valid && save()">Uložit</button>
+</mat-dialog-actions>

@@ -5,5 +5,12 @@ export const maintenanceRoutes: Routes = [
     {
         path: '',
         component: MaintenanceWrapperComponent
+    },
+    {
+        path: 'print',
+        loadChildren: () =>
+            import('./maintenances/maintenances-print/maintenances-print.module').then(
+                m => m.MaintenancesPrintModule
+            )
     }
 ];

@@ -1,31 +1,42 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
-import { IntervalsComponent } from './intervals.component';
-import { IntervalFormComponent } from './interval-form/interval-form.component';
-import { SharedModule } from '../../../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IntervalCardComponent } from './intervals-card/interval-card.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { TooltipModule } from 'ngx-bootstrap';
+import { CardModule } from '../../../../shared/components/card/card.module';
+import { InitialsModule } from '../../../../shared/components/initials/initials.module';
+import { MileageModule } from '../../../../shared/components/mileage/mileage.module';
+import { PipesModule } from '../../../../shared/pipes/pipes.module';
+import { IntervalAddComponent } from './interval-add/interval-add.component';
+import { IntervalEditComponent } from './interval-edit/interval-edit.component';
+import { IntervalFormComponent } from './interval-form/interval-form.component';
+import { IntervalCardComponent } from './intervals-card/interval-card.component';
+import { IntervalsComponent } from './intervals.component';
 
 const MODULES = [
-    SharedModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TooltipModule
+    TooltipModule,
+    InitialsModule,
+    MileageModule,
+    PipesModule,
+    CardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
 ];
 
-const COMPONENTS = [
-    IntervalsComponent,
-    IntervalFormComponent,
-    IntervalCardComponent
-];
+const COMPONENTS = [IntervalsComponent, IntervalFormComponent, IntervalCardComponent];
 
 @NgModule({
-    imports: [
-        ...MODULES
-    ],
+    imports: [...MODULES],
     exports: [...COMPONENTS],
-    declarations: [...COMPONENTS],
-    providers: [],
+    declarations: [...COMPONENTS, IntervalAddComponent, IntervalEditComponent],
+    entryComponents: [IntervalAddComponent, IntervalEditComponent]
 })
-export class IntervalsModule { }
+export class IntervalsModule {}

@@ -20,38 +20,40 @@ export const vehicleDetailRoutes: Routes = [
             },
             {
                 path: 'dashboard',
-                loadChildren:
-                    'app/vehicles/vehicle-detail/dashboard/dashboard.module#DashboardModule'
+                loadChildren: () =>
+                    import('./dashboard/dashboard.module').then(m => m.DashboardModule)
             },
             {
                 path: 'info',
-                loadChildren: 'app/vehicles/vehicle-detail/info/info.module#InfoModule'
+                loadChildren: () => import('./info/info.module').then(m => m.InfoModule)
             },
             {
                 path: 'fuel',
-                loadChildren: 'app/vehicles/vehicle-detail/fuel/fuel.module#FuelModule'
+                loadChildren: () => import('./fuel/fuel.module').then(m => m.FuelModule)
             },
             {
                 path: 'tires',
-                loadChildren: 'app/vehicles/vehicle-detail/tires/tires.module#TiresModule'
+                loadChildren: () => import('./tires/tires.module').then(m => m.TiresModule)
             },
             {
                 path: 'costs',
-                loadChildren: 'app/vehicles/vehicle-detail/costs/costs.module#CostsModule'
+                loadChildren: () => import('./costs/costs.module').then(m => m.CostsModule)
             },
             {
                 path: 'maintenance',
-                loadChildren:
-                    'app/vehicles/vehicle-detail/maintenance/maintenance.module#MaintenanceModule'
+                loadChildren: () =>
+                    import('./maintenance/maintenance.module').then(m => m.MaintenanceModule)
             },
             {
                 path: 'repairs',
-                loadChildren: 'app/vehicles/vehicle-detail/repair/repair.module#RepairModule'
+                loadChildren: () => import('./repair/repair.module').then(m => m.RepairModule)
             },
             {
                 path: 'technical',
-                loadChildren:
-                    'app/vehicles/vehicle-detail/technical-inspection/technical-inspection.module#TechnicalInspectionModule'
+                loadChildren: () =>
+                    import('./technical-inspection/technical-inspection.module').then(
+                        m => m.TechnicalInspectionModule
+                    )
             },
             { path: 'settings', component: VehicleSettingsComponent },
             { path: 'manuals', component: ManualsComponent }

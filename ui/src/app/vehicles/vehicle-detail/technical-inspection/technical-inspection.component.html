@@ -3,28 +3,27 @@
         <va-section-heading>
             <va-section-heading-title>Technické kontroly</va-section-heading-title>
             <va-section-heading-controls>
-                <a [routerLink]="['./', { outlets: {'modal':['m','add', vehicleId]}}]">přidat</a>
+                <a href="" (click)="openAddForm($event)">přidat</a>
             </va-section-heading-controls>
         </va-section-heading>
 
-        <div *ngIf="isLoading && !inspections" class="loading">
-            <i class="icon-refresh spin"></i>
-        </div>
-
-        <div *ngIf="!!inspections">
-
-            <va-paginator (selected)="fetchPage($event)" [service]="inspectionService"></va-paginator>
-
-            <div class="inspections">
-                <va-inspection-card *ngFor="let inspection of inspections"
-                    [units]="units"
-                    [units2]="units2"
-                    [inspection]="inspection"
-                    (edited)="inspectionEdit($event)"
-                    (deleted)="onInspectionDelete()"></va-inspection-card>
+        <div class="inpection-wrapper">
+            <div *ngIf="isLoading" class="loading">
+                <va-spinner></va-spinner>
             </div>
 
-            <va-paginator (selected)="fetchPage($event)" [service]="inspectionService"></va-paginator>
+            <div *ngIf="!!inspections">
+                <div class="inspections">
+                    <va-inspection-card *ngFor="let inspection of inspections"
+                        [units]="units"
+                        [units2]="units2"
+                        [inspection]="inspection"
+                        (edit)="inspectionEdit($event)"
+                        (delete)="confirmDelete($event)"></va-inspection-card>
+                </div>
+
+                <va-paginator (selected)="fetchPage($event)" [service]="inspectionService"></va-paginator>
+            </div>
         </div>
     </div>
 
@@ -36,12 +35,6 @@
             </va-section-heading-controls>
         </va-section-heading>
 
-        <div [@openClose]="!!stationFormExpanded ? 'expanded' : 'collapsed'">
-            <va-station-form [station]="selectedStation"
-                (saved)="saveStation()"
-                (canceled)="cancelStationForm()"></va-station-form>
-        </div>
-
         <div *ngIf="stationLoading" class="loading">
             <i class="icon-refresh spin"></i>
         </div>
@@ -49,8 +42,8 @@
         <va-station-card
             *ngFor="let station of stations"
             [station]="station"
-            (edited)="editStation($event)"
-            (deleted)="onStationDelete()"></va-station-card>
+            (edit)="editStation($event)"
+            (delete)="onStationDelete()"></va-station-card>
     </div>
 </div>
 

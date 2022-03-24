@@ -1,0 +1,31 @@
+<mat-card>
+    <mat-card-title>{{title}}</mat-card-title>
+    <mat-card-content *ngIf="!!trade">
+        <va-info-detail-item label="Firma"
+            [value]="trade.company"></va-info-detail-item>
+        <va-info-detail-item label="Datum"
+            [value]="trade.date | moment: 'DD.MM.YYYY'"></va-info-detail-item>
+        <va-info-detail-item label="Nájezd"
+            [value]="trade.odo"></va-info-detail-item>
+        <va-info-detail-item label="Cena"
+            [value]="trade.price | price: 'Kč'"></va-info-detail-item>
+        <ng-container *ngIf="expanded">
+            <va-info-detail-item label="Kontaktní osoba"
+                [value]="trade.contactPerson"></va-info-detail-item>
+            <va-info-detail-item label="Telefon"
+                [value]="trade.phone"></va-info-detail-item>
+            <va-info-detail-item label="Adresa"
+                [value]="trade.address + ', ' + trade.city + ', ' + trade.zipCode"></va-info-detail-item>
+            <va-info-detail-item label="E-mail"
+                [value]="trade.email"></va-info-detail-item>
+            <va-info-detail-item label="Poznámky"
+                [value]="trade.notes" [wrap]="true"></va-info-detail-item>
+        </ng-container>
+        <a (click)="toggleContent()">
+            {{expanded ? 'Méně' : 'Více'}}
+        </a>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button color="primary" (click)="edit()">Upravit</button>
+    </mat-card-actions>
+</mat-card>

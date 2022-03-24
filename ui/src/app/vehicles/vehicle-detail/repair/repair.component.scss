@@ -19,19 +19,8 @@ va-repair-card {
     margin: 5px 0;
 }
 
-form {
-    display: flex;
-    margin-bottom: 10px;
-
-    div {
-        flex-grow: 1;
-
-        &:first-child {
-            margin-right: 3px;
-        }
-
-        &:last-child {
-            margin-left: 3px;
-        }
+va-filter {
+    .icon-search {
+        margin-right: 6px;
     }
 }

@@ -21,8 +21,8 @@ $app->post('/resource/inspections/{vehicleId}/update', function (Request $reques
     $this->logger->addInfo("Technical inspection update");
     $mapper = new TechnicalInspection($this->db, $this->jwt->uid);
     $d = json_decode(file_get_contents('php://input'));
-    $mapper->update($d);
-    return $response->withJson($d);
+    $data = $mapper->update($d);
+    return $response->withJson($data);
 });
 
 $app->delete('/resource/inspections/{id}', function (Request $request, Response $response, $args) {

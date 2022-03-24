@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Engine } from '../../../_core/engine';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { VehicleInfo } from '../../../../vehicle-stream/vehicle';
+import { EngineFormComponent } from '../engine-form/engine-form.component';
 
 @Component({
     selector: 'va-engine-detail',
@@ -7,10 +9,16 @@ import { Engine } from '../../../_core/engine';
     styleUrls: ['./engine-detail.component.scss']
 })
 export class EngineDetailComponent implements OnInit {
+    @Input() vehicle: VehicleInfo;
 
-    @Input() engine:Engine;
+    constructor(public dialog: MatDialog) {}
 
-    constructor() { }
+    ngOnInit() {}
 
-    ngOnInit() { }
+    edit() {
+        this.dialog.open(EngineFormComponent, {
+            width: '400px',
+            data: this.vehicle
+        });
+    }
 }

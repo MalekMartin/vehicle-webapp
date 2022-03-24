@@ -8,26 +8,30 @@
     </va-card-title>
     <va-card-menu>
         <div class="flex-right dots">
-            <div class="btn-group" dropdown>
-                <i class="icon-more-vertical" dropdownToggle></i>
-                <ul *dropdownMenu role="menu" aria-labelledby="menu-button" class="dropdown-menu">
-                    <li role="menuitem" *ngIf="tire.status == 'ACTIVE'" (click)="changeTire('STOCK')">
-                        <a class="dropdown-item" ><i class="icon-wrench"></i> Vyzut</a>
-                    </li>
-                    <li role="menuitem" *ngIf="tire.status == 'TRASH'" (click)="newStatus('STOCK')">
-                        <a class="dropdown-item" ><i class="icon-database"></i> Do skladu</a>
-                    </li>
-                    <li role="menuitem" *ngIf="tire.status == 'STOCK'" (click)="changeTire('ACTIVE')">
-                        <a class="dropdown-item"><i class="icon-wrench"></i> Obut pneu</a>
-                    </li>
-                    <li role="menuitem" *ngIf="tire.status == 'STOCK'" (click)="newStatus('TRASH')">
-                        <a class="dropdown-item"><i class="icon-bin"></i> Vyhodit</a>
-                    </li>
-                    <li class="divider dropdown-divider"></li>
-                    <li role="menuitem" (click)="edit()"><a class="dropdown-item"><i class="icon-edit"></i> Upravit</a></li>
-                    <li role="menuitem" (click)="delete()"><a class="dropdown-item"><i class="icon-cross"></i> Smazat</a></li>
-                </ul>
-            </div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <i class="icon-more-vertical"></i>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngIf="tire.status == 'ACTIVE'"
+                    (click)="changeTireClicked('STOCK')">
+                    Vyzut
+                </button>
+                <button mat-menu-item *ngIf="tire.status == 'TRASH'" (click)="newStatus('STOCK')">
+                    Do skladu
+                </button>
+                <button mat-menu-item *ngIf="tire.status == 'STOCK'" (click)="changeTireClicked('ACTIVE')">
+                    Obut pneu
+                </button>
+                <button mat-menu-item *ngIf="tire.status == 'STOCK'" (click)="newStatus('TRASH')">
+                    Vyhodit
+                </button>
+                <button mat-menu-item (click)="edit.emit(tire)">
+                    Upravit
+                </button>
+                <button mat-menu-item (click)="delete.emit(tire)">
+                    Smazat
+                </button>
+            </mat-menu>
         </div>
     </va-card-menu>
 

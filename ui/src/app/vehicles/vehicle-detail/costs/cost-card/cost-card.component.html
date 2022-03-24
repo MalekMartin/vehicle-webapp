@@ -22,15 +22,15 @@
                 <strong>{{cost.category.title}}</strong> &raquo;
                 <span class="cost-title">{{cost.title}}</span>
             </div>
-        <div class="note">{{cost.note}}</div>
+        <div class="note" [vaMatchLinks]="cost.note"></div>
     </va-card-content>
 
     <va-card-footer>
         <div class="actions">
-            <a class="action-button" [routerLink]="['./', { outlets: {'popup':['m','edit', cost.id]}}]">
+            <a class="action-button" (click)="edit.emit(cost)">
                 Upravit
             </a>
-            <a (click)="delete(cost)" class="action-button delete">
+            <a (click)="delete.emit(cost)" class="action-button delete">
                 Smazat
             </a>
         </div>

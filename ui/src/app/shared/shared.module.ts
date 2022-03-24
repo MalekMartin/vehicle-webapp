@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FileUploadModule } from 'ng2-file-upload';
-import { BsDropdownModule, DatepickerModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
+import { BsDropdownModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { ApiModule } from './api/api.module';
 import { StorageService } from './api/storage.service';
 import { CardModule } from './components/card/card.module';
@@ -27,7 +27,6 @@ import { FormItemModule } from './forms/form-item/form-item.module';
 const MODULES = [
     CommonModule,
     RouterModule,
-    DatepickerModule,
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,

@@ -12,7 +12,7 @@ h3 {
         margin: auto 0;
         padding: 5px 0;
 
-        /deep/ a {
+        ::ng-deep a {
             display: inline-block;
             margin-left: 10px;
             cursor: pointer;
@@ -22,5 +22,15 @@ h3 {
                 margin-left: 0;
             }
         }
+    }
+}
+
+@media print {
+    .heading {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    .controls {
+        display: none;
     }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Garage } from '../garage-form/garage-form.component';
 
 @Component({
     selector: 'va-car-service-card',
@@ -10,7 +11,8 @@ export class CarServiceCardComponent implements OnInit {
 
     @Input() service;
 
-    @Output() deleted = new EventEmitter;
+    @Output() edit = new EventEmitter<Garage>();
+    @Output() delete = new EventEmitter<Garage>();
 
     constructor() { }
 

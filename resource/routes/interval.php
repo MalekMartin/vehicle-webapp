@@ -14,8 +14,8 @@ $app->post('/resource/intervals/update', function (Request $request, Response $r
     $this->logger->addInfo(" update");
     $mapper = new Interval($this->db, $this->jwt->uid);
     $d = json_decode(file_get_contents('php://input'));
-    $mapper->saveInterval($d);
-    return $response->withJson($d);
+    $interval = $mapper->saveInterval($d);
+    return $response->withJson($interval);
 });
 
 $app->delete('/resource/intervals/{id}', function (Request $request, Response $response, $args) {

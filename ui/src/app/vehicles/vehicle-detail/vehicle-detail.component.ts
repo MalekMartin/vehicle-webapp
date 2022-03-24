@@ -5,6 +5,8 @@ import { VehicleImageService } from '../vehicle-stream/vehicle-images.service';
 import { SettingsService } from './vehicle-settings/settings.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { MenuOptionPage } from './vehicle-detail-menu/vehicle-detail-menu.interface';
+import { VehicleInfo } from '../vehicle-stream/vehicle';
 
 @Component({
     selector: 'va-vehicle-detail',
@@ -12,23 +14,10 @@ import { Subject } from 'rxjs';
     styleUrls: ['./vehicle-detail.component.scss']
 })
 export class VehicleDetailComponent implements OnInit, OnDestroy {
-    vehicle;
-
-    options: MenuOption[] = [
-        { page: 'dashboard', label: 'Přehled', warning: 0, icon: 'stats' },
-        { page: 'info', label: 'Info', warning: 0, icon: 'info' },
-        { page: 'fuel', label: 'Tankování', warning: 0, icon: 'gas' },
-        { page: 'costs', label: 'Náklady', warning: 0, icon: 'money' },
-        { page: 'tires', label: 'Pneu', warning: 0, icon: 'radio-unchecked' },
-        { page: 'technical', label: 'TK', warning: 0, icon: 'verified' },
-        { page: 'maintenance', label: 'Údržba', warning: 0, icon: 'wrench' },
-        { page: 'repairs', label: 'Servisí práce', warning: 0, icon: 'automobile' },
-        { page: 'settings', label: 'Nastavení', warning: 0, icon: 'gears' }
-        // {page: 'manuals', label: 'Manuály'}
-    ];
-
     id: string;
     page: MenuOptionPage;
+
+    loading = false;
 
     private _onDestroy$ = new Subject();
 
@@ -37,24 +26,31 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _vehicleService: VehicleService,
         private _images: VehicleImageService,
-        private _settings: SettingsService
-    ) {
-        // this._vehicleService.vehicleId = this._route.snapshot.params['id'];
-    }
+        private _settings: SettingsService,
+    ) {}
 
     ngOnInit() {
         this._route.params.pipe(takeUntil(this._onDestroy$)).subscribe(p => {
             this.id = p['id'] || null;
-            this._vehicleService.vehicleId = p['id'] || null;
             this.page = p['page'] || 'fuel';
             if (!!this.id) {
                 this.getVehicleInfo(this.id);
             }
         });
+
+        this._vehicleService.loading.pipe(takeUntil(this._onDestroy$))
+            .subscribe(v => {
+                // this.vehicle = v;
+                this.loading = v;
+            });
     }
 
     ngOnDestroy() {
         this._onDestroy$.next();
+    }
+
+    get vehicle() {
+        return this._vehicleService.snapshot;
     }
 
     getVehicleInfo(id: string) {
@@ -65,8 +61,6 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     }
 
     private _onInfoFound = info => {
-        this.vehicle = info;
-        this._vehicleService.state.update(f => f.replaceVehicle, info);
         this._findVehicleImage();
     };
 
@@ -89,21 +83,3 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
         }
     }
 }
-
-interface MenuOption {
-    page: MenuOptionPage;
-    label: string;
-    warning: number;
-    icon: string;
-}
-
-type MenuOptionPage =
-    | 'dashboard'
-    | 'info'
-    | 'fuel'
-    | 'costs'
-    | 'tires'
-    | 'technical'
-    | 'maintenance'
-    | 'repairs'
-    | 'settings';

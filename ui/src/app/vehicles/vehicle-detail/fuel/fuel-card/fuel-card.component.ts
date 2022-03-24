@@ -5,6 +5,7 @@ import { MomentPipe } from '../../../../shared/pipes/moment.pipe';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ConfirmService } from '../../../../shared/components/confirm/confirm.service';
 
 @Component({
     selector: 'va-fuel-card',
@@ -13,10 +14,11 @@ import { Subject } from 'rxjs';
 })
 export class FuelCardComponent implements OnInit, OnDestroy {
     @Input() fuel: Fuel;
+    @Output() edit = new EventEmitter<Fuel>();
     @Output() deleted = new EventEmitter();
 
     units: string;
-    units2 :string;
+    units2: string;
     tankCapacity: number;
 
     private _onDestroy$ = new Subject();
@@ -24,12 +26,12 @@ export class FuelCardComponent implements OnInit, OnDestroy {
     constructor(
         private _modal: ConfirmDialogService,
         private _moment: MomentPipe,
-        private _vehicles: VehicleService
+        private _vehicles: VehicleService,
+        private confirm: ConfirmService,
     ) {}
 
     ngOnInit() {
-        this._vehicles.state
-            .select(s => s.vehicle)
+        this._vehicles.vehicle
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
                 this.units = v.info.units;
@@ -42,17 +44,13 @@ export class FuelCardComponent implements OnInit, OnDestroy {
     }
 
     delete() {
-        this._modal.dialog
-            .title('')
-            .message(
-                'Opravdu chceš smazat tankování ' +
-                    this.fuel.quantity +
-                    'l ze dne ' +
-                    this._moment.transform(this.fuel.date, 'DD.MM.YYYY') +
-                    '?'
-            )
-            .ok('Smazat')
-            .cancel('Zpět')
+        const message = 'Opravdu chceš smazat tankování ' +
+            this.fuel.quantity +
+            'l ze dne ' +
+            this._moment.transform(this.fuel.date, 'DD.MM.YYYY') +
+            '?';
+        this.confirm.open(message, '', 'Ano, smazat', 'Ne')
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(res => {
                 if (!!res) {
                     this.deleted.emit(this.fuel);

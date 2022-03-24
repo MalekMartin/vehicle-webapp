@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { RepairTask } from './_core/repair-task.interface';
 import { Repair } from './_core/repair.interface';
 import { Pageable, Page } from '../../../utils/pageable';
+import { Maintenance } from '../../../shared/api/maintenance/maintenance.interface';
 
 @Injectable()
 export class RepairService extends Pageable<Repair> {
@@ -40,10 +41,6 @@ export class RepairService extends Pageable<Repair> {
             .get('/resource/repairs/' + vehicleId + '/stats');
     }
 
-    get repairs(): Repair[] {
-        return this._repairs;
-    }
-
     get isLoading(): boolean {
         return this._isLoading;
     }
@@ -76,5 +73,10 @@ export class RepairService extends Pageable<Repair> {
     getRepairTasks(repairId: string) {
         return this._http
             .get('/resource/repairs/' + repairId + '/tasks');
+    }
+
+    getRelatedMaintenances(vehicleId: string, repairId: string): Observable<Maintenance[]> {
+        return this._http
+            .get(`/resource/repairs/${vehicleId}/maintenances/${repairId}`);
     }
 }

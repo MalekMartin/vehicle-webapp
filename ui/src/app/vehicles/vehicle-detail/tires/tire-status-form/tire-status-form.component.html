@@ -1,47 +1,40 @@
-<div class="modal fade" bsModal #dialog="bs-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button #btnClose type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Úprava stavu pneu</h4>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="form">
-                    <div class="row">
-                        <va-form-item [control]="form.get('odo')" class="col-sm-12">
-                            <label for="odo">ODO ({{units}}):</label>
-                            Poslední nájezd: {{updatedTire.odo | formatNumber}} {{units}}
-                            <input type="text" id="odo" class="form-control" formControlName="odo">
-                            <div *ngIf="newStatus === 'STOCK'">Nový nájezd: {{calculateMileage | formatNumber}} {{units}}</div>
-                        </va-form-item>
-
-                        <va-form-item *ngIf="!!units2" [control]="form.get('odo2')" class="col-sm-12">
-                            <label for="odo2">ODO ({{units}}):</label>
-                            Poslední nájezd: {{updatedTire.odo2 | formatNumber}} {{units2}}
-                            <input type="text" id="odo2" class="form-control" formControlName="odo2">
-                            <div *ngIf="newStatus === 'STOCK'">Nový nájezd: {{calculateEngineHours | formatNumber}} {{units2}}</div>
-                        </va-form-item>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label for="engineHours">Datum:</label>
-                            <va-form-item [control]="form.get('date')">
-                                <va-date-picker formControlName="date"></va-date-picker>
-                            </va-form-item>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button #btnCancel type="button" class="btn btn-default">Zrušit</button>
-                            <button #btnOk type="submit" class="btn btn-primary" [class.disabled]="!form.valid">Uložit</button>
-                        </div>
-                    </div>
-                </form>
+<h3 mat-dialog-title class="dialog-title"
+    [matTooltip]="data.tire.brand + ' ' + data.tire.model">
+    {{data.status === 'STOCK' ? 'Vyzut' : 'Obut'}} {{data.tire.brand}} {{data.tire.model}}</h3>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-sm-12">Poslední výměna při
+                <b>{{data.tire.odo | formatNumber}} {{units}}</b>
+                <b *ngIf="units2">&nbsp;({{data.tire.odo2 | formatNumber}} {{units2}})</b>
             </div>
         </div>
-    </div>
-</div>
+        <div class="row">
+            <mat-form-field class="col-sm-12">
+                <input matInput type="number" id="odo" formControlName="odo" [placeholder]="'ODO (' + units + ')'">
+                <mat-hint *ngIf="data.status === 'STOCK'">Nový nájezd: {{newOdo | formatNumber}} {{units}}</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field *ngIf="!!units2" class="col-sm-12">
+                <input matInput type="number" id="odo2" formControlName="odo2" [placeholder]="'ODO (' + units2 + ')'">
+                <mat-hint *ngIf="data.status === 'STOCK'">Nový nájezd: {{newOdo2 | formatNumber}} {{units2}}</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <mat-form-field>
+                    <input matInput formControlName="date" placeholder="Datum" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button type="button" mat-dialog-close>Zrušit</button>
+    <button mat-flat-button color="primary" type="button" [disabled]="!form.valid"
+        (click)="save()">Uložit</button>
+</mat-dialog-actions>

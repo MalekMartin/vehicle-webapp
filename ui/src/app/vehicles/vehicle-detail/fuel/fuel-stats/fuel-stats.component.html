@@ -1,9 +1,14 @@
 <div class="wrapper">
 
-    <div class="chart-wrapper" *ngIf="!!data && data.length">
-        <ngx-charts-line-chart
+    <div class="chart-toggle">
+        <span class="switch" (click)="changeChart('FUEL')">Tankování</span>
+        <span class="switch" (click)="changeChart('MILEAGE')">Nájezd</span>
+    </div>
+
+    <div class="chart-wrapper">
+        <ngx-charts-line-chart *ngIf="!!mileageData && chart === 'MILEAGE'"
             [scheme]="colorScheme"
-            [results]="data"
+            [results]="mileageData"
             [gradient]="gradient"
             [xAxis]="showXAxis"
             [yAxis]="showYAxis"
@@ -12,18 +17,22 @@
             [showYAxisLabel]="showYAxisLabel"
             [xAxisLabel]="xAxisLabel"
             [yAxisLabel]="yAxisLabel"
-            [autoScale]="autoScale"
-            (select)="onSelect($event)">
+            [autoScale]="autoScale">
         </ngx-charts-line-chart>
-    </div>
 
-    <!-- <div *ngIf="loadingError">
-        Nepodařilo se načíst statistiky. <a (click)="getStats()">Načíst znovu</a>.
+        <ngx-charts-bar-vertical-2d *ngIf="!!fuelData && !!fuelData?.series?.length && chart === 'FUEL'"
+            [scheme]="colorScheme"
+            [results]="fuelData"
+            [gradient]="false"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="true"
+            [showXAxisLabel]="false"
+            [showYAxisLabel]="true"
+            xAxisLabel="Období"
+            yAxisLabel="Natankované množství">
+        </ngx-charts-bar-vertical-2d>
     </div>
-    
-    <div *ngIf="loading" class="loading-bar">
-        <i class="icon-refresh spin"></i>
-    </div> -->
 
     <div *ngIf="!!stats">
         <va-number-stats [stats]="stats"></va-number-stats>

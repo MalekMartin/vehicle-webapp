@@ -34,3 +34,16 @@
         }
     }
 }
+
+.loading {
+    text-align: center;
+    font-size: 12px;
+}
+
+@media print {
+    .prop-block {
+        .controls {
+            display: none;
+        }
+    }
+}

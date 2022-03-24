@@ -1,98 +1,119 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { Vehicle } from './vehicle';
-import { VehicleService } from '../../core/stores/vehicle/vehicle.service';
-import {
-    ConfirmDialogService
-} from '../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { ModalDirective } from 'ngx-bootstrap';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit, HostListener, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Subject, merge, combineLatest } from 'rxjs';
+import { map, takeUntil, tap } from 'rxjs/operators';
+import { Vehicle } from './vehicle';
+import { VehicleAddComponent } from './vehicle-add/vehicle-add.component';
+import { VehicleDeleteConfirmComponent } from './vehicle-delete-confirm/vehicle-delete-confirm.component';
+import { VehicleStreamService } from '../../core/stores/vehicle/vehicle-stream.service';
 
 @Component({
     selector: 'va-vehicle-stream',
     templateUrl: './vehicle-stream.component.html',
     styleUrls: ['./vehicle-stream.component.scss']
 })
-export class VehicleStreamComponent implements OnInit, OnDestroy {
-
+export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy {
     filter: string;
     expanded = false;
-    _events: any;
-
     query = new FormControl('');
+    gridCols = 5;
 
-    @ViewChild('modal') modal: ModalDirective;
+    state = combineLatest([
+        this._service.vehicles$,
+        this._service.loading$,
+    ]).pipe(
+        map(([vehicles, loading]) => ({vehicles, loading})),
+        tap(v => {
+            console.log(v)
+        })
+    );
 
     private _onDestroy$ = new Subject();
 
-    constructor(private _service: VehicleService,
-                private _confirm: ConfirmDialogService,
-                private _toastr: ToastsManager,
-                private _router: Router) { }
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this._resize(event.target.innerWidth);
+    }
+
+    constructor(
+        public dialog: MatDialog,
+        private _service: VehicleStreamService,
+        private _router: Router
+    ) {}
 
     ngOnInit() {
-        this._service.activeVehicle = null;
+        this.query.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe(res => {
+            this.filter = res;
+        });
+        if (!this._service.vehicles) {
+            this.getAllVehicles();
+        }
+    }
 
-        this.query.valueChanges
-            .pipe(takeUntil(this._onDestroy$))
-            .subscribe(res => {
-                this.filter = res;
-            });
+    ngAfterViewInit() {
+        this._resize(window.innerWidth);
     }
 
     ngOnDestroy() {
         this._onDestroy$.next();
     }
 
-    get vehicles(): Vehicle[] {
-        return this._service.allVehicles;
-    }
-
-    get events(): any {
-        return this._events;
+    getAllVehicles() {
+        this._service
+            .refresh()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe();
     }
 
     addVehicle(e: MouseEvent) {
-        this.modal.show();
         e.preventDefault();
-    }
-
-    closeModal() {
-        this.modal.hide();
-    }
-
-    onSave(vehicleId: string) {
-        this._router.navigate(['vehicle', vehicleId, 'settings']);
-        this._service.refresh();
+        this.dialog
+            .open(VehicleAddComponent, {
+                width: '500px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._onSave);
     }
 
     onDelete(vehicle: Vehicle) {
-        this._confirm.dialog
-            .title('Smazat vozidlo')
-            .message('Opravdu si přeješ smazat vozidlo ' + vehicle.brand + ' ' + vehicle.model + '?')
-            .ok('Ano, smazat')
-            .cancel('Ne')
-            .subscribe(res => {
-                if (res) {
-                    this.delete(vehicle);
+        this.dialog
+            .open(VehicleDeleteConfirmComponent, {
+                width: '300px',
+                data: {
+                    name: `${vehicle.brand} ${vehicle.model}`,
+                    id: vehicle.id
                 }
-            });
-    }
-
-    delete(vehicle) {
-        this._service.deleteVehicle(vehicle.id)
+            })
+            .afterClosed()
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe(this._onDeleteSuccess, this._onDeleteError);
+            .subscribe(this._onDeleteSuccess);
     }
 
-    private _onDeleteSuccess = () => {
-        this._service.refresh();
-    }
+    private _onSave = (vehicleId: string) => {
+        if (!!vehicleId) {
+            this._router.navigate(['vehicle', vehicleId, 'settings']);
+            this.getAllVehicles();
+        }
+    };
 
-    private _onDeleteError = () => {
-        this._toastr.error('Nepodařilo se smazat vybrané vozidlo');
+    private _onDeleteSuccess = res => {
+        if (!!res) {
+            this.getAllVehicles();
+        }
+    };
+
+    private _resize(width: number) {
+        if (width > 796) {
+            this.gridCols = 5;
+        } else if (width <= 796 && width > 640) {
+            this.gridCols = 3;
+        } else if (width <= 640 && width > 440) {
+            this.gridCols = 2;
+        } else {
+            this.gridCols = 1;
+        }
     }
 }

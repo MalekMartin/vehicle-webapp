@@ -1,46 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { VValidators } from '../../../shared/forms/validators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { VValidators } from '../../../shared/forms/validators';
 
 @Component({
     selector: 'va-activation-form',
     templateUrl: 'activation-form.component.html',
     styleUrls: ['activation-form.component.scss']
 })
-
-export class ActivationFormComponent implements OnInit {
-
+export class ActivationFormComponent implements OnDestroy {
     form = this._fb.group({
         code: this._route.snapshot.params['code'],
         firstName: ['', Validators.required],
         lastName: '',
-        pwds: this._fb.group({
-            pwd: ['', [Validators.required, VValidators.validatePassword, Validators.minLength(6), Validators.maxLength(16)]],
-            pwdCheck: ['', Validators.required]
-        }, {validator: VValidators.passwordMatches})
+        pwds: this._fb.group(
+            {
+                pwd: [
+                    '',
+                    [
+                        Validators.required,
+                        VValidators.validatePassword,
+                        Validators.minLength(6),
+                        Validators.maxLength(16)
+                    ]
+                ],
+                pwdCheck: ['', Validators.required]
+            },
+            { validator: VValidators.passwordMatches }
+        )
     });
 
-    constructor(private _fb: FormBuilder,
-                private _auth: AuthService,
-                private _router: Router,
-                private _toastr: ToastsManager,
-                private _route: ActivatedRoute) { }
+    private _onDestroy$ = new Subject();
 
-    ngOnInit() { }
+    constructor(
+        private _fb: FormBuilder,
+        private _auth: AuthService,
+        private _router: Router,
+        private _toastr: ToastrService,
+        private _route: ActivatedRoute
+    ) {}
+
+    ngOnDestroy() {
+        this._onDestroy$.next();
+    }
 
     finishRegistration() {
-        this._auth.finishRegistration(this.form.value)
+        this._auth
+            .finishRegistration(this.form.value)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onSuccess, this._onError);
     }
 
     private _onSuccess = () => {
         this._router.navigate(['/login']);
-    }
+    };
 
     private _onError = () => {
         this._toastr.error('Nepodařilo se dokončit registraci.');
-    }
+    };
 }

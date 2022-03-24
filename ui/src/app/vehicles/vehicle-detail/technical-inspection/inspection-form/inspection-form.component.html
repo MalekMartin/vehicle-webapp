@@ -1,0 +1,66 @@
+<form [formGroup]="form">
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput id="date" formControlName="date"
+                placeholder="Datum provedení" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.get('date').hasError('required')">
+                Toto pole je <b>povinné</b>.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput id="expirationDate" formControlName="expirationDate"
+                placeholder="Datum platnosti" [matDatepicker]="picker2">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="form.get('expirationDate').hasError('required')">
+                Toto pole je <b>povinné</b>.
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="price" formControlName="price"
+                placeholder="Cena">
+            <mat-error *ngIf="form.get('price').hasError('required')">
+                Toto pole je <b>povinné</b>.
+            </mat-error>
+        </mat-form-field>
+        <div class="col-sm-6 col-xs-12">
+            <mat-checkbox id="repeated" formControlName="repeated">Opakovaná</mat-checkbox>
+        </div>
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="odo" formControlName="odo"
+                [placeholder]="'ODO (' + units + ')'">
+            <mat-error *ngIf="form.get('odo').hasError('required')">
+                Toto pole je <b>povinné</b>.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="units2" class="col-sm-6 col-xs-12">
+            <input matInput type="number" id="odo2" formControlName="odo2"
+                [placeholder]="'ODO (' + units2 + ')'">
+            <mat-error *ngIf="form.get('odo2').hasError('required')">
+                Toto pole je <b>povinné</b>.
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-12 col-xs-12">
+            <mat-select id="station" formControlName="stationId" placeholder="Stanice TK">
+                <mat-option *ngFor="let station of stations | async" [value]="station.id">{{station.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-12 col-xs-12">
+            <textarea matInput formControlName="note" placeholder="Poznámka"></textarea>
+        </mat-form-field>
+    </div>
+</form>

@@ -11,7 +11,6 @@ class Odo {
     function __construct($db, $id) {
         $this->id = $id;
         $this->db = $db;
-        $this->getCurrentOdo();
     }
 
     public function getCurrentOdo() {
@@ -42,12 +41,14 @@ class Odo {
     }
 
     public function updateOdo($o, $o2 = null) {
+        $this->getCurrentOdo();
         if ($o > $this->odo) {
             $this->setNewOdo($o, $o2);
         }
     }
 
     public function onOdoRemove($o, $o2 = null) {
+        $this->getCurrentOdo();
         if ($o == $this->odo) {
             $r = $this->findLastTankOdo();
             $this->setNewOdo($r['odo'], $r['odo2']);
@@ -61,7 +62,7 @@ class Odo {
 
     private function findLastTankOdo() {
         $q = $this->db->prepare('SELECT MAX(odo) as odo, odo2 FROM fuel WHERE vehicleId = ?');
-        $q = $this->db->execute(array($this->id));
+        $q->execute(array($this->id));
         return $q->fetch();
     }
 }

@@ -18,6 +18,17 @@ va-initials {
     margin-left: 10px;
 }
 
+.flag-in-progress {
+    font-weight: bold;
+    font-size: 12px;
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: orangered;
+    color: white;
+    border-radius: 11px;
+    margin-left: 10px;
+}
+
 .flag-canceled {
     font-weight: bold;
     font-size: 12px;
@@ -30,7 +41,9 @@ va-initials {
 }
 
 .repair-link {
-    text-align: right;
+    margin-left: 10px;
+    text-decoration: none;
+    font-weight: 500;
 }
 
 .flex-row {
@@ -99,8 +112,14 @@ va-card-left {
     }
 }
 
-va-card /deep/ {
+va-card ::ng-deep {
     .left-part {
         display: flex;
+    }
+}
+
+@media screen {
+    .flag-in-progress {
+        display: none;
     }
 }

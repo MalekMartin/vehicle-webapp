@@ -18,7 +18,7 @@ $config['addContentLengthHeader'] = false;
 $config['db']['host']   = "localhost";
 $config['db']['user']   = getenv('DB_USER');
 $config['db']['pass']   = getenv('DB_PWD');
-$config['db']['dbname'] = "moto";
+$config['db']['dbname'] = "vehicle";
 $jwtSecret =  getenv("JWT_SECRET");
 
 $app = new \Slim\App(["settings" => $config]);
@@ -107,5 +107,6 @@ require "../../routes/maintenance.php";
 require "../../routes/garage.php";
 require "../../routes/repair.php";
 require "../../routes/event.php";
+require "../../routes/manuals.php";
 
 $app->run();

@@ -13,21 +13,21 @@
           "build": {
             "builder": "@angular-devkit/build-angular:browser",
             "options": {
-              "outputPath": "dist/vehicle-webapp",
-              "index": "src/index.html",
-              "main": "src/main.ts",
-              "polyfills": "src/polyfills.ts",
-              "tsConfig": "src/tsconfig.app.json",
-              "assets": [
-                "src/favicon.ico",
-                "src/assets"
-              ],
-              "styles": [
-                "src/styles.scss"
-              ],
-              "scripts": [],
-              "es5BrowserSupport": true
-            },
+            "aot": true,
+            "outputPath": "dist/vehicle-webapp",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          },
             "configurations": {
               "production": {
                 "fileReplacements": [
@@ -39,7 +39,6 @@
                 "optimization": true,
                 "outputHashing": "all",
                 "sourceMap": false,
-                "extractCss": true,
                 "namedChunks": false,
                 "aot": true,
                 "extractLicenses": true,
@@ -50,7 +49,11 @@
                     "type": "initial",
                     "maximumWarning": "2mb",
                     "maximumError": "5mb"
-                  }
+                  },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
                 ]
               }
             }

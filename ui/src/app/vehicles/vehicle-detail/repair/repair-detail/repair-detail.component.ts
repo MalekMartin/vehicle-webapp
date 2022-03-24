@@ -1,67 +1,61 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { RepairService } from '../repair.service';
-import { Repair } from '../_core/repair.interface';
-import { HttpService } from '../../../../core/http.service';
-import { RepairTask } from '../_core/repair-task.interface';
-import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { Subscription } from 'rxjs';
-import { RepairFormService } from '../repair-form/repair-form.service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 import { ModalDirective } from 'ngx-bootstrap';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
+import { Maintenance } from '../../../../shared/api/maintenance/maintenance.interface';
+import { RepairEditComponent } from '../repair-edit/repair-edit.component';
+import { RepairItemAddComponent } from '../repair-item-add/repair-item-add.component';
+import { RepairItemEditComponent } from '../repair-item-edit/repair-item-edit.component';
+import { RepairService } from '../repair.service';
+import { RepairTask } from '../_core/repair-task.interface';
+import { Repair } from '../_core/repair.interface';
 
 @Component({
     selector: 'va-repair-detail',
     templateUrl: './repair-detail.component.html',
     styleUrls: ['./repair-detail.component.scss']
 })
-
 export class RepairDetailComponent implements OnInit, OnDestroy {
-
     @ViewChild('modal') modal: ModalDirective;
 
     expanded = false;
+    repair: Repair;
+    repairItems: { [key: string]: RepairTask[] } | null;
+    maintenances: Maintenance[];
+    loading = false;
+    itemsLoading = false;
 
-    selectedTask: RepairTask = null;
-
-    private _limit = 5;
     private _repairId: string;
-    private _repair: Repair;
+    private _limit = 5;
 
-    private _repairSubs: Subscription;
+    private _onDestroy$ = new Subject();
 
-    constructor(private _router: Router,
-                private _route: ActivatedRoute,
-                private _repairs: RepairService,
-                private _http: HttpService,
-                private _confirm: ConfirmDialogService,
-                private _toastr: ToastsManager,
-                private _repairForm: RepairFormService) {
-    }
+    constructor(
+        private _route: ActivatedRoute,
+        private _repairs: RepairService,
+        private _dialog: MatDialog,
+        private _vehicleService: VehicleService,
+        private _toastr: ToastrService
+    ) {}
 
     ngOnInit() {
-
-        this._route.params
-            .subscribe(p => {
-                if (p['id']) {
-                    this._repairId = p['id'];
-                    this.getRepair();
-                }
-            });
+        this._route.params.subscribe(p => {
+            if (p['id']) {
+                this._repairId = p['id'];
+                this.getRepair();
+                this.getMaintenances();
+                this.getRepairItems(this._repairId);
+            }
+        });
     }
 
     ngOnDestroy() {
-        if (this._repairSubs) {
-            this._repairSubs.unsubscribe();
-        }
-    }
-
-    get repairId(): string {
-        return this._repairId;
-    }
-
-    get repair(): Repair {
-        return this._repair;
+        this._onDestroy$.next();
     }
 
     get limit() {
@@ -73,55 +67,90 @@ export class RepairDetailComponent implements OnInit, OnDestroy {
     }
 
     getRepair() {
-        this._repairSubs = this._repairs
+        this.loading = true;
+        this._repairs
             .getRepair(this._repairId)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe((r: Repair) => {
-                this._repair = r;
+                this.repair = r;
+                this.loading = false;
             });
+    }
+
+    getMaintenances() {
+        this._repairs
+            .getRelatedMaintenances(
+                this._vehicleService.snapshot.info.id,
+                this._repairId
+            )
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(m => {
+                this.maintenances = m;
+            });
+    }
+
+    getRepairItems(repairId: string) {
+        this.itemsLoading = true;
+        this._repairs
+            .getRepairTasks(repairId)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(this._onTasksSuccess, this._onTasksError);
     }
 
     onTaskSave() {
         this.getRepair();
-        this.closeModal();
     }
 
     edit() {
-        this._repairForm.dialog
-            .repair(this._repair)
-            .title('Editace opravy')
-            .subscribe((res) => {
+        this._dialog
+            .open(RepairEditComponent, {
+                width: '600px',
+                data: this.repair
+            })
+            .afterClosed()
+            .subscribe(res => {
                 if (res) {
-                    // this.save(res.form);
-                    this.getRepair();
+                    this.repair = res;
                 }
             });
     }
 
-    addTask() {
-        this.selectedTask = this._buildEmptyTask();
-        this.modal.show();
+    addItem() {
+        this._dialog
+            .open(RepairItemAddComponent, {
+                width: '400px',
+                data: this.repair
+            })
+            .afterClosed()
+            .subscribe(v => {
+                if (!!v) {
+                }
+            });
     }
 
-    editTask(task: RepairTask) {
-        this.selectedTask = task;
-        this.modal.show();
+    editItem(task: RepairTask) {
+        this._dialog
+            .open(RepairItemEditComponent, {
+                width: '400px',
+                data: { repair: this.repair, item: task }
+            })
+            .afterClosed()
+            .subscribe(v => {
+                if (!!v) {
+                }
+            });
     }
 
-    closeModal() {
-        this.selectedTask = null;
-        this.modal.hide();
-    }
+    private _onTasksSuccess = (t: RepairTask[]) => {
+        this.repairItems = _.groupBy(t, (task: RepairTask) => {
+            return task.type;
+        });
+        this.itemsLoading = false;
+    };
 
-    private _buildEmptyTask(): RepairTask {
-        return {
-            id: '',
-            repairId: this.repairId,
-            title: '',
-            note: '',
-            quantity: 1,
-            price: 0,
-            priceNoTax: 0,
-            type: 'MATERIAL',
-        };
-    }
+    private _onTasksError = () => {
+        this._toastr.error('Nepodařilo se načít položky opravy.', 'Chyba!');
+        this.repairItems = null;
+        this.itemsLoading = false;
+    };
 }

@@ -1,28 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CarServiceService, Service } from '../vehicle-repairs.service';
-import { GarageService } from '../garage/garage.service';
-import { ModalDirective } from 'ngx-bootstrap';
-import { Garage } from '../garage-form/garage-form.component';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Service } from "../vehicle-repairs.service";
+import { GarageService } from "../garage/garage.service";
+import { Garage } from "../garage-form/garage-form.component";
+import { ToastrService } from "ngx-toastr";
+import { GarageAddComponent } from "../garage-add/garage-add.component";
+import { MatDialog } from "@angular/material/dialog";
+import { GarageEditComponent } from "../garage-edit/garage-edit.component";
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
 
 @Component({
-    selector: 'va-car-service-list',
-    templateUrl: './car-service-list.component.html',
-    styleUrls: ['./car-service-list.component.scss']
+    selector: "va-car-service-list",
+    templateUrl: "./car-service-list.component.html",
+    styleUrls: ["./car-service-list.component.scss"],
 })
-
-export class CarServiceListComponent implements OnInit {
-
+export class CarServiceListComponent implements OnInit, OnDestroy {
     services: Service[];
 
-    @ViewChild('modal') modal: ModalDirective;
+    private onDestroy$ = new Subject();
 
-    constructor(private _services: CarServiceService,
-                private _garages: GarageService,
-                private _toastr: ToastsManager) { }
+    constructor(
+        private _garages: GarageService,
+        private _toastr: ToastrService,
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit() {
         this._garages.refresh();
+    }
+
+    ngOnDestroy(): void {
+        this.onDestroy$.next();
     }
 
     get garages() {
@@ -30,41 +38,42 @@ export class CarServiceListComponent implements OnInit {
     }
 
     add(e: MouseEvent) {
-        this.modal.show();
         e.preventDefault();
+        this.dialog
+            .open(GarageAddComponent)
+            .afterClosed()
+            .subscribe((v) => {
+                if (v) {
+                    this._garages.refresh();
+                }
+            });
     }
 
-    onSave(g: Garage) {
-        this._garages
-            .updateGarage(g)
-            .subscribe(this._handleSaveSuccess, this._handleSaveError);
-    }
-
-    onCancel() {
-        this.modal.hide();
+    edit(garage: Garage) {
+        this.dialog
+            .open(GarageEditComponent, {
+                data: garage,
+            })
+            .afterClosed()
+            .pipe(takeUntil(this.onDestroy$))
+            .subscribe((v) => {
+                if (v) {
+                    this._garages.refresh();
+                }
+            });
     }
 
     delete(garage: Garage) {
-        this._garages.delete(garage)
+        this._garages
+            .delete(garage)
             .subscribe(this._onDeleted, this._onDeleteError);
     }
 
     private _onDeleted = () => {
         this._garages.refresh();
-    }
+    };
 
     private _onDeleteError = () => {
-        this._toastr.error('Servis se nepdařilo smazat!');
-    }
-
-    private _handleSaveSuccess = () => {
-        this._toastr.success('Servis úspěšně uložen', 'Uloženo!');
-        this._garages.refresh();
-        this.onCancel();
-    }
-
-    private _handleSaveError = () => {
-        this._toastr.error('Chyba ukládání', 'Chyba!');
-    }
-
+        this._toastr.error("Servis se nepdařilo smazat!");
+    };
 }

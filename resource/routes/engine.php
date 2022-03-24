@@ -15,6 +15,6 @@ $app->post('/resource/engine/{vehicleId}', function (Request $request, Response 
     $this->logger->addInfo("Engine update" . $args['vehicleId']);
     $mapper = new Engine($this->db);
     $d = json_decode(file_get_contents('php://input'));
-    $engine = $mapper->updateEngine($d);
+    $engine = $mapper->updateEngine($args['vehicleId'], $d);
     return $response->withJson($d);
 });

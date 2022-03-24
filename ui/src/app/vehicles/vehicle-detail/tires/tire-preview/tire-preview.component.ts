@@ -1,27 +1,49 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { TiresService } from '../core/tires.service';
 import { Tire } from '../tires.interface';
-import { TiresService } from '../tires.service';
 
 @Component({
     selector: 'va-tire-preview',
     templateUrl: './tire-preview.component.html',
     styleUrls: ['./tire-preview.component.scss']
 })
-export class TirePreviewComponent implements OnChanges {
-
-    @Input() tire: Tire;
+export class TirePreviewComponent implements OnInit, OnDestroy {
+    tire: Tire;
     tireHistory: TireHistory[];
+    loading = false;
 
-    constructor(private _service: TiresService) { }
+    private _onDestroy$ = new Subject();
 
-    ngOnChanges() {
-        if (this.tire) {
-            this._service
-                .getHistory(this.tire)
-                .subscribe((h: TireHistory[]) => {
-                    this.tireHistory = h;
-                });
+    constructor(private _service: TiresService, @Inject(MAT_DIALOG_DATA) public data: Tire) {}
+
+    ngOnInit() {
+        if (!!this.data) {
+            this.tire = this.data;
+            this.getTireHistory(this.tire);
         }
+    }
+
+    ngOnDestroy() {
+        this._onDestroy$.next();
+    }
+
+    getTireHistory(tire: Tire) {
+        this.loading = true;
+        this._service
+            .getHistory(tire)
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(
+                (h: TireHistory[]) => {
+                    this.tireHistory = h;
+                    this.loading = false;
+                },
+                () => {
+                    this.loading = false;
+                }
+            );
     }
 }
 

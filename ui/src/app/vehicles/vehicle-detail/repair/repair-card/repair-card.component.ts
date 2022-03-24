@@ -3,8 +3,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { ConfirmDialogService } from '../../../../shared/components/confirm-dialog/confirm-dialog.service';
-import { RepairFormService } from '../repair-form/repair-form.service';
 import { Repair } from '../_core/repair.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { RepairEditComponent } from '../repair-edit/repair-edit.component';
 
 @Component({
     selector: 'va-repair-card',
@@ -23,13 +24,12 @@ export class RepairCardComponent implements OnInit, OnDestroy {
 
     constructor(
         private _confirm: ConfirmDialogService,
-        private _repairForm: RepairFormService,
-        private _vehicles: VehicleService
+        private _vehicles: VehicleService,
+        private _dialog: MatDialog
     ) {}
 
     ngOnInit() {
-        this._vehicles.state
-            .select(s => s.vehicle)
+        this._vehicles.vehicle
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(v => {
                 this.units = v.info.units;
@@ -59,12 +59,15 @@ export class RepairCardComponent implements OnInit, OnDestroy {
     }
 
     edit(event: MouseEvent) {
-        this._repairForm.dialog
-            .repair(this.repair)
-            .title('Editace opravy')
+        this._dialog
+            .open(RepairEditComponent, {
+                width: '600px',
+                data: this.repair
+            })
+            .afterClosed()
             .subscribe(res => {
                 if (res) {
-                    this.onUpdate.emit();
+                    this.repair = res;
                 }
             });
         event.preventDefault();

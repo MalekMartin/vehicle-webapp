@@ -18,3 +18,13 @@ html {
         }
     }
 }
+
+@media (max-width: 360px) {
+    html {
+        body {
+            main {
+                margin-top: 50px;
+            }
+        }
+    }
+}

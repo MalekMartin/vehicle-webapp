@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { GarageService } from '../garage/garage.service';
 
 @Component({
@@ -45,7 +45,7 @@ export class GarageFormComponent implements OnInit {
 
     constructor(private _form: FormBuilder,
                 private _garages: GarageService,
-                private _toastr: ToastsManager) { }
+                private _toastr: ToastrService) { }
 
     ngOnInit() { }
 
@@ -53,14 +53,14 @@ export class GarageFormComponent implements OnInit {
         return this._garage;
     }
 
-    save() {
-        this.saved.emit(this.form.value);
-        this.form.reset();    }
+    // save() {
+    //     this.saved.emit(this.form.value);
+    //     this.form.reset();    }
 
-    cancel() {
-        this.form.reset();
-        this.canceled.emit();
-    }
+    // cancel() {
+    //     this.form.reset();
+    //     this.canceled.emit();
+    // }
 }
 
 export interface Garage {

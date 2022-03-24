@@ -1,34 +1,39 @@
-<div>
+<div class="wrapper">
     <form [formGroup]="form" (submit)="form.valid && !loading && logUser()">
         <div class="row">
-            <va-form-item class="col-sm-12">
-                <!-- <label for="email">Jméno:</label> -->
-                <input type="text" class="form-control" formControlName="email" placeholder="jméno"> 
-            </va-form-item>
+            <div class="col-sm-12 col-xs-12">
+                <div class="header">Vehicle APP</div>
+            </div>
         </div>
         <div class="row">
-            <va-form-item class="col-sm-12">
-                <!-- <label for="password">Heslo:</label> -->
-                <input type="password" class="form-control" formControlName="password" placeholder="heslo">
-            </va-form-item>
-        </div>
-        <div>
-            <a [routerLink]="['/register']">Registrovat</a>
+            <div class="col-xs-12">
+                <p class="invalid-token" *ngIf="!!invalidToken">Byl jsi automaticky odhlášen.</p>
+            </div>
         </div>
         <div class="row">
-            <va-form-item class="col-sm-12">
-                <va-checkbox id="remember" formConrolName="remember"></va-checkbox>
-                <label for="remember">Neodhlašovat</label>
-            </va-form-item>
+            <mat-form-field class="col-sm-12 col-xs-12 email-row">
+                <input matInput type="text" formControlName="email" placeholder="email"> 
+            </mat-form-field>
         </div>
         <div class="row">
-            <div class="col-sm-12 center">
-                <i *ngIf="loading" class="icon-refresh spin"></i>
-                <button type="submit" class="btn btn-primary">
-                    Přihlásit
+            <mat-form-field class="col-sm-12 col-xs-12">
+                <input matInput type="password" formControlName="password" placeholder="heslo">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-xs-6">
+                <mat-checkbox formConrolName="remember">Zapamatovat</mat-checkbox>
+            </div>
+            <div class="col-sm-6 col-xs-6 text-right">
+                <a [routerLink]="['/register']">Registrovat</a>
+            </div>
+        </div>
+        <div class="row action">
+            <div class="col-sm-12 col-xs-12 center">
+                <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+                    {{!loading ? 'Přihlásit' : 'Nahrávám...'}}
                 </button>
             </div>
         </div>
-        <p *ngIf="!!invalidToken">Byl jsi automaticky odhlášen.</p>
     </form>
 </div>

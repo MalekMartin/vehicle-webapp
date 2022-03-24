@@ -1,30 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { DashboardComponent } from './dashboard.component';
-import { SharedModule } from '../../../shared/shared.module';
-import { dashboardRoutes } from './dashboard.routes';
 import { RouterModule } from '@angular/router';
-import { StatusCardComponent } from './status-card/status-card.component';
-import { CostsCardComponent } from './costs-card/costs-card.component';
-import { CostsCardCellComponent } from './costs-card/costs-card-cell/costs-card-cell.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PipesModule } from '../../../shared/pipes/pipes.module';
+import { CostsCardCellComponent } from './costs-card/costs-card-cell/costs-card-cell.component';
+import { CostsCardComponent } from './costs-card/costs-card.component';
+import { DashboardComponent } from './dashboard.component';
+import { dashboardRoutes } from './dashboard.routes';
+import { StatusCardComponent } from './status-card/status-card.component';
 
-const COMPONENTS = [
-    StatusCardComponent,
-    CostsCardComponent,
-    CostsCardCellComponent,
-];
+const COMPONENTS = [StatusCardComponent, CostsCardComponent, CostsCardCellComponent];
 
 @NgModule({
-    imports: [
-        SharedModule,
-        NgxChartsModule,
-        RouterModule.forChild(dashboardRoutes),
-    ],
+    imports: [CommonModule, NgxChartsModule, RouterModule.forChild(dashboardRoutes), PipesModule],
     exports: [DashboardComponent],
-    declarations: [
-        DashboardComponent,
-        ...COMPONENTS
-    ],
-    providers: [],
+    declarations: [DashboardComponent, ...COMPONENTS],
+    providers: []
 })
-export class DashboardModule { }
+export class DashboardModule {}

@@ -5,27 +5,9 @@
     </div>
 
     <div class="service-wrapper">
-        <va-car-service-card *ngFor="let service of garages"
-            [service]="service" (deleted)="delete(service)"></va-car-service-card>
-    </div>
-</div>
-
-<div bsModal #modal="bs-modal" class="modal fade"
-    tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
-    (onHidden)="onCancel()">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="onCancel()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">
-                    Přidat servis
-                </h4>
-            </div>
-            <div class="modal-body">
-                <va-garage-form (saved)="onSave($event)" (canceled)="onCancel()"></va-garage-form>
-            </div>
-        </div>
+        <va-car-service-card *ngFor="let g of garages"
+            [service]="g"
+            (edit)="edit(g)"
+            (delete)="delete(g)"></va-car-service-card>
     </div>
 </div>

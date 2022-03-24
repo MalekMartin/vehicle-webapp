@@ -1,0 +1,55 @@
+:host {
+    display: flex;
+    width: 100%;
+
+    .column {
+        width: 50%;
+        &:first-child {
+            margin-right: 6px;
+        }
+        &:last-child {
+            margin-left: 6px;
+        }
+    }
+}
+.file-upload {
+    border: 2px dashed #bbb;
+    border-radius: 3px;
+    padding: 40px;
+    text-align: center;
+    .dropzone {
+
+        .description {
+            display: inline-flex;
+            margin-bottom: 20px;
+            i {
+                height: 30px;
+                line-height: 30px;
+                width: 30px;
+                text-align: center;
+                border-radius: 3px;
+                background-color: #c0c0c0;
+                color: white;
+                margin-right: 12px;
+            }
+
+            span {
+                margin: auto 0;
+                font-size: 16px;
+            }
+        }
+
+        &.nv-file-over {
+            background-color: #ccc;
+        }
+
+        input {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    }
+
+    .actions {
+        margin-top: 10px;
+    }
+}

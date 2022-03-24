@@ -41,5 +41,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Package-lock
-package-lock.json
+conf/proxy.prod.json

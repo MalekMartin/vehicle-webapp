@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Station } from '../station';
+import { Station } from '../station.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TechnicalInspectionService } from '../technical-inspection.service';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'va-station-form',
@@ -47,7 +47,7 @@ export class StationFormComponent {
 
     constructor(private _form: FormBuilder,
                 private _service: TechnicalInspectionService,
-                private _toastr: ToastsManager) { }
+                private _toastr: ToastrService) { }
 
     get station(): Station {
         return this._station;

@@ -1,61 +1,94 @@
 <div class="add-form">
-    <div>
-        <form [formGroup]="form" (submit)="form.valid && save()" class="vehicle-form">
+    <h4 mat-dialog-title class="modal-title">
+        Přidat nové vozidlo
+    </h4>
+    <mat-dialog-content>
+        <form [formGroup]="form" class="vehicle-form">
             <div class="row">
-                <va-form-item class="col-md-6 form-group" [control]="form.controls.brand">
-                    <label for="brand">Značka:</label>
-                    <input type="text" id="brand" class="form-control"
-                        formControlName="brand">
-                </va-form-item>
-                <va-form-item class="col-md-6 form-group" [control]="form.controls.model">
-                    <label for="model">Model:</label>
-                    <input type="text" id="model" class="form-control"
-                        formControlName="model">
-                </va-form-item>
+                <mat-form-field class="col-md-6 col-xs-12">
+                    <input matInput type="text" id="brand"
+                        formControlName="brand" placeholder="Značka">
+                    <mat-error *ngIf="form.get('brand').hasError('required')">
+                        Toto pole je <strong>povinné</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-6 col-xs-12">
+                    <input matInput type="text" id="model"
+                        formControlName="model" placeholder="Model">
+                    <mat-error *ngIf="form.get('model').hasError('required')">
+                        Toto pole je <strong>povinné</strong>
+                    </mat-error>
+                </mat-form-field>
             </div>
             <div class="row">
-                <va-form-item [control]="form.controls.manufactureYear" class="col-md-6 form-group">
-                    <label for="manufactureYear">Rok výroby:</label>
-                    <input type="text" id="manufactureYear" class="form-control" 
-                        formControlName="manufactureYear">
-                </va-form-item>
-                <va-form-item [control]="form.controls.price" class="col-md-6 form-group">
-                    <label for="price">Počet předchozích majitelů:</label>
-                    <input type="text" id="previousOwners" class="form-control"
-                        formControlName="previousOwners">
-                </va-form-item>
-            </div>
-
-            <div class="row">
-                <va-form-item [control]="form.controls.type" class="col-md-6 form-group">
-                    <label for="type">Typ:</label>
-                    <select id="type" class="form-control"
-                        placeholder="Typ vozidla" formControlName="type">
-                        <option value="CAR">auto</option>
-                        <option value="MOTORCYCLE">motocykl</option>
-                    </select>
-                </va-form-item>
-                <va-form-item [control]="form.controls.spz" class="col-md-6 form-group">
-                    <label for="spz">SPZ:</label>
-                    <input type="text" id="spz" class="form-control" formControlName="spz">
-                </va-form-item>
-            </div>
-
-            <div class="row">
-                <va-form-item [control]="form.controls.notes" class="col-md-12 form-group">
-                    <label for="notes">Poznámky:</label>
-                    <textarea type="text" id="notes" class="form-control"
-                        formControlName="notes"></textarea>
-                </va-form-item>
+                <mat-form-field class="col-md-6 col-xs-12">
+                    <input matInput type="number" id="manufactureYear" 
+                        formControlName="manufactureYear" placeholder="Rok výroby">
+                    <mat-error *ngIf="form.get('manufactureYear').hasError('required')">
+                        Toto pole je <strong>povinné</strong>
+                    </mat-error>
+                    <mat-error *ngIf="form.get('manufactureYear').hasError('pattern')">
+                        Zadaná hodnota musí být 4 místné číslo (např: 2019)
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-6 col-xs-12">
+                    <input matInput type="number" id="previousOwners"
+                        formControlName="previousOwners" placeholder="Počet předchozích majitelů">
+                    <mat-error *ngIf="form.get('previousOwners').hasError('pattern')">
+                        Tato hodnota není <strong>platná</strong>
+                    </mat-error>
+                </mat-form-field>
             </div>
 
             <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
-                    <button type="submit" class="btn btn-primary" [class.disabled]="!form.valid">Přidat</button>
+                <mat-form-field class="col-md-6 col-xs-12">
+                    <mat-label for="type">Typ vozidla</mat-label>
+                    <mat-select id="type" formControlName="type">
+                        <mat-option value="CAR">auto</mat-option>
+                        <mat-option value="MOTORCYCLE">motocykl</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.get('type').hasError('required')">
+                        Toto pole je <strong>povinné</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-6 col-xs-12">
+                    <input matInput type="text" id="spz" formControlName="spz"
+                        placeholder="SPZ">
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                    <mat-form-field class="col-md-6 col-xs-12">
+                        <input matInput type="text" id="units" matTooltip="např. km"
+                            formControlName="units" placeholder="Hlavní jednotky">
+                        <mat-error *ngIf="form.get('units').hasError('required')">
+                            Toto pole je <strong>povinné</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-md-6 col-xs-12">
+                        <input matInput type="text" id="subUnits" matTooltip="např. motohodiny. Toto pole je volitelné"
+                            formControlName="subUnits" placeholder="Vedlejší jednotky">
+                    </mat-form-field>
                 </div>
+
+            <div class="row">
+                <mat-form-field class="col-md-12 col-xs-12">
+                    <textarea matInput type="text" id="notes" cdkTextareaAutosize
+                        formControlName="notes" placeholder="Poznámky"></textarea>
+                </mat-form-field>
             </div>
         </form>
-    </div>
-    
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <button mat-raised-button mat-dialog-close type="button" (click)="cancel()">Zrušit</button>
+                <button mat-raised-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="!form.valid"
+                    (click)="form.valid && save()">Přidat</button>
+            </div>
+        </div>
+    </mat-dialog-actions>
 </div>

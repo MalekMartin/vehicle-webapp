@@ -1,8 +1,9 @@
-<div class="wrapper" *ngIf="needPaginator">
+<div class="wrapper">
     <div class="loading">
         <i *ngIf="isLoading" class="icon-refresh spin"></i>
+        <ng-content *ngIf="!isLoading"></ng-content>
     </div>
-    <div class="controls">
+    <div *ngIf="needPaginator" class="controls">
         <button class="va-btn va-prev"
             (click)="prev()" [disabled]="isFirstPage || isLoading"><i class="icon-chevron-left"></i></button>
         

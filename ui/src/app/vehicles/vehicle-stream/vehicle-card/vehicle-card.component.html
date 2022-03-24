@@ -1,4 +1,13 @@
-<va-card>
+
+<div class="image-card">
+    <img *ngIf="vehicle.hasFile && !!image; else noImage" [src]="image">
+    <ng-template #noImage>
+        <div class="vehicle-image no-image">
+            <i class="icon-image"></i>
+        </div>
+    </ng-template>
+</div>
+<!-- <va-card>
     <va-card-title>
         <div class="ribbon" *ngIf="vehicle.dateOfSale">Prodáno</div>
         <div class="vehicle-image" *ngIf="vehicle.hasFile && !!image; else noImage">
@@ -51,4 +60,4 @@
             </div>
         </div>
     </va-card-content>
-</va-card>
+</va-card> -->

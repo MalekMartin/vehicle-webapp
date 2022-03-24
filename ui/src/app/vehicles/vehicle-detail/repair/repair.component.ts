@@ -1,17 +1,16 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { DOCUMENT } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { PageScrollInstance, PageScrollService } from 'ng2-page-scroll';
-import { ToastsManager } from 'ng6-toastr/ng2-toastr';
-import { Subscription } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { GarageService } from '../../../car-services/garage/garage.service';
-import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { NumberStat } from '../../../shared/components/number-stats/number-stats.component';
 import { Page } from '../../../utils/pageable';
-import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
-import { RepairFormService } from './repair-form/repair-form.service';
+import { RepairAddComponent } from './repair-add/repair-add.component';
 import { RepairService } from './repair.service';
 import { Repair } from './_core/repair.interface';
 
@@ -21,53 +20,43 @@ import { Repair } from './_core/repair.interface';
     styleUrls: ['./repair.component.scss']
 })
 export class RepairComponent implements OnInit, OnDestroy {
-
-    // selected: Repair;
-
     repairToScroll: string;
-
     scrolled = false;
-
     services: any;
-
     stats: NumberStat[];
+    repairs: Repair[];
+    vehicleId: string;
 
     form = this._fb.group({
         query: [''],
         garage: ['']
     });
 
-    private _repairs: Repair[];
-    private _vehicleId: string;
+    private _onDestroy$ = new Subject();
 
-    private _currentSubs: Subscription;
-    private _formSubs: Subscription;
-    private _pageSubs: Subscription;
-    private _servicesSubs: Subscription;
-    private _statsSubs: Subscription;
-
-    constructor(private _route: ActivatedRoute,
-                private _service: RepairService,
-                private _toastr: ToastsManager,
-                private _repairForm: RepairFormService,
-                private _confirm: ConfirmDialogService,
-                private _scroll: PageScrollService,
-                private _fb: FormBuilder,
-                private _services: GarageService,
-                private _vehicleService: VehicleService,
-                @Inject(DOCUMENT) private document: any) { }
+    constructor(
+        private _route: ActivatedRoute,
+        private _service: RepairService,
+        private _toastr: ToastrService,
+        private _fb: FormBuilder,
+        private _services: GarageService,
+        private _vehicleService: VehicleService,
+        private _dialog: MatDialog,
+        @Inject(DOCUMENT) private document: any
+    ) {}
 
     ngOnInit() {
         this._service.pageSize = 5;
-        this.vehicleId = this._vehicleService.vehicleId;
+        this.vehicleId = this._vehicleService.snapshot.info.id;
         this._service.reset();
         this._service.vehicleId = this.vehicleId;
         this.setFilter();
         this.fetchCurrentPage();
+        this.getStats();
 
         this.getServices();
 
-        this._formSubs = this.form.valueChanges
+        this.form.valueChanges
             .pipe(
                 debounceTime(300),
                 switchMap(val => {
@@ -75,11 +64,12 @@ export class RepairComponent implements OnInit, OnDestroy {
                     this.setFilter(q);
                     this._service.reset();
                     return this._service.fetchCurrentPage();
-                })
+                }),
+                takeUntil(this._onDestroy$)
             )
             .subscribe(this._handleNewContent);
 
-        this._route.queryParams.subscribe((par) => {
+        this._route.queryParams.pipe(takeUntil(this._onDestroy$)).subscribe(par => {
             if (par['repairId']) {
                 this.repairToScroll = par['repairId'];
             }
@@ -87,25 +77,7 @@ export class RepairComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (!!this._formSubs) {
-            this._formSubs.unsubscribe();
-        }
-        if (this._pageSubs) {
-            this._pageSubs.unsubscribe();
-        }
-        if (this._currentSubs) {
-            this._currentSubs.unsubscribe();
-        }
-        if (this._servicesSubs) {
-            this._servicesSubs.unsubscribe();
-        }
-        if (this._statsSubs) {
-            this._statsSubs.unsubscribe();
-        }
-    }
-
-    get repairs(): Repair[] {
-        return this._repairs;
+        this._onDestroy$.next();
     }
 
     get isLoading(): boolean {
@@ -116,17 +88,10 @@ export class RepairComponent implements OnInit, OnDestroy {
         return this._service;
     }
 
-    get vehicleId(): string {
-        return this._vehicleId;
-    }
-
-    set vehicleId(id: string) {
-        this._vehicleId = id;
-        this.getStats();
-    }
-
     getServices() {
-        this._servicesSubs = this._services.getGarages()
+        this._services
+            .getGarages()
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(g => {
                 this.services = g;
             });
@@ -144,28 +109,27 @@ export class RepairComponent implements OnInit, OnDestroy {
     }
 
     fetchCurrentPage() {
-        this._currentSubs = this._service
+        this._service
             .fetchCurrentPage()
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._handleNewContent);
     }
 
     fetchPage(p: number) {
-        this._pageSubs = this._service
+        this._service
             .fetchPage(p)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._handleNewContent);
     }
 
-    scrollToRepair() {
-        const pageScrollInstance: PageScrollInstance = PageScrollInstance
-                .simpleInstance(this.document, 'repair-' + this.repairToScroll);
-        this._scroll.start(pageScrollInstance);
-    }
-
     addNewRepair() {
-        this._repairForm.dialog
-            .repair(this._buildEmptyRepair)
-            .title('Nová oprava')
-            .subscribe((res) => {
+        this._dialog
+            .open(RepairAddComponent, {
+                width: '600px'
+            })
+            .afterClosed()
+            .pipe(takeUntil(this._onDestroy$))
+            .subscribe(res => {
                 if (res) {
                     this._onSaveSuccess();
                 }
@@ -173,32 +137,39 @@ export class RepairComponent implements OnInit, OnDestroy {
     }
 
     getStats() {
-        this._statsSubs = this._service
+        this._service
             .getStats(this.vehicleId)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe((s: NumberStat[]) => {
                 this.stats = s;
             });
     }
 
     delete(repair: Repair) {
-        this._service.delete(repair)
+        this._service
+            .delete(repair)
+            .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onDeleteSuccess, this._onDeleteError);
     }
 
     private _onDeleteSuccess = () => {
         this._toastr.success('Oprava byla smazána.');
 
-        if (!this._service.hasNext && this._service.elements === 1) {
+        if (
+            this._service.currentPage > 0 &&
+            !this._service.hasNext &&
+            this._service.elements === 1
+        ) {
             this.fetchPage(this._service.currentPage - 1);
         } else {
             this.fetchCurrentPage();
         }
         this.getStats();
-    }
+    };
 
     private _onDeleteError = () => {
         this._toastr.error('Chyba při mazání opravy.');
-    }
+    };
 
     private _onSaveSuccess() {
         this.fetchCurrentPage();
@@ -206,23 +177,6 @@ export class RepairComponent implements OnInit, OnDestroy {
     }
 
     private _handleNewContent = (p: Page<Repair>) => {
-        this._repairs = p.content;
-    }
-
-    private get _buildEmptyRepair(): Repair {
-        return {
-            id: '',
-            vehicleId: this.vehicleId,
-            title: '',
-            odo: 0,
-            odo2: 0,
-            garageId: '',
-            garageName: '',
-            date: '',
-            totalPrice: 0,
-            notes: '',
-            tasks: [],
-            tax: 0
-        };
-    }
+        this.repairs = p.content;
+    };
 }
