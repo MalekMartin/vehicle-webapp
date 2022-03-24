@@ -5,7 +5,9 @@
     </div>
 
     <div class="service-wrapper">
-        <va-car-service-card *ngFor="let service of garages"
-            [service]="service" (deleted)="delete(service)"></va-car-service-card>
+        <va-car-service-card *ngFor="let g of garages"
+            [service]="g"
+            (edit)="edit(g)"
+            (delete)="delete(g)"></va-car-service-card>
     </div>
 </div>

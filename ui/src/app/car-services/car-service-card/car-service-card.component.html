@@ -5,14 +5,11 @@
                 <a [routerLink]="['/services/', service.id]">{{service.name}}</a>
                 <span class="space"></span>
                 <div>
-                    <div dropdown container="body">
-                        <i dropdownToggle class="icon-more-vertical dropdown-toggle"></i>
-                        <ul *dropdownMenu class="dropdown-menu" role="menu">
-                            <li role="menuitem">
-                                <a class="dropdown-item" (click)="deleted.emit(service)">Odstranit</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <i class="icon-more-vertical dropdown-toggle" [matMenuTriggerFor]="menu"></i>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="edit.emit(service)">Upravit</button>
+                        <button mat-menu-item (click)="delete.emit(service)">Odstranit</button>
+                    </mat-menu>
                 </div>
             </div>
             <div class="meta-content">
