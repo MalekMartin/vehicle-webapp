@@ -53,14 +53,14 @@ export class GarageFormComponent implements OnInit {
         return this._garage;
     }
 
-    save() {
-        this.saved.emit(this.form.value);
-        this.form.reset();    }
+    // save() {
+    //     this.saved.emit(this.form.value);
+    //     this.form.reset();    }
 
-    cancel() {
-        this.form.reset();
-        this.canceled.emit();
-    }
+    // cancel() {
+    //     this.form.reset();
+    //     this.canceled.emit();
+    // }
 }
 
 export interface Garage {

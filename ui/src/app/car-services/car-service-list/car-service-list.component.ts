@@ -4,6 +4,8 @@ import { GarageService } from '../garage/garage.service';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Garage } from '../garage-form/garage-form.component';
 import { ToastrService } from 'ngx-toastr';
+import { GarageAddComponent } from '../garage-add/garage-add.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'va-car-service-list',
@@ -19,7 +21,8 @@ export class CarServiceListComponent implements OnInit {
 
     constructor(private _services: CarServiceService,
                 private _garages: GarageService,
-                private _toastr: ToastrService) { }
+                private _toastr: ToastrService,
+                private dialog: MatDialog) { }
 
     ngOnInit() {
         this._garages.refresh();
@@ -30,8 +33,13 @@ export class CarServiceListComponent implements OnInit {
     }
 
     add(e: MouseEvent) {
-        this.modal.show();
         e.preventDefault();
+        this.dialog.open(GarageAddComponent).afterClosed()
+            .subscribe(v => {
+                if (v) {
+                    this._handleSaveSuccess();
+                }
+            });
     }
 
     onSave(g: Garage) {

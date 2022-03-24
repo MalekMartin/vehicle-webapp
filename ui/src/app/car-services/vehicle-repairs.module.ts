@@ -10,19 +10,25 @@ import { GarageModule } from './garage/garage.module';
 import { CarServiceCardComponent } from './car-service-card/car-service-card.component';
 import { CarServiceDetailComponent } from './car-service-detail/car-service-detail.component';
 import { GarageFormComponent } from './garage-form/garage-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { GarageAddComponent } from './garage-add/garage-add.component';
+import { MatButtonModule } from '@angular/material/button';
 
 const COMPONENTS = [
     VehicleRepairsComponent,
     CarServiceListComponent,
     CarServiceCardComponent,
     CarServiceDetailComponent,
-    GarageFormComponent
+    GarageFormComponent,
+    GarageAddComponent
 ];
 
 const MODULES = [
     SharedModule,
     RouterModule,
-    GarageModule
+    GarageModule,
+    MatDialogModule,
+    MatButtonModule,
 ];
 
 @NgModule({

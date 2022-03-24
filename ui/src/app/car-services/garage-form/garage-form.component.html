@@ -1,4 +1,4 @@
-<form [formGroup]="form" (submit)="form.valid && save()">
+<form [formGroup]="form">
     <div class="row">
         <va-form-item class="col-md-12" [control]="form.controls.name">
             <label for="name">Název:</label>
@@ -43,10 +43,10 @@
         </va-form-item>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <button type="button" class="btn btn-default" (click)="cancel()">Zrušit</button>
             <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Uložit</button>
         </div>
-    </div>
+    </div> -->
 </form>
