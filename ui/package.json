@@ -8,7 +8,7 @@
     "start:local": "ng serve --proxy-config conf/proxy.local.json",
     "start:prod": "ng serve --proxy-config conf/proxy.prod.json",
     "start:aot": "node --max_old_space_size=8096 node_modules/@angular/cli/bin/ng serve --aot --proxyConfig=conf/proxy.local.json",
-    "build": "ng build",
+    "build": "ng build --configuration production --aot --base-href /",
     "build:prod": "ng build --prod --base-href /",
     "test": "ng test",
     "lint": "ng lint",
