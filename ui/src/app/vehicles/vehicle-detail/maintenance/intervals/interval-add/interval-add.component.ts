@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
     selector: 'va-interval-add',
     templateUrl: 'interval-add.component.html'
 })
-export class IntervalAddComponent implements OnInit, OnDestroy {
+export class IntervalAddComponent implements AfterViewInit, OnDestroy {
     @ViewChild(IntervalFormComponent) formRef: IntervalFormComponent;
     private _onDestroy$ = new Subject();
     constructor(
@@ -21,10 +21,12 @@ export class IntervalAddComponent implements OnInit, OnDestroy {
         private _toastr: ToastrService
     ) {}
 
-    ngOnInit() {
-        this.formRef.form
-            .get('vehicleId')
-            .setValue(this._vehilceService.snapshot.info.id);
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.formRef.form
+                .get('vehicleId')
+                .setValue(this._vehilceService.snapshot.info.id);
+        });
     }
 
     ngOnDestroy() {

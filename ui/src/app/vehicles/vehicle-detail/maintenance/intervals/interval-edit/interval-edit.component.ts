@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IntervalFormComponent } from '../interval-form/interval-form.component';
@@ -11,7 +11,7 @@ import { Interval } from '../../../../../shared/api/maintenance/interval.interfa
     selector: 'va-interval-edit',
     templateUrl: 'interval-edit.component.html'
 })
-export class IntervalEditComponent implements OnInit, OnDestroy {
+export class IntervalEditComponent implements AfterViewInit, OnDestroy {
     @ViewChild(IntervalFormComponent) formRef: IntervalFormComponent;
     private _onDestroy$ = new Subject();
     constructor(
@@ -21,15 +21,17 @@ export class IntervalEditComponent implements OnInit, OnDestroy {
         private _toastr: ToastrService
     ) {}
 
-    ngOnInit() {
-        this.formRef.form.setValue({
-            id: this.data.id,
-            vehicleId: this.data.vehicleId,
-            name: this.data.name,
-            odo: this.data.odo,
-            odo2: this.data.odo2,
-            months: this.data.months,
-            note: this.data.note
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.formRef.form.setValue({
+                id: this.data.id,
+                vehicleId: this.data.vehicleId,
+                name: this.data.name,
+                odo: this.data.odo,
+                odo2: this.data.odo2,
+                months: this.data.months,
+                note: this.data.note
+            });
         });
     }
 

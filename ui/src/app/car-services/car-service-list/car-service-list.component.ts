@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { CarServiceService, Service } from "../vehicle-repairs.service";
+import { Service } from "../vehicle-repairs.service";
 import { GarageService } from "../garage/garage.service";
 import { Garage } from "../garage-form/garage-form.component";
 import { ToastrService } from "ngx-toastr";
@@ -20,7 +20,6 @@ export class CarServiceListComponent implements OnInit, OnDestroy {
     private onDestroy$ = new Subject();
 
     constructor(
-        private _services: CarServiceService,
         private _garages: GarageService,
         private _toastr: ToastrService,
         private dialog: MatDialog

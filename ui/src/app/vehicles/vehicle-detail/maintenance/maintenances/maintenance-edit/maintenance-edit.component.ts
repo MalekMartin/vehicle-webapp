@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MaintenaceFormComponent } from '../maintenance-form/maintenance-form.component';
@@ -11,7 +11,7 @@ import { Maintenance } from '../../../../../shared/api/maintenance/maintenance.i
     selector: 'va-maintenance-edit',
     templateUrl: 'maintenance-edit.component.html'
 })
-export class MaintenanceEditComponent implements OnInit, OnDestroy {
+export class MaintenanceEditComponent implements AfterViewInit, OnDestroy {
     @ViewChild(MaintenaceFormComponent) formRef: MaintenaceFormComponent;
     private _onDestroy$ = new Subject();
 
@@ -22,16 +22,18 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: Maintenance
     ) {}
 
-    ngOnInit() {
-        this.formRef.form.setValue({
-            id: this.data.id,
-            vehicleId: this.data.vehicleId,
-            intervalId: this.data.interval.id,
-            odo: this.data.odo,
-            odo2: this.data.odo2,
-            date: this.data.date
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.formRef.form.setValue({
+                id: this.data.id,
+                vehicleId: this.data.vehicleId,
+                intervalId: this.data.interval.id,
+                odo: this.data.odo,
+                odo2: this.data.odo2,
+                date: this.data.date
+            });
+            this.formRef.form.get('intervalId').disable();
         });
-        this.formRef.form.get('intervalId').disable();
     }
 
     ngOnDestroy() {

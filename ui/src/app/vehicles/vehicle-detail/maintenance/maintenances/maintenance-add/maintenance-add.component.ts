@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MaintenaceFormComponent } from '../maintenance-form/maintenance-form.component';
@@ -11,7 +11,7 @@ import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.servi
     selector: 'va-maintenance-add',
     templateUrl: 'maintenance-add.component.html'
 })
-export class MaintenanceAddComponent implements OnInit, OnDestroy {
+export class MaintenanceAddComponent implements AfterViewInit, OnDestroy {
     @ViewChild(MaintenaceFormComponent) formRef: MaintenaceFormComponent;
     private _onDestroy$ = new Subject();
 
@@ -22,10 +22,12 @@ export class MaintenanceAddComponent implements OnInit, OnDestroy {
         private _vehicleService: VehicleService
     ) {}
 
-    ngOnInit() {
-        this.formRef.form
-            .get('vehicleId')
-            .setValue(this._vehicleService.snapshot.info.id);
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.formRef.form
+                .get('vehicleId')
+                .setValue(this._vehicleService.snapshot.info.id);
+        })
     }
 
     ngOnDestroy() {
@@ -41,7 +43,7 @@ export class MaintenanceAddComponent implements OnInit, OnDestroy {
 
     private _onSaveSucces = () => {
         this._toastr.success('Zadaný interval byl úspěšně spuštěn.', 'Hotovo');
-        this._dialogRef.close();
+        this._dialogRef.close(true);
     };
 
     private _onSaveError = () => {
