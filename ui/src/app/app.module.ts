@@ -13,8 +13,8 @@ import { VehiclesModule } from "./vehicles/vehicles.module";
 import { CarServiceModule } from "./car-services/vehicle-repairs.module";
 import { EventsModule } from "./events/events.module";
 import { NotFoundComponent } from "./not-found/not-found.component";
-// import { MAT_DATE_LOCALE } from '@angular/material/core';
-// import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -37,11 +37,11 @@ import { NotFoundComponent } from "./not-found/not-found.component";
     ],
     providers: [
         ...APP_RESOLVER_PROVIDERS,
-        // { provide: MAT_DATE_LOCALE, useValue: 'cs-CZ' },
-        // {
-        //     provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-        //     useValue: { useUtc: true },
-        // },
+        { provide: MAT_DATE_LOCALE, useValue: 'cs-CZ' },
+        {
+            provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+            useValue: { useUtc: true },
+        },
     ],
 })
 export class AppModule {}
