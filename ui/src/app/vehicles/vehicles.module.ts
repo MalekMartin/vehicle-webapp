@@ -3,7 +3,6 @@ import { VehiclesComponent } from './vehicles.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpService } from '../core/http.service';
-import { ModalModule } from 'ngx-bootstrap';
 import { VehicleDetailModule } from './vehicle-detail/vehicle-detail.module';
 import { VehicleStreamModule } from './vehicle-stream/vehicle-stream.module';
 import { AuthService } from '../core/auth.service';
@@ -14,7 +13,6 @@ import { TopMenuModule } from '../shared/components/top-menu/top-menu.module';
 const MODULES = [
     CommonModule,
     RouterModule,
-    ModalModule,
     VehicleDetailModule,
     VehicleStreamModule,
     TopMenuModule,

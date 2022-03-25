@@ -8,7 +8,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
-import { TooltipModule } from 'ngx-bootstrap';
 import { GarageModule } from '../../../car-services/garage/garage.module';
 import { CardModule } from '../../../shared/components/card/card.module';
 import { FilterModule } from '../../../shared/components/filter/filter.module';
@@ -32,6 +31,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
+import { MaintenanceService } from '../../../shared/api/maintenance/maintenance.service';
 
 const MODULES = [
     CommonModule,
@@ -40,7 +40,6 @@ const MODULES = [
     CardModule,
     PaginatorModule,
     IntervalsModule,
-    TooltipModule,
     ProgressModule,
     SectionHeadingModule,
     DirectivesModule,
@@ -75,7 +74,7 @@ const PIPES = [MaintenancePipe];
     imports: [...MODULES],
     exports: [MaintenanceWrapperComponent],
     declarations: [...COMPONENTS, ...PIPES],
-    providers: [RepairService],
+    providers: [RepairService, MaintenanceService],
     entryComponents: [MaintenanceDoneComponent, MaintenanceAddComponent, MaintenanceEditComponent]
 })
 export class MaintenanceModule {}

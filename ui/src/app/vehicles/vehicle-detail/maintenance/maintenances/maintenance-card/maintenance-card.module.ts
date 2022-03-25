@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { BsDropdownModule } from 'ngx-bootstrap';
 import { CardModule } from '../../../../../shared/components/card/card.module';
 import { ProgressModule } from '../../../../../shared/components/progress/progress.module';
 import { DirectivesModule } from '../../../../../shared/directives/directives.module';
@@ -18,9 +18,9 @@ import { MaintenanceCardComponent } from './maintenance-card.component';
         CardModule,
         MatCheckboxModule,
         MatTooltipModule,
+        MatMenuModule,
         DirectivesModule,
         PipesModule,
-        BsDropdownModule,
         ProgressModule,
         ReactiveFormsModule
     ],

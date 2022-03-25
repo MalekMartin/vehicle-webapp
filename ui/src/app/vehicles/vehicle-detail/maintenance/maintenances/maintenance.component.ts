@@ -1,12 +1,10 @@
 import {
     Component,
     OnInit,
-    ViewChild,
     OnDestroy,
     EventEmitter,
     Output,
 } from "@angular/core";
-import { ModalDirective } from "ngx-bootstrap";
 import { Subject } from "rxjs";
 import { Page } from "../../../../utils/pageable";
 import { FormBuilder } from "@angular/forms";
@@ -24,7 +22,6 @@ import { ConfirmService } from "../../../../shared/components/confirm/confirm.se
     styleUrls: ["./maintenance.component.scss"],
 })
 export class MaintenanceComponent implements OnInit, OnDestroy {
-    @ViewChild("modal") modal: ModalDirective;
 
     @Output() finishMaintenance = new EventEmitter<Maintenance[]>();
     @Output() editMaintenance = new EventEmitter<Maintenance>();

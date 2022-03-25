@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TooltipModule } from 'ngx-bootstrap';
+import { MaintenanceService } from '../../../../shared/api/maintenance/maintenance.service';
 import { CardModule } from '../../../../shared/components/card/card.module';
 import { InitialsModule } from '../../../../shared/components/initials/initials.module';
 import { MileageModule } from '../../../../shared/components/mileage/mileage.module';
@@ -20,7 +20,6 @@ const MODULES = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TooltipModule,
     InitialsModule,
     MileageModule,
     PipesModule,
@@ -37,6 +36,7 @@ const COMPONENTS = [IntervalsComponent, IntervalFormComponent, IntervalCardCompo
     imports: [...MODULES],
     exports: [...COMPONENTS],
     declarations: [...COMPONENTS, IntervalAddComponent, IntervalEditComponent],
-    entryComponents: [IntervalAddComponent, IntervalEditComponent]
+    entryComponents: [IntervalAddComponent, IntervalEditComponent],
+    providers: [MaintenanceService],
 })
 export class IntervalsModule {}

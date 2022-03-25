@@ -10,8 +10,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
-import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CardModule } from '../../shared/components/card/card.module';
 import { InitialsModule } from '../../shared/components/initials/initials.module';
 import { FormItemModule } from '../../shared/forms/form-item/form-item.module';
@@ -29,11 +27,8 @@ const MODULES = [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule,
-    TooltipModule,
     MatDialogModule,
     MatTooltipModule,
     PipesModule,

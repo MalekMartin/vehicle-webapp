@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
-import { ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { CardModule } from '../../../shared/components/card/card.module';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
@@ -33,8 +32,6 @@ import { tiresRoutes } from './tires.routes';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        TooltipModule,
-        ModalModule,
         TireStatusFormModule,
         TirePropertiesModule,
         RouterModule.forChild(tiresRoutes),

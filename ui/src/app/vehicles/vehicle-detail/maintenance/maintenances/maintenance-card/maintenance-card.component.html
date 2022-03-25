@@ -27,14 +27,10 @@
 
     <va-card-menu *ngIf="canEdit && showMenu">
         <div class="flex-0">
-            <div class="btn-group" dropdown>
-                <i id="maintenance-button" class="icon-menu-dots" dropdownToggle></i>
-                <ul *dropdownMenu role="menu" aria-labelledby="maintenance-button" class="dropdown-menu">
-                    <li role="menuitem">
-                        <a class="dropdown-item" (click)="update()"><i class="icon-edit"></i> Upravit</a>
-                    </li>
-                </ul>
-            </div>
+            <i id="maintenance-button" class="icon-menu-dots" [matMenuTriggerFor]="menu"></i>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="update()">Upravit</button>
+            </mat-menu>
         </div>
     </va-card-menu>
     

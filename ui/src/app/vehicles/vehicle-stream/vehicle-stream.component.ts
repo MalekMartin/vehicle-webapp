@@ -25,9 +25,6 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
         this._service.loading$,
     ]).pipe(
         map(([vehicles, loading]) => ({vehicles, loading})),
-        tap(v => {
-            console.log(v)
-        })
     );
 
     private _onDestroy$ = new Subject();

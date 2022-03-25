@@ -28,6 +28,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { CostsService } from '../../../shared/api/costs/costs.service';
 
 const PIPES = [CostsPipe];
 
@@ -66,7 +67,7 @@ const COMPONENTS = [
     ],
     exports: [],
     declarations: [...COMPONENTS, ...PIPES],
-    providers: [],
+    providers: [CostsService],
     entryComponents: [CostsAddComponent, CostsEditComponent, CostCategoryFormComponent]
 })
 export class CostsModule {}

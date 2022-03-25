@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
-import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { CostsService } from '../../../shared/api/costs/costs.service';
@@ -21,7 +20,6 @@ import { ConfirmComponent } from '../../../shared/components/confirm/confirm.com
     styleUrls: ['./costs.component.scss']
 })
 export class CostsComponent implements OnInit, OnDestroy {
-    @ViewChild('formModal') modal: ModalDirective;
 
     vehicleId: string;
     costs: Page<Cost>;

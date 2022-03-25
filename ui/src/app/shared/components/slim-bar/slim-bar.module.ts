@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { SlimBarComponent } from './slim-bar.component';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-    imports: [TooltipModule],
+    imports: [MatTooltipModule],
     exports: [SlimBarComponent],
     declarations: [SlimBarComponent],
     providers: [],

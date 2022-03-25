@@ -5,13 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
-import {
-    BsDropdownModule,
-    ModalModule,
-    TypeaheadModule,
-    TooltipModule,
-    ProgressbarModule
-} from 'ngx-bootstrap';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
@@ -37,11 +30,6 @@ const MODULES = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES, { useHash: false }),
-    ModalModule,
-    BsDropdownModule.forRoot(),
-    ProgressbarModule.forRoot(),
-    TypeaheadModule,
-    TooltipModule.forRoot(),
     VehiclesModule,
     CarServiceModule,
     CoreModule.forRoot(),

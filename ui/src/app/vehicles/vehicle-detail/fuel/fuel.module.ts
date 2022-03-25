@@ -27,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
+import { FuelService } from '../../../shared/api/fuel/fuel.service';
 
 @NgModule({
     imports: [
@@ -61,7 +62,7 @@ import { ConfirmModule } from '../../../shared/components/confirm/confirm.module
         FuelAddComponent,
         FuelEditComponent
     ],
-    providers: [MomentPipe],
+    providers: [MomentPipe, FuelService],
     entryComponents: [FuelAddComponent, FuelEditComponent]
 })
 export class FuelModule {}

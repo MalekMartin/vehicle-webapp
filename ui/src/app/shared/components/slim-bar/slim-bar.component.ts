@@ -5,8 +5,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
     styleUrls: ['./slim-bar.component.scss'],
     template: `
         <div class="main"
-            [tooltip]="showTooltip ? width.toFixed(0) + '% objemu nádrže' : ''"
-            [placement]="vaPlacement">
+            [matTooltip]="showTooltip ? width.toFixed(0) + '% objemu nádrže' : ''">
             <div class="bar" [style.width]="width + '%'"></div>
         </div>
     `
@@ -15,7 +14,6 @@ export class SlimBarComponent implements OnInit {
     @Input() max: number;
     @Input() value: number;
     @Input() showTooltip = false;
-    @Input() vaPlacement = 'bottom';
 
     width = 0;
 

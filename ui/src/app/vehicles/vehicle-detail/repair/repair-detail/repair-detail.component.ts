@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
-import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
@@ -21,7 +20,6 @@ import { Repair } from '../_core/repair.interface';
     styleUrls: ['./repair-detail.component.scss']
 })
 export class RepairDetailComponent implements OnInit, OnDestroy {
-    @ViewChild('modal') modal: ModalDirective;
 
     expanded = false;
     repair: Repair;

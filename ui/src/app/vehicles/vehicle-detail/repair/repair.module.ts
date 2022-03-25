@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TooltipModule } from 'ngx-bootstrap';
 import { GarageModule } from '../../../car-services/garage/garage.module';
 import { GarageService } from '../../../car-services/garage/garage.service';
 import { CardModule } from '../../../shared/components/card/card.module';
@@ -59,7 +58,6 @@ const MAT_MODULES = [
         SectionHeadingModule,
         RepairFormModule,
         GarageModule,
-        TooltipModule,
         RouterModule.forChild(repairRoutes),
         SpinnerModule,
         FilterModule,

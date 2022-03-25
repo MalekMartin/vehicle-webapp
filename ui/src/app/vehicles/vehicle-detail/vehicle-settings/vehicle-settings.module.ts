@@ -6,7 +6,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
 import { FormItemModule } from '../../../shared/forms/form-item/form-item.module';
 import { SettingsFormComponent } from './settings-form/settings-form.component';
@@ -21,7 +20,6 @@ const MAT_MODULES = [MatFormFieldModule, MatDialogModule, MatInputModule, MatBut
     imports: [
         CommonModule,
         SectionHeadingModule,
-        ModalModule,
         ReactiveFormsModule,
         FormItemModule,
         FileUploadModule,

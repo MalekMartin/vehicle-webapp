@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FuelService } from '../../../shared/api/fuel/fuel.service';
 import { PipesModule } from '../../../shared/pipes/pipes.module';
 import { CostsCardCellComponent } from './costs-card/costs-card-cell/costs-card-cell.component';
 import { CostsCardComponent } from './costs-card/costs-card.component';
@@ -15,6 +16,6 @@ const COMPONENTS = [StatusCardComponent, CostsCardComponent, CostsCardCellCompon
     imports: [CommonModule, NgxChartsModule, RouterModule.forChild(dashboardRoutes), PipesModule],
     exports: [DashboardComponent],
     declarations: [DashboardComponent, ...COMPONENTS],
-    providers: []
+    providers: [FuelService]
 })
 export class DashboardModule {}

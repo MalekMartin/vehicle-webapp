@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TooltipModule } from 'ngx-bootstrap';
 import { PipesModule } from '../../../../shared/pipes/pipes.module';
 import { InfoDetailItemModule } from '../info-detail-item/info-detail-item.module';
 import { TradeDetailComponent } from './trade-detail/trade-detail.component';
@@ -19,7 +18,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TooltipModule,
         MatDialogModule,
         MatCardModule,
         MatButtonModule,
