@@ -396,7 +396,7 @@ class Fuel {
         $startOdo2 = 0;
 
         $endOdo = 0;
-        $endODdo2 = 0;
+        $endOdo2 = 0;
 
         $data = [];
         $lastYear = null;

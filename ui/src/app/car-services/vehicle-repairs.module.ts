@@ -20,6 +20,8 @@ import { GarageEditComponent } from './garage-edit/garage-edit.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const COMPONENTS = [
     VehicleRepairsComponent,
@@ -39,6 +41,8 @@ const MODULES = [
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatInputModule,
+    MatFormFieldModule,
     FormItemModule,
     ReactiveFormsModule,
     CardModule,
