@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { buildUrl, HttpOptions, securityHeaders } from './http-fns';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class HttpService {
     // private _baseUrl = 'http://localhost/moto';
     // private _baseUrl = 'http://192.168.1.102:4200';

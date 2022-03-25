@@ -9,7 +9,7 @@ import { buildUrl, HttpResponseType } from './http-fns';
 import { Jwt } from './jwt';
 import { TokenStore } from './token.store';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
     private _timeout: any = null;
     private _user: any;

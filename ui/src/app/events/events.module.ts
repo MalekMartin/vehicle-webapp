@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { EventsComponent } from './events.component';
-import { CoreModule } from '../core/core.module';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from '../core/auth.guard';
 import { HttpService } from '../core/http.service';
@@ -11,7 +10,6 @@ import { CardModule } from '../shared/components/card/card.module';
 
 const MODULES = [
     CommonModule,
-    CoreModule.forRoot(),
     RouterModule,
     PipesModule,
     CardModule,

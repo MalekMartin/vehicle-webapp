@@ -1,20 +1,16 @@
 <h3 mat-dialog-title>Správa kategorií</h3>
 <mat-dialog-content>
     <form [formGroup]="form">
-        <!-- <div class="row"> -->
-            <!-- <div class="col-md-12"> -->
-            <div class="add">
-                <mat-form-field>
-                    <input matInput type="text" id="title" formControlName="title"
-                        placeholder="Název">
-                </mat-form-field>
-                <div>
-                    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid"
-                        (click)="form.valid && save()">Uložit</button>
-                </div>
+        <div class="add">
+            <mat-form-field>
+                <input matInput type="text" id="title" formControlName="title"
+                    placeholder="Název">
+            </mat-form-field>
+            <div>
+                <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid"
+                    (click)="form.valid && save()">Uložit</button>
             </div>
-            <!-- </div>
-        </div> -->
+        </div>
     </form>
 
     <div *ngIf="loading">

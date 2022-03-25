@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation, ViewContainerRef } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Component, ViewEncapsulation } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
     selector: 'va-app',
@@ -8,10 +8,7 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    viewContainerRef: ViewContainerRef;
-
-    constructor(public toastr: ToastrService, viewContainerRef: ViewContainerRef) {
-        this.viewContainerRef = viewContainerRef;
-        // this.toastr.setRootViewContainerRef(viewContainerRef);
+    constructor() {
+        moment.locale('cs');
     }
 }

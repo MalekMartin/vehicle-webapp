@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Jwt } from './jwt';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class TokenStore {
 
     constructor() { }

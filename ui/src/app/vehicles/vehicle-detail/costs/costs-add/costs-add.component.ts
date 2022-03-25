@@ -22,9 +22,7 @@ export class CostsAddComponent implements OnInit, OnDestroy {
         private _dialogRef: MatDialogRef<CostsAddComponent>
     ) {}
 
-    ngOnInit() {
-        this.costsRef.form.get('date').setValue(new Date());
-    }
+    ngOnInit() {}
 
     ngOnDestroy() {
         this._onDestroy$.next();

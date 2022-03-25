@@ -6,7 +6,7 @@ import { HttpService } from "../../http.service";
 import { VehicleInfoFormModel } from "./vehicle.interface";
 import { Trade } from "../../../shared/api/trade/trade";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class VehicleService {
     private _vehicle$ = new BehaviorSubject<VehicleInfo | null>(null);
     private _loading$ = new BehaviorSubject<boolean>(false);

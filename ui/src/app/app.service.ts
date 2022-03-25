@@ -4,7 +4,7 @@ export type InternalStateType = {
   [key:string]:any
 };
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AppState {
   _state:InternalStateType = { };
 

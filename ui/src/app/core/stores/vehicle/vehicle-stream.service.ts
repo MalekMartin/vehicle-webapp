@@ -4,7 +4,7 @@ import { Vehicle } from "../../../vehicles/vehicle-stream/vehicle";
 import { BehaviorSubject, Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class VehicleStreamService {
 
     private _vehicles$ = new BehaviorSubject<Vehicle[]>(null);
