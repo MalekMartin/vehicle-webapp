@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -31,7 +31,7 @@ export class TireStatusFormComponent implements OnInit, OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
-        private _forms: FormBuilder,
+        private _forms: UntypedFormBuilder,
         private _vehicles: VehicleService,
         private _tireService: TiresService,
         private _toastr: ToastrService,

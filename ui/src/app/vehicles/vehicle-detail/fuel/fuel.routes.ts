@@ -5,7 +5,7 @@ export const fuelRoutes: Routes = [
     {
         path: '',
         redirectTo: 'detail',
-        pathMatch: 'full,'
+        pathMatch: 'full'
     },
     {
         path: 'detail',

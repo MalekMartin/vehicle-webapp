@@ -74,7 +74,6 @@ const PIPES = [MaintenancePipe];
     imports: [...MODULES],
     exports: [MaintenanceWrapperComponent],
     declarations: [...COMPONENTS, ...PIPES],
-    providers: [RepairService, MaintenanceService],
-    entryComponents: [MaintenanceDoneComponent, MaintenanceAddComponent, MaintenanceEditComponent]
+    providers: [RepairService, MaintenanceService]
 })
 export class MaintenanceModule {}

@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -29,7 +29,7 @@ export class EngineFormComponent implements OnInit, OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
-        private _form: FormBuilder,
+        private _form: UntypedFormBuilder,
         public dialogRef: MatDialogRef<EngineFormComponent>,
         private _vehicleService: VehicleService,
         private _toastr: ToastrService,

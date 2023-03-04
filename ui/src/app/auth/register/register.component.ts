@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { VValidators } from '../../shared/forms/validators';
 import { AuthService } from '../../core/auth.service';
 import { Subject } from 'rxjs';
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnDestroy {
 
     private _onDestroy$ = new Subject();
 
-    constructor(private _fb: FormBuilder, private _auth: AuthService) {}
+    constructor(private _fb: UntypedFormBuilder, private _auth: AuthService) {}
 
     ngOnDestroy() {
         this._onDestroy$.next();

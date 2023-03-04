@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -36,7 +36,7 @@ export class IntervalFormComponent implements OnInit, OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
-        private _form: FormBuilder,
+        private _form: UntypedFormBuilder,
         private _maintenances: MaintenanceService,
         private _toastr: ToastrService,
         private _vehicles: VehicleService

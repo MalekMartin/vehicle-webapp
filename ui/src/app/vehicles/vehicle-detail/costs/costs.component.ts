@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
@@ -36,7 +36,7 @@ export class CostsComponent implements OnInit, OnDestroy {
 
     constructor(
         private _service: CostsService,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private _vehicles: VehicleService,
         private _dialog: MatDialog,
         private _toastr: ToastrService,

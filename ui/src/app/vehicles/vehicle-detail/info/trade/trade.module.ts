@@ -30,7 +30,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ],
     exports: [TradeDetailComponent],
     declarations: [TradeFormComponent, TradeDetailComponent],
-    providers: [],
-    entryComponents: [TradeFormComponent]
+    providers: []
 })
 export class TradeModule {}

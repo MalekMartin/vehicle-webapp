@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { FileItem, FileUploader } from 'ng2-file-upload';
 import { AuthService } from '../../../core/auth.service';
 import { ToastrService } from 'ngx-toastr';
@@ -40,7 +40,7 @@ export class ManualsComponent implements OnInit, OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
-        private _form: FormBuilder,
+        private _form: UntypedFormBuilder,
         private _auth: AuthService,
         private _toastr: ToastrService,
         private _vehicleService: VehicleService,

@@ -9,7 +9,6 @@ import { CommonModule } from "@angular/common";
     imports: [CommonModule, MatDialogModule, MatButtonModule],
     exports: [ConfirmComponent],
     declarations: [ConfirmComponent],
-    providers: [ConfirmService],
-    entryComponents: [ConfirmComponent],
+    providers: [ConfirmService]
 })
 export class ConfirmModule {}

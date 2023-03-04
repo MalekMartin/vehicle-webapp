@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -38,7 +38,7 @@ export class RepairComponent implements OnInit, OnDestroy {
         private _route: ActivatedRoute,
         private _service: RepairService,
         private _toastr: ToastrService,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private _services: GarageService,
         private _vehicleService: VehicleService,
         private _dialog: MatDialog,

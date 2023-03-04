@@ -31,7 +31,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ],
     exports: [EngineDetailComponent],
     declarations: [EngineDetailComponent, EngineFormComponent],
-    providers: [],
-    entryComponents: [EngineFormComponent]
+    providers: []
 })
 export class EngineModule {}

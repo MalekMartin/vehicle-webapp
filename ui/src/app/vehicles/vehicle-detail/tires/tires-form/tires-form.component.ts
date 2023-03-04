@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { TIRE_STATUSES } from '../core/tire-status';
 import { Tire } from '../tires.interface';
 
@@ -54,7 +54,7 @@ export class TiresFormComponent implements OnInit {
     private _vehicleId: string;
     private _tire: Tire;
 
-    constructor(private _form: FormBuilder) {}
+    constructor(private _form: UntypedFormBuilder) {}
 
     ngOnInit() {}
 

@@ -69,12 +69,6 @@ const MAT_MODULES = [
     ],
     exports: [],
     declarations: [...COMPONENTS],
-    providers: [RepairService, GarageService],
-    entryComponents: [
-        RepairAddComponent,
-        RepairEditComponent,
-        RepairItemAddComponent,
-        RepairItemEditComponent
-    ]
+    providers: [RepairService, GarageService]
 })
 export class RepairModule {}

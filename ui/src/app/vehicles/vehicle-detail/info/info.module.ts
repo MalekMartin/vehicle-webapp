@@ -38,7 +38,6 @@ const COMPONENTS = [InfoComponent, InfoDetailComponent, InfoFormComponent];
     imports: [...MODULES],
     exports: [InfoComponent],
     declarations: [...COMPONENTS],
-    providers: [],
-    entryComponents: [InfoFormComponent]
+    providers: []
 })
 export class InfoModule {}

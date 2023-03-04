@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
@@ -28,7 +28,7 @@ export class FuelFormComponent implements OnInit, OnDestroy {
     });
     private _onDestroy$ = new Subject();
 
-    constructor(private _form: FormBuilder, private _vehicles: VehicleService) {}
+    constructor(private _form: UntypedFormBuilder, private _vehicles: VehicleService) {}
 
     ngOnInit() {
         this._vehicles.vehicle

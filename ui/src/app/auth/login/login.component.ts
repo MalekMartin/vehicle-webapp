@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../core/auth.service';
@@ -24,7 +24,7 @@ export class LoginComponent implements OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
-        private _form: FormBuilder,
+        private _form: UntypedFormBuilder,
         private _auth: AuthService,
         private _router: Router,
         private _toastr: ToastrService,

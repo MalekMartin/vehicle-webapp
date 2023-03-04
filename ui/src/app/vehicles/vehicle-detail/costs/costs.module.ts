@@ -67,7 +67,6 @@ const COMPONENTS = [
     ],
     exports: [],
     declarations: [...COMPONENTS, ...PIPES],
-    providers: [CostsService],
-    entryComponents: [CostsAddComponent, CostsEditComponent, CostCategoryFormComponent]
+    providers: [CostsService]
 })
 export class CostsModule {}

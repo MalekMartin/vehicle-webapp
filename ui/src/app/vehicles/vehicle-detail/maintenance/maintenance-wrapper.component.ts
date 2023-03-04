@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -29,7 +29,7 @@ export class MaintenanceWrapperComponent implements OnInit, OnDestroy {
 
     constructor(
         private _service: MaintenanceService,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private _confirm: ConfirmService,
         private _router: Router,
         private _vehicles: VehicleService,

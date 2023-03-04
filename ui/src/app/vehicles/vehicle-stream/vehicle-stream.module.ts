@@ -59,7 +59,6 @@ const COMPONENTS = [
     providers: [
         VehicleImageService,
         ErrorStateMatcher
-    ],
-    entryComponents: [VehicleAddComponent, VehicleDeleteConfirmComponent]
+    ]
 })
 export class VehicleStreamModule {}

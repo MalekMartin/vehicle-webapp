@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { GarageService } from '../garage/garage.service';
 
@@ -43,7 +43,7 @@ export class GarageFormComponent implements OnInit {
 
     private _garage: Garage;
 
-    constructor(private _form: FormBuilder,
+    constructor(private _form: UntypedFormBuilder,
                 private _garages: GarageService,
                 private _toastr: ToastrService) { }
 
