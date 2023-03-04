@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'va-tire-property-form',
@@ -15,5 +15,5 @@ export class TirePropertyFormComponent {
         tooltip: ['']
     });
 
-    constructor(private _fb: FormBuilder) {}
+    constructor(private _fb: UntypedFormBuilder) {}
 }

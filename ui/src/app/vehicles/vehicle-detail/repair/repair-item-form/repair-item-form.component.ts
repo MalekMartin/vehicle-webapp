@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RepairService } from '../repair.service';
 import { RepairTask } from '../_core/repair-task.interface';
 import { Repair } from '../_core/repair.interface';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, UntypedFormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'va-repair-item-form',
@@ -62,7 +62,7 @@ export class RepairItemFormComponent implements OnInit {
     private _repairId: string;
     private _tax: number;
 
-    constructor(private _form: FormBuilder,
+    constructor(private _form: UntypedFormBuilder,
                 private _repairs: RepairService) { }
 
     ngOnInit() { }

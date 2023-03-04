@@ -62,12 +62,6 @@ import { TechnicalInspectionService } from './technical-inspection.service';
         StationAddComponent,
         StationEditComponent
     ],
-    providers: [TechnicalInspectionService],
-    entryComponents: [
-        InspectionAddComponent,
-        InspectionEditComponent,
-        StationAddComponent,
-        StationEditComponent
-    ]
+    providers: [TechnicalInspectionService]
 })
 export class TechnicalInspectionModule {}

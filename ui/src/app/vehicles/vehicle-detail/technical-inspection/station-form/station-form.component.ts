@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Station } from '../station.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TechnicalInspectionService } from '../technical-inspection.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -45,7 +45,7 @@ export class StationFormComponent {
 
     private _station: Station;
 
-    constructor(private _form: FormBuilder,
+    constructor(private _form: UntypedFormBuilder,
                 private _service: TechnicalInspectionService,
                 private _toastr: ToastrService) { }
 

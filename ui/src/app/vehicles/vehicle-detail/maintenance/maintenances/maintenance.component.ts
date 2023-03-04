@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { Subject } from "rxjs";
 import { Page } from "../../../../utils/pageable";
-import { FormBuilder } from "@angular/forms";
+import { UntypedFormBuilder } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { VehicleService } from "../../../../core/stores/vehicle/vehicle.service";
 import { Interval } from "../../../../shared/api/maintenance/interval.interface";
@@ -57,7 +57,7 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
 
     constructor(
         private _maintenance: MaintenanceService,
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         private _confirm: ConfirmService,
         private _toastr: ToastrService,
         private _vehicles: VehicleService

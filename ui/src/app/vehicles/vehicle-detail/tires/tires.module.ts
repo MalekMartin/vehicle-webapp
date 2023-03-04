@@ -59,7 +59,6 @@ import { tiresRoutes } from './tires.routes';
         TireAddComponent,
         TireEditComponent
     ],
-    providers: [TiresService, TirePropertiesService],
-    entryComponents: [TireAddComponent, TireEditComponent, TirePreviewComponent]
+    providers: [TiresService, TirePropertiesService]
 })
 export class TiresModule {}

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, HostListener, AfterViewInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, merge, combineLatest } from 'rxjs';
@@ -17,7 +17,7 @@ import { VehicleStreamService } from '../../core/stores/vehicle/vehicle-stream.s
 export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy {
     filter: string;
     expanded = false;
-    query = new FormControl('');
+    query = new UntypedFormControl('');
     gridCols = 5;
 
     state = combineLatest([

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { FORM_ITEMS_ERRORS } from './form-items.errors';
 
 @Component({
@@ -14,7 +14,7 @@ import { FORM_ITEMS_ERRORS } from './form-items.errors';
     styleUrls: ['./form-item.component.scss']
 })
 export class FormItemComponent {
-    @Input() control: FormControl;
+    @Input() control: UntypedFormControl;
 
     get errors() {
         const errorMessages = [];

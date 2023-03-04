@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
@@ -31,7 +31,7 @@ export class TradeFormComponent implements OnInit, OnDestroy {
     });
 
     constructor(
-        private _fb: FormBuilder,
+        private _fb: UntypedFormBuilder,
         public dialogRef: MatDialogRef<TradeFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { vehicle: VehicleInfo; type: 'buyer' | 'seller' },
         private _vehicleService: VehicleService,

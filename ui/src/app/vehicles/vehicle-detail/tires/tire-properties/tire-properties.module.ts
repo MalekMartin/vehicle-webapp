@@ -30,7 +30,6 @@ import { TirePropertyFormComponent } from './tire-property-form/tire-property-fo
         TirePropertyEditComponent,
         TirePropertyFormComponent
     ],
-    providers: [],
-    entryComponents: [TirePropertyAddComponent, TirePropertyEditComponent]
+    providers: []
 })
 export class TirePropertiesModule {}

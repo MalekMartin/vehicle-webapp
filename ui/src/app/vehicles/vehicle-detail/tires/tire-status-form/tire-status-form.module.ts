@@ -25,7 +25,6 @@ import { TireStatusFormComponent } from './tire-status-form.component';
         MatTooltipModule
     ],
     exports: [TireStatusFormComponent],
-    declarations: [TireStatusFormComponent],
-    entryComponents: [TireStatusFormComponent]
+    declarations: [TireStatusFormComponent]
 })
 export class TireStatusFormModule {}

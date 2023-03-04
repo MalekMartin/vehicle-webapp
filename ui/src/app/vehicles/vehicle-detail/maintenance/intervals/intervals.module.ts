@@ -36,7 +36,6 @@ const COMPONENTS = [IntervalsComponent, IntervalFormComponent, IntervalCardCompo
     imports: [...MODULES],
     exports: [...COMPONENTS],
     declarations: [...COMPONENTS, IntervalAddComponent, IntervalEditComponent],
-    entryComponents: [IntervalAddComponent, IntervalEditComponent],
-    providers: [MaintenanceService],
+    providers: [MaintenanceService]
 })
 export class IntervalsModule {}

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Category, CostsService } from '../../../../shared/api/costs/costs.service';
 import { Subject } from 'rxjs';
@@ -26,7 +26,7 @@ export class CostCategoryFormComponent implements OnInit, OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
-        private _form: FormBuilder,
+        private _form: UntypedFormBuilder,
         private costs: CostsService,
         private toastr: ToastrService
     ) {}

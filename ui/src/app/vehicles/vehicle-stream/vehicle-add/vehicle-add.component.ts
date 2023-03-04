@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -33,7 +33,7 @@ export class VehicleAddComponent implements OnDestroy {
     constructor(
         public dialogRef: MatDialogRef<VehicleAddComponent>,
         private _service: VehicleStreamService,
-        private _form: FormBuilder,
+        private _form: UntypedFormBuilder,
         private _toastr: ToastrService
     ) {}
 

@@ -1,4 +1,4 @@
-import { NgControl, Validators, FormGroup } from '@angular/forms';
+import { NgControl, Validators, UntypedFormGroup } from '@angular/forms';
 
 export class VValidators {
     static validateNumber = (c: NgControl) => {
@@ -23,7 +23,7 @@ export class VValidators {
         return g.controls.pwd.value === g.controls.pwdCheck.value ? null : { passwordMatch: true };
     };
 
-    static maintenanceStartValue = (g: FormGroup) => {
+    static maintenanceStartValue = (g: UntypedFormGroup) => {
         return !!g.get('odo').value ||
             g.get('odo').value === 0 ||
             !!g.get('odo2').value ||

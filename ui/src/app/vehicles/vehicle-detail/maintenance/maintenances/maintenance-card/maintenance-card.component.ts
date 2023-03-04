@@ -1,6 +1,6 @@
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -43,7 +43,7 @@ export class MaintenanceCardComponent implements OnInit, OnDestroy {
 
     checkboxState = 'closed';
 
-    control = new FormControl();
+    control = new UntypedFormControl();
 
     private _showCheckbox = false;
     private _onDestroy$ = new Subject();

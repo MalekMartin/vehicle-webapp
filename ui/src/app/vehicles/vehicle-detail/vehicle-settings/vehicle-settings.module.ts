@@ -27,7 +27,6 @@ const MAT_MODULES = [MatFormFieldModule, MatDialogModule, MatInputModule, MatBut
     ],
     exports: [...COMPONENTS],
     declarations: [...COMPONENTS],
-    providers: [SettingsService],
-    entryComponents: [SettingsFormComponent]
+    providers: [SettingsService]
 })
 export class VehicleSettingsModule {}

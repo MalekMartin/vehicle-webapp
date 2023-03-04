@@ -62,7 +62,6 @@ import { FuelService } from '../../../shared/api/fuel/fuel.service';
         FuelAddComponent,
         FuelEditComponent
     ],
-    providers: [MomentPipe, FuelService],
-    entryComponents: [FuelAddComponent, FuelEditComponent]
+    providers: [MomentPipe, FuelService]
 })
 export class FuelModule {}
