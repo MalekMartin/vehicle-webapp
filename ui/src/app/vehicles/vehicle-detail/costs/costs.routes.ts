@@ -5,7 +5,7 @@ export const costsRoutes: Routes = [
     {
         path: '',
         redirectTo: 'detail',
-        pathMatch: 'full,'
+        pathMatch: 'full'
     },
     {
         path: 'detail',

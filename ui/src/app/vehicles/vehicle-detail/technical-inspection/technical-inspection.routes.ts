@@ -5,7 +5,7 @@ export const technicalRoutes: Routes = [
     {
         path: '',
         redirectTo: 'detail',
-        pathMatch: 'full,'
+        pathMatch: 'full'
     },
     {
         path: 'detail',
