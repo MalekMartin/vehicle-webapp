@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 
 conf/proxy.prod.json
+
+.angular/*

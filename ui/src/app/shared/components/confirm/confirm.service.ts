@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { stringify } from 'querystring';
-import { ConfirmComponent, ConfirmDialogData } from './confirm.component';
+import { ConfirmComponent } from './confirm.component';
 
 @Injectable()
 export class ConfirmService {
