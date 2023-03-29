@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Subject } from 'rxjs';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { InspectionFormComponent } from '../inspection-form/inspection-form.component';

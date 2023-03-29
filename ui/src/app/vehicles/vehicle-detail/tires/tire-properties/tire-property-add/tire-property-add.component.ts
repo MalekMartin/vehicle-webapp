@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { ToastrService } from 'ngx-toastr';
 import { VehicleService } from '../../../../../core/stores/vehicle/vehicle.service';
 import { TirePropertyFormComponent } from '../tire-property-form/tire-property-form.component';

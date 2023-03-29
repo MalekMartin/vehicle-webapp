@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy } from "@angular/core";
 import { UntypedFormBuilder, Validators } from "@angular/forms";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from "@angular/material/legacy-dialog";
 import { Info } from "../../../../vehicle-stream/vehicle";
 import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";

@@ -3,7 +3,7 @@ import { ManualsComponent } from './manuals.component';
 import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
 import { ManualsListComponent } from './manuals-list/manuals-list.component';
 import { ManualService } from './manual.service';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { FileUploadModule } from 'ng2-file-upload';
 import { CommonModule } from '@angular/common';
 

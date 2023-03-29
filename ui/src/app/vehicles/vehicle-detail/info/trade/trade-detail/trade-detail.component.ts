@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Trade } from '../../../../../shared/api/trade/trade';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { TradeFormComponent } from '../trade-form/trade-form.component';
 import { VehicleInfo } from '../../../../vehicle-stream/vehicle';
 

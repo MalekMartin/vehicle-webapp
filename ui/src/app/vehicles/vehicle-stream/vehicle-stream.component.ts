@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, HostListener, AfterViewInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
 import { Subject, merge, combineLatest } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';

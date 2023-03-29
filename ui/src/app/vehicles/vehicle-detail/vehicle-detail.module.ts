@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { VehicleSettingsModule } from './vehicle-settings/vehicle-settings.module';
 import { ManualsModule } from './manuals/manuals.module';
 import { VehicleNotFoundComponent } from './vehicle-not-found/vehicle-not-found.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 import { VehicleDetailMenuComponent } from './vehicle-detail-menu/vehicle-detail-menu.component';
 import { CommonModule } from '@angular/common';
 import { SpinnerModule } from '../../shared/components/spinner/spinner.module';
