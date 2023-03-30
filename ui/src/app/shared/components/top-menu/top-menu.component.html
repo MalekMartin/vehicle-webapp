@@ -4,7 +4,7 @@
             <i class="icon-menu-dash"
                 (click)="toggleMenu()"></i>
             <div class="title">
-                Vehicle app
+                {{!!vehicle ? vehicle.info?.brand + ' ' + vehicle.info?.model : 'Vehicle app'}}
             </div>
             <div class="menu">
                 <ul class="menu-ul">
@@ -38,14 +38,14 @@
         <div class="user-name" *ngIf="user">
             <va-initials [text]="user.firstName" size="m" [charSize]="1"></va-initials>
             {{user.firstName}}
+            <div class="spacer"></div>
+            <a (click)="logout()">Odhlásit</a>
         </div>
         <ul (click)="hide()">
             <li><a [routerLink]=" ['/']">Přehled vozidel</a></li>
             <!-- <li><a [routerLink]="['/events']">Události</a></li> -->
             <li><a [routerLink]="['/services']">Servisy</a></li>
-            <li class="logout">
-                <div class="logout" (click)="logout()">Odhlásit</div>
-            </li>
         </ul>
+        <va-vehicle-detail-menu *ngIf="!!vehicle" [vehicleId]="vehicle.info.id"></va-vehicle-detail-menu>
     </div>
 </div>

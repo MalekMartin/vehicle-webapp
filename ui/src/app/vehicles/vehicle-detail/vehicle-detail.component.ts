@@ -6,7 +6,6 @@ import { SettingsService } from './vehicle-settings/settings.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MenuOptionPage } from './vehicle-detail-menu/vehicle-detail-menu.interface';
-import { VehicleInfo } from '../vehicle-stream/vehicle';
 
 @Component({
     selector: 'va-vehicle-detail',

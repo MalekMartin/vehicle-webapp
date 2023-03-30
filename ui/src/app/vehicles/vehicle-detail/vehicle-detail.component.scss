@@ -53,9 +53,12 @@
 @media(max-width: $mobileWidth) {
     .wrapper {
         .menu-panel {
-            width: 50px;
-            min-width: 50px;
+            display: none;
         }
+    }
+
+    va-detail-header {
+        display: none;
     }
 }
 

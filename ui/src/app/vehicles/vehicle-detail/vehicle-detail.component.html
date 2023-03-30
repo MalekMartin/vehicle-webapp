@@ -1,6 +1,6 @@
 <div class="wrapper" *ngIf="!!vehicle && !loading">
     <div class="menu-panel">
-        <va-vehicle-detail-menu></va-vehicle-detail-menu>
+        <va-vehicle-detail-menu [vehilcleId]="vehicle.info.id"></va-vehicle-detail-menu>
     </div>
 
     <div class="content-panel">

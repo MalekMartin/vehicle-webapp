@@ -48,17 +48,33 @@
 
 @media(max-width: $mobileWidth) {
     .va-menu {
-        a {
-            padding: 10px 0px;
-            text-align: center;
+        background-color: transparent;
 
-            &.label-option {
-                display: none;
+        .va-menu-options {
+            li {
+                padding: 10px 14px;
             }
-            &.icon-option {
-                display: block;
-                font-size: 20px;
+        }
+
+        a {
+            padding: 0;
+
+            &.active {
+                background-color: transparent;
+                font-weight: bold;
+                text-decoration: underline;
+                color: #333333;
             }
+            // padding: 10px 0px;
+            // text-align: center;
+
+            // &.label-option {
+            //     display: none;
+            // }
+            // &.icon-option {
+            //     display: inline-block;
+            //     font-size: 20px;
+            // }
         }
     }
 }

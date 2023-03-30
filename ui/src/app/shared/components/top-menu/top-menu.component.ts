@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/auth.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MaintenanceService } from '../../api/maintenance/maintenance.service';
-import { Subscription, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
+import { takeUntil } from 'rxjs/operators';
+import { VehicleInfo } from '../../../vehicles/vehicle-stream/vehicle';
 
 @Component({
     selector: 'va-top-menu',
@@ -21,16 +24,28 @@ import { Subscription, Observable } from 'rxjs';
         ])
     ]
 })
-export class TopMenuComponent implements OnInit {
+export class TopMenuComponent implements OnInit, OnDestroy {
     menuState = 'closed';
     count: number;
 
     expired: Observable<{ count: number }>;
 
-    constructor(private _auth: AuthService, private _maintenance: MaintenanceService) {}
+    vehicle?: VehicleInfo;
+
+    private _onDestroy$ = new Subject<void>();
+
+    constructor(private _auth: AuthService, private _maintenance: MaintenanceService, private _vehicleService: VehicleService) {}
 
     ngOnInit() {
         this.expired = <any>this._maintenance.expiredSubject.asObservable();
+
+        this._vehicleService.vehicle.pipe(takeUntil(this._onDestroy$)).subscribe(v => {
+            this.vehicle = v;
+        });
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy$.next();
     }
 
     get user() {

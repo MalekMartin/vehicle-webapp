@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MenuOption } from './vehicle-detail-menu.interface';
 
 @Component({
@@ -7,6 +7,8 @@ import { MenuOption } from './vehicle-detail-menu.interface';
     styleUrls: ['./vehicle-detail-menu.component.scss']
 })
 export class VehicleDetailMenuComponent {
+    @Input() vehicleId: string;
+
     options: MenuOption[] = [
         { page: 'dashboard', label: 'Přehled', warning: 0, icon: 'stats' },
         { page: 'info', label: 'Info', warning: 0, icon: 'info' },
