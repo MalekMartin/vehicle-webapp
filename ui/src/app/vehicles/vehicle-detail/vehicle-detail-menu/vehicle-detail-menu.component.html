@@ -1,13 +1,7 @@
 <div class="va-menu">
     <ul class="va-menu-options">
         <li *ngFor="let o of options">
-            <!-- DESKTOP -->
             <a [routerLink]="['/vehicle', vehicleId, o.page]" routerLinkActive="active" class="label-option">{{o.label}}</a>
-            <!-- MOBILE -->
-            <!-- <a [routerLink]="[o.page]" routerLinkActive="active-icon"
-                class="icon-option">
-                <i [class]="'icon-' + o.icon"></i>
-            </a> -->
         </li>
     </ul>
 </div>
