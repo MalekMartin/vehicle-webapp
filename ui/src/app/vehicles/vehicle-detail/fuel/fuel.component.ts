@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, forkJoin, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';

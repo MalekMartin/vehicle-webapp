@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { RepairItemFormComponent } from '../repair-item-form/repair-item-form.component';
 import { Subject } from 'rxjs';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Repair } from '../_core/repair.interface';
 import { RepairService } from '../repair.service';
 import { ToastrService } from 'ngx-toastr';

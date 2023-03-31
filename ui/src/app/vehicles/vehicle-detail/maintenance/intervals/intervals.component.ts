@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { Interval } from '../../../../shared/api/maintenance/interval.interface';
 import { MaintenanceService } from '../../../../shared/api/maintenance/maintenance.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { IntervalEditComponent } from './interval-edit/interval-edit.component';
 
 @Component({

@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { CostsService } from '../../../../shared/api/costs/costs.service';
 import { takeUntil } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'va-costs-add',

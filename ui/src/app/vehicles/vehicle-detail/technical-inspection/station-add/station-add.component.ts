@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { TechnicalInspectionService } from '../technical-inspection.service';
 import { StationFormComponent } from '../station-form/station-form.component';
 import { takeUntil } from 'rxjs/operators';

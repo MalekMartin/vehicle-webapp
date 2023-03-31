@@ -5,7 +5,7 @@ import { PipesModule } from '../../../../shared/pipes/pipes.module';
 import { InfoDetailItemModule } from '../info-detail-item/info-detail-item.module';
 import { TradeDetailComponent } from './trade-detail/trade-detail.component';
 import { TradeFormComponent } from './trade-form/trade-form.component';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';

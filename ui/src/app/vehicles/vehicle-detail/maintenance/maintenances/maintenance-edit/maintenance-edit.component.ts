@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, ViewChild, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MaintenaceFormComponent } from '../maintenance-form/maintenance-form.component';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
 import { ToastrService } from 'ngx-toastr';

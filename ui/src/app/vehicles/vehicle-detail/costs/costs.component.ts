@@ -7,7 +7,7 @@ import { CostsService } from '../../../shared/api/costs/costs.service';
 import { Page, Pageable } from '../../../utils/pageable';
 import { VehicleService } from '../../../core/stores/vehicle/vehicle.service';
 import { Cost, CostsCategory } from './cost.interface';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CostsAddComponent } from './costs-add/costs-add.component';
 import { CostsEditComponent } from './costs-edit/costs-edit.component';
 import { CostCategoryFormComponent } from './cost-category-form/cost-category-form.component';

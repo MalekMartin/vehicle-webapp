@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IntervalFormComponent } from '../interval-form/interval-form.component';
 import { MaintenanceService } from '../../../../../shared/api/maintenance/maintenance.service';
 import { takeUntil } from 'rxjs/operators';

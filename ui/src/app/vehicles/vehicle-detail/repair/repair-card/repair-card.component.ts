@@ -10,7 +10,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { VehicleService } from "../../../../core/stores/vehicle/vehicle.service";
 import { Repair } from "../_core/repair.interface";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { RepairEditComponent } from "../repair-edit/repair-edit.component";
 import { ConfirmService } from "../../../../shared/components/confirm/confirm.service";
 

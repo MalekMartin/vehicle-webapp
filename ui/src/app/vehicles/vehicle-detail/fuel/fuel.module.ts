@@ -18,7 +18,7 @@ import { FuelComponent } from './fuel.component';
 import { fuelRoutes } from './fuel.routes';
 import { SpinnerModule } from '../../../shared/components/spinner/spinner.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';

@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
 import { TireProperty } from '../tires.interface';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../shared/components/confirm/confirm.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';

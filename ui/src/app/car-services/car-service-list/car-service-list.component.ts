@@ -4,7 +4,7 @@ import { GarageService } from "../garage/garage.service";
 import { Garage } from "../garage-form/garage-form.component";
 import { ToastrService } from "ngx-toastr";
 import { GarageAddComponent } from "../garage-add/garage-add.component";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { GarageEditComponent } from "../garage-edit/garage-edit.component";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";

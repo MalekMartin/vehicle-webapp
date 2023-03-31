@@ -9,7 +9,7 @@ import { GarageModule } from './garage/garage.module';
 import { CarServiceCardComponent } from './car-service-card/car-service-card.component';
 import { CarServiceDetailComponent } from './car-service-detail/car-service-detail.component';
 import { GarageFormComponent } from './garage-form/garage-form.component';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { GarageAddComponent } from './garage-add/garage-add.component';
 import { MatButtonModule } from '@angular/material/button';
 import { FormItemModule } from '../shared/forms/form-item/form-item.module';
