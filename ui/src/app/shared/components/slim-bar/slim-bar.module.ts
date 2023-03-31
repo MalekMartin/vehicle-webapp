@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SlimBarComponent } from './slim-bar.component';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     imports: [MatTooltipModule],
