@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from '../shared/components/card/card.module';
 import { PipesModule } from '../shared/pipes/pipes.module';
 import { GarageEditComponent } from './garage-edit/garage-edit.component';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';

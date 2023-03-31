@@ -8,7 +8,7 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { CardModule } from '../../../shared/components/card/card.module';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
