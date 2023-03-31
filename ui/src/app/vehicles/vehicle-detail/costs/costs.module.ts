@@ -20,7 +20,7 @@ import { CardModule } from '../../../shared/components/card/card.module';
 import { PipesModule } from '../../../shared/pipes/pipes.module';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 import { FilterModule } from '../../../shared/components/filter/filter.module';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';

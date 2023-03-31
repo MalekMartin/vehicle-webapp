@@ -6,7 +6,7 @@ import { InfoDetailItemModule } from '../info-detail-item/info-detail-item.modul
 import { TradeDetailComponent } from './trade-detail/trade-detail.component';
 import { TradeFormComponent } from './trade-form/trade-form.component';
 import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';

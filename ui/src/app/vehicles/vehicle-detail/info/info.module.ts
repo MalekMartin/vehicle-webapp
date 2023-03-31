@@ -9,7 +9,7 @@ import { InfoFormComponent } from './info-general/info-form/info-form.component'
 import { InfoComponent } from './info.component';
 import { infoRoutes } from './info.routes';
 import { TradeModule } from './trade/trade.module';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
