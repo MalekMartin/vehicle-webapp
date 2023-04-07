@@ -43,5 +43,9 @@ va-filter {
     .cost-cards {
         margin-bottom: 5px;
         margin-top: 5px;
+
+        &.working {
+            opacity: .6;
+        }
     }
 }
