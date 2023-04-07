@@ -1,7 +1,13 @@
 <div class="va-menu">
     <ul class="va-menu-options">
         <li *ngFor="let o of options">
-            <a [routerLink]="['/vehicle', vehicleId, o.page]" routerLinkActive="active" class="label-option">{{o.label}}</a>
+            <a
+                [routerLink]="['/vehicle', vehicleId, o.page]"
+                routerLinkActive="active"
+                class="label-option"
+                (click)="navigated.emit()"
+                >{{ o.label }}</a
+            >
         </li>
     </ul>
 </div>
