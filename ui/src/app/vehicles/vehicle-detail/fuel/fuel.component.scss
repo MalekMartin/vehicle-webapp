@@ -53,4 +53,8 @@
 
 .fueling-block {
     margin-bottom: 16px;
+
+    &.loading-data {
+        opacity: 0.6;
+    }
 }

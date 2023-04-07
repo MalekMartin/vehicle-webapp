@@ -27,12 +27,18 @@ export class FuelComponent implements OnInit, OnDestroy {
     isLoading = false;
     private _onDestroy$ = new Subject();
 
+    private _contentEl: HTMLElement;
+
     constructor(
         private _service: FuelService,
         private _toastr: ToastrService,
         private _vehicles: VehicleService,
         public dialog: MatDialog
-    ) {}
+    ) {
+        this._service.pageSize = 20;
+
+        this._contentEl = document.querySelector('.content-panel');
+    }
 
     ngOnInit() {
         this.vehicleId = this._vehicles.snapshot.info.id;
@@ -76,6 +82,9 @@ export class FuelComponent implements OnInit, OnDestroy {
     }
 
     fetchPage(page: number) {
+        if (this._contentEl) {
+            this._contentEl.scrollTo({top: 0, behavior: 'smooth'});
+        }
         this._service
             .fetchPage(page)
             .pipe(takeUntil(this._onDestroy$))

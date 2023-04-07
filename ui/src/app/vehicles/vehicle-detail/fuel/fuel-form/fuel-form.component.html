@@ -1,12 +1,26 @@
 <form [formGroup]="form">
     <div class="row">
         <mat-form-field class="col-sm-6 col-xs-12">
+            <mat-label>Nájezd</mat-label>
+            <input matInput type="number" id="odo" formControlName="odo"
+                [placeholder]="units">
+        </mat-form-field>
+        <mat-form-field *ngIf="subUnits" class="col-sm-6 col-xs-12">
+            <mat-label>Nájezd (vedlejší jednotky)</mat-label>
+            <input matInput type="number" id="odo2" formControlName="odo2"
+                [placeholder]="subUnits">
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-6 col-xs-12">
             <input matInput [matDatepicker]="picker" formControlName="date"
                 placeholder="Datum">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field class="col-sm-6 col-xs-12">
+            <mat-label>Množství</mat-label>
             <input matInput type="number" id="quantity" formControlName="quantity"
                 (keyup)="resetPrice()" placeholder="Množství">
         </mat-form-field>
@@ -14,23 +28,14 @@
 
     <div class="row">
         <mat-form-field class="col-sm-6 col-xs-12">
+            <mat-label>Cena/Litr</mat-label>
             <input matInput type="number" id="pricePerLiter" formControlName="pricePerLiter"
                 (keyup)="calculatePrice()" placeholder="Cena/Litr">
         </mat-form-field>
         <mat-form-field class="col-sm-6 col-xs-12">
+            <mat-label>Cena</mat-label>
             <input matInput type="number" id="pricer" formControlName="price"
                 (keyup)="calculatePricePerLiter()" placeholder="Cena">
-        </mat-form-field>
-    </div>
-
-    <div class="row">
-        <mat-form-field class="col-sm-6 col-xs-12">
-            <input matInput type="number" id="odo" formControlName="odo"
-                [placeholder]="units">
-        </mat-form-field>
-        <mat-form-field *ngIf="subUnits" class="col-sm-6 col-xs-12">
-            <input matInput type="number" id="odo2" formControlName="odo2"
-                [placeholder]="subUnits">
         </mat-form-field>
     </div>
 

@@ -20,7 +20,7 @@
                 <i class="icon-refresh spin"></i>
             </div>
 
-            <div *ngIf="!!fuelings" class="fueling-block">
+            <div *ngIf="!!fuelings" class="fueling-block" [class.loading-data]="fuelService.loading">
                 <va-paginator [service]="fuelService"
                     (selected)="fetchPage($event)">
                 </va-paginator>
