@@ -11,6 +11,10 @@ export class PaginatorComponent<T> implements OnInit {
 
     @Input() service: Pageable<T>;
 
+    @Input() maxDisplayedPages = 5;
+
+    @Input() step = 3;
+
     @Output() selected = new EventEmitter<number>();
 
     constructor() { }
@@ -41,13 +45,10 @@ export class PaginatorComponent<T> implements OnInit {
     get pages(): number[] {
         const pages = [];
         const current = this.service.currentPage;
-        let actual;
-        const maxPages = 5;
+        let actual = -1;
 
-        const step = 3;
-
-        const rightSteps = current < step ? maxPages - current : step;
-        const leftSteps = current > this.service.totalPages - step  ? maxPages - (this.service.totalPages - current - 1) : step;
+        const rightSteps = current < this.step ? this.maxDisplayedPages - current : this.step;
+        const leftSteps = current > this.service.totalPages - this.step  ? this.maxDisplayedPages - (this.service.totalPages - current - 1) : this.step;
 
         if (current > 0) {
             actual = current - 1;
