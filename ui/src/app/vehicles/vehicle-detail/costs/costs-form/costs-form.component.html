@@ -1,6 +1,26 @@
 <form [formGroup]="form">
     <div class="row">
         <mat-form-field class="col-sm-4 col-xs-12">
+            <mat-label>ODO</mat-label>
+            <input matInput type="text" id="odo" formControlName="odo"
+                [placeholder]="units">
+        </mat-form-field>
+        <mat-form-field *ngIf="!!units2" class="col-sm-4 col-xs-12">
+            <mat-label>ODO 2</mat-label>
+            <input matInput type="text" id="odo2" formControlName="odo2"
+                [placeholder]="units2">
+        </mat-form-field>
+        <mat-form-field class="col-sm-4 col-xs-12">
+
+            <input matInput [matDatepicker]="picker" formControlName="date"
+                placeholder="Datum">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field class="col-sm-4 col-xs-12">
             <mat-select type="text" id="category" formControlName="category" placeholder="Kategorie">
                 <mat-option *ngFor="let category of categories" [value]="category.id">{{category.title}}</mat-option>
             </mat-select>
@@ -9,7 +29,8 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field class="col-sm-8 col-xs-12">
-            <input matInput type="text" id="title" formControlName="title" placeholder="Název">
+            <mat-label>Název</mat-label>
+            <input matInput type="text" id="title" formControlName="title">
             <mat-error *ngIf="form.get('title').hasError('required')">
                 Toto pole je <strong>povinné</strong>
             </mat-error>
@@ -18,37 +39,23 @@
 
     <div class="row">
         <mat-form-field class="col-sm-12 col-xs-12">
-            <textarea matInput type="text" id="note" formControlName="note" placeholder="Poznámka"></textarea>
+            <mat-label>Poznámka</mat-label>
+            <textarea matInput type="text" id="note" formControlName="note"></textarea>
         </mat-form-field>
     </div>
 
     <div class="row">
         <mat-form-field class="col-sm-4 col-xs-12">
-            <input matInput type="text" id="quantity" formControlName="quantity" placeholder="Množství">
+            <mat-label>Množství</mat-label>
+            <input matInput type="text" id="quantity" formControlName="quantity" placeholder="ks">
         </mat-form-field>
         <mat-form-field class="col-sm-4 col-xs-12">
-            <input matInput type="text" id="pricePerItem" formControlName="pricePerItem" placeholder="Cena za kus">
+            <mat-label>Cena za kus</mat-label>
+            <input matInput type="text" id="pricePerItem" formControlName="pricePerItem" placeholder="Kč">
         </mat-form-field>
         <mat-form-field class="col-sm-4 col-xs-12">
-            <input matInput type="text" id="totalPrice" formControlName="totalPrice" placeholder="Celková cena">
-        </mat-form-field>
-    </div>
-
-    <div class="row">
-        <mat-form-field class="col-sm-4 col-xs-12">
-            <input matInput type="text" id="odo" formControlName="odo"
-                [placeholder]="'ODO (' + units + ')'">
-        </mat-form-field>
-        <mat-form-field *ngIf="!!units2" class="col-sm-4 col-xs-12">
-            <input matInput type="text" id="odo2" formControlName="odo2"
-                [placeholder]="'ODO (' + units2 + ')'">
-        </mat-form-field>
-        <mat-form-field class="col-sm-4 col-xs-12">
-
-            <input matInput [matDatepicker]="picker" formControlName="date"
-                placeholder="Datum">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-label>Celková cena</mat-label>
+            <input matInput type="text" id="totalPrice" formControlName="totalPrice" placeholder="Kč">
         </mat-form-field>
     </div>
 </form>
