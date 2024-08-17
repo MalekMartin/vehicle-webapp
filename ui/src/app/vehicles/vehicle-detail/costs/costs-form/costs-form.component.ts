@@ -21,10 +21,10 @@ export class CostsFormComponent implements OnInit, OnDestroy {
         title: ['', [Validators.required, Validators.maxLength(255)]],
         note: ['', Validators.maxLength(500)],
         quantity: [1, [Validators.required, VValidators.validateNumber]],
-        pricePerItem: [0, [Validators.required, VValidators.validateNumber]],
-        totalPrice: [0, [Validators.required, VValidators.validateNumber]],
-        odo: [0],
-        odo2: [0],
+        pricePerItem: ['', [Validators.required, VValidators.validateNumber]],
+        totalPrice: ['', [Validators.required, VValidators.validateNumber]],
+        odo: [''],
+        odo2: [''],
         date: ['', Validators.required]
     });
 

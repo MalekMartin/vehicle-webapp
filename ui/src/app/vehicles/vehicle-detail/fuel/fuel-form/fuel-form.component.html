@@ -1,14 +1,16 @@
 <form [formGroup]="form">
     <div class="row">
         <mat-form-field class="col-sm-6 col-xs-12">
-            <mat-label>Nájezd</mat-label>
+            <mat-label>Nájezd ({{ units }})</mat-label>
             <input matInput type="number" id="odo" formControlName="odo"
-                [placeholder]="units">
+                [placeholder]="lastFuel?.odo + '' + units">
+            <mat-hint *ngIf="!!lastFuel && form.get('odo').value > lastFuel.odo" align="end">+{{ form.get('odo').value - lastFuel.odo }} {{units}}</mat-hint>
         </mat-form-field>
         <mat-form-field *ngIf="subUnits" class="col-sm-6 col-xs-12">
-            <mat-label>Nájezd (vedlejší jednotky)</mat-label>
+            <mat-label>Nájezd ({{ subUnits }})</mat-label>
             <input matInput type="number" id="odo2" formControlName="odo2"
-                [placeholder]="subUnits">
+                [placeholder]="lastFuel?.odo2 + '' + subUnits">
+            <mat-hint *ngIf="!!lastFuel && form.get('odo2').value > lastFuel.odo2" align="end">+{{ form.get('odo2').value - lastFuel.odo2 }} {{subUnits}}</mat-hint>
         </mat-form-field>
     </div>
 

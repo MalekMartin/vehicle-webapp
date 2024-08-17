@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Inject, AfterViewInit } from '@angular/core';
 import { CostsFormComponent } from '../costs-form/costs-form.component';
 import { Subject } from 'rxjs';
 import { CostsService } from '../../../../shared/api/costs/costs.service';
@@ -12,7 +12,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     templateUrl: 'costs-edit.component.html',
     styleUrls: ['./costs-edit.component.scss']
 })
-export class CostsEditComponent implements OnInit, OnDestroy {
+export class CostsEditComponent implements AfterViewInit, OnDestroy {
     @ViewChild(CostsFormComponent) costsRef: CostsFormComponent;
 
     private _onDestroy$ = new Subject();
@@ -24,20 +24,22 @@ export class CostsEditComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: Cost
     ) {}
 
-    ngOnInit() {
-        this.costsRef.form.setValue({
-            id: this.data.id,
-            vehicleId: this.data.vehicleId,
-            category: this.data.category.id,
-            title: this.data.title,
-            note: this.data.note,
-            quantity: this.data.quantity,
-            pricePerItem: this.data.pricePerItem,
-            totalPrice: this.data.totalPrice,
-            odo: this.data.odo,
-            odo2: this.data.odo2,
-            date: this.data.date
-        });
+    ngAfterViewInit() {
+        if (!!this.costsRef) {
+            this.costsRef.form.setValue({
+                id: this.data.id,
+                vehicleId: this.data.vehicleId,
+                category: this.data.category.id,
+                title: this.data.title,
+                note: this.data.note,
+                quantity: this.data.quantity,
+                pricePerItem: this.data.pricePerItem,
+                totalPrice: this.data.totalPrice,
+                odo: this.data.odo,
+                odo2: this.data.odo2,
+                date: this.data.date
+            });
+        }
     }
 
     ngOnDestroy() {

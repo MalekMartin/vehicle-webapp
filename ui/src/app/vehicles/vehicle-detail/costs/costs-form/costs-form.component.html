@@ -1,12 +1,12 @@
 <form [formGroup]="form">
     <div class="row">
         <mat-form-field class="col-sm-4 col-xs-12">
-            <mat-label>ODO</mat-label>
+            <mat-label>Nájezd ({{ units }})</mat-label>
             <input matInput type="text" id="odo" formControlName="odo"
                 [placeholder]="units">
         </mat-form-field>
         <mat-form-field *ngIf="!!units2" class="col-sm-4 col-xs-12">
-            <mat-label>ODO 2</mat-label>
+            <mat-label>Nájezd {{ units2 }})</mat-label>
             <input matInput type="text" id="odo2" formControlName="odo2"
                 [placeholder]="units2">
         </mat-form-field>

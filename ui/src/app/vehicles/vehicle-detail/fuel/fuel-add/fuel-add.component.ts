@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit, Inject } from '@angular/core';
 import { FuelFormComponent } from '../fuel-form/fuel-form.component';
 import { FuelService } from '../../../../shared/api/fuel/fuel.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
+import { Fuel } from '../../../../shared/api/fuel/fuel';
 
 @Component({
     selector: 'va-fuel-add',
@@ -18,6 +19,7 @@ export class FuelAddComponent implements AfterViewInit, OnDestroy {
     private _onDestroy$ = new Subject();
 
     constructor(
+        @Inject(MAT_DIALOG_DATA) public lastFuel: Fuel | undefined,
         private _fuelService: FuelService,
         public dialogRef: MatDialogRef<FuelAddComponent>,
         private _toastr: ToastrService,

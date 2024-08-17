@@ -107,7 +107,7 @@ export class FuelComponent implements OnInit, OnDestroy {
 
         this.dialog
             .open(FuelAddComponent, {
-                width: '500px'
+                data: this.fuelings?.length > 0 ? this.fuelings[0] : null,
             })
             .afterClosed()
             .pipe(
@@ -120,7 +120,6 @@ export class FuelComponent implements OnInit, OnDestroy {
     edit(fuel: Fuel) {
         this.dialog
             .open(FuelEditComponent, {
-                width: '500px',
                 data: fuel
             })
             .afterClosed()

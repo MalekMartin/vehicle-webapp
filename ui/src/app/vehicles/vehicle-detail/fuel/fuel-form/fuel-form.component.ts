@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { VehicleService } from '../../../../core/stores/vehicle/vehicle.service';
 import { VValidators } from '../../../../shared/forms/validators';
+import { Fuel } from '../../../../shared/api/fuel/fuel';
 
 @Component({
     selector: 'va-fuel-form',
@@ -11,6 +12,9 @@ import { VValidators } from '../../../../shared/forms/validators';
     styleUrls: ['./fuel-form.component.scss']
 })
 export class FuelFormComponent implements OnInit, OnDestroy {
+
+    @Input() lastFuel?: Fuel | null;
+
     units: string;
     subUnits: string;
 
@@ -19,10 +23,10 @@ export class FuelFormComponent implements OnInit, OnDestroy {
         vehicleId: [''],
         date: ['', [Validators.required]],
         quantity: ['', [Validators.required, VValidators.validateNumber]],
-        pricePerLiter: ['0', [Validators.required, VValidators.validateNumber]],
-        price: ['0', [Validators.required, VValidators.validateNumber]],
+        pricePerLiter: ['', [Validators.required, VValidators.validateNumber]],
+        price: ['', [Validators.required, VValidators.validateNumber]],
         odo: ['', [Validators.required, VValidators.validateNumber]],
-        odo2: ['0', VValidators.validateNumber],
+        odo2: ['', VValidators.validateNumber],
         fullTank: [true],
         note: ['', Validators.maxLength(255)]
     });
