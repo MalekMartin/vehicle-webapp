@@ -49,8 +49,8 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
     ];
 
     form = this._fb.group({
-        status: ["IN_PROGRESS"],
-        interval: [""],
+        status: [],
+        interval: [],
     });
 
     private _onDestroy$ = new Subject();
@@ -67,7 +67,6 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
         this.vehicleId = this._vehicles.snapshot.info.id;
         if (!!this.vehicleId) {
             this._maintenance.vehicleId = this.vehicleId;
-            this.setFilters();
         }
 
         this._maintenance.state
@@ -77,11 +76,16 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
 
         this.form.valueChanges
             .pipe(takeUntil(this._onDestroy$))
-            .subscribe((s: string) => {
+            .subscribe(s => {
                 this._maintenance.reset();
-                this._maintenance.filter = this.form.value;
+                this._maintenance.filter = s;
                 this.fetchCurrentPage();
             });
+
+        this.form.setValue({
+            status: this.statuses[1].key,
+            interval: ''
+        });
 
         this._maintenance.intervalsSubject
             .pipe(takeUntil(this._onDestroy$))

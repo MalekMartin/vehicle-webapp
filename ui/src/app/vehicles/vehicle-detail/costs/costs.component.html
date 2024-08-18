@@ -3,6 +3,9 @@
         <va-section-heading>
             <va-section-heading-title>Náklady</va-section-heading-title>
             <va-section-heading-controls>
+                <a *ngIf="isMobile" (click)="toggleFilterVisibility()">
+                    <i class="icon-filter"></i>
+                </a>
                 <a href="" (click)="addCosts($event)">Přidat</a>
                 <a (click)="categorySettings()">Kategorie</a>
             </va-section-heading-controls>
@@ -15,7 +18,7 @@
             </div>
 
             <div>
-                <va-filter title="Filtr">
+                <va-filter *ngIf="!isMobile || filterVisible" title="Filtr">
                     <form [formGroup]="form">
                         <div class="row">
                             <mat-form-field class="col-sm-6 col-xs-12">
@@ -33,7 +36,7 @@
                     </form>
                 </va-filter>
 
-                <div *ngIf="!!costs" class="cost-cards">
+                <div *ngIf="!!costs" class="cost-cards" [class.working]="loading">
                     <va-cost-card *ngFor="let cost of costs.content"
                         [cost]="cost"
                         (edit)="editCosts($event)"
@@ -49,7 +52,7 @@
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div *ngIf="!isMobile" class="hidden-xs col-sm-6">
         <h3>Statistiky</h3>
         <va-cost-stats [vehicleId]="vehicleId" [categories]="categories"></va-cost-stats>
     </div>

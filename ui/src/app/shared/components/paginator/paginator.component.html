@@ -6,7 +6,7 @@
     <div *ngIf="needPaginator" class="controls">
         <button class="va-btn va-prev"
             (click)="prev()" [disabled]="isFirstPage || isLoading"><i class="icon-chevron-left"></i></button>
-        
+
         <div class="pages">
             <button *ngFor="let p of pages"
                 class="va-btn page"

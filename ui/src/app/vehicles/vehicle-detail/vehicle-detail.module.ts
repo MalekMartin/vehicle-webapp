@@ -6,10 +6,10 @@ import { VehicleSettingsModule } from './vehicle-settings/vehicle-settings.modul
 import { ManualsModule } from './manuals/manuals.module';
 import { VehicleNotFoundComponent } from './vehicle-not-found/vehicle-not-found.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { VehicleDetailMenuComponent } from './vehicle-detail-menu/vehicle-detail-menu.component';
 import { CommonModule } from '@angular/common';
 import { SpinnerModule } from '../../shared/components/spinner/spinner.module';
 import { InitialsModule } from '../../shared/components/initials/initials.module';
+import { VehicleDetailMenuModule } from './vehicle-detail-menu/vehilce-detail-menu.module';
 
 @NgModule({
     imports: [
@@ -19,13 +19,13 @@ import { InitialsModule } from '../../shared/components/initials/initials.module
         RouterModule,
         VehicleSettingsModule,
         ManualsModule,
-        MatTooltipModule
+        MatTooltipModule,
+        VehicleDetailMenuModule,
     ],
     declarations: [
         VehicleDetailComponent,
         DetailHeaderComponent,
         VehicleNotFoundComponent,
-        VehicleDetailMenuComponent
     ]
 })
 export class VehicleDetailModule {}

@@ -57,7 +57,7 @@ export class VehicleService {
         return this._http.post(url + trade.vehicleId, trade);
     }
 
-    updateVehicleSubject(vehicle: VehicleInfo) {
+    updateVehicleSubject(vehicle?: VehicleInfo) {
         this._vehicle$.next(vehicle);
     }
 }

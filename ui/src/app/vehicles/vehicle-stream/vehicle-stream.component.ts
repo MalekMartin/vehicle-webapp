@@ -8,6 +8,7 @@ import { Vehicle } from './vehicle';
 import { VehicleAddComponent } from './vehicle-add/vehicle-add.component';
 import { VehicleDeleteConfirmComponent } from './vehicle-delete-confirm/vehicle-delete-confirm.component';
 import { VehicleStreamService } from '../../core/stores/vehicle/vehicle-stream.service';
+import { VehicleService } from '../../core/stores/vehicle/vehicle.service';
 
 @Component({
     selector: 'va-vehicle-stream',
@@ -37,8 +38,11 @@ export class VehicleStreamComponent implements OnInit, AfterViewInit, OnDestroy 
     constructor(
         public dialog: MatDialog,
         private _service: VehicleStreamService,
-        private _router: Router
-    ) {}
+        private _router: Router,
+        private _vehicle: VehicleService,
+    ) {
+        this._vehicle.updateVehicleSubject(null);
+    }
 
     ngOnInit() {
         this.query.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe(res => {

@@ -13,6 +13,7 @@ import { CostsEditComponent } from './costs-edit/costs-edit.component';
 import { CostCategoryFormComponent } from './cost-category-form/cost-category-form.component';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
+import { BreakpointService } from '../../../core/breakpoint.service';
 
 @Component({
     selector: 'va-costs',
@@ -29,8 +30,12 @@ export class CostsComponent implements OnInit, OnDestroy {
         category: ['']
     });
 
+    filterVisible = false;
+
     private _filter: string[] = [];
     private _categories: any[];
+
+    private _contentEl: HTMLElement;
 
     private _onDestroy$ = new Subject();
 
@@ -40,8 +45,11 @@ export class CostsComponent implements OnInit, OnDestroy {
         private _vehicles: VehicleService,
         private _dialog: MatDialog,
         private _toastr: ToastrService,
+        private _bpService: BreakpointService,
     ) {
-        this._service.pageSize = 5;
+        this._service.pageSize = 20;
+
+        this._contentEl = document.querySelector('.content-panel');
     }
 
     ngOnInit() {
@@ -84,6 +92,10 @@ export class CostsComponent implements OnInit, OnDestroy {
         return this._categories;
     }
 
+    get isMobile() {
+        return this._bpService.isMobile();
+    }
+
     setFilter() {
         this._service.filter = { category: this.form.get('category').value };
     }
@@ -96,6 +108,9 @@ export class CostsComponent implements OnInit, OnDestroy {
     }
 
     fetchPage(p: number) {
+        if (this._contentEl) {
+            this._contentEl.scrollTo({ top: 0, behavior: 'smooth'});
+        }
         this._service
             .fetchPage(p)
             .pipe(takeUntil(this._onDestroy$))
@@ -207,6 +222,10 @@ export class CostsComponent implements OnInit, OnDestroy {
             .deleteCost(cost)
             .pipe(takeUntil(this._onDestroy$))
             .subscribe(this._onDeleteSuccess, this._onDeleteError);
+    }
+
+    toggleFilterVisibility() {
+        this.filterVisible = !this.filterVisible;
     }
 
     private _handleNewContent = (p: Page<Cost>) => {
