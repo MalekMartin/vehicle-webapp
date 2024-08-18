@@ -66,11 +66,12 @@ export class BreakpointService {
         return this.isMobile() ? 'cm-mobile-dialog' : '';
     }
 
-    lockOrientation(type: OrientationLockType) {
-        if (!!window['screen'] && !!window['screen']['orientation'] && !!screen.orientation['lock']) {
-            screen.orientation.lock(type).then().catch(() => {});
-        }
-    }
+    // lockOrientation(type: OrientationLockType) {
+    //     if (!!window['screen'] && !!window['screen']['orientation'] && !!screen.orientation['lock']) {
+    //         screen.orientation.lock(type).then().catch(() => {});
+    //         screen.orientation.
+    //     }
+    // }
 
     unlockOrientation() {
         if (!!window['screen'] && !!window['screen']['orientation'] && !!screen.orientation['unlock']) {
