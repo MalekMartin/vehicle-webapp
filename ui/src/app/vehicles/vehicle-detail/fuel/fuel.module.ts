@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CardModule } from '../../../shared/components/card/card.module';
 import { NumberStatsModule } from '../../../shared/components/number-stats/number-stats.module';
 import { PaginatorModule } from '../../../shared/components/paginator/paginator.module';
@@ -28,12 +28,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ConfirmModule } from '../../../shared/components/confirm/confirm.module';
 import { FuelService } from '../../../shared/api/fuel/fuel.service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgxChartsModule,
+        // NgxChartsModule,
         RouterModule.forChild(fuelRoutes),
         MatTooltipModule,
         MatDialogModule,

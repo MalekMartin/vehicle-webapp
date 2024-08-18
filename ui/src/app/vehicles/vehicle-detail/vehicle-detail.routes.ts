@@ -15,14 +15,14 @@ export const vehicleDetailRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'dashboard',
+                redirectTo: 'fuel',
                 pathMatch: 'full'
             },
-            {
-                path: 'dashboard',
-                loadChildren: () =>
-                    import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-            },
+            // {
+            //     path: 'dashboard',
+            //     loadChildren: () =>
+            //         import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+            // },
             {
                 path: 'info',
                 loadChildren: () => import('./info/info.module').then(m => m.InfoModule)

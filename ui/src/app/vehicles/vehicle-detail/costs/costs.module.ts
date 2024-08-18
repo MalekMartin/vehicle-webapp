@@ -10,7 +10,7 @@ import { CostStatsComponent } from './cost-stats/cost-stats.component';
 import { CostCardComponent } from './cost-card/cost-card.component';
 import { costsRoutes } from './costs.routes';
 import { RouterModule } from '@angular/router';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DirectivesModule } from '../../../shared/directives/directives.module';
 import { CostsEditComponent } from './costs-edit/costs-edit.component';
 import { SectionHeadingModule } from '../../../shared/components/section-heading/section-heading.module';
@@ -29,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CostsService } from '../../../shared/api/costs/costs.service';
+import { CommonModule } from '@angular/common';
 
 const PIPES = [CostsPipe];
 
@@ -44,9 +45,10 @@ const COMPONENTS = [
 
 @NgModule({
     imports: [
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgxChartsModule,
+        // NgxChartsModule,
         RouterModule.forChild(costsRoutes),
         DirectivesModule,
         MatCardModule,
