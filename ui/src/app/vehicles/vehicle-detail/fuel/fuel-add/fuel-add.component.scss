@@ -1,0 +1,14 @@
+@import 'style/theme/mixins';
+
+:host {
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        mat-dialog-content {
+            flex-grow: 1;
+            max-height: initial;
+        }
+    }
+}

@@ -10,6 +10,7 @@ import { MultiStatsModel } from '../../../shared/api/stats.interface';
 import { Page, Pageable } from '../../../utils/pageable';
 import { FuelAddComponent } from './fuel-add/fuel-add.component';
 import { FuelEditComponent } from './fuel-edit/fuel-edit.component';
+import { BreakpointService } from '../../../core/breakpoint.service';
 
 @Component({
     selector: 'va-fuel',
@@ -33,7 +34,8 @@ export class FuelComponent implements OnInit, OnDestroy {
         private _service: FuelService,
         private _toastr: ToastrService,
         private _vehicles: VehicleService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private _bpService: BreakpointService,
     ) {
         this._service.pageSize = 20;
 
@@ -50,6 +52,10 @@ export class FuelComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this._service.resetPage();
         this._onDestroy$.next();
+    }
+
+    get isMobile() {
+        return this._bpService.isMobile();
     }
 
     refresh() {
@@ -108,6 +114,7 @@ export class FuelComponent implements OnInit, OnDestroy {
         this.dialog
             .open(FuelAddComponent, {
                 data: this.fuelings?.length > 0 ? this.fuelings[0] : null,
+                panelClass: this.isMobile ? 'va-mobile-dialog' : null,
             })
             .afterClosed()
             .pipe(
